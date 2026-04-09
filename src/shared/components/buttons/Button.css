@@ -1,0 +1,162 @@
+.p-button {
+  position: relative;
+  overflow: hidden;
+}
+
+.ripple {
+  position: absolute;
+  border-radius: 50%;
+  background: var(--ripple-color);
+  transform: scale(0);
+  animation: ripple 0.6s linear;
+  pointer-events: none;
+}
+
+@keyframes ripple {
+  to {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+.button-variant-primary {
+  background-color: var(--success-color);
+  border-color: var(--success-color) !important;
+  color: var(--white) !important;
+}
+
+.button-variant-success {
+  background-color: transparent;
+  border: 1px solid var(--success-color) !important;
+  color: var(--success-color) !important;
+}
+.text-success {
+  color: var(--success-color) !important;
+}
+
+.button-variant-danger {
+  background-color: transparent;
+  border: 1px solid var(--danger-color) !important;
+  color: var(--danger-color) !important;
+  width: auto;
+}
+
+.button-variant-warning {
+  background-color: var(--warning-color);
+  border-color: var(--warning-color);
+  color: var(--white);
+}
+
+.button-variant-info {
+  background-color: var(--info-color);
+  border-color: var(--info-color);
+  color: var(--white);
+}
+
+.button-variant-outlined {
+  background-color: transparent;
+  border: 1px solid var(--danger-color);
+  color: var(--danger-color);
+  width: 100%;
+}
+
+.button-variant-text {
+  background-color: transparent;
+  padding: 0rem 0rem;
+  min-width: 5.5rem;
+}
+
+/* Button Sizes */
+.button-size-small {
+  padding: 0.3rem 0.75rem;
+  font-size: 0.875rem;
+  width: 100%;
+}
+
+.button-size-medium {
+  padding: 0.3rem 1rem;
+  font-size: 0.9rem;
+  /* height: 2.2rem; */
+  text-decoration: none;
+}
+
+.button-size-large {
+  padding: 0.75rem 1.5rem;
+  font-size: 1.125rem;
+}
+
+.button-disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.dark-theme .button-variant-primary {
+  background-color: var(--dark-button-bg);
+  border-color: var(--dark-button-bg);
+  color: var(--dark-text);
+}
+
+.dark-theme .button-variant-primary:hover {
+  background-color: var(--dark-button-hover);
+}
+
+.dark-theme .button-variant-success {
+  background-color: var(--success-color);
+  border-color: var(--success-color);
+  color: var(--white);
+}
+
+.dark-theme .button-variant-danger {
+  background-color: var(--danger-color);
+  border-color: var(--danger-color);
+  color: var(--white);
+}
+
+.dark-theme .button-variant-warning {
+  background-color: var(--warning-color);
+  border-color: var(--warning-color);
+  color: var(--white);
+}
+
+.dark-theme .button-variant-info {
+  background-color: var(--info-color);
+  border-color: var(--info-color);
+  color: var(--white);
+}
+
+.dark-theme .button-variant-outlined {
+  background-color: transparent;
+  border-color: var(--dark-border-opacity);
+  color: var(--dark-text);
+}
+
+.dark-theme .button-variant-outlined:hover {
+  background-color: var(--dark-link-hover);
+}
+
+.dark-theme .button-variant-text {
+  background-color: transparent;
+  border-color: transparent;
+  color: var(--dark-text);
+}
+
+.dark-theme .button-variant-text:hover {
+  background-color: var(--dark-link-hover);
+}
+
+.p-button.p-button-success,
+.p-button-group.p-button-success > .p-button,
+.p-splitbutton.p-button-success > .p-button,
+.p-fileupload-choose.p-button-success {
+  color: var(--success-color-alt);
+  border: 1px solid var(--success-color-alt);
+}
+
+.p-button.p-button-danger,
+.p-button-group.p-button-danger > .p-button,
+.p-splitbutton.p-button-danger > .p-button,
+.p-fileupload-choose.p-button-danger {
+  color: var(--danger-color);
+  border: 1px solid var(--danger-color);
+}

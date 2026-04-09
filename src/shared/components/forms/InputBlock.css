@@ -1,0 +1,109 @@
+.input-block {
+  width: 100%;
+  margin-bottom: 0.75em;
+  position: relative;
+}
+
+.input-block.vertical {
+  display: flex;
+  flex-direction: column;
+}
+
+.input-block.vertical label {
+  margin-bottom: 0.35em;
+  font-weight: 600;
+}
+
+.input-block.horizontal {
+  display: grid;
+  grid-template-columns: 150px 1fr;
+  gap: 0.75em;
+  border-bottom: 1px solid var(--gray-200);
+  padding-bottom: 0.75em;
+}
+
+.input-block.horizontal label {
+  font-weight: 600;
+  margin: 0;
+}
+
+.input-wrapper {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.error-message-wrapper {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  pointer-events: none;
+}
+
+.error-message-wrapper .p-inline-message {
+  position: relative;
+  margin-top: 2px;
+  border-radius: 4px;
+  animation: slideDown 0.2s ease-out;
+  pointer-events: auto;
+}
+
+.error-message-wrapper .p-inline-message::before {
+  content: '';
+  position: absolute;
+  top: -6px;
+  left: 12px;
+  width: 10px;
+  height: 10px;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.input-block .p-inline-message.p-inline-message-error {
+  padding: 0.05em 0.5em;
+  background: transparent !important;
+  justify-content: flex-start;
+  width: 100%;
+}
+
+.input-block .p-inline-message-text {
+  font-size: 0.7em;
+  font-weight: 700;
+}
+
+.required {
+  color: var(--danger-color);
+  margin-left: 0.15em;
+}
+
+.sub-label {
+  display: block;
+  color: var(--sub-lable-color);
+  font-size: 0.7em;
+  font-weight: 400;
+  margin-top: 0.3rem;
+  margin-left: 0.1rem;
+}
+
+.label-text {
+  display: inline-flex;
+}
+
+.input-block.horizontal .error-message-wrapper {
+  grid-column: 2;
+}
+
+.input-wrapper > *:first-child {
+  margin-bottom: 0;
+}
