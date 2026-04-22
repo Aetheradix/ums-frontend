@@ -8,13 +8,13 @@ export default function MainLayout({ children }: React.PropsWithChildren) {
       <header className="bg-blue-600 text-white p-3 flex justify-content-between align-items-center shadow-2">
         <div className="text-xl font-bold">University Management System</div>
         <div className="flex align-items-center gap-3">
-          <span>Welcome, User</span>
+          <span style={{color:"black"}}>Welcome, User</span>
           {/* Logout button can be hidden or disabled as there's no auth */}
         </div>
       </header>
 
-      <div className="flex flex-1">
-        <aside className="bg-gray-100 p-3 w-15rem border-right-1 border-300">
+      <div className="flex flex-1 ">
+        {/* <aside className="bg-gray-100 p-3 w-15rem border-right-1 border-300">
           <ul className="list-none p-0 m-0">
             <li className="mb-2">
               <NavLink
@@ -81,7 +81,7 @@ export default function MainLayout({ children }: React.PropsWithChildren) {
               </NavLink>
             </li>
           </ul>
-        </aside>
+        </aside> */}
 
         <main className="flex-1 p-4 surface-ground">{children}</main>
       </div>
