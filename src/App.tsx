@@ -1,9 +1,10 @@
-import { Route, Routes } from 'react-router-dom';
-import MainLayout from 'shared/components/layout/MainLayout';
 import SubjectCategory from 'features/master/course/subject-category';
+import OfficeType from 'features/master/faculty/office-type';
 import { Toast } from 'primereact/toast';
 import { useEffect, useRef } from 'react';
+import { Route, Routes } from 'react-router-dom';
 import { ToastService } from 'services';
+import MainLayout from 'shared/components/layout/MainLayout';
 
 function DashboardFeatures() {
   return (
@@ -40,9 +41,14 @@ function StudentsPlaceholder() {
   return (
     <div className="card">
       <h2 className="text-2xl font-bold mb-4">Students Management</h2>
-      <p className="text-lg text-gray-700">This is a static placeholder for the Students module.</p>
+      <p className="text-lg text-gray-700">
+        This is a static placeholder for the Students module.
+      </p>
       <div className="surface-card p-4 shadow-2 border-round mt-4">
-        <p>You can start building your student registration tables and forms here.</p>
+        <p>
+          You can start building your student registration tables and forms
+          here.
+        </p>
       </div>
     </div>
   );
@@ -52,7 +58,9 @@ function SettingsPlaceholder() {
   return (
     <div className="card">
       <h2 className="text-2xl font-bold mb-4">Settings</h2>
-      <p className="text-lg text-gray-700">System configuration and user preferences.</p>
+      <p className="text-lg text-gray-700">
+        System configuration and user preferences.
+      </p>
     </div>
   );
 }
@@ -81,6 +89,7 @@ export default function App() {
                   path="master/subject-category/*"
                   element={<SubjectCategory />}
                 />
+                <Route path="master/office-type/*" element={<OfficeType />} />
               </Routes>
             </MainLayout>
           }
