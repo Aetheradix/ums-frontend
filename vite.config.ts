@@ -6,9 +6,9 @@ import tsConfigPaths from 'vite-tsconfig-paths';
 
 // https://vite.dev/config/
 export default defineConfig({
-  server: {
-    https: true,
-  },
+  // server: {
+  //   https: true,
+  // },
   plugins: [
     react(),
     tsConfigPaths(),
@@ -19,6 +19,6 @@ export default defineConfig({
       },
       overlay: true,
     }),
-    mkcert(),
+    // mkcert(),
   ],
 });

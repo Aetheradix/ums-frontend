@@ -1,42 +1,36 @@
-
+import { Card } from 'shared/components/panels';
 import styles from '../styles/ems.module.css';
+import { ArrowUpRight } from 'lucide-react';
 
 interface EMSModuleCardProps {
   title: string;
-  description: string;
   icon: React.ReactNode;
-  colorClass: 'purple' | 'blue' | 'orange' | 'pink' | 'green' | 'red' | 'yellow';
-  value?: string | number;
-  valueLabel?: string;
+  colorClass: 'purple' | 'blue' | 'orange' | 'pink' | 'green' | 'red' | 'yellow' | 'grey';
   onClick?: () => void;
 }
 
 export default function EMSModuleCard({
   title,
-  description,
   icon,
   colorClass,
-  value,
-  valueLabel,
   onClick,
 }: EMSModuleCardProps) {
   return (
-    <div className={styles.moduleCard} onClick={onClick}>
-      <div className={styles.moduleArrow}>
-        <i className="pi pi-arrow-up-right" style={{ fontSize: '0.875rem' }}></i>
-      </div>
-      <div className={`${styles.moduleIconWrapper} ${styles[colorClass]}`}>
-        {icon}
-      </div>
-      <h3 className={styles.moduleTitle}>{title}</h3>
-      <p className={styles.moduleDesc}>{description}</p>
-      
-      {(value !== undefined || valueLabel) && (
-        <div className={styles.moduleFooter}>
-          {value !== undefined && <span className={styles.moduleFooterValue}>{value}</span>}
-          {valueLabel && <span className={styles.moduleFooterLabel}>{valueLabel}</span>}
+    <Card
+      className={styles.moduleCard}
+      onClose={undefined} // optional
+    >
+      <div onClick={onClick} className={styles.moduleCardContent}>
+        <div className={styles.moduleArrow}>
+          <ArrowUpRight size={18} />
         </div>
-      )}
-    </div>
+
+        <div className={`${styles.moduleIconWrapper} ${styles[colorClass]}`}>
+          {icon}
+        </div>
+
+        <h3 className={styles.moduleTitle}>{title}</h3>
+      </div>
+    </Card>
   );
 }
