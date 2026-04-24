@@ -5,13 +5,7 @@ import { NavLink } from 'react-router-dom';
 export default function MainLayout({ children }: React.PropsWithChildren) {
   return (
     <div className="flex flex-column min-h-screen">
-      <header className="bg-blue-600 text-white p-3 flex justify-content-between align-items-center shadow-2">
-        <div className="text-xl font-bold">University Management System</div>
-        <div className="flex align-items-center gap-3">
-          <span style={{color:"black"}}>Welcome, User</span>
-          {/* Logout button can be hidden or disabled as there's no auth */}
-        </div>
-      </header>
+
 
       <div className="flex flex-1 ">
         {/* <aside className="bg-gray-100 p-3 w-15rem border-right-1 border-300">
@@ -83,12 +77,21 @@ export default function MainLayout({ children }: React.PropsWithChildren) {
           </ul>
         </aside> */}
 
-        <main className="flex-1 p-4 surface-ground">{children}</main>
+        <main className="flex-1 surface-ground">{children}</main>
       </div>
 
-      <footer className="bg-gray-800 text-white p-3 text-center">
-        &copy; 2026 University Management System. All rights reserved.
-      </footer>
+
+
+
+      {/* Footer */}
+      <div className="footer">
+        <span>© 2026 UMS Systems - Enterprise Operating System</span>
+        <div>
+          <a href="#">Privacy</a>
+          <a href="#">Terms</a>
+          <a href="#">Status</a>
+        </div>
+      </div>
     </div>
   );
 }

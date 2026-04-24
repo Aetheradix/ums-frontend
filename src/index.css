@@ -754,3 +754,20 @@ table td {
 .dark-theme .bg-odd-group td {
   background-color: var(--dark-card-bg) !important;
 }
+
+
+.footer {
+  background: white;
+  border-top: 1px solid #e5e7eb;
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 24px;
+  font-size: 11px;
+  color: #9ca3af;
+}
+
+.footer a {
+  color: #6b7280;
+  text-decoration: none;
+  margin-left: 12px;
+}

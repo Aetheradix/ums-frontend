@@ -1,70 +1,171 @@
+import { ArrowUpRight, Bell, CheckCircle2, Grid, HelpCircle, Search } from 'lucide-react';
+import { useState } from 'react';
 import DashData from '../constant';
 import styles from '../styles/ems.module.css';
-import EMSModuleCard from './EMSModuleCard';
-import {
-  Download,
-  Plus
-} from 'lucide-react';
 
 export default function EMSDashboard() {
+  const [activeTab, setActiveTab] = useState('Home');
+  const [activeFilter, setActiveFilter] = useState('Favourite');
+
+  const tabs = ['Home', 'Human Resources', 'Finance', 'Inventory', 'Sales', 'Procurement', 'Projects', 'Reports', 'Settings'];
+  const filters = ['Favourite', 'All', 'Academics', 'HR', 'Finance', 'Operation'];
+
   return (
     <div className={styles.dashboardContainer}>
-      {/* Hero Section */}
-      <div className={styles.heroSection}>
-        <div className={styles.heroContent}>
+      {/* Top Bar */}
+      <div className={styles.topBar}>
+        <div className={styles.topBarLeft}>
+          <div className={styles.topBarLogo}><span>U</span></div>
+          UMS Enterprises
+        </div>
+        <div className={styles.topBarRight}>
+          <a href="#">Help Center</a>
+          <span className={styles.dotSep}>·</span>
+          <a href="#">Status</a>
+        </div>
+      </div>
+
+      {/* Header */}
+      <div className={styles.header}>
+        <div className={styles.headerBrand}>
+          <div className={styles.brandIcon}><span>N</span></div>
+          <div className={styles.brandText}>
+            <span className={styles.brandName}>UMS ERP</span>
+            <span className={styles.brandSub}>Workspace OS</span>
+          </div>
+        </div>
+        <div className={styles.searchBar}>
+          <span className={styles.searchIcon}>
+            <Search size={13} />
+          </span>
+          <input placeholder="Search Services, records, people ..." />
+        </div>
+        <div className={styles.headerActions}>
+          <button className={styles.iconBtn} title="Help">
+            <HelpCircle size={15} />
+          </button>
+          <button className={styles.iconBtn} title="Notifications">
+            <Bell size={15} />
+          </button>
+          <button className={styles.iconBtn} title="Apps">
+            <Grid size={15} />
+          </button>
+          <div className={styles.userPill}>
+            <div className={styles.userAvatar}>AL</div>
+            <span className={styles.userName}>Alex Lin</span>
+          </div>
+        </div>
+      </div>
+
+      {/* Nav Bar */}
+      <div className={styles.navBar}>
+        {tabs.map(tab => (
+          <div
+            key={tab}
+            className={`${styles.navItem} ${activeTab === tab ? styles.active : ''}`}
+            onClick={() => setActiveTab(tab)}
+          >
+            {tab}
+          </div>
+        ))}
+      </div>
+
+      {/* Main Content */}
+      <div className={styles.main}>
+        {/* Hero */}
+        <div className={styles.hero}>
+          <div className={styles.heroInner}>
             <div>
-              <div className={styles.heroBadge}>
-                <span className={styles.hashtag}>#</span>
-                Logged in via UMS SSO - session expires in 86 days
+              <div className={styles.ssoBadge}>
+                <CheckCircle2 size={12} strokeWidth={2.5} />
+                Logged in via UMS SSO · session expires in 86 days
               </div>
-              <h1 className={styles.heroTitle}>Welcome, <span className={styles.highlightText}>Alex Lin</span></h1>
-              <p className={styles.heroSubtitle}>Your unified workspace. Every service, every record — one tile away.</p>
+              <div className={styles.heroTitle}>Welcome, <span className={styles.blue}>Alex Lin</span></div>
+              <div className={styles.heroSub}>Your unified workspace. Every service, every record — one tile away.</div>
             </div>
             <div className={styles.heroActions}>
-              <button className={styles.secondaryButton}>
-                <Download size={16} className="mr-2 inline" />
+              <button className={styles.btnExport}>
+                <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                  <polyline points="17 8 12 3 7 8" />
+                  <line x1="12" y1="3" x2="12" y2="15" />
+                </svg>
                 Export
               </button>
-              <button className={styles.primaryButton}>
-                <Plus size={16} className="mr-2 inline" />
+              <button className={styles.btnNew}>
+                <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                  <line x1="12" y1="5" x2="12" y2="19" />
+                  <line x1="5" y1="12" x2="19" y2="12" />
+                </svg>
                 New record
               </button>
             </div>
+          </div>
+        </div>
+
+        {/* Services Section */}
+        <div className={styles.servicesSection}>
+          <div className={styles.servicesHeader}>
+            <span className={styles.servicesTitle}>All Services</span>
+            <a href="#" className={styles.customizedLink}>
+              Customized Tiles
+              <svg width="12" height="12" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
+            </a>
+          </div>
+
+          <div className={styles.filters}>
+            {filters.map((filter) => (
+              <button
+                key={filter}
+                className={`${styles.pill} ${activeFilter === filter ? styles.active : ''}`}
+                onClick={() => setActiveFilter(filter)}
+              >
+                {filter === 'Favourite' && (
+                  <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24" className="mr-1">
+                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                  </svg>
+                )}
+                {filter}
+              </button>
+            ))}
+          </div>
+
+          <div className={styles.grid}>
+            {DashData.map((module, index) => {
+              // Map constant colorClass to HTML provided color classes
+              const colorMap: any = {
+                blue: styles.icBlue,
+                purple: styles.icPurple,
+                grey: styles.icGrey,
+                green: styles.icGreen,
+                orange: styles.icOrange,
+                red: styles.icRed,
+                pink: styles.icPink,
+                indigo: styles.icIndigo,
+                teal: styles.icTeal,
+                yellow: styles.icOrange
+              };
+              const mappedColorClass = colorMap[module.colorClass] || styles.icBlue;
+
+              return (
+                <div className={styles.card} key={index} onClick={module.onClick}>
+                  <div className={styles.cardArrow}>
+                    <ArrowUpRight size={14} color="#374151" strokeWidth={2} />
+                  </div>
+                  <div className={`${styles.cardIcon} ${mappedColorClass}`}>
+                    {module.icon}
+                  </div>
+                  <div className={styles.cardTitle}>{module.title}</div>
+                </div>
+              );
+            })}
+          </div>
         </div>
       </div>
 
-      {/* Modules Section */}
-      <div className={styles.modulesSection}>
-        <div className={styles.modulesHeader}>
-          <h2 className={styles.modulesSectionTitle}>All Services</h2>
-          <button className={styles.customizeButton}>
-            Customized Tiles <span className="ml-1">→</span>
-          </button>
-        </div>
-
-        <div className={styles.filtersContainer}>
-          <button className={`${styles.filterPill} ${styles.active}`}>
-            <i className="pi pi-star-fill mr-2" style={{ fontSize: '0.8rem' }}></i>
-            Favourite
-          </button>
-          <button className={styles.filterPill}>All</button>
-          <button className={styles.filterPill}>Academics</button>
-          <button className={styles.filterPill}>HR</button>
-          <button className={styles.filterPill}>Finance</button>
-          <button className={styles.filterPill}>Operation</button>
-        </div>
-
-        <div className={styles.modulesGrid}>
-          {DashData.map((module, index) => (
-            <EMSModuleCard
-              key={index}
-              title={module.title}
-              icon={module.icon}
-              colorClass={module.colorClass as any}
-            />
-          ))}
-        </div>
-      </div>
+     
     </div>
   );
 }
