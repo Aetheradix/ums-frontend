@@ -5,20 +5,23 @@ import mkcert from 'vite-plugin-mkcert';
 import tsConfigPaths from 'vite-tsconfig-paths';
 
 // https://vite.dev/config/
-export default defineConfig({
-  server: {
-    https: true,
-  },
-  plugins: [
-    react(),
-    tsConfigPaths(),
-    pluginChecker({
-      eslint: {
-        lintCommand: 'eslint .',
-        useFlatConfig: true,
-      },
-      overlay: true,
-    }),
-    mkcert(),
-  ],
+export default defineConfig(() => {
+  return {
+    server: {
+      https: true,
+      port: 5200,
+    },
+    plugins: [
+      react(),
+      tsConfigPaths(),
+      mkcert(),
+      pluginChecker({
+        eslint: {
+          lintCommand: 'eslint .',
+          useFlatConfig: true,
+        },
+        overlay: true,
+      }),
+    ],
+  };
 });
