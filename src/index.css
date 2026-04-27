@@ -71,13 +71,11 @@
   --dark-login-subtitle: #cccccc;
   --table-border-dark-transparent: #ffffff17;
   --header-gradient-stripe: #ffffff0e;
-  --dark-header-gradient: repeating-linear-gradient(
-    215deg,
-    var(--header-gradient-stripe),
-    var(--header-gradient-stripe) 12px,
-    var(--dark-input-bg) 12px,
-    var(--dark-input-bg) 40px
-  );
+  --dark-header-gradient: repeating-linear-gradient(215deg,
+      var(--header-gradient-stripe),
+      var(--header-gradient-stripe) 12px,
+      var(--dark-input-bg) 12px,
+      var(--dark-input-bg) 40px);
 
   --toast-border: #cccccc;
   --toast-shadow: rgba(0, 0, 0, 0.1);
@@ -153,6 +151,8 @@ body {
   overflow-y: auto;
   background-color: var(--body-bg);
   font-family: 'poppins';
+  user-select: none;
+  -webkit-user-select: none;
 }
 
 h3,
@@ -282,12 +282,8 @@ h6 {
     color 0.2s;
 }
 
-.dark-theme
-  .p-dropdown-items
-  .p-dropdown-item:not(.p-highlight):not(.p-disabled):hover,
-.dark-theme
-  .p-multiselect-items
-  .p-multiselect-item:not(.p-highlight):not(.p-disabled):hover,
+.dark-theme .p-dropdown-items .p-dropdown-item:not(.p-highlight):not(.p-disabled):hover,
+.dark-theme .p-multiselect-items .p-multiselect-item:not(.p-highlight):not(.p-disabled):hover,
 .dark-theme .p-autocomplete-item:not(.p-highlight):not(.p-disabled):hover {
   background-color: var(--dark-card-hover) !important;
   color: var(--white) !important;
@@ -556,35 +552,25 @@ h6 {
   bottom: 0;
   left: 0;
   height: 3px;
-  background: linear-gradient(
-    to right,
-    var(--toast-success-start),
-    var(--toast-success-end)
-  );
+  background: linear-gradient(to right,
+      var(--toast-success-start),
+      var(--toast-success-end));
   animation: toast-progress linear;
   animation-fill-mode: forwards;
 }
 
-.white-toast
-  .p-toast-message.p-toast-message-success
-  .p-toast-message-content::after {
+.white-toast .p-toast-message.p-toast-message-success .p-toast-message-content::after {
   animation-duration: 3s;
-  background: linear-gradient(
-    to right,
-    var(--toast-success-start),
-    var(--toast-success-end)
-  );
+  background: linear-gradient(to right,
+      var(--toast-success-start),
+      var(--toast-success-end));
 }
 
-.white-toast
-  .p-toast-message.p-toast-message-info
-  .p-toast-message-content::after {
+.white-toast .p-toast-message.p-toast-message-info .p-toast-message-content::after {
   animation-duration: 2s;
-  background: linear-gradient(
-    to right,
-    var(--toast-info-start),
-    var(--toast-info-end)
-  );
+  background: linear-gradient(to right,
+      var(--toast-info-start),
+      var(--toast-info-end));
 }
 
 @keyframes toast-progress {
@@ -738,7 +724,8 @@ table td {
 }
 
 .bg-even-group td {
-  background-color: #e0f2fe !important; /* Light blue from instruction-box */
+  background-color: #e0f2fe !important;
+  /* Light blue from instruction-box */
 }
 
 .bg-odd-group td {
