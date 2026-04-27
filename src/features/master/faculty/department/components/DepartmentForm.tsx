@@ -55,6 +55,7 @@ export default function DepartmentForm(props: DepartmentFormProps) {
         isLoading={props.isSaving}
         onSave={handleSubmit}
         onReset={reset}
+        saveLabel={''}
       />
     </form>
   );

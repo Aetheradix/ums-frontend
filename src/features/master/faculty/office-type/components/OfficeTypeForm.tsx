@@ -41,6 +41,7 @@ export default function OfficeTypeForm(props: OfficeTypeFormProps) {
         isLoading={props.isSaving}
         onSave={handleSubmit}
         onReset={reset}
+        saveLabel={''}
       />
     </form>
   );

@@ -3,14 +3,14 @@ import { useNavigate } from 'react-router';
 import { ToastService } from 'services';
 import { Modal } from 'shared/components/popups';
 import DepartmentForm from '../components/DepartmentForm';
-import { useCreateOfficeTypeMutation } from '../queries';
+import { useCreateDepartmentMutation } from '../queries';
 
 interface Props {
   onSave: () => void;
 }
 
 function CreateModalContent(props: Props) {
-  const { mutateAsync, isPending } = useCreateOfficeTypeMutation();
+  const { mutateAsync, isPending } = useCreateDepartmentMutation();
 
   async function handleSubmit(data: DepartmentMaster.DepartmentForm) {
     try {

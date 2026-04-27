@@ -10,9 +10,9 @@ import { useDepartmentQuery, useUpdateDepartmentMutation } from '../queries';
 const DEFAULT = {
   code: '',
   name: '',
-  officeTypeId: '',
+  officeTypeId: 0,
   hodName: '',
-  contactNumber: '',
+  contactNumber: 0,
 };
 
 interface Props {
