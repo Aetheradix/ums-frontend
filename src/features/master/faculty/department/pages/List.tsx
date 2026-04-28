@@ -14,7 +14,7 @@ export default function List() {
   const navigate = useNavigate();
   const { mutateAsync } = useDepartmentActiveStatusMutation();
 
-  const handleToggleStatus = async (item: DepartmentMaster.DepartmentItem) => {
+  const handleToggleStatus = async (item: Master.DepartmentItem) => {
     await mutateAsync({
       id: item.id,
       isActive: !item.isActive,
@@ -45,7 +45,7 @@ export default function List() {
               field: 'isActive',
               header: 'Status',
               sortable: false,
-              cell: (item: DepartmentMaster.DepartmentItem) => (
+              cell: (item: Master.DepartmentItem) => (
                 <StatusButton
                   value={item.isActive}
                   onClick={() => handleToggleStatus(item)}

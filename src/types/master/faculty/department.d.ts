@@ -1,4 +1,4 @@
-declare namespace DepartmentMaster {
+declare namespace Master {
   interface DepartmentForm {
     code: string;
     name: string;

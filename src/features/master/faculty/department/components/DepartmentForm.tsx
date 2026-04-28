@@ -5,8 +5,8 @@ import { InputPanel } from 'shared/components/panels';
 import { useDepartmentForm } from './form.hook';
 
 interface DepartmentFormProps {
-  onSubmit: (data: DepartmentMaster.DepartmentForm) => Promise<void>;
-  fetchData?: Forms.FetchDataFunc<DepartmentMaster.DepartmentForm>;
+  onSubmit: (data: Master.DepartmentForm) => Promise<void>;
+  fetchData?: Forms.FetchDataFunc<Master.DepartmentForm>;
   isSaving?: boolean;
   isEditMode?: boolean;
 }

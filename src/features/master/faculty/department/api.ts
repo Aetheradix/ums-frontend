@@ -5,29 +5,28 @@ const MASTER_API_ROOT = `master/`;
 const DEPARTMENT_URL = `${MASTER_API_ROOT}department`;
 
 export function getDepartments() {
-  return ApiService.getList<DepartmentMaster.DepartmentItem>(DEPARTMENT_URL);
+  return ApiService.getList<Master.DepartmentItem>(DEPARTMENT_URL);
 }
 
 export async function getDepartment(id: number) {
-  const { data } = await ApiService.get<DepartmentMaster.DepartmentItem>(
+  const { data } = await ApiService.get<Master.DepartmentItem>(
     `${DEPARTMENT_URL}/${id}`
   );
   return data;
 }
 
-export async function createDepartment(form: DepartmentMaster.DepartmentForm) {
-  const { error, data } =
-    await ApiService.post<DepartmentMaster.DepartmentItem>(
-      DEPARTMENT_URL,
-      form
-    );
+export async function createDepartment(form: Master.DepartmentForm) {
+  const { error, data } = await ApiService.post<Master.DepartmentItem>(
+    DEPARTMENT_URL,
+    form
+  );
 
   return !error ? data : undefined;
 }
 
 export async function updateDepartment(
   id: number,
-  form: DepartmentMaster.DepartmentForm
+  form: Master.DepartmentForm
 ): Promise<boolean> {
   const result = await ApiService.put(`${DEPARTMENT_URL}/${id}`, form);
   return !result.error;

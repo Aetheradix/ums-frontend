@@ -21,16 +21,14 @@ export function useDepartmentsQuery() {
 export function useCreateDepartmentMutation() {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: async (data: DepartmentMaster.DepartmentForm) =>
+    mutationFn: async (data: Master.DepartmentForm) =>
       await createDepartment(data),
 
     onSuccess(data) {
       if (!data) return;
 
       const result =
-        queryClient.getQueryData<DepartmentMaster.DepartmentItem[]>(
-          QUERY_KEY
-        ) ?? [];
+        queryClient.getQueryData<Master.DepartmentItem[]>(QUERY_KEY) ?? [];
 
       queryClient.setQueryData(QUERY_KEY, [...result, data]);
     },
@@ -57,23 +55,21 @@ export function useUpdateDepartmentMutation(id: number) {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async (data: DepartmentMaster.DepartmentForm) =>
+    mutationFn: async (data: Master.DepartmentForm) =>
       await updateDepartment(id, data),
 
     onSuccess(success, formData) {
       if (!success) return;
 
       const result =
-        queryClient.getQueryData<DepartmentMaster.DepartmentItem[]>(
-          QUERY_KEY
-        ) ?? [];
+        queryClient.getQueryData<Master.DepartmentItem[]>(QUERY_KEY) ?? [];
 
       const index = result.findIndex(item => item.id === id);
       if (index === -1) return;
 
       const existing = result[index];
 
-      const itemToReplace: DepartmentMaster.DepartmentItem = {
+      const itemToReplace: Master.DepartmentItem = {
         id,
         name: formData.name,
         code: formData.code,

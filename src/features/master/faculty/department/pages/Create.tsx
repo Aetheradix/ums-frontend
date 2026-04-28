@@ -12,7 +12,7 @@ interface Props {
 function CreateModalContent(props: Props) {
   const { mutateAsync, isPending } = useCreateDepartmentMutation();
 
-  async function handleSubmit(data: DepartmentMaster.DepartmentForm) {
+  async function handleSubmit(data: Master.DepartmentForm) {
     try {
       const result = await mutateAsync(data);
       if (result) {
