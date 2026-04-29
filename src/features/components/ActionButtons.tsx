@@ -4,8 +4,8 @@ interface ActionButtonsProps {
   update?: boolean;
   isLoading?: boolean;
   onSave: () => void;
-  onReset?: () => void;
-  saveLabel?: string;
+  onReset: () => void;
+  saveLabel: string;
 }
 
 function ActionButtons({

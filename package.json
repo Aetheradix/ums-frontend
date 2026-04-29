@@ -3,6 +3,9 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "lint-staged": {
+    "*.{js,ts,jsx,tsx,json,css,md}": "prettier --write"
+  },
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
@@ -13,7 +16,9 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "local": "NODE_ENV=local vite",
-    "local-win": "SET NODE_ENV=local&&vite"
+    "local-win": "SET NODE_ENV=local&&vite",
+    "prepare": "husky",
+    "type-check": "tsc --noEmit"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
@@ -52,6 +57,9 @@
     "vite": "^8.0.10",
     "vite-plugin-checker": "^0.13.0",
     "vite-plugin-mkcert": "^2.0.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.4.0",
+    "prettier": "^3.8.3",
     "vite-tsconfig-paths": "^6.1.1"
   }
 }
