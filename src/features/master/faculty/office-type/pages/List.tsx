@@ -14,7 +14,7 @@ export default function List() {
   const navigate = useNavigate();
   const { mutateAsync } = useOfficeTypeActiveStatusMutation();
 
-  const handleToggleStatus = async (item: OfficeTypeMaster.OfficeTypeItem) => {
+  const handleToggleStatus = async (item: Master.OfficeTypeItem) => {
     await mutateAsync({
       id: item.id,
       isActive: !item.isActive,
@@ -42,7 +42,7 @@ export default function List() {
               field: 'isActive',
               header: 'Status',
               sortable: false,
-              cell: (item: OfficeTypeMaster.OfficeTypeItem) => (
+              cell: (item: Master.OfficeTypeItem) => (
                 <StatusButton
                   value={item.isActive}
                   onClick={() => handleToggleStatus(item)}

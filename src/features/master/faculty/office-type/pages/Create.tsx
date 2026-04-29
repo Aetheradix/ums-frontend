@@ -12,7 +12,7 @@ interface Props {
 function CreateModalContent(props: Props) {
   const { mutateAsync, isPending } = useCreateOfficeTypeMutation();
 
-  async function handleSubmit(data: OfficeTypeMaster.OfficeTypeForm) {
+  async function handleSubmit(data: Master.OfficeTypeForm) {
     try {
       const result = await mutateAsync(data);
       if (result) {

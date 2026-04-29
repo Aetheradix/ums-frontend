@@ -21,16 +21,14 @@ export function useOfficeTypesQuery() {
 export function useCreateOfficeTypeMutation() {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: async (data: OfficeTypeMaster.OfficeTypeForm) =>
+    mutationFn: async (data: Master.OfficeTypeForm) =>
       await createOfficeType(data),
 
     onSuccess(data) {
       if (!data) return;
 
       const result =
-        queryClient.getQueryData<OfficeTypeMaster.OfficeTypeItem[]>(
-          QUERY_KEY
-        ) ?? [];
+        queryClient.getQueryData<Master.OfficeTypeItem[]>(QUERY_KEY) ?? [];
 
       queryClient.setQueryData(QUERY_KEY, [...result, data]);
     },
@@ -57,23 +55,21 @@ export function useUpdateOfficeTypeMutation(id: number) {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async (data: OfficeTypeMaster.OfficeTypeForm) =>
+    mutationFn: async (data: Master.OfficeTypeForm) =>
       await updateOfficeType(id, data),
 
     onSuccess(success, formData) {
       if (!success) return;
 
       const result =
-        queryClient.getQueryData<OfficeTypeMaster.OfficeTypeItem[]>(
-          QUERY_KEY
-        ) ?? [];
+        queryClient.getQueryData<Master.OfficeTypeItem[]>(QUERY_KEY) ?? [];
 
       const index = result.findIndex(item => item.id === id);
       if (index === -1) return;
 
       const existing = result[index];
 
-      const itemToReplace: OfficeTypeMaster.OfficeTypeItem = {
+      const itemToReplace: Master.OfficeTypeItem = {
         id,
         name: formData.name,
         code: formData.code,
@@ -103,9 +99,7 @@ export function useOfficeTypeActiveStatusMutation() {
       if (!success) return;
 
       const result =
-        queryClient.getQueryData<OfficeTypeMaster.OfficeTypeItem[]>(
-          QUERY_KEY
-        ) ?? [];
+        queryClient.getQueryData<Master.OfficeTypeItem[]>(QUERY_KEY) ?? [];
 
       const index = result.findIndex(item => item.id === variables.id);
       if (index === -1) return;
