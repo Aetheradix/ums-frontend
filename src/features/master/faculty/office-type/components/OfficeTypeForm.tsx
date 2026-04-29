@@ -4,8 +4,8 @@ import { InputPanel } from 'shared/components/panels';
 import { useOfficeTypeForm } from './form.hook';
 
 interface OfficeTypeFormProps {
-  onSubmit: (data: OfficeTypeMaster.OfficeTypeForm) => Promise<void>;
-  fetchData?: Forms.FetchDataFunc<OfficeTypeMaster.OfficeTypeForm>;
+  onSubmit: (data: Master.OfficeTypeForm) => Promise<void>;
+  fetchData?: Forms.FetchDataFunc<Master.OfficeTypeForm>;
   isSaving?: boolean;
   isEditMode?: boolean;
 }
@@ -41,6 +41,7 @@ export default function OfficeTypeForm(props: OfficeTypeFormProps) {
         isLoading={props.isSaving}
         onSave={handleSubmit}
         onReset={reset}
+        saveLabel={''}
       />
     </form>
   );
