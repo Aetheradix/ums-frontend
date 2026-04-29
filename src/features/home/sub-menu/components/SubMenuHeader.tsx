@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { homeUrls } from '../../urls';
 import '../styles/subMenu.css';
 
 interface SubMenuHeaderProps {
@@ -19,7 +20,7 @@ const SubMenuHeader: React.FC<SubMenuHeaderProps> = ({
       <nav className="submenu-breadcrumb">
         <span
           className="submenu-breadcrumb-link"
-          onClick={() => navigate('/home/menu')}
+          onClick={() => navigate(homeUrls.menu.root)}
         >
           Home
         </span>

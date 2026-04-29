@@ -16,8 +16,6 @@ declare namespace Menu {
     slug?: string;
     path?: string;
     description?: string;
-    badge?: string;
-    badgeColor?: string;
     category?: string;
     children?: MenuItem[];
   }

@@ -1,16 +1,16 @@
 import React from 'react';
-import { Route, Routes, Navigate } from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
 import WorkspaceLayout from '../../shared/components/workspace-layout/WorkspaceLayout';
-import MenuPage from './menu/pages/MenuPage';
-import SubMenuPage from './sub-menu/pages/SubMenuPage';
+import Menu from './menu';
+import SubMenu from './sub-menu';
 
 const HomeRoutes: React.FC = () => {
   return (
     <WorkspaceLayout>
       <Routes>
         <Route index element={<Navigate to="menu" replace />} />
-        <Route path="menu" element={<MenuPage />} />
-        <Route path="sub-menu/:slug" element={<SubMenuPage />} />
+        <Route path="menu/*" element={<Menu />} />
+        <Route path="sub-menu/*" element={<SubMenu />} />
       </Routes>
     </WorkspaceLayout>
   );

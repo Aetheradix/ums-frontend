@@ -1,8 +1,9 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import './ServicesGrid.css';
-import Tile from '../../../../shared/components/Tiles/Tile';
 import { menuConfig } from '../../../../config/menu-routes';
+import Tile from '../../../../shared/components/Tiles/Tile';
+import { homeUrls } from '../../urls';
+import './ServicesGrid.css';
 
 const ServicesGrid: React.FC = () => {
   const navigate = useNavigate();
@@ -16,7 +17,7 @@ const ServicesGrid: React.FC = () => {
           icon={service.icon}
           colorScheme={service.colorScheme}
           onClick={() =>
-            service.slug && navigate(`/home/sub-menu/${service.slug}`)
+            service.slug && navigate(homeUrls.subMenu.root(service.slug))
           }
         />
       ))}

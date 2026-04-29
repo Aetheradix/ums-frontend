@@ -4,14 +4,15 @@ import SubMenuHeader from '../components/SubMenuHeader';
 import SubMenuGrid from '../components/SubMenuGrid';
 import { menuConfig } from '../../../../config/menu-routes';
 import '../styles/subMenu.css';
+import { homeUrls } from '../../urls';
 
 const SubMenuPage: React.FC = () => {
-  const { slug } = useParams<{ slug: string }>();
+  const { moduleId } = useParams<{ moduleId: string }>();
 
-  const service = menuConfig.find(s => s.slug === slug);
+  const service = menuConfig.find(s => s.slug === moduleId);
 
   if (!service || !service.children) {
-    return <Navigate to="/home/menu" replace />;
+    return <Navigate to={homeUrls.menu.root} replace />;
   }
 
   return (
