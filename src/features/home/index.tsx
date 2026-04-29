@@ -1,13 +1,19 @@
-import { Route, Routes } from 'react-router-dom';
-import Dashboard from './pages/Dashboard';
+import React from 'react';
+import { Navigate, Route, Routes } from 'react-router-dom';
+import WorkspaceLayout from '../../shared/components/workspace-layout/WorkspaceLayout';
+import Menu from './menu';
+import SubMenu from './sub-menu';
 
-export default function Home() {
-  // /home
-  // /home/dashboard
+const HomeRoutes: React.FC = () => {
   return (
-    <Routes>
-      <Route index element={<Dashboard />} />
-      <Route path="dashboard" element={<Dashboard />} />
-    </Routes>
+    <WorkspaceLayout>
+      <Routes>
+        <Route index element={<Navigate to="menu" replace />} />
+        <Route path="menu/*" element={<Menu />} />
+        <Route path="sub-menu/*" element={<SubMenu />} />
+      </Routes>
+    </WorkspaceLayout>
   );
-}
+};
+
+export default HomeRoutes;

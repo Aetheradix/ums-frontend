@@ -1,0 +1,70 @@
+/* SubMenu Header Section */
+.submenu-header-section {
+  margin-bottom: 32px;
+}
+
+/* Breadcrumb */
+.submenu-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--db-text-muted, #64748b);
+  margin-bottom: 24px;
+}
+
+.submenu-breadcrumb-link {
+  color: var(--db-text-muted, #64748b);
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.submenu-breadcrumb-link:hover {
+  color: var(--db-primary, #2264dc);
+}
+
+.submenu-breadcrumb-sep {
+  color: var(--db-text-muted, #64748b);
+  font-size: 16px;
+}
+
+.submenu-breadcrumb-text {
+  color: var(--db-text-muted, #64748b);
+}
+
+.submenu-breadcrumb-current {
+  color: var(--db-text-dark, #0f172a);
+  font-weight: 600;
+}
+
+/* Welcome heading */
+.submenu-welcome h1 {
+  font-size: 30px;
+  font-weight: 700;
+  color: var(--db-text-dark, #0f172a);
+  margin-bottom: 6px;
+}
+
+.submenu-welcome p {
+  font-size: 15px;
+  font-weight: 400;
+  color: var(--db-text-muted, #64748b);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .submenu-welcome h1 {
+    font-size: 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  .submenu-welcome h1 {
+    font-size: 20px;
+  }
+
+  .submenu-breadcrumb {
+    font-size: 12px;
+  }
+}
