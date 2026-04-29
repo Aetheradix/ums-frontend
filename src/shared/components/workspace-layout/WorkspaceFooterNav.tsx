@@ -1,5 +1,5 @@
 import React from 'react';
-import '../styles/dashboard.css';
+import './WorkspaceLayout.css';
 
 const FooterNav: React.FC = () => {
   const links = [

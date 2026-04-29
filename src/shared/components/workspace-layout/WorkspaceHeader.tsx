@@ -1,5 +1,5 @@
 import React from 'react';
-import '../styles/dashboard.css';
+import './WorkspaceLayout.css';
 
 const Header: React.FC = () => {
   return (

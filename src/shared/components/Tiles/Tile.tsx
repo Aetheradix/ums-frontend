@@ -1,14 +1,14 @@
 import React from 'react';
-import '../styles/dashboard.css';
+import './Tile.css';
 
-interface ServiceCardProps {
+interface TileProps {
   title: string;
   icon: React.ReactNode;
   iconBg: string;
   iconColor: string;
 }
 
-const ServiceCard: React.FC<ServiceCardProps> = ({ title, icon, iconBg, iconColor }) => {
+const Tile: React.FC<TileProps> = ({ title, icon, iconBg, iconColor }) => {
   return (
     <div className="db-card-container">
       <div className="db-service-card">
@@ -34,4 +34,4 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ title, icon, iconBg, iconColo
   );
 };
 
-export default ServiceCard;
+export default Tile;

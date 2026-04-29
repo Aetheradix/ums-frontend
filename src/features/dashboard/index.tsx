@@ -1,31 +1,16 @@
 import React from 'react';
-import FooterBar from './components/FooterBar';
-import FooterNav from './components/FooterNav';
-import Header from './components/Header';
-import ServiceFilters from './components/ServiceFilters';
-import ServicesGrid from './components/ServicesGrid';
-import TopBar from './components/TopBar';
-import WelcomeBanner from './components/WelcomeBanner';
-import './styles/dashboard.css';
+import { Route, Routes } from 'react-router';
+import DashboardPage from './pages/DashboardPage';
+import WorkspaceLayout from '../../shared/components/workspace-layout/WorkspaceLayout';
 
-const DashboardPage: React.FC = () => {
+const DashboardRoutes: React.FC = () => {
   return (
-    <div className="ums-dashboard">
-      <TopBar />
-      <Header />
-      
-      <main className="db-main-content">
-        <div className="dashboard-container">
-          <WelcomeBanner />
-          <ServiceFilters />
-          <ServicesGrid />
-        </div>
-      </main>
-
-      <FooterNav />
-      <FooterBar />
-    </div>
+    <WorkspaceLayout>
+      <Routes>
+        <Route path="/*" element={<DashboardPage />} />
+      </Routes>
+    </WorkspaceLayout>
   );
 };
 
-export default DashboardPage;
+export default DashboardRoutes;
