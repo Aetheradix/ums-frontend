@@ -26,7 +26,7 @@ export default function SelectOfficeType<T extends FieldValues>({
       data={activeData}
       loading={isLoading}
       textField="name"
-      valueField="officeTypeId"
+      valueField="id"
       optionValue="officeTypeId"
       label={label}
       required={true}

@@ -43,9 +43,8 @@ export function useOfficeTypeQuery(id: number) {
       if (!data) return undefined;
 
       return {
-        name: data.name,
         code: data.code,
-        isActive: data.isActive,
+        name: data.name,
       };
     },
   });
@@ -70,10 +69,10 @@ export function useUpdateOfficeTypeMutation(id: number) {
       const existing = result[index];
 
       const itemToReplace: Master.OfficeTypeItem = {
-        id,
-        name: formData.name,
+        id: id,
         code: formData.code,
-        isActive: existing?.isActive || formData.isActive,
+        name: formData.name,
+        isActive: existing?.isActive,
       };
 
       const updatedItems = [
