@@ -2,9 +2,9 @@ import React from 'react';
 import WelcomeBanner from '../components/WelcomeBanner';
 import ServiceFilters from '../components/ServiceFilters';
 import ServicesGrid from '../components/ServicesGrid';
-import '../styles/dashboard.css';
+import '../styles/menu.css';
 
-const DashboardPage: React.FC = () => {
+const MenuPage: React.FC = () => {
   return (
     <div className="db-main-content">
       <div className="dashboard-container">
@@ -16,4 +16,4 @@ const DashboardPage: React.FC = () => {
   );
 };
 
-export default DashboardPage;
+export default MenuPage;
