@@ -1,3 +1,5 @@
+import CollegeCategory from 'features/master/college/college-category';
+import CollegeType from 'features/master/college/college-type';
 import SubjectCategory from 'features/master/course/subject-category';
 import OfficeType from 'features/master/faculty/office-type';
 import { Toast } from 'primereact/toast';
@@ -90,6 +92,14 @@ export default function App() {
                   element={<SubjectCategory />}
                 />
                 <Route path="master/office-type/*" element={<OfficeType />} />
+                <Route
+                  path="master/college-category/*"
+                  element={<CollegeCategory />}
+                />
+                <Route
+                  path="master/college-type/*"
+                  element={<CollegeType />}
+                />
               </Routes>
             </MainLayout>
           }
