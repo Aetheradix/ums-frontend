@@ -18,8 +18,7 @@ export default function SelectOfficeType<T extends FieldValues>({
   const { data, isLoading } = useOfficeTypesQuery();
   const activeData =
     data?.filter(
-      (officeType: OfficeTypeMaster.OfficeTypeItem) =>
-        officeType.isActive === true
+      (officeType: Master.OfficeTypeItem) => officeType.isActive === true
     ) || [];
 
   return (

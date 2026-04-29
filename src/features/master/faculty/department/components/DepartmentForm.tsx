@@ -37,8 +37,8 @@ export default function DepartmentForm(props: DepartmentFormProps) {
         />
         <SelectOfficeType {...register('officeTypeId')} />
         <TextBox
-          label="HOD Name"
-          placeholder="Enter HOD Name"
+          label="Hod Name"
+          placeholder="Enter Hod Name"
           {...register('hodName')}
           required
         />

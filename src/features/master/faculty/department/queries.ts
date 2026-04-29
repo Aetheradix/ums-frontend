@@ -99,9 +99,7 @@ export function useDepartmentActiveStatusMutation() {
       if (!success) return;
 
       const result =
-        queryClient.getQueryData<OfficeTypeMaster.OfficeTypeItem[]>(
-          QUERY_KEY
-        ) ?? [];
+        queryClient.getQueryData<Master.OfficeTypeItem[]>(QUERY_KEY) ?? [];
 
       const index = result.findIndex(item => item.id === variables.id);
       if (index === -1) return;
