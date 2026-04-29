@@ -5,16 +5,16 @@ import { Card, GridPanel, Page } from 'shared/components/panels';
 import { Loader } from 'shared/components/progress';
 import { masterUrls } from '../../../urls';
 import {
-  useOfficeTypeActiveStatusMutation,
-  useOfficeTypesQuery,
+  useDepartmentActiveStatusMutation,
+  useDepartmentsQuery,
 } from '../queries';
 
 export default function List() {
-  const { data, isLoading } = useOfficeTypesQuery();
+  const { data, isLoading } = useDepartmentsQuery();
   const navigate = useNavigate();
-  const { mutateAsync } = useOfficeTypeActiveStatusMutation();
+  const { mutateAsync } = useDepartmentActiveStatusMutation();
 
-  const handleToggleStatus = async (item: Master.OfficeTypeItem) => {
+  const handleToggleStatus = async (item: Master.DepartmentItem) => {
     await mutateAsync({
       id: item.id,
       isActive: !item.isActive,
@@ -22,14 +22,14 @@ export default function List() {
   };
 
   return (
-    <Page header="Office Type">
+    <Page header="Department">
       <Card>
         {isLoading ? <Loader /> : undefined}
         <GridPanel
-          title="Office Types`"
+          title="Departments"
           data={data}
-          onEdit={officetype =>
-            navigate(masterUrls.officeType.edit(officetype.id))
+          onEdit={department =>
+            navigate(masterUrls.department.edit(department.id))
           }
           columns={[
             {
@@ -38,11 +38,14 @@ export default function List() {
             },
             { field: 'name', header: 'Name' },
             { field: 'code', header: 'Code' },
+            { field: 'officeTypeName', header: 'Office Type' },
+            { field: 'hodName', header: 'Head of Department' },
+            { field: 'contactNumber', header: 'Contact Number' },
             {
               field: 'isActive',
               header: 'Status',
               sortable: false,
-              cell: (item: Master.OfficeTypeItem) => (
+              cell: (item: Master.DepartmentItem) => (
                 <StatusButton
                   value={item.isActive}
                   onClick={() => handleToggleStatus(item)}
@@ -54,7 +57,7 @@ export default function List() {
             <LinkButton
               label="Create"
               icon="plus"
-              to={masterUrls.officeType.create}
+              to={masterUrls.department.create}
             />
           }
           searchBox

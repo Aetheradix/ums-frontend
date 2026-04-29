@@ -1,45 +1,45 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import {
-  createOfficeType,
-  getOfficeType,
-  getOfficeTypes,
-  patchOfficeTypeStatus,
-  updateOfficeType,
+  createDepartment,
+  getDepartment,
+  getDepartments,
+  patchDepartmentStatus,
+  updateDepartment,
 } from './api';
 
-const QUERY_KEY = ['@master/office-type'];
+const QUERY_KEY = ['@master/department'];
 
-export function useOfficeTypesQuery() {
+export function useDepartmentsQuery() {
   const { data = [], isLoading } = useQuery({
     queryKey: QUERY_KEY,
-    queryFn: getOfficeTypes,
+    queryFn: getDepartments,
   });
 
   return { data, isLoading };
 }
 
-export function useCreateOfficeTypeMutation() {
+export function useCreateDepartmentMutation() {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: async (data: Master.OfficeTypeForm) =>
-      await createOfficeType(data),
+    mutationFn: async (data: Master.DepartmentForm) =>
+      await createDepartment(data),
 
     onSuccess(data) {
       if (!data) return;
 
       const result =
-        queryClient.getQueryData<Master.OfficeTypeItem[]>(QUERY_KEY) ?? [];
+        queryClient.getQueryData<Master.DepartmentItem[]>(QUERY_KEY) ?? [];
 
       queryClient.setQueryData(QUERY_KEY, [...result, data]);
     },
   });
 }
 
-export function useOfficeTypeQuery(id: number) {
+export function useDepartmentQuery(id: number) {
   return useQuery({
     queryKey: [...QUERY_KEY, id],
     queryFn: async () => {
-      const data = await getOfficeType(id);
+      const data = await getDepartment(id);
       if (!data) return undefined;
 
       return {
@@ -51,25 +51,25 @@ export function useOfficeTypeQuery(id: number) {
   });
 }
 
-export function useUpdateOfficeTypeMutation(id: number) {
+export function useUpdateDepartmentMutation(id: number) {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async (data: Master.OfficeTypeForm) =>
-      await updateOfficeType(id, data),
+    mutationFn: async (data: Master.DepartmentForm) =>
+      await updateDepartment(id, data),
 
     onSuccess(success, formData) {
       if (!success) return;
 
       const result =
-        queryClient.getQueryData<Master.OfficeTypeItem[]>(QUERY_KEY) ?? [];
+        queryClient.getQueryData<Master.DepartmentItem[]>(QUERY_KEY) ?? [];
 
       const index = result.findIndex(item => item.id === id);
       if (index === -1) return;
 
       const existing = result[index];
 
-      const itemToReplace: Master.OfficeTypeItem = {
+      const itemToReplace: Master.DepartmentItem = {
         id,
         name: formData.name,
         code: formData.code,
@@ -88,12 +88,12 @@ export function useUpdateOfficeTypeMutation(id: number) {
   });
 }
 
-export function useOfficeTypeActiveStatusMutation() {
+export function useDepartmentActiveStatusMutation() {
   const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: async (data: { id: number; isActive: boolean }) =>
-      await patchOfficeTypeStatus(data.id, data.isActive),
+      await patchDepartmentStatus(data.id, data.isActive),
 
     onSuccess(success, variables) {
       if (!success) return;

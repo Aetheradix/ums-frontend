@@ -95,6 +95,21 @@ export default function MainLayout({ children }: React.PropsWithChildren) {
                 Office Type
               </NavLink>
             </li>
+            <li className="mb-2">
+              <NavLink
+                to={masterUrls.department.root}
+                className={({ isActive }) =>
+                  `block p-3 border-round no-underline transition-colors transition-duration-200 ${
+                    isActive
+                      ? 'bg-blue-100 text-blue-700 font-bold shadow-1'
+                      : 'text-700 hover:bg-gray-200'
+                  }`
+                }
+              >
+                <i className="pi pi-list mr-2" />
+                Department
+              </NavLink>
+            </li>
           </ul>
         </aside>
 
