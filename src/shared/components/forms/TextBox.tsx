@@ -5,7 +5,8 @@ import { sanitizeInput } from '../../utils/validation/config';
 import InputBlock from './InputBlock';
 
 interface TextBoxProps<TForm extends FieldValues>
-  extends Controls.FormProps<TForm>,
+  extends
+    Controls.FormProps<TForm>,
     Controls.InputBlockProps,
     Controls.InputProps {
   value?: string;
@@ -50,21 +51,9 @@ function InnerTextBox({
       subLabel={subLabel}
       required={required}
     >
-      <div
-        className={`p-input-icon-${iconPosition} w-full`}
-        style={{ position: 'relative' }}
-      >
+      <div className={`input-field-wrapper p-input-icon-${iconPosition}`}>
         {showCheckbox ? (
-          <div
-            className="flex items-center"
-            style={{
-              position: 'absolute',
-              top: '50%',
-              left: '0.5rem',
-              transform: 'translateY(-50%)',
-              zIndex: 1,
-            }}
-          >
+          <div className="input-checkbox-overlay">
             <PrimeCheckbox
               checked={checkboxChecked ?? false}
               onChange={e => onCheckboxChange?.(e.checked ?? false)}
@@ -72,16 +61,10 @@ function InnerTextBox({
           </div>
         ) : icon ? (
           <i
-            className={`pi pi-${icon} text-gray-500`}
-            style={{
-              fontSize: '1rem',
-              ...(iconPosition === 'left'
-                ? { left: '1rem' }
-                : { right: '1rem' }),
-              position: 'absolute',
-              top: '50%',
-              pointerEvents: 'none',
-            }}
+            className={`pi pi-${icon} input-icon`}
+            style={
+              iconPosition === 'left' ? { left: '1rem' } : { right: '1rem' }
+            }
           />
         ) : undefined}
         <InputText
@@ -90,10 +73,7 @@ function InnerTextBox({
           value={value || ''}
           onChange={e => onChange?.(sanitizeInput(e.target.value))}
           invalid={!!errorMessage}
-          className={`${className ? className + ' ' : ''}w-full`}
-          style={{
-            paddingLeft: showCheckbox ? '2.75rem' : undefined,
-          }}
+          className={`${className ? className + ' ' : ''}w-full ${showCheckbox ? 'pl-11' : ''}`}
           autoComplete={autocomplete}
           {...rest}
         />
@@ -150,7 +130,6 @@ export default function TextBox<TForm extends FieldValues>({
               field.onChange(sanitizedValue);
               onChange?.(sanitizedValue);
             }}
-            // onBlur={field.onBlur}
             {...rest}
           />
         );

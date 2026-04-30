@@ -1,59 +1,48 @@
+@reference "tailwindcss";
+/* ── Button Panel ── */
 .button-panel {
-  display: flex;
-  justify-content: start;
-  flex-direction: row;
-  gap: 0.5rem;
-  align-items: center;
+  @apply flex justify-start flex-row gap-2 items-center;
   padding: 1.9rem 0 1rem 0;
 }
 
 .button-panel-end {
-  display: flex;
-  justify-content: flex-end !important;
-  flex-direction: row;
-  gap: 0.5rem;
-  align-items: center;
+  @apply flex justify-end flex-row gap-2 items-center;
   padding: 1.9rem 0 1rem 0;
 }
 
+.button-panel > button:last-child {
+  @apply ml-0;
+}
+
+/* ── Custom submit / reset ── */
 .custom-submit {
   background-color: var(--primary-color) !important;
-  color: var(--white) !important;
+  @apply !text-white;
   border: 1px solid var(--primary-color) !important;
 }
 
 .dark-theme .custom-submit {
   background-color: var(--primary-color) !important;
-  color: var(--white) !important;
-  border: 1px solid var(--white) !important;
+  @apply !text-white;
+  border: 1px solid white !important;
 }
 
 .custom-reset {
-  background-color: transparent !important;
+  @apply !bg-transparent;
   color: var(--primary-color) !important;
   border: 2px solid var(--primary-color) !important;
 }
 
-.button-panel > button:last-child {
-  margin-left: 0;
-}
-
+/* ── PrimeReact outlined override ── */
 .p-button.p-button-outlined {
-  background-color: transparent;
+  @apply bg-transparent gap-1;
   color: var(--primary-color) !important;
   border: 1px solid;
-  gap: 0.2rem;
   width: 6rem;
 }
 
 .dark-theme .p-button.p-button-outlined {
-  background-color: transparent;
-  color: var(--white) !important;
+  @apply bg-transparent;
+  @apply !text-white;
   border: 1px solid;
-}
-
-.p-button {
-  border-radius: 8px;
-  font-weight: 500;
-  transition: all 0.3s ease;
 }

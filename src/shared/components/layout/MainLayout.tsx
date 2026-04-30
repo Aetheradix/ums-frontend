@@ -1,124 +1,66 @@
 import { masterUrls } from 'features/master/urls';
-import React from 'react';
-import { NavLink } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { Tabs } from 'shared/new-components';
+import WorkspaceLayout from 'shared/components/workspace-layout/WorkspaceLayout';
 
 export default function MainLayout({ children }: React.PropsWithChildren) {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const [activeIndex, setActiveIndex] = useState(-1);
+
+  // Sync tab index with current route
+  useEffect(() => {
+    const path = location.pathname;
+    if (path.startsWith(masterUrls.subjectCategory.root)) setActiveIndex(0);
+    else if (path.startsWith(masterUrls.officeType.root)) setActiveIndex(1);
+    else if (path.startsWith(masterUrls.department.root)) setActiveIndex(2);
+    else if (path.startsWith(masterUrls.designation.root)) setActiveIndex(3);
+    else setActiveIndex(-1);
+  }, [location.pathname]);
+
+  const handleTabChange = (e: { index: number }) => {
+    setActiveIndex(e.index);
+    switch (e.index) {
+      case 0:
+        navigate(masterUrls.subjectCategory.root);
+        break;
+      case 1:
+        navigate(masterUrls.officeType.root);
+        break;
+      case 2:
+        navigate(masterUrls.department.root);
+        break;
+      case 3:
+        navigate(masterUrls.designation.root);
+        break;
+    }
+  };
+
   return (
-    <div className="flex flex-column min-h-screen">
-      <header className="bg-blue-600 text-white p-3 flex justify-content-between align-items-center shadow-2">
-        <div className="text-xl font-bold">University Management System</div>
-        <div className="flex align-items-center gap-3">
-          <span>Welcome, User</span>
-          {/* Logout button can be hidden or disabled as there's no auth */}
+    <WorkspaceLayout>
+      {/* Sub-Navigation for Master Modules */}
+      {activeIndex >= 0 && (
+        <div className="bg-white w-full dark-theme:bg-slate-900">
+          <div className="max-w-[1320px] mx-auto px-6 pt-3">
+            <Tabs
+              activeIndex={activeIndex}
+              onTabChange={handleTabChange}
+              tabs={[
+                { title: 'Subject Category', content: null },
+                { title: 'Office Type', content: null },
+                { title: 'Department', content: null },
+                { title: 'Designation', content: null },
+              ]}
+            />
+          </div>
         </div>
-      </header>
+      )}
 
-      <div className="flex flex-1">
-        <aside className="bg-gray-100 p-3 w-15rem border-right-1 border-300">
-          <ul className="list-none p-0 m-0">
-            <li className="mb-2">
-              <NavLink
-                to="/"
-                className={({ isActive }) =>
-                  `block p-3 border-round no-underline transition-colors transition-duration-200 ${
-                    isActive
-                      ? 'bg-blue-100 text-blue-700 font-bold shadow-1'
-                      : 'text-700 hover:bg-gray-200'
-                  }`
-                }
-              >
-                <i className="pi pi-home mr-2" />
-                Dashboard
-              </NavLink>
-            </li>
-            <li className="mb-2">
-              <NavLink
-                to="/students"
-                className={({ isActive }) =>
-                  `block p-3 border-round no-underline transition-colors transition-duration-200 ${
-                    isActive
-                      ? 'bg-blue-100 text-blue-700 font-bold shadow-1'
-                      : 'text-700 hover:bg-gray-200'
-                  }`
-                }
-              >
-                <i className="pi pi-users mr-2" />
-                Students
-              </NavLink>
-            </li>
-            <li className="mb-2">
-              <NavLink
-                to="/settings"
-                className={({ isActive }) =>
-                  `block p-3 border-round no-underline transition-colors transition-duration-200 ${
-                    isActive
-                      ? 'bg-blue-100 text-blue-700 font-bold shadow-1'
-                      : 'text-700 hover:bg-gray-200'
-                  }`
-                }
-              >
-                <i className="pi pi-cog mr-2" />
-                Settings
-              </NavLink>
-            </li>
-
-            <div className="text-500 font-bold mt-4 mb-2 uppercase text-xs">
-              Masters
-            </div>
-            <li className="mb-2">
-              <NavLink
-                to={masterUrls.subjectCategory.root}
-                className={({ isActive }) =>
-                  `block p-3 border-round no-underline transition-colors transition-duration-200 ${
-                    isActive
-                      ? 'bg-blue-100 text-blue-700 font-bold shadow-1'
-                      : 'text-700 hover:bg-gray-200'
-                  }`
-                }
-              >
-                <i className="pi pi-list mr-2" />
-                Subject Category
-              </NavLink>
-            </li>
-            <li className="mb-2">
-              <NavLink
-                to={masterUrls.officeType.root}
-                className={({ isActive }) =>
-                  `block p-3 border-round no-underline transition-colors transition-duration-200 ${
-                    isActive
-                      ? 'bg-blue-100 text-blue-700 font-bold shadow-1'
-                      : 'text-700 hover:bg-gray-200'
-                  }`
-                }
-              >
-                <i className="pi pi-list mr-2" />
-                Office Type
-              </NavLink>
-            </li>
-            <li className="mb-2">
-              <NavLink
-                to={masterUrls.department.root}
-                className={({ isActive }) =>
-                  `block p-3 border-round no-underline transition-colors transition-duration-200 ${
-                    isActive
-                      ? 'bg-blue-100 text-blue-700 font-bold shadow-1'
-                      : 'text-700 hover:bg-gray-200'
-                  }`
-                }
-              >
-                <i className="pi pi-list mr-2" />
-                Department
-              </NavLink>
-            </li>
-          </ul>
-        </aside>
-
-        <main className="flex-1 p-4 surface-ground">{children}</main>
+      {/* Main Page Content */}
+      <div className="bg-slate-50 flex-1 min-h-[calc(100vh-140px)] dark-theme:bg-[#0f172a]">
+        <div className="max-w-[1320px] mx-auto px-6 py-6 pb-16">{children}</div>
       </div>
-
-      <footer className="bg-gray-800 text-white p-3 text-center">
-        &copy; 2026 University Management System. All rights reserved.
-      </footer>
-    </div>
+    </WorkspaceLayout>
   );
 }

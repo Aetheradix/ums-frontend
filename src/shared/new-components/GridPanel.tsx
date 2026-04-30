@@ -1,6 +1,7 @@
 import { useState } from 'react';
-import { TextBox } from '../forms';
-import { Grid } from '../grid';
+import { TextBox } from '../components/forms';
+import { Grid } from '../components/grid';
+import './GridPanel.css';
 
 interface GridPanelProps<T> extends Controls.GridProps<T> {
   title?: string;
@@ -53,10 +54,10 @@ export default function GridPanel<T>({
   };
 
   return (
-    <div>
-      <div className="flex flex-wrap align-items-center justify-content-between gap-2 my-2">
-        <span className="text-sm text-800 font-semibold">{title}</span>
-        <div className="flex align-items-center gap-2 ml-auto">
+    <div className="grid-panel-wrapper">
+      <div className="grid-panel-header">
+        <span className="grid-panel-title">{title}</span>
+        <div className="grid-panel-toolbar">
           {toolbar}
           {actionButtons}
           {searchBox ? (

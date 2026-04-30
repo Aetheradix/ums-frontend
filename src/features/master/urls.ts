@@ -1,5 +1,6 @@
 import { subjectCategoryUrls } from './course/subject-category/urls';
 import { departmentUrls } from './faculty/department/urls';
+import { designationUrls } from './faculty/designation/urls';
 import { officeTypeUrls } from './faculty/office-type/urls';
 import { blockUrls } from './location/block/urls';
 import { districtUrls } from './location/district/urls';
@@ -17,4 +18,5 @@ export const masterUrls = {
   district: districtUrls(baseUrl),
   tehsil: tehsilUrls(baseUrl),
   block: blockUrls(baseUrl),
+  designation: designationUrls(baseUrl),
 };

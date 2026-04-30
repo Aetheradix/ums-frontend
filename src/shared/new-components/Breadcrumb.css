@@ -1,0 +1,21 @@
+@reference "tailwindcss";
+
+.breadcrumb-nav {
+  @apply flex items-center gap-2 text-sm font-medium text-slate-500 mb-4 max-sm:text-xs flex-wrap;
+}
+
+.breadcrumb-separator {
+  @apply text-base text-slate-400 select-none;
+}
+
+.breadcrumb-item-active {
+  @apply text-slate-900 font-semibold;
+}
+
+.dark-theme .breadcrumb-item-active {
+  @apply text-slate-100;
+}
+
+.breadcrumb-item-link {
+  @apply cursor-pointer transition-colors duration-200 hover:text-[#2264dc];
+}
