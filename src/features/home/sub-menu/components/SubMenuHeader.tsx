@@ -1,5 +1,5 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import Breadcrumb from 'shared/new-components/Breadcrumb';
 import { homeUrls } from '../../urls';
 import '../styles/subMenu.css';
 
@@ -12,26 +12,15 @@ const SubMenuHeader: React.FC<SubMenuHeaderProps> = ({
   serviceTitle,
   category,
 }) => {
-  const navigate = useNavigate();
-
   return (
     <div className="submenu-header">
-      <nav className="submenu-breadcrumb">
-        <span
-          className="submenu-breadcrumb-link"
-          onClick={() => navigate(homeUrls.menu.root)}
-        >
-          Home
-        </span>
-        <span className="submenu-breadcrumb-sep">&rsaquo;</span>
-        {category && (
-          <>
-            <span>{category}</span>
-            <span className="submenu-breadcrumb-sep">&rsaquo;</span>
-          </>
-        )}
-        <span className="submenu-breadcrumb-current">{serviceTitle}</span>
-      </nav>
+      <Breadcrumb
+        items={[
+          { label: 'Home', to: homeUrls.menu.root },
+          ...(category ? [{ label: category }] : []),
+          { label: serviceTitle },
+        ]}
+      />
 
       <div className="submenu-welcome">
         <h1>

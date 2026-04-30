@@ -1,0 +1,29 @@
+@reference "tailwindcss";
+
+.form-page-wrapper {
+  @apply flex-1 min-h-0;
+}
+
+.form-page-container {
+  @apply max-w-[1320px] mx-auto px-6 py-6 w-full;
+}
+
+.form-page-header {
+  @apply flex items-start justify-between mb-6 max-sm:flex-col max-sm:gap-3;
+}
+
+.form-page-title {
+  @apply text-2xl font-bold text-slate-900 m-0 leading-tight max-sm:text-xl;
+}
+
+.form-page-description {
+  @apply text-sm text-slate-500 mt-1 m-0 max-w-xl;
+}
+
+.form-page-action {
+  @apply flex-shrink-0;
+}
+
+.form-page-content {
+  @apply space-y-6;
+}
