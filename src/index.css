@@ -202,7 +202,7 @@
    ============================================================ */
 .p-inputtext {
   font-family: var(--font-sans);
-  @apply text-[0.9rem] rounded-md;
+  @apply text-[0.9rem] rounded-md border border-gray-300 shadow-sm;
   color: var(--text-gray-dark);
   padding: 0.45rem 0.75rem;
   transition:
@@ -212,6 +212,11 @@
     box-shadow 0.2s;
   appearance: none;
   outline-color: var(--transparent);
+}
+
+.p-dropdown,
+.p-multiselect {
+  @apply border border-gray-300 shadow-sm;
 }
 
 .p-button {
@@ -425,7 +430,7 @@
 .dark-theme .p-multiselect {
   background: var(--dark-input-bg);
   color: var(--dark-text);
-  border: 0px solid var(--dark-input-border);
+  border: 1px solid var(--dark-input-border);
 }
 
 .dark-theme .p-inputtext::placeholder,
@@ -684,4 +689,44 @@
   font-feature-settings: 'liga';
   -webkit-font-feature-settings: 'liga';
   -webkit-font-smoothing: antialiased;
+}
+
+/* ============================================================
+   12. SYSTEMATIC GRID LOOK
+   ============================================================ */
+.p-datatable {
+  @apply w-full border border-slate-200 rounded-lg overflow-hidden shadow-sm;
+}
+
+.p-datatable .p-datatable-thead > tr > th {
+  @apply bg-slate-50 text-slate-700 font-semibold py-3 px-4 border-b border-slate-200 text-sm;
+}
+
+.p-datatable .p-datatable-tbody > tr > td {
+  @apply py-3 px-4 border-b border-slate-100 text-sm;
+}
+
+.p-datatable .p-datatable-tbody > tr:last-child > td {
+  @apply border-b-0;
+}
+
+.p-paginator {
+  @apply border-t border-slate-200 py-3 bg-slate-50 text-sm;
+}
+
+/* Dark Theme Adjustments for Grid */
+.dark-theme .p-datatable {
+  @apply border-[#334155];
+}
+
+.dark-theme .p-datatable .p-datatable-thead > tr > th {
+  @apply bg-[#1e293b] text-slate-300 border-[#334155];
+}
+
+.dark-theme .p-datatable .p-datatable-tbody > tr > td {
+  @apply border-[#334155] text-slate-300;
+}
+
+.dark-theme .p-paginator {
+  @apply border-[#334155] bg-[#1e293b] text-slate-300;
 }

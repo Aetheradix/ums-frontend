@@ -5,6 +5,7 @@ import {
   type TabViewProps,
 } from 'primereact/tabview';
 import React from 'react';
+import './Tabs.css';
 
 export interface TabItemProps extends Omit<TabPanelProps, 'header'> {
   title: string | React.ReactNode;
