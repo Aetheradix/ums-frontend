@@ -1,6 +1,7 @@
 import { subjectCategoryUrls } from './course/subject-category/urls';
 import { departmentUrls } from './faculty/department/urls';
 import { officeTypeUrls } from './faculty/office-type/urls';
+import { districtUrls } from './location/district/urls';
 import { divisionUrls } from './location/division/urls';
 import { stateUrls } from './location/state/urls';
 
@@ -11,4 +12,5 @@ export const masterUrls = {
   department: departmentUrls(baseUrl),
   state: stateUrls(baseUrl),
   division: divisionUrls(baseUrl),
+  district: districtUrls(baseUrl),
 };
