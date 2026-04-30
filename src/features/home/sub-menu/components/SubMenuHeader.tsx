@@ -15,8 +15,7 @@ const SubMenuHeader: React.FC<SubMenuHeaderProps> = ({
   const navigate = useNavigate();
 
   return (
-    <div className="submenu-header-section">
-      {/* Breadcrumb */}
+    <div className="submenu-header">
       <nav className="submenu-breadcrumb">
         <span
           className="submenu-breadcrumb-link"
@@ -27,17 +26,16 @@ const SubMenuHeader: React.FC<SubMenuHeaderProps> = ({
         <span className="submenu-breadcrumb-sep">&rsaquo;</span>
         {category && (
           <>
-            <span className="submenu-breadcrumb-text">{category}</span>
+            <span>{category}</span>
             <span className="submenu-breadcrumb-sep">&rsaquo;</span>
           </>
         )}
         <span className="submenu-breadcrumb-current">{serviceTitle}</span>
       </nav>
 
-      {/* Welcome heading */}
       <div className="submenu-welcome">
         <h1>
-          Welcome, <span className="db-name-highlight">Alex Lin</span>
+          Welcome, <span className="submenu-name">Alex Lin</span>
         </h1>
         <p>Select a submodule to manage your workspace.</p>
       </div>
