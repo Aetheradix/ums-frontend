@@ -1,39 +1,29 @@
-import { masterUrls } from 'features/master/urls';
-import React, { useEffect, useState } from 'react';
+import React, { useMemo } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Tabs } from 'shared/new-components';
 import WorkspaceLayout from 'shared/components/workspace-layout/WorkspaceLayout';
+import { menuConfig } from 'config/menu-routes';
 
 export default function MainLayout({ children }: React.PropsWithChildren) {
   const location = useLocation();
   const navigate = useNavigate();
-  const [activeIndex, setActiveIndex] = useState(-1);
 
-  // Sync tab index with current route
-  useEffect(() => {
+  // Extract master tabs from configuration
+  const masterTabs = useMemo(() => {
+    const masterData = menuConfig.find(item => item.slug === 'master-data');
+    return masterData?.children || [];
+  }, []);
+
+  // Sync active index based on current path
+  const activeIndex = useMemo(() => {
     const path = location.pathname;
-    if (path.startsWith(masterUrls.subjectCategory.root)) setActiveIndex(0);
-    else if (path.startsWith(masterUrls.officeType.root)) setActiveIndex(1);
-    else if (path.startsWith(masterUrls.department.root)) setActiveIndex(2);
-    else if (path.startsWith(masterUrls.designation.root)) setActiveIndex(3);
-    else setActiveIndex(-1);
-  }, [location.pathname]);
+    return masterTabs.findIndex(tab => path.startsWith(tab.path || ''));
+  }, [location.pathname, masterTabs]);
 
   const handleTabChange = (e: { index: number }) => {
-    setActiveIndex(e.index);
-    switch (e.index) {
-      case 0:
-        navigate(masterUrls.subjectCategory.root);
-        break;
-      case 1:
-        navigate(masterUrls.officeType.root);
-        break;
-      case 2:
-        navigate(masterUrls.department.root);
-        break;
-      case 3:
-        navigate(masterUrls.designation.root);
-        break;
+    const targetTab = masterTabs[e.index];
+    if (targetTab?.path) {
+      navigate(targetTab.path);
     }
   };
 
@@ -41,17 +31,15 @@ export default function MainLayout({ children }: React.PropsWithChildren) {
     <WorkspaceLayout>
       {/* Sub-Navigation for Master Modules */}
       {activeIndex >= 0 && (
-        <div className="bg-white w-full dark-theme:bg-slate-900">
+        <div className="bg-white w-full dark-theme:bg-slate-900 border-b border-slate-200 dark:border-slate-800">
           <div className="max-w-[1320px] mx-auto px-6 pt-3">
             <Tabs
               activeIndex={activeIndex}
               onTabChange={handleTabChange}
-              tabs={[
-                { title: 'Subject Category', content: null },
-                { title: 'Office Type', content: null },
-                { title: 'Department', content: null },
-                { title: 'Designation', content: null },
-              ]}
+              tabs={masterTabs.map(tab => ({
+                title: tab.label,
+                content: null,
+              }))}
             />
           </div>
         </div>
