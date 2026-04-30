@@ -29,7 +29,7 @@ export async function updateDivision(
   return !result.error;
 }
 
-export async function deleteDivision(
+export async function patchDivisionStatus(
   id: number,
   isActive: boolean
 ): Promise<boolean> {

@@ -1,7 +1,6 @@
-import { ActionButtons } from 'features/components';
+import { FormActions, FormGrid } from 'shared/new-components';
 import SelectState from 'features/components/SelectState';
 import { TextBox } from 'shared/components/forms';
-import { InputPanel } from 'shared/components/panels';
 import { useDivisionForm } from './form.hook';
 
 interface DivisionFormProps {
@@ -19,7 +18,7 @@ export default function DivisionForm(props: DivisionFormProps) {
 
   return (
     <form onSubmit={handleSubmit}>
-      <InputPanel orientation="horizontal">
+      <FormGrid columns={2}>
         <TextBox
           label="Code"
           placeholder="Enter Division Code"
@@ -36,14 +35,13 @@ export default function DivisionForm(props: DivisionFormProps) {
           required
         />
         <SelectState {...register('stateId')} />
-      </InputPanel>
+      </FormGrid>
 
-      <ActionButtons
-        update={props.isEditMode}
+      <FormActions
+        isEditMode={props.isEditMode}
         isLoading={props.isSaving}
         onSave={handleSubmit}
         onReset={reset}
-        saveLabel={''}
       />
     </form>
   );

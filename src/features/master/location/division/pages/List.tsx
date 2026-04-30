@@ -1,23 +1,29 @@
-import { Outlet, useNavigate } from 'react-router';
-import { LinkButton } from 'shared/components/buttons';
+import { useNavigate } from 'react-router';
+import { Button } from 'shared/components/buttons';
 import StatusButton from 'shared/components/buttons/StatusButton';
-import { Card, GridPanel, Page } from 'shared/components/panels';
 import { Loader } from 'shared/components/progress';
+import { FormCard, FormPage, GridPanel } from 'shared/new-components';
 import { masterUrls } from '../../../urls';
-import { useDeleteDivisionMutation, useDivisionsQuery } from '../queries';
+import { useDivisionActiveStatusMutation, useDivisionsQuery } from '../queries';
 
 export default function List() {
   const { data, isLoading } = useDivisionsQuery();
   const navigate = useNavigate();
-  const { mutateAsync } = useDeleteDivisionMutation();
+  const { mutateAsync } = useDivisionActiveStatusMutation();
 
-  const handleDelete = async (item: Master.DivisionItem) => {
-    await mutateAsync(item.id);
+  const handleToggleStatus = async (item: Master.DivisionItem) => {
+    await mutateAsync({
+      id: item.id,
+      isActive: !item.isActive,
+    });
   };
 
   return (
-    <Page header="Division">
-      <Card>
+    <FormPage
+      title="Division"
+      description="Manage the list of all divisions in the system."
+    >
+      <FormCard>
         {isLoading ? <Loader /> : undefined}
         <GridPanel
           title="Divisions"
@@ -38,22 +44,22 @@ export default function List() {
               cell: (item: Master.DivisionItem) => (
                 <StatusButton
                   value={item.isActive}
-                  onClick={() => handleDelete(item)}
+                  onClick={() => handleToggleStatus(item)}
                 />
               ),
             },
           ]}
           toolbar={
-            <LinkButton
+            <Button
               label="Create"
               icon="plus"
-              to={masterUrls.division.create}
+              variant="primary"
+              onClick={() => navigate(masterUrls.division.create)}
             />
           }
           searchBox
         />
-      </Card>
-      <Outlet />
-    </Page>
+      </FormCard>
+    </FormPage>
   );
 }

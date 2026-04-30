@@ -1,9 +1,10 @@
 import { useCallback } from 'react';
 import { useNavigate } from 'react-router';
 import { ToastService } from 'services';
-import { Modal } from 'shared/components/popups';
+import { FormCard, FormPage } from 'shared/new-components';
 import { Loader } from 'shared/components/progress';
 import { useParamsId } from 'shared/hooks/params';
+import { masterUrls } from '../../../urls';
 import DivisionForm from '../components/DivisionForm';
 import { useDivisionQuery, useUpdateDivisionMutation } from '../queries';
 
@@ -14,44 +15,45 @@ const DEFAULT: Master.DivisionForm = {
   isActive: true,
 };
 
-interface Props {
-  onSave: () => void;
-}
-
-function EditModalContent(props: Props) {
+export default function Edit() {
+  const navigate = useNavigate();
   const id = useParamsId();
   const { mutateAsync, isPending } = useUpdateDivisionMutation(id);
   const { data = DEFAULT, isLoading } = useDivisionQuery(id);
 
-  if (isLoading) {
-    return <Loader />;
+  const handleBack = useCallback(() => {
+    navigate(masterUrls.division.root);
+  }, [navigate]);
+
+  async function handleSubmit(formData: Master.DivisionForm) {
+    try {
+      const result = await mutateAsync(formData);
+      if (result) {
+        ToastService.success('Division updated successfully.');
+        handleBack();
+      }
+    } catch {
+      ToastService.error('Failed to update division');
+    }
   }
 
   return (
-    <DivisionForm
-      fetchData={data}
-      isSaving={isPending}
-      isEditMode
-      onSubmit={async data => {
-        const result = await mutateAsync(data);
-        if (result) {
-          ToastService.success('Division updated successfully.');
-          props.onSave();
-        }
-      }}
-    />
-  );
-}
-
-export default function Edit() {
-  const navigate = useNavigate();
-  const handleBack = useCallback(() => {
-    navigate(-1);
-  }, [navigate]);
-
-  return (
-    <Modal header="Edit Division" onHide={handleBack} visible>
-      <EditModalContent onSave={handleBack} />
-    </Modal>
+    <FormPage
+      title="Edit Division"
+      description="Update the details of the division."
+    >
+      <FormCard title="Division Details">
+        {isLoading ? (
+          <Loader />
+        ) : (
+          <DivisionForm
+            fetchData={data}
+            isSaving={isPending}
+            isEditMode
+            onSubmit={handleSubmit}
+          />
+        )}
+      </FormCard>
+    </FormPage>
   );
 }
