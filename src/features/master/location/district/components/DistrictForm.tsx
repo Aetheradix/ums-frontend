@@ -1,7 +1,6 @@
-import { ActionButtons } from 'features/components';
+import { FormActions, FormGrid } from 'shared/new-components';
 import SelectDivision from 'features/components/SelectDivision';
 import { TextBox } from 'shared/components/forms';
-import { InputPanel } from 'shared/components/panels';
 import { useDistrictForm } from './form.hook';
 
 interface DistrictFormProps {
@@ -19,7 +18,7 @@ export default function DistrictForm(props: DistrictFormProps) {
 
   return (
     <form onSubmit={handleSubmit}>
-      <InputPanel orientation="horizontal">
+      <FormGrid columns={2}>
         <TextBox
           label="Code"
           placeholder="Enter District Code"
@@ -36,14 +35,13 @@ export default function DistrictForm(props: DistrictFormProps) {
           required
         />
         <SelectDivision {...register('divisionId')} />
-      </InputPanel>
+      </FormGrid>
 
-      <ActionButtons
-        update={props.isEditMode}
+      <FormActions
+        isEditMode={props.isEditMode}
         isLoading={props.isSaving}
         onSave={handleSubmit}
         onReset={reset}
-        saveLabel={''}
       />
     </form>
   );

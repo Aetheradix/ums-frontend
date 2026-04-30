@@ -6,10 +6,9 @@ import List from './pages/List';
 export default function District() {
   return (
     <Routes>
-      <Route path="/*" element={<List />}>
-        <Route path="create" element={<Create />} />
-        <Route path="edit/:id" element={<Edit />} />
-      </Route>
+      <Route index element={<List />} />
+      <Route path="create" element={<Create />} />
+      <Route path="edit/:id" element={<Edit />} />
     </Routes>
   );
 }

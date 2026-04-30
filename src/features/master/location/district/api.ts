@@ -29,7 +29,7 @@ export async function updateDistrict(
   return !result.error;
 }
 
-export async function deleteDistrict(
+export async function patchDistrictStatus(
   id: number,
   isActive: boolean
 ): Promise<boolean> {

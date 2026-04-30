@@ -1,9 +1,9 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import {
   createDistrict,
-  deleteDistrict,
   getDistrict,
   getDistricts,
+  patchDistrictStatus,
   updateDistrict,
 } from './api';
 
@@ -81,21 +81,32 @@ export function useUpdateDistrictMutation(id: number) {
   });
 }
 
-export function useDeleteDistrictMutation() {
+export function useDistrictActiveStatusMutation() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async (id: number) => await deleteDistrict(id),
+    mutationFn: async (data: { id: number; isActive: boolean }) =>
+      await patchDistrictStatus(data.id, data.isActive),
 
-    onSuccess(success, id) {
+    onSuccess(success, variables) {
       if (!success) return;
 
       const result =
         queryClient.getQueryData<Master.DistrictItem[]>(QUERY_KEY) ?? [];
-      queryClient.setQueryData(
-        QUERY_KEY,
-        result.filter(item => item.id !== id)
-      );
+
+      const index = result.findIndex(item => item.id === variables.id);
+      if (index === -1) return;
+
+      const updatedItem = {
+        ...result[index],
+        isActive: variables.isActive,
+      };
+
+      queryClient.setQueryData(QUERY_KEY, [
+        ...result.slice(0, index),
+        updatedItem,
+        ...result.slice(index + 1),
+      ]);
     },
   });
 }

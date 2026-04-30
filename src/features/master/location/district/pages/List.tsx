@@ -1,23 +1,29 @@
-import { Outlet, useNavigate } from 'react-router';
-import { LinkButton } from 'shared/components/buttons';
+import { useNavigate } from 'react-router';
+import { Button } from 'shared/components/buttons';
 import StatusButton from 'shared/components/buttons/StatusButton';
-import { Card, GridPanel, Page } from 'shared/components/panels';
 import { Loader } from 'shared/components/progress';
+import { FormCard, FormPage, GridPanel } from 'shared/new-components';
 import { masterUrls } from '../../../urls';
-import { useDeleteDistrictMutation, useDistrictsQuery } from '../queries';
+import { useDistrictActiveStatusMutation, useDistrictsQuery } from '../queries';
 
 export default function List() {
   const { data, isLoading } = useDistrictsQuery();
   const navigate = useNavigate();
-  const { mutateAsync } = useDeleteDistrictMutation();
+  const { mutateAsync } = useDistrictActiveStatusMutation();
 
-  const handleDelete = async (item: Master.DistrictItem) => {
-    await mutateAsync(item.id);
+  const handleToggleStatus = async (item: Master.DistrictItem) => {
+    await mutateAsync({
+      id: item.id,
+      isActive: !item.isActive,
+    });
   };
 
   return (
-    <Page header="District">
-      <Card>
+    <FormPage
+      title="District"
+      description="Manage the list of all districts in the system."
+    >
+      <FormCard>
         {isLoading ? <Loader /> : undefined}
         <GridPanel
           title="Districts"
@@ -38,22 +44,22 @@ export default function List() {
               cell: (item: Master.DistrictItem) => (
                 <StatusButton
                   value={item.isActive}
-                  onClick={() => handleDelete(item)}
+                  onClick={() => handleToggleStatus(item)}
                 />
               ),
             },
           ]}
           toolbar={
-            <LinkButton
+            <Button
               label="Create"
               icon="plus"
-              to={masterUrls.district.create}
+              variant="primary"
+              onClick={() => navigate(masterUrls.district.create)}
             />
           }
           searchBox
         />
-      </Card>
-      <Outlet />
-    </Page>
+      </FormCard>
+    </FormPage>
   );
 }
