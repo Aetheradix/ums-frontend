@@ -29,7 +29,13 @@ export async function updateDistrict(
   return !result.error;
 }
 
-export async function deleteDistrict(id: number): Promise<boolean> {
-  const result = await ApiService.delete(`${DISTRICT_URL}/${id}`);
+export async function deleteDistrict(
+  id: number,
+  isActive: boolean
+): Promise<boolean> {
+  const result = await ApiService.patch(`${DISTRICT_URL}/${id}/active`, {
+    isActive,
+  });
+
   return !result.error;
 }

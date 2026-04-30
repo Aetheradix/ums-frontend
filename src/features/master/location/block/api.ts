@@ -27,7 +27,13 @@ export async function updateBlock(
   return !result.error;
 }
 
-export async function deleteBlock(id: number): Promise<boolean> {
-  const result = await ApiService.delete(`${BLOCK_URL}/${id}`);
+export async function deleteBlock(
+  id: number,
+  isActive: boolean
+): Promise<boolean> {
+  const result = await ApiService.patch(`${BLOCK_URL}/${id}/active`, {
+    isActive,
+  });
+
   return !result.error;
 }

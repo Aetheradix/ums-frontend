@@ -29,7 +29,13 @@ export async function updateDivision(
   return !result.error;
 }
 
-export async function deleteDivision(id: number): Promise<boolean> {
-  const result = await ApiService.delete(`${DIVISION_URL}/${id}`);
+export async function deleteDivision(
+  id: number,
+  isActive: boolean
+): Promise<boolean> {
+  const result = await ApiService.patch(`${DIVISION_URL}/${id}/active`, {
+    isActive,
+  });
+
   return !result.error;
 }

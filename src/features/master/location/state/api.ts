@@ -27,7 +27,13 @@ export async function updateState(
   return !result.error;
 }
 
-export async function deleteState(id: number): Promise<boolean> {
-  const result = await ApiService.delete(`${STATE_URL}/${id}`);
+export async function deleteState(
+  id: number,
+  isActive: boolean
+): Promise<boolean> {
+  const result = await ApiService.patch(`${STATE_URL}/${id}/active`, {
+    isActive,
+  });
+
   return !result.error;
 }

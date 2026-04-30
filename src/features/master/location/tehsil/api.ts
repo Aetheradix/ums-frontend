@@ -29,7 +29,13 @@ export async function updateTehsil(
   return !result.error;
 }
 
-export async function deleteTehsil(id: number): Promise<boolean> {
-  const result = await ApiService.delete(`${TEHSIL_URL}/${id}`);
+export async function deleteTehsil(
+  id: number,
+  isActive: boolean
+): Promise<boolean> {
+  const result = await ApiService.patch(`${TEHSIL_URL}/${id}/active`, {
+    isActive,
+  });
+
   return !result.error;
 }
