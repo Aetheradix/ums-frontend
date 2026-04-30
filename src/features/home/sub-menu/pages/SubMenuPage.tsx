@@ -1,14 +1,13 @@
 import React from 'react';
-import { useParams, Navigate } from 'react-router-dom';
-import SubMenuHeader from '../components/SubMenuHeader';
-import SubMenuGrid from '../components/SubMenuGrid';
+import { Navigate, useParams } from 'react-router-dom';
 import { menuConfig } from '../../../../config/menu-routes';
-import '../styles/subMenu.css';
 import { homeUrls } from '../../urls';
+import SubMenuGrid from '../components/SubMenuGrid';
+import SubMenuHeader from '../components/SubMenuHeader';
+import '../styles/subMenu.css';
 
 const SubMenuPage: React.FC = () => {
   const { moduleId } = useParams<{ moduleId: string }>();
-
   const service = menuConfig.find(s => s.slug === moduleId);
 
   if (!service || !service.children) {
@@ -16,8 +15,8 @@ const SubMenuPage: React.FC = () => {
   }
 
   return (
-    <div className="db-main-content">
-      <div className="dashboard-container">
+    <div className="submenu-page">
+      <div className="submenu-page-container">
         <SubMenuHeader
           serviceTitle={service.label}
           category={service.category}

@@ -1,3 +1,4 @@
+import tailwindcss from '@tailwindcss/vite';
 import react from '@vitejs/plugin-react-swc';
 import { defineConfig } from 'vite';
 import pluginChecker from 'vite-plugin-checker';
@@ -12,6 +13,7 @@ export default defineConfig(() => {
       port: 5200,
     },
     plugins: [
+      tailwindcss(),
       react(),
       tsConfigPaths(),
       mkcert(),

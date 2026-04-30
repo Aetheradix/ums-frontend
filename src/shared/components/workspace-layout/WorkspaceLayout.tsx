@@ -1,22 +1,20 @@
 import React from 'react';
-import WorkspaceTopBar from './WorkspaceTopBar';
-import WorkspaceHeader from './WorkspaceHeader';
-import WorkspaceFooterNav from './WorkspaceFooterNav';
 import WorkspaceFooterBar from './WorkspaceFooterBar';
+import WorkspaceFooterNav from './WorkspaceFooterNav';
+import WorkspaceHeader from './WorkspaceHeader';
+import WorkspaceTopBar from './WorkspaceTopBar';
 import './WorkspaceLayout.css';
 
-export const WorkspaceLayout: React.FC<{children: React.ReactNode}> = ({ children }) => {
-  return (
-    <div className="ums-workspace">
-      <WorkspaceTopBar />
-      <WorkspaceHeader />
-      <main className="workspace-main-content">
-        {children}
-      </main>
-      <WorkspaceFooterNav />
-      <WorkspaceFooterBar />
-    </div>
-  );
-};
+export const WorkspaceLayout: React.FC<{ children: React.ReactNode }> = ({
+  children,
+}) => (
+  <div className="ws-root">
+    <WorkspaceTopBar />
+    <WorkspaceHeader />
+    <main className="ws-main">{children}</main>
+    <WorkspaceFooterNav />
+    <WorkspaceFooterBar />
+  </div>
+);
 
 export default WorkspaceLayout;

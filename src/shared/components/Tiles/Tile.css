@@ -1,215 +1,113 @@
+@reference "tailwindcss";
+/* ── Tile Container ── */
 .db-card-container {
-  position: relative;
-  transition: all 0.3s ease;
+  @apply relative transition-all duration-300 ease-in-out;
 }
 
 .db-card-container:hover {
-  transform: translateY(-5px);
+  @apply -translate-y-1.5;
 }
 
+/* ── Service Card ── */
 .db-service-card {
-  background-color: white;
-  border-radius: 20px;
-  padding: 20px;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  min-height: 160px;
-  cursor: pointer;
-  overflow: visible;
-  z-index: 1;
+  @apply bg-white rounded-[20px] p-5 relative flex flex-col min-h-[160px] cursor-pointer overflow-visible z-[1];
 }
 
-/* Shadow caster to avoid shadowing the cutout area */
+/* Shadow caster that avoids the cutout corner area */
 .db-service-card::before {
   content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: white;
-  border-radius: 20px;
+  @apply absolute inset-0 bg-white rounded-[20px] shadow-[0_8px_24px_rgba(0,0,0,0.04)] -z-[1] transition-all duration-300 ease-in-out;
   border-top-right-radius: 80px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
-  z-index: -1;
-  transition: all 0.3s ease;
 }
 
+/* ── Corner Action (arrow cutout) ── */
 .db-card-corner-action {
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 64px;
-  height: 64px;
-  background-color: var(--db-page-bg);
+  @apply absolute top-0 right-0 w-16 h-16 bg-[#f8faff] flex items-center justify-center z-[5];
   border-bottom-left-radius: 24px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 5;
 }
 
-/* Inverted corner on the top edge */
 .db-card-corner-action::before {
   content: '';
-  position: absolute;
-  top: 0;
-  left: -20px;
-  width: 20px;
-  height: 20px;
-  background-color: transparent;
+  @apply absolute top-0 -left-5 w-5 h-5 bg-transparent;
   background-image: radial-gradient(
     circle at 0% 100%,
     transparent 20px,
-    var(--db-page-bg) 20px
+    #f8faff 20px
   );
 }
 
-/* Inverted corner on the right edge */
 .db-card-corner-action::after {
   content: '';
-  position: absolute;
-  right: 0;
-  top: 100%;
-  width: 20px;
-  height: 20px;
-  background-color: transparent;
+  @apply absolute right-0 top-full w-5 h-5 bg-transparent;
   background-image: radial-gradient(
     circle at 0% 100%,
     transparent 20px,
-    var(--db-page-bg) 20px
+    #f8faff 20px
   );
 }
 
+/* ── Arrow Button ── */
 .db-card-arrow {
-  width: 36px;
-  height: 36px;
-  background-color: white;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
-  transition: all 0.2s;
-  color: var(--db-text-dark);
+  @apply w-9 h-9 bg-white rounded-full flex items-center justify-center shadow-[0_4px_12px_rgba(0,0,0,0.06)] transition-all duration-200 text-slate-900;
 }
 
 .db-card-arrow:hover {
-  background-color: var(--db-primary);
-  color: white;
+  @apply bg-[#2264dc] text-white;
 }
 
+/* ── Card Content ── */
 .db-card-content {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
+  @apply flex flex-col h-full;
 }
 
 .db-card-icon-box {
-  width: 40px;
-  height: 40px;
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: auto;
+  @apply w-10 h-10 rounded-xl flex items-center justify-center mb-auto;
 }
 
 .db-card-title {
-  font-size: 15px;
-  font-weight: 700;
-  line-height: 1.3;
-  color: var(--db-text-dark);
-  margin-top: 16px;
-  max-width: 90%;
+  @apply text-[15px] font-bold leading-snug text-slate-900 mt-4 max-w-[90%];
 }
 
 .db-card-description {
-  font-size: 13px;
-  font-weight: 400;
-  line-height: 1.5;
-  color: var(--db-text-muted, #64748b);
-  margin-top: 8px;
-  max-width: 95%;
+  @apply text-[13px] font-normal leading-relaxed text-slate-500 mt-2 max-w-[95%];
 }
 
 .db-card-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--db-text-mid, #334155);
-  margin-top: 12px;
-  padding: 4px 10px;
-  background-color: #f8fafc;
-  border-radius: 50px;
-  width: fit-content;
+  @apply inline-flex items-center gap-1.5 text-xs font-semibold text-slate-700 mt-3 px-2.5 py-1 bg-slate-50 rounded-full w-fit;
 }
 
 .db-card-badge-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  flex-shrink: 0;
+  @apply w-1.5 h-1.5 rounded-full shrink-0;
 }
 
-@media (max-width: 480px) {
-  .db-service-card {
-    min-height: 160px;
-  }
-
-  .db-card-corner-action {
-    width: 60px;
-    height: 60px;
-    border-bottom-left-radius: 25px;
-  }
-
-  .db-card-arrow {
-    width: 38px;
-    height: 38px;
-  }
-}
-
-/* Color Scheme Classes */
+/* ── Icon Color Schemes ── */
 .db-card-icon-box.bg-blue {
-  background-color: #eff6ff;
-  color: #3b82f6;
+  @apply bg-blue-50 text-blue-500;
 }
 .db-card-icon-box.bg-purple {
-  background-color: #f5f3ff;
-  color: #8b5cf6;
+  @apply bg-violet-50 text-violet-500;
 }
 .db-card-icon-box.bg-gray {
-  background-color: #f8fafc;
-  color: #64748b;
+  @apply bg-slate-50 text-slate-500;
 }
 .db-card-icon-box.bg-green {
-  background-color: #f0fdf4;
-  color: #22c55e;
+  @apply bg-green-50 text-green-500;
 }
 .db-card-icon-box.bg-orange {
-  background-color: #fff7ed;
-  color: #ea580c;
+  @apply bg-orange-50 text-orange-600;
 }
 .db-card-icon-box.bg-red {
-  background-color: #fef2f2;
-  color: #ef4444;
+  @apply bg-red-50 text-red-500;
 }
 .db-card-icon-box.bg-pink {
-  background-color: #fff1f2;
-  color: #e11d48;
+  @apply bg-rose-50 text-rose-600;
 }
 .db-card-icon-box.bg-teal {
-  background-color: #f0fdfa;
-  color: #0d9488;
+  @apply bg-teal-50 text-teal-600;
 }
 .db-card-icon-box.bg-indigo {
-  background-color: #eef2ff;
-  color: #6366f1;
+  @apply bg-indigo-50 text-indigo-500;
 }
 .db-card-icon-box.bg-amber {
-  background-color: #fef3c7;
-  color: #d97706;
+  @apply bg-amber-50 text-amber-600;
 }

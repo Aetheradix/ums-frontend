@@ -23,7 +23,15 @@
     "erasableSyntaxOnly": true,
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true,
-    "baseUrl": "src",
+    "paths": {
+      "config/*": ["./src/config/*"],
+      "features": ["./src/features/index.tsx"],
+      "features/*": ["./src/features/*"],
+      "services": ["./src/services/index.ts"],
+      "services/*": ["./src/services/*"],
+      "shared/*": ["./src/shared/*"],
+      "types/*": ["./src/types/*"]
+    },
     "sourceMap": true
   },
   "include": ["src"]

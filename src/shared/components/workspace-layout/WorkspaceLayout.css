@@ -1,360 +1,129 @@
-.ums-workspace {
-  --db-font-family: 'Inter', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-  
-  /* Colors */
-  --db-topbar-bg: #1a1a2e;
-  --db-topbar-text: #ffffff;
-  --db-header-bg: #ffffff;
-  --db-header-border: #e2e8f0;
-  --db-page-bg: #f8faff;
-  --db-banner-bg: #ffffff;
-  --db-banner-border: #e2e8f0;
-  --db-primary: #2264dc;
-  --db-primary-hover: #1e56be;
-  --db-text-dark: #0f172a;
-  --db-text-mid: #334155;
-  --db-text-muted: #64748b;
-  --db-text-blue: #2264dc;
-  
-  /* Surface colors */
-  --db-card-bg: #ffffff;
-  --db-card-border: #f1f5f9;
-  --db-card-radius: 16px;
-  --db-card-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
-  
-  /* Tabs */
-  --db-tab-active-bg: #3b82f6;
-  --db-tab-active-text: #ffffff;
-  --db-tab-inactive-bg: #f1f5f9;
-  --db-tab-inactive-text: #334155;
-  
-  /* Buttons */
-  --db-btn-dark-bg: #334155;
-  --db-btn-dark-text: #ffffff;
-  
-  /* Spacing */
-  --db-container-max: 1320px;
+@reference "tailwindcss";
+/* WorkspaceTopBar */
+.ws-topbar {
+  @apply bg-[#1a1a2e] text-white text-[13px] py-2.5 max-sm:hidden;
 }
 
-:where(.ums-workspace) * {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+.ws-topbar-inner {
+  @apply max-w-[1320px] mx-auto px-6 flex justify-between items-center opacity-90;
 }
 
-.ums-workspace {
-  font-family: var(--db-font-family);
-  background-color: var(--db-page-bg);
-  min-height: 100vh;
-  color: var(--db-text-dark);
-  display: flex;
-  flex-direction: column;
+.ws-topbar-dot {
+  @apply mx-1.5;
 }
 
-.dashboard-container {
-  max-width: var(--db-container-max);
-  margin: 0 auto;
-  padding: 0 24px;
-  width: 100%;
+/* WorkspaceHeader */
+.ws-header {
+  @apply bg-white border-b border-slate-200 py-3;
 }
 
-.workspace-main-content {
-  flex: 1;
+.ws-header-inner {
+  @apply max-w-[1320px] mx-auto px-6 flex items-center gap-10 max-md:flex-wrap max-md:gap-4;
 }
 
-/* TopBar */
-.db-topbar {
-  background-color: var(--db-topbar-bg);
-  color: var(--db-topbar-text);
-  font-size: 13px;
-  padding: 10px 0;
+.ws-logo-section {
+  @apply flex items-center gap-3 min-w-[180px] max-md:order-1 max-sm:min-w-0;
 }
 
-.db-topbar-inner {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  opacity: 0.9;
+.ws-logo-box {
+  @apply bg-slate-800 text-white w-10 h-10 flex items-center justify-center rounded-lg font-extrabold text-lg;
 }
 
-.db-dot {
-  margin: 0 6px;
+.ws-logo-text {
+  @apply flex flex-col;
 }
 
-/* Header */
-.db-header {
-  background-color: var(--db-header-bg);
-  border-bottom: 1px solid var(--db-header-border);
-  padding: 12px 0;
+.ws-logo-title {
+  @apply font-bold text-base leading-tight;
 }
 
-.db-header-inner {
-  display: flex;
-  align-items: center;
-  gap: 40px;
+.ws-logo-subtitle {
+  @apply text-[11px] text-slate-500 font-semibold max-sm:hidden;
 }
 
-.db-header-logo-section {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  min-width: 180px;
+.ws-search-section {
+  @apply flex-1 max-md:order-3 max-md:w-full max-md:flex-none;
 }
 
-.db-logo-box {
-  background-color: #1e293b;
-  color: white;
-  width: 40px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 8px;
-  font-weight: 800;
-  font-size: 18px;
+.ws-search-container {
+  @apply relative w-full max-w-[600px] max-md:max-w-none;
 }
 
-.db-logo-text {
-  display: flex;
-  flex-direction: column;
+.ws-search-icon {
+  @apply absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500;
 }
 
-.db-logo-title {
-  font-weight: 700;
-  font-size: 16px;
-  line-height: 1.2;
+.ws-search-input {
+  @apply w-full py-3 pl-[42px] pr-3.5 rounded-lg border-none bg-slate-100 text-sm font-medium outline-none;
 }
 
-.db-logo-subtitle {
-  font-size: 11px;
-  color: var(--db-text-muted);
-  font-weight: 600;
+.ws-header-actions {
+  @apply flex items-center gap-6 max-md:order-2 max-md:gap-3;
 }
 
-.db-header-search-section {
-  flex: 1;
+.ws-action-icons {
+  @apply flex items-center gap-4 pr-6 border-r border-slate-200 text-slate-500 max-md:pr-3 max-md:gap-3;
 }
 
-.db-search-container {
-  position: relative;
-  width: 100%;
-  max-width: 600px;
+.ws-icon-btn {
+  @apply cursor-pointer flex items-center;
 }
 
-.db-search-icon {
-  position: absolute;
-  left: 14px;
-  top: 50%;
-  transform: translateY(-50%);
-  color: var(--db-text-muted);
+.ws-notif-btn {
+  @apply cursor-pointer flex items-center relative;
 }
 
-.db-search-container input {
-  width: 100%;
-  padding: 12px 14px 12px 42px;
-  border-radius: 8px;
-  border: none;
-  background-color: #f1f5f9;
-  font-size: 14px;
-  font-weight: 500;
+.ws-badge {
+  @apply absolute -top-1.5 -right-1.5 bg-red-500 text-white text-[9px] font-bold w-[15px] h-[15px] flex items-center justify-center rounded-full border-2 border-white;
 }
 
-.db-header-actions {
-  display: flex;
-  align-items: center;
-  gap: 24px;
+.ws-user-profile {
+  @apply flex items-center gap-2.5 cursor-pointer;
 }
 
-.db-action-icons {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  padding-right: 24px;
-  border-right: 1px solid var(--db-header-border);
-  color: #64748b;
+.ws-avatar {
+  @apply bg-indigo-500 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold text-[13px];
 }
 
-.db-icon-btn {
-  cursor: pointer;
-  display: flex;
-  align-items: center;
+.ws-username {
+  @apply font-semibold text-sm max-md:hidden;
 }
 
-.db-icon-btn.db-notif {
-  position: relative;
+/* WorkspaceFooterNav */
+.ws-footer-nav {
+  @apply bg-white py-5 border-t border-slate-200;
 }
 
-.db-badge {
-  position: absolute;
-  top: -5px;
-  right: -5px;
-  background-color: #ef4444;
-  color: white;
-  font-size: 9px;
-  font-weight: 700;
-  width: 15px;
-  height: 15px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  border: 2px solid white;
+.ws-footer-nav-inner {
+  @apply max-w-[1320px] mx-auto px-6 flex items-center flex-wrap gap-4 max-md:gap-3 max-md:justify-center;
 }
 
-.db-user-profile {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  cursor: pointer;
+.ws-footer-link {
+  @apply text-slate-700 no-underline text-sm font-semibold;
 }
 
-.db-avatar {
-  background-color: #6366f1;
-  color: white;
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 700;
-  font-size: 13px;
+.ws-footer-sep {
+  @apply w-px h-3.5 bg-slate-200 max-md:hidden;
 }
 
-.db-username {
-  font-weight: 600;
-  font-size: 14px;
+/* WorkspaceFooterBar */
+.ws-footer-bar {
+  @apply bg-[#1a1a2e] text-white py-3 text-[13px];
 }
 
-/* FooterNav */
-.db-footer-nav {
-  background-color: white;
-  padding: 20px 0;
-  border-top: 1px solid #e2e8f0;
+.ws-footer-bar-inner {
+  @apply max-w-[1320px] mx-auto px-6 flex justify-between items-center opacity-80 max-md:flex-col max-md:gap-2.5 max-md:text-center;
 }
 
-.db-footer-nav-inner {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  flex-wrap: wrap;
-  gap: 16px;
+.ws-footer-links {
+  @apply flex gap-4;
 }
 
-.db-footer-link {
-  color: var(--db-text-mid);
-  text-decoration: none;
-  font-size: 14px;
-  font-weight: 600;
+/* WorkspaceLayout */
+.ws-root {
+  @apply font-sans bg-[#f8faff] min-h-screen text-slate-900 flex flex-col;
 }
 
-.db-footer-sep {
-  width: 1px;
-  height: 14px;
-  background-color: #e2e8f0;
-}
-
-/* FooterBar */
-.db-footer-bar {
-  background-color: var(--db-topbar-bg);
-  color: white;
-  padding: 12px 0;
-  font-size: 13px;
-}
-
-.db-footer-bar-inner {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  opacity: 0.8;
-}
-
-.db-footer-links {
-  display: flex;
-  gap: 16px;
-}
-
-/* --- Responsive Design --- */
-
-/* Tablets (up to 992px) */
-@media (max-width: 992px) {
-  .db-header-inner {
-    gap: 20px;
-  }
-  
-  .db-header-search-section {
-    max-width: none;
-  }
-}
-
-/* Small Tablets / Custom Breakpoint (up to 768px) */
-@media (max-width: 768px) {
-  .dashboard-container {
-    padding: 0 16px;
-  }
-
-  /* Header adjustments */
-  .db-header-inner {
-    flex-wrap: wrap;
-    gap: 16px;
-  }
-
-  .db-header-logo-section {
-    order: 1;
-  }
-
-  .db-header-actions {
-    order: 2;
-    gap: 12px;
-  }
-
-  .db-action-icons {
-    padding-right: 12px;
-    gap: 12px;
-  }
-
-  .db-username {
-    display: none; /* Keep only avatar on mobile */
-  }
-
-  .db-header-search-section {
-    order: 3;
-    width: 100%;
-    flex: none;
-  }
-
-  .db-search-container {
-    max-width: none;
-  }
-
-  /* Footer */
-  .db-footer-nav-inner {
-    gap: 12px;
-    justify-content: center;
-  }
-
-  .db-footer-sep {
-    display: none;
-  }
-
-  .db-footer-bar-inner {
-    flex-direction: column;
-    gap: 10px;
-    text-align: center;
-  }
-}
-
-/* Mobile (up to 480px) */
-@media (max-width: 480px) {
-  .db-topbar {
-    display: none; /* Hide topbar on mobile for space */
-  }
-
-  .db-header-logo-section {
-    min-width: auto;
-  }
-
-  .db-logo-subtitle {
-    display: none;
-  }
+.ws-main {
+  @apply flex-1;
 }

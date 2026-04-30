@@ -9,7 +9,8 @@ interface DefaultProps<TData> {
 }
 
 interface InnerDropDownProps<TData, TForm extends FieldValues>
-  extends Controls.FormProps<TForm>,
+  extends
+    Controls.FormProps<TForm>,
     Controls.InputBlockProps,
     Controls.InputProps {
   data?: TData[];
@@ -30,8 +31,7 @@ interface InnerDropDownProps<TData, TForm extends FieldValues>
 }
 
 interface DropDownProps<TData, TForm extends FieldValues>
-  extends InnerDropDownProps<TData, TForm>,
-    DefaultProps<TData> {}
+  extends InnerDropDownProps<TData, TForm>, DefaultProps<TData> {}
 
 function InnerDropDownList<TData = Data.DataItem<number>>({
   id,
@@ -66,21 +66,9 @@ function InnerDropDownList<TData = Data.DataItem<number>>({
       errorMessage={errorMessage}
       required={required}
     >
-      <div
-        className="p-input-icon-left w-full"
-        style={{ position: 'relative' }}
-      >
+      <div className="input-field-wrapper p-input-icon-left">
         {showCheckbox && (
-          <div
-            className="flex items-center"
-            style={{
-              position: 'absolute',
-              top: '50%',
-              left: '0.5rem',
-              transform: 'translateY(-50%)',
-              zIndex: 10,
-            }}
-          >
+          <div className="input-checkbox-overlay">
             <PrimeCheckbox
               checked={checkboxChecked ?? false}
               onChange={e => onCheckboxChange?.(e.checked ?? false)}
@@ -93,13 +81,7 @@ function InnerDropDownList<TData = Data.DataItem<number>>({
           optionLabel={textField as string}
           onChange={e => onChange?.(e.value)}
           invalid={!!errorMessage}
-          className="w-full"
-          style={{
-            padding: '0.5rem',
-            paddingLeft: showCheckbox ? '2rem' : '0.5rem',
-            lineHeight: '0',
-          }}
-          panelStyle={{ lineHeight: 'normal' }}
+          className={`w-full ${showCheckbox ? 'pl-8' : ''}`}
           filter={filter}
           resetFilterOnHide={true}
           appendTo={appendTo}
