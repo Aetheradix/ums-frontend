@@ -22,7 +22,7 @@
 
 /* Shadow caster to avoid shadowing the cutout area */
 .db-service-card::before {
-  content: "";
+  content: '';
   position: absolute;
   top: 0;
   left: 0;
@@ -52,26 +52,34 @@
 
 /* Inverted corner on the top edge */
 .db-card-corner-action::before {
-  content: "";
+  content: '';
   position: absolute;
   top: 0;
   left: -20px;
   width: 20px;
   height: 20px;
   background-color: transparent;
-  background-image: radial-gradient(circle at 0% 100%, transparent 20px, var(--db-page-bg) 20px);
+  background-image: radial-gradient(
+    circle at 0% 100%,
+    transparent 20px,
+    var(--db-page-bg) 20px
+  );
 }
 
 /* Inverted corner on the right edge */
 .db-card-corner-action::after {
-  content: "";
+  content: '';
   position: absolute;
   right: 0;
   top: 100%;
   width: 20px;
   height: 20px;
   background-color: transparent;
-  background-image: radial-gradient(circle at 0% 100%, transparent 20px, var(--db-page-bg) 20px);
+  background-image: radial-gradient(
+    circle at 0% 100%,
+    transparent 20px,
+    var(--db-page-bg) 20px
+  );
 }
 
 .db-card-arrow {
@@ -117,6 +125,36 @@
   max-width: 90%;
 }
 
+.db-card-description {
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--db-text-muted, #64748b);
+  margin-top: 8px;
+  max-width: 95%;
+}
+
+.db-card-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--db-text-mid, #334155);
+  margin-top: 12px;
+  padding: 4px 10px;
+  background-color: #f8fafc;
+  border-radius: 50px;
+  width: fit-content;
+}
+
+.db-card-badge-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
 @media (max-width: 480px) {
   .db-service-card {
     min-height: 160px;
@@ -132,4 +170,46 @@
     width: 38px;
     height: 38px;
   }
+}
+
+/* Color Scheme Classes */
+.db-card-icon-box.bg-blue {
+  background-color: #eff6ff;
+  color: #3b82f6;
+}
+.db-card-icon-box.bg-purple {
+  background-color: #f5f3ff;
+  color: #8b5cf6;
+}
+.db-card-icon-box.bg-gray {
+  background-color: #f8fafc;
+  color: #64748b;
+}
+.db-card-icon-box.bg-green {
+  background-color: #f0fdf4;
+  color: #22c55e;
+}
+.db-card-icon-box.bg-orange {
+  background-color: #fff7ed;
+  color: #ea580c;
+}
+.db-card-icon-box.bg-red {
+  background-color: #fef2f2;
+  color: #ef4444;
+}
+.db-card-icon-box.bg-pink {
+  background-color: #fff1f2;
+  color: #e11d48;
+}
+.db-card-icon-box.bg-teal {
+  background-color: #f0fdfa;
+  color: #0d9488;
+}
+.db-card-icon-box.bg-indigo {
+  background-color: #eef2ff;
+  color: #6366f1;
+}
+.db-card-icon-box.bg-amber {
+  background-color: #fef3c7;
+  color: #d97706;
 }

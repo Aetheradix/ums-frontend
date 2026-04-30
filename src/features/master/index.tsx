@@ -1,5 +1,6 @@
 import { Route, Routes } from 'react-router';
 import SubjectCategory from './course/subject-category';
+import Department from './faculty/department';
 import OfficeType from './faculty/office-type';
 import Department from './faculty/department';
 import Location from './location';

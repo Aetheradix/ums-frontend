@@ -71,11 +71,13 @@
   --dark-login-subtitle: #cccccc;
   --table-border-dark-transparent: #ffffff17;
   --header-gradient-stripe: #ffffff0e;
-  --dark-header-gradient: repeating-linear-gradient(215deg,
-      var(--header-gradient-stripe),
-      var(--header-gradient-stripe) 12px,
-      var(--dark-input-bg) 12px,
-      var(--dark-input-bg) 40px);
+  --dark-header-gradient: repeating-linear-gradient(
+    215deg,
+    var(--header-gradient-stripe),
+    var(--header-gradient-stripe) 12px,
+    var(--dark-input-bg) 12px,
+    var(--dark-input-bg) 40px
+  );
 
   --toast-border: #cccccc;
   --toast-shadow: rgba(0, 0, 0, 0.1);
@@ -282,8 +284,12 @@ h6 {
     color 0.2s;
 }
 
-.dark-theme .p-dropdown-items .p-dropdown-item:not(.p-highlight):not(.p-disabled):hover,
-.dark-theme .p-multiselect-items .p-multiselect-item:not(.p-highlight):not(.p-disabled):hover,
+.dark-theme
+  .p-dropdown-items
+  .p-dropdown-item:not(.p-highlight):not(.p-disabled):hover,
+.dark-theme
+  .p-multiselect-items
+  .p-multiselect-item:not(.p-highlight):not(.p-disabled):hover,
 .dark-theme .p-autocomplete-item:not(.p-highlight):not(.p-disabled):hover {
   background-color: var(--dark-card-hover) !important;
   color: var(--white) !important;
@@ -552,25 +558,35 @@ h6 {
   bottom: 0;
   left: 0;
   height: 3px;
-  background: linear-gradient(to right,
-      var(--toast-success-start),
-      var(--toast-success-end));
+  background: linear-gradient(
+    to right,
+    var(--toast-success-start),
+    var(--toast-success-end)
+  );
   animation: toast-progress linear;
   animation-fill-mode: forwards;
 }
 
-.white-toast .p-toast-message.p-toast-message-success .p-toast-message-content::after {
+.white-toast
+  .p-toast-message.p-toast-message-success
+  .p-toast-message-content::after {
   animation-duration: 3s;
-  background: linear-gradient(to right,
-      var(--toast-success-start),
-      var(--toast-success-end));
+  background: linear-gradient(
+    to right,
+    var(--toast-success-start),
+    var(--toast-success-end)
+  );
 }
 
-.white-toast .p-toast-message.p-toast-message-info .p-toast-message-content::after {
+.white-toast
+  .p-toast-message.p-toast-message-info
+  .p-toast-message-content::after {
   animation-duration: 2s;
-  background: linear-gradient(to right,
-      var(--toast-info-start),
-      var(--toast-info-end));
+  background: linear-gradient(
+    to right,
+    var(--toast-info-start),
+    var(--toast-info-end)
+  );
 }
 
 @keyframes toast-progress {
@@ -740,4 +756,32 @@ table td {
 
 .dark-theme .bg-odd-group td {
   background-color: var(--dark-card-bg) !important;
+}
+
+/* 1. Load the local font file */
+@font-face {
+  font-family: 'Material Symbols Local';
+  font-style: normal;
+  font-weight: 100 700;
+  /* Ensure the path correctly points from this CSS file to your assets folder */
+  src: url('./assets/fonts/MaterialSymbolsOutlined.woff2') format('woff2');
+}
+
+/* 2. Create the base class for the icons */
+.icon-base {
+  font-family: 'Material Symbols Local', sans-serif;
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px; /* Default size */
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  /* Crucial: Enables the text keywords (ligatures) to transform into icons */
+  font-feature-settings: 'liga';
+  -webkit-font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
 }
