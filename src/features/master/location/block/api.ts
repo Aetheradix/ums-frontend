@@ -27,7 +27,7 @@ export async function updateBlock(
   return !result.error;
 }
 
-export async function deleteBlock(
+export async function patchBlockStatus(
   id: number,
   isActive: boolean
 ): Promise<boolean> {

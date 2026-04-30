@@ -1,8 +1,7 @@
-import { ActionButtons } from 'features/components';
+import { FormActions, FormGrid } from 'shared/new-components';
 import SelectDistrict from 'features/components/SelectDistrict';
 import SelectTehsil from 'features/components/SelectTehsil';
 import { TextBox } from 'shared/components/forms';
-import { InputPanel } from 'shared/components/panels';
 import { useBlockForm } from './form.hook';
 
 interface BlockFormProps {
@@ -20,7 +19,7 @@ export default function BlockForm(props: BlockFormProps) {
 
   return (
     <form onSubmit={handleSubmit}>
-      <InputPanel orientation="horizontal">
+      <FormGrid columns={2}>
         <TextBox
           label="Code"
           placeholder="Enter Block Code"
@@ -38,14 +37,13 @@ export default function BlockForm(props: BlockFormProps) {
         />
         <SelectDistrict {...register('districtId')} />
         <SelectTehsil {...register('tehsilId')} />
-      </InputPanel>
+      </FormGrid>
 
-      <ActionButtons
-        update={props.isEditMode}
+      <FormActions
+        isEditMode={props.isEditMode}
         isLoading={props.isSaving}
         onSave={handleSubmit}
         onReset={reset}
-        saveLabel={''}
       />
     </form>
   );

@@ -1,9 +1,10 @@
 import { useCallback } from 'react';
 import { useNavigate } from 'react-router';
 import { ToastService } from 'services';
-import { Modal } from 'shared/components/popups';
+import { FormCard, FormPage } from 'shared/new-components';
 import { Loader } from 'shared/components/progress';
 import { useParamsId } from 'shared/hooks/params';
+import { masterUrls } from '../../../urls';
 import BlockForm from '../components/BlockForm';
 import { useBlockQuery, useUpdateBlockMutation } from '../queries';
 
@@ -15,44 +16,42 @@ const DEFAULT: Master.BlockForm = {
   isActive: true,
 };
 
-interface Props {
-  onSave: () => void;
-}
-
-function EditModalContent(props: Props) {
+export default function Edit() {
+  const navigate = useNavigate();
   const id = useParamsId();
   const { mutateAsync, isPending } = useUpdateBlockMutation(id);
   const { data = DEFAULT, isLoading } = useBlockQuery(id);
 
-  if (isLoading) {
-    return <Loader />;
+  const handleBack = useCallback(() => {
+    navigate(masterUrls.block.root);
+  }, [navigate]);
+
+  async function handleSubmit(formData: Master.BlockForm) {
+    try {
+      const result = await mutateAsync(formData);
+      if (result) {
+        ToastService.success('Block updated successfully.');
+        handleBack();
+      }
+    } catch {
+      ToastService.error('Failed to update block');
+    }
   }
 
   return (
-    <BlockForm
-      fetchData={data}
-      isSaving={isPending}
-      isEditMode
-      onSubmit={async data => {
-        const result = await mutateAsync(data);
-        if (result) {
-          ToastService.success('Block updated successfully.');
-          props.onSave();
-        }
-      }}
-    />
-  );
-}
-
-export default function Edit() {
-  const navigate = useNavigate();
-  const handleBack = useCallback(() => {
-    navigate(-1);
-  }, [navigate]);
-
-  return (
-    <Modal header="Edit Block" onHide={handleBack} visible>
-      <EditModalContent onSave={handleBack} />
-    </Modal>
+    <FormPage title="Edit Block" description="Update the details of the block.">
+      <FormCard title="Block Details">
+        {isLoading ? (
+          <Loader />
+        ) : (
+          <BlockForm
+            fetchData={data}
+            isSaving={isPending}
+            isEditMode
+            onSubmit={handleSubmit}
+          />
+        )}
+      </FormCard>
+    </FormPage>
   );
 }
