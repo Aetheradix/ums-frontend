@@ -45,3 +45,15 @@
 .submenu-grid {
   @apply grid grid-cols-6 gap-[30px] max-xl:grid-cols-4 max-xl:gap-5 max-lg:grid-cols-3 max-md:grid-cols-2 max-md:gap-4 max-sm:grid-cols-1;
 }
+
+/* Dark Theme Overrides */
+.dark-theme .submenu-welcome h1,
+.dark-theme .submenu-breadcrumb-current,
+.dark-theme .submenu-breadcrumb-sep {
+  color: var(--dark-text);
+}
+
+.dark-theme .submenu-welcome p,
+.dark-theme .submenu-breadcrumb {
+  color: var(--dark-text-secondary);
+}

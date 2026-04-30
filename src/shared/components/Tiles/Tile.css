@@ -111,3 +111,59 @@
 .db-card-icon-box.bg-amber {
   @apply bg-amber-50 text-amber-600;
 }
+
+/* ── Dark Theme Overrides ── */
+.dark-theme .db-service-card {
+  background-color: var(--dark-card-bg);
+}
+
+.dark-theme .db-service-card::before {
+  background-color: var(--dark-card-bg);
+}
+
+.dark-theme .db-card-corner-action {
+  background-color: var(--dark-bg);
+}
+
+.dark-theme .db-card-corner-action::before {
+  background-image: radial-gradient(
+    circle at 0% 100%,
+    transparent 20px,
+    var(--dark-bg) 20px
+  );
+}
+
+.dark-theme .db-card-corner-action::after {
+  background-image: radial-gradient(
+    circle at 0% 100%,
+    transparent 20px,
+    var(--dark-bg) 20px
+  );
+}
+
+.dark-theme .db-card-arrow {
+  background-color: var(--dark-card-bg);
+  color: var(--dark-text);
+}
+
+.dark-theme .db-card-arrow:hover {
+  background-color: var(--primary-color);
+  color: var(--white);
+}
+
+.dark-theme .db-card-title {
+  color: var(--dark-text);
+}
+
+.dark-theme .db-card-description {
+  color: var(--dark-text-secondary);
+}
+
+.dark-theme .db-card-badge {
+  background-color: var(--dark-bg);
+  color: var(--dark-text);
+}
+
+.dark-theme .db-card-icon-box {
+  background-color: rgba(255, 255, 255, 0.05) !important;
+}

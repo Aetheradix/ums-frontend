@@ -78,3 +78,47 @@
 .services-grid {
   @apply grid grid-cols-6 gap-[30px] max-xl:grid-cols-4 max-xl:gap-5 max-lg:grid-cols-3 max-md:grid-cols-2 max-md:gap-4 max-sm:grid-cols-1;
 }
+
+/* ── Dark Theme Overrides ── */
+.dark-theme .welcome-banner {
+  background-color: var(--dark-card-bg);
+  border-color: var(--dark-border);
+}
+
+.dark-theme .welcome-sso-badge {
+  background-color: var(--dark-bg);
+  border-color: var(--dark-border);
+  color: var(--dark-text-secondary);
+}
+
+.dark-theme .welcome-heading {
+  color: var(--dark-text);
+}
+
+.dark-theme .welcome-subtext {
+  color: var(--dark-text-secondary);
+}
+
+.dark-theme .welcome-btn-outline {
+  background-color: var(--dark-bg);
+  border-color: var(--dark-border);
+  color: var(--dark-text);
+}
+
+.dark-theme .welcome-btn-outline:hover {
+  background-color: var(--dark-card-hover);
+}
+
+.dark-theme .service-filters-title {
+  color: var(--dark-text);
+}
+
+.dark-theme .service-filter-tab:not(.active) {
+  background-color: var(--dark-card-bg);
+  color: var(--dark-text-secondary);
+}
+
+.dark-theme .service-filter-tab:not(.active):hover {
+  background-color: var(--dark-card-hover);
+  color: var(--white);
+}

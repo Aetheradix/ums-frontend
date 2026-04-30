@@ -127,3 +127,38 @@
 .ws-main {
   @apply flex-1;
 }
+
+/* Dark Theme Overrides for Workspace Layout */
+.dark-theme .ws-root {
+  background-color: var(--dark-bg);
+  color: var(--dark-text);
+}
+
+.dark-theme .ws-header {
+  background-color: var(--dark-card-bg);
+  border-bottom-color: var(--dark-border);
+}
+
+.dark-theme .ws-logo-title,
+.dark-theme .ws-username {
+  color: var(--dark-text);
+}
+
+.dark-theme .ws-search-input {
+  background-color: var(--dark-input-bg);
+  color: var(--dark-text);
+}
+
+.dark-theme .ws-footer-nav {
+  background-color: var(--dark-card-bg);
+  border-top-color: var(--dark-border);
+}
+
+.dark-theme .ws-footer-link {
+  color: var(--dark-text);
+}
+
+.dark-theme .ws-action-icons,
+.dark-theme .ws-search-icon {
+  color: var(--dark-text-secondary);
+}
