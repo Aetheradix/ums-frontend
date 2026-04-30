@@ -1,9 +1,9 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import {
   createState,
-  deleteState,
   getState,
   getStates,
+  patchStateStatus,
   updateState,
 } from './api';
 
@@ -78,21 +78,32 @@ export function useUpdateStateMutation(id: number) {
   });
 }
 
-export function useDeleteStateMutation() {
+export function useStateActiveStatusMutation() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async (id: number) => await deleteState(id),
+    mutationFn: async (data: { id: number; isActive: boolean }) =>
+      await patchStateStatus(data.id, data.isActive),
 
-    onSuccess(success, id) {
+    onSuccess(success, variables) {
       if (!success) return;
 
       const result =
         queryClient.getQueryData<Master.StateItem[]>(QUERY_KEY) ?? [];
-      queryClient.setQueryData(
-        QUERY_KEY,
-        result.filter(item => item.id !== id)
-      );
+
+      const index = result.findIndex(item => item.id === variables.id);
+      if (index === -1) return;
+
+      const updatedItem = {
+        ...result[index],
+        isActive: variables.isActive,
+      };
+
+      queryClient.setQueryData(QUERY_KEY, [
+        ...result.slice(0, index),
+        updatedItem,
+        ...result.slice(index + 1),
+      ]);
     },
   });
 }

@@ -27,7 +27,7 @@ export async function updateState(
   return !result.error;
 }
 
-export async function deleteState(
+export async function patchStateStatus(
   id: number,
   isActive: boolean
 ): Promise<boolean> {

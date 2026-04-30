@@ -1,23 +1,29 @@
-import { Outlet, useNavigate } from 'react-router';
-import { LinkButton } from 'shared/components/buttons';
+import { useNavigate } from 'react-router';
+import { Button } from 'shared/components/buttons';
 import StatusButton from 'shared/components/buttons/StatusButton';
-import { Card, GridPanel, Page } from 'shared/components/panels';
 import { Loader } from 'shared/components/progress';
+import { FormCard, FormPage, GridPanel } from 'shared/new-components';
 import { masterUrls } from '../../../urls';
-import { useDeleteStateMutation, useStatesQuery } from '../queries';
+import { useStateActiveStatusMutation, useStatesQuery } from '../queries';
 
 export default function List() {
   const { data, isLoading } = useStatesQuery();
   const navigate = useNavigate();
-  const { mutateAsync } = useDeleteStateMutation();
+  const { mutateAsync } = useStateActiveStatusMutation();
 
-  const handleDelete = async (item: Master.StateItem) => {
-    await mutateAsync(item.id);
+  const handleToggleStatus = async (item: Master.StateItem) => {
+    await mutateAsync({
+      id: item.id,
+      isActive: !item.isActive,
+    });
   };
 
   return (
-    <Page header="State">
-      <Card>
+    <FormPage
+      title="State"
+      description="Manage the list of all states in the system."
+    >
+      <FormCard>
         {isLoading ? <Loader /> : undefined}
         <GridPanel
           title="States"
@@ -37,22 +43,22 @@ export default function List() {
               cell: (item: Master.StateItem) => (
                 <StatusButton
                   value={item.isActive}
-                  onClick={() => handleDelete(item)}
+                  onClick={() => handleToggleStatus(item)}
                 />
               ),
             },
           ]}
           toolbar={
-            <LinkButton
+            <Button
               label="Create"
               icon="plus"
-              to={masterUrls.state.create}
+              variant="primary"
+              onClick={() => navigate(masterUrls.state.create)}
             />
           }
           searchBox
         />
-      </Card>
-      <Outlet />
-    </Page>
+      </FormCard>
+    </FormPage>
   );
 }
