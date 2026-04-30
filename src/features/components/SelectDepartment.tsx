@@ -1,21 +1,21 @@
 import type { FieldValues } from 'react-hook-form';
 import { DropDownList } from 'shared/components/forms';
-import { useOfficeTypesQuery } from '../master/faculty/office-type/queries';
+import { useDepartmentsQuery } from '../master/faculty/department/queries';
 
-interface SelectOfficeTypeProps<
+interface SelectDepartmentProps<
   T extends FieldValues,
 > extends Controls.FormProps<T> {
   label?: string;
   disabled?: boolean;
 }
 
-export default function SelectOfficeType<T extends FieldValues>({
+export default function SelectDepartment<T extends FieldValues>({
   defaultOptionText,
-  label = 'Office Type',
+  label = 'Department',
   ...props
-}: SelectOfficeTypeProps<T> &
+}: SelectDepartmentProps<T> &
   Controls.InputBlockProps & { defaultOptionText?: string }) {
-  const { data, isLoading } = useOfficeTypesQuery();
+  const { data, isLoading } = useDepartmentsQuery();
   const activeData = data.filter(item => item.isActive);
 
   return (

@@ -12,22 +12,47 @@ declare namespace Master {
   }
   type FacultyItem = Data.WithId<FacultyForm>;
 
-  interface DepartmentForm {
+  interface Department {
     code: string;
     name: string;
     officeTypeId: number;
     hodName: string;
     contactNumber: number;
     isActive: boolean;
+    officeTypeName?: string;
+  }
+
+  interface DepartmentForm {
+    code: string;
+    name: string;
+    officeTypeId: number;
+    hodName: string;
+    contactNumber: number;
   }
 
   type DepartmentItem = Data.WithId<Department>;
 
-  interface OfficeTypeForm {
+  interface OfficeType {
     code: string;
     name: string;
     isActive: boolean;
   }
 
+  interface OfficeTypeForm {
+    code: string;
+    name: string;
+  }
+
   type OfficeTypeItem = Data.WithId<OfficeType>;
+
+  interface Designation {
+    name: string;
+    isActive: boolean;
+  }
+
+  interface DesignationForm {
+    name: string;
+  }
+
+  type DesignationItem = Data.WithId<Designation>;
 }
