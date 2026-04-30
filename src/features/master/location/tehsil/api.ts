@@ -29,7 +29,7 @@ export async function updateTehsil(
   return !result.error;
 }
 
-export async function deleteTehsil(
+export async function patchTehsilStatus(
   id: number,
   isActive: boolean
 ): Promise<boolean> {

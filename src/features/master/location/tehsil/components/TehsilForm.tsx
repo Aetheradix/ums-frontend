@@ -1,7 +1,6 @@
-import { ActionButtons } from 'features/components';
+import { FormActions, FormGrid } from 'shared/new-components';
 import SelectDistrict from 'features/components/SelectDistrict';
 import { TextBox } from 'shared/components/forms';
-import { InputPanel } from 'shared/components/panels';
 import { useTehsilForm } from './form.hook';
 
 interface TehsilFormProps {
@@ -19,7 +18,7 @@ export default function TehsilForm(props: TehsilFormProps) {
 
   return (
     <form onSubmit={handleSubmit}>
-      <InputPanel orientation="horizontal">
+      <FormGrid columns={2}>
         <TextBox
           label="Code"
           placeholder="Enter Tehsil Code"
@@ -36,14 +35,13 @@ export default function TehsilForm(props: TehsilFormProps) {
           required
         />
         <SelectDistrict {...register('districtId')} />
-      </InputPanel>
+      </FormGrid>
 
-      <ActionButtons
-        update={props.isEditMode}
+      <FormActions
+        isEditMode={props.isEditMode}
         isLoading={props.isSaving}
         onSave={handleSubmit}
         onReset={reset}
-        saveLabel={''}
       />
     </form>
   );

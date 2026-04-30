@@ -1,9 +1,10 @@
 import { useCallback } from 'react';
 import { useNavigate } from 'react-router';
 import { ToastService } from 'services';
-import { Modal } from 'shared/components/popups';
+import { FormCard, FormPage } from 'shared/new-components';
 import { Loader } from 'shared/components/progress';
 import { useParamsId } from 'shared/hooks/params';
+import { masterUrls } from '../../../urls';
 import TehsilForm from '../components/TehsilForm';
 import { useTehsilQuery, useUpdateTehsilMutation } from '../queries';
 
@@ -14,44 +15,45 @@ const DEFAULT: Master.TehsilForm = {
   isActive: true,
 };
 
-interface Props {
-  onSave: () => void;
-}
-
-function EditModalContent(props: Props) {
+export default function Edit() {
+  const navigate = useNavigate();
   const id = useParamsId();
   const { mutateAsync, isPending } = useUpdateTehsilMutation(id);
   const { data = DEFAULT, isLoading } = useTehsilQuery(id);
 
-  if (isLoading) {
-    return <Loader />;
+  const handleBack = useCallback(() => {
+    navigate(masterUrls.tehsil.root);
+  }, [navigate]);
+
+  async function handleSubmit(formData: Master.TehsilForm) {
+    try {
+      const result = await mutateAsync(formData);
+      if (result) {
+        ToastService.success('Tehsil updated successfully.');
+        handleBack();
+      }
+    } catch {
+      ToastService.error('Failed to update tehsil');
+    }
   }
 
   return (
-    <TehsilForm
-      fetchData={data}
-      isSaving={isPending}
-      isEditMode
-      onSubmit={async data => {
-        const result = await mutateAsync(data);
-        if (result) {
-          ToastService.success('Tehsil updated successfully.');
-          props.onSave();
-        }
-      }}
-    />
-  );
-}
-
-export default function Edit() {
-  const navigate = useNavigate();
-  const handleBack = useCallback(() => {
-    navigate(-1);
-  }, [navigate]);
-
-  return (
-    <Modal header="Edit Tehsil" onHide={handleBack} visible>
-      <EditModalContent onSave={handleBack} />
-    </Modal>
+    <FormPage
+      title="Edit Tehsil"
+      description="Update the details of the tehsil."
+    >
+      <FormCard title="Tehsil Details">
+        {isLoading ? (
+          <Loader />
+        ) : (
+          <TehsilForm
+            fetchData={data}
+            isSaving={isPending}
+            isEditMode
+            onSubmit={handleSubmit}
+          />
+        )}
+      </FormCard>
+    </FormPage>
   );
 }

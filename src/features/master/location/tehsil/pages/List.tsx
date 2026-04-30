@@ -1,23 +1,29 @@
-import { Outlet, useNavigate } from 'react-router';
-import { LinkButton } from 'shared/components/buttons';
+import { useNavigate } from 'react-router';
+import { Button } from 'shared/components/buttons';
 import StatusButton from 'shared/components/buttons/StatusButton';
-import { Card, GridPanel, Page } from 'shared/components/panels';
 import { Loader } from 'shared/components/progress';
+import { FormCard, FormPage, GridPanel } from 'shared/new-components';
 import { masterUrls } from '../../../urls';
-import { useDeleteTehsilMutation, useTehsilsQuery } from '../queries';
+import { useTehsilActiveStatusMutation, useTehsilsQuery } from '../queries';
 
 export default function List() {
   const { data, isLoading } = useTehsilsQuery();
   const navigate = useNavigate();
-  const { mutateAsync } = useDeleteTehsilMutation();
+  const { mutateAsync } = useTehsilActiveStatusMutation();
 
-  const handleDelete = async (item: Master.TehsilItem) => {
-    await mutateAsync(item.id);
+  const handleToggleStatus = async (item: Master.TehsilItem) => {
+    await mutateAsync({
+      id: item.id,
+      isActive: !item.isActive,
+    });
   };
 
   return (
-    <Page header="Tehsil">
-      <Card>
+    <FormPage
+      title="Tehsil"
+      description="Manage the list of all tehsils in the system."
+    >
+      <FormCard>
         {isLoading ? <Loader /> : undefined}
         <GridPanel
           title="Tehsils"
@@ -38,22 +44,22 @@ export default function List() {
               cell: (item: Master.TehsilItem) => (
                 <StatusButton
                   value={item.isActive}
-                  onClick={() => handleDelete(item)}
+                  onClick={() => handleToggleStatus(item)}
                 />
               ),
             },
           ]}
           toolbar={
-            <LinkButton
+            <Button
               label="Create"
               icon="plus"
-              to={masterUrls.tehsil.create}
+              variant="primary"
+              onClick={() => navigate(masterUrls.tehsil.create)}
             />
           }
           searchBox
         />
-      </Card>
-      <Outlet />
-    </Page>
+      </FormCard>
+    </FormPage>
   );
 }
