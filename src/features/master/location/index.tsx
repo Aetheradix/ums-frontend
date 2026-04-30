@@ -2,6 +2,7 @@ import { Route, Routes } from 'react-router-dom';
 import District from './district';
 import Division from './division';
 import State from './state';
+import Tehsil from './tehsil';
 
 export default function Location() {
   return (
@@ -9,6 +10,7 @@ export default function Location() {
       <Route path="states/*" element={<State />} />
       <Route path="divisions/*" element={<Division />} />
       <Route path="districts/*" element={<District />} />
+      <Route path="tehsils/*" element={<Tehsil />} />
     </Routes>
   );
 }
