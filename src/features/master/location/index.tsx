@@ -1,4 +1,5 @@
 import { Route, Routes } from 'react-router-dom';
+import Block from './block';
 import District from './district';
 import Division from './division';
 import State from './state';
@@ -11,6 +12,7 @@ export default function Location() {
       <Route path="divisions/*" element={<Division />} />
       <Route path="districts/*" element={<District />} />
       <Route path="tehsils/*" element={<Tehsil />} />
+      <Route path="blocks/*" element={<Block />} />
     </Routes>
   );
 }
