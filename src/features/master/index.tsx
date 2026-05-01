@@ -4,6 +4,7 @@ import Department from './faculty/department';
 import Designation from './faculty/designation';
 import OfficeType from './faculty/office-type';
 import Location from './location';
+import HR from './hr';
 
 export default function Master() {
   return (
@@ -16,6 +17,10 @@ export default function Master() {
         <Route path="department/*" element={<Department />} />
         <Route path="designation/*" element={<Designation />} />
       </Route>
+      <Route path="office-type/*" element={<OfficeType />} />
+      <Route path="department/*" element={<Department />} />
+      <Route path="designation/*" element={<Designation />} />
+      <Route path="hr/*" element={<HR />} />
     </Routes>
   );
 }

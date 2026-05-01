@@ -7,6 +7,9 @@ import { districtUrls } from './location/district/urls';
 import { divisionUrls } from './location/division/urls';
 import { stateUrls } from './location/state/urls';
 import { tehsilUrls } from './location/tehsil/urls';
+import { casteUrls } from './hr/caste/urls';
+import { qualificationUrls } from './hr/qualification/urls';
+import { religionUrls } from './hr/religion/urls';
 
 const baseUrl = '/master';
 export const masterUrls = {
@@ -19,4 +22,7 @@ export const masterUrls = {
   tehsil: tehsilUrls(`${baseUrl}/location`),
   block: blockUrls(`${baseUrl}/location`),
   designation: designationUrls(`${baseUrl}/faculty-management`),
+  caste: casteUrls(`${baseUrl}/hr`),
+  qualification: qualificationUrls(`${baseUrl}/hr`),
+  religion: religionUrls(`${baseUrl}/hr`),
 };
