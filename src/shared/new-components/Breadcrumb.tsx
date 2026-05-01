@@ -37,14 +37,24 @@ export default function Breadcrumb({ items }: BreadcrumbProps) {
         return;
       }
 
-      const label = path
+      let label = path
         .split('-')
         .map(word => word.charAt(0).toUpperCase() + word.slice(1))
         .join(' ');
 
+      if (path.toLowerCase() === 'location') {
+        label = 'Location Management';
+      } else if (path.toLowerCase() === 'faculty-management') {
+        label = 'Faculty & Org Management';
+      }
+
       let toPath = currentPath;
       if (path.toLowerCase() === 'master') {
         toPath = '/home/sub-menu/master-data';
+      } else if (path.toLowerCase() === 'location') {
+        toPath = '/home/sub-menu/location';
+      } else if (path.toLowerCase() === 'faculty-management') {
+        toPath = '/home/sub-menu/faculty-management';
       }
 
       generatedItems.push({

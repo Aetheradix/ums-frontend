@@ -26,7 +26,6 @@ export default function List() {
       <FormCard>
         {isLoading ? <Loader /> : undefined}
         <GridPanel
-          title="Blocks"
           data={data}
           onEdit={block => navigate(masterUrls.block.edit(block.id))}
           columns={[

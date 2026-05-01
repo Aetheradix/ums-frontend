@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { TextBox } from '../components/forms';
 import { Grid } from '../components/grid';
 import './GridPanel.css';
 
@@ -25,7 +24,7 @@ interface GridPanelProps<T> extends Controls.GridProps<T> {
 export default function GridPanel<T>({
   title,
   toolbar,
-  searchBox = true,
+  searchBox = false,
   exportExcel = false,
   onExportExcel,
   isExporting,
@@ -41,17 +40,9 @@ export default function GridPanel<T>({
   sortOrder,
   ...rest
 }: GridPanelProps<T>) {
-  const [internalGlobalFilter, setInternalGlobalFilter] = useState('');
+  const [internalGlobalFilter] = useState('');
 
   const currentGlobalFilter = rest.globalFilter ?? internalGlobalFilter;
-
-  const handleFilterChange = (value: string) => {
-    if (onFilter) {
-      onFilter({ globalFilter: value });
-    } else {
-      setInternalGlobalFilter(value);
-    }
-  };
 
   return (
     <div className="grid-panel-wrapper">
@@ -60,15 +51,6 @@ export default function GridPanel<T>({
         <div className="grid-panel-toolbar">
           {toolbar}
           {actionButtons}
-          {searchBox ? (
-            <TextBox
-              value={currentGlobalFilter}
-              onChange={handleFilterChange}
-              placeholder="Search..."
-              icon="search"
-              iconPosition="right"
-            />
-          ) : undefined}
         </div>
       </div>
       <Grid

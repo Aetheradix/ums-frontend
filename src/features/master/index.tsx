@@ -10,9 +10,12 @@ export default function Master() {
     <Routes>
       <Route path="location/*" element={<Location />} />
       <Route path="subject-category/*" element={<SubjectCategory />} />
-      <Route path="office-type/*" element={<OfficeType />} />
-      <Route path="department/*" element={<Department />} />
-      <Route path="designation/*" element={<Designation />} />
+
+      <Route path="faculty-management/*">
+        <Route path="office-type/*" element={<OfficeType />} />
+        <Route path="department/*" element={<Department />} />
+        <Route path="designation/*" element={<Designation />} />
+      </Route>
     </Routes>
   );
 }

@@ -26,7 +26,6 @@ export default function List() {
       <FormCard>
         {isLoading ? <Loader /> : undefined}
         <GridPanel
-          title="States"
           data={data}
           onEdit={state => navigate(masterUrls.state.edit(state.id))}
           columns={[
