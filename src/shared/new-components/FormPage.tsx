@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Breadcrumb, { type BreadcrumbItem } from './Breadcrumb';
+import SkeletonLoader from './skeleton/SkeletonLoader';
 import './FormPage.css';
 
 interface FormPageProps {
@@ -19,6 +20,15 @@ export default function FormPage({
   headerAction,
   className = '',
 }: FormPageProps) {
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 800);
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <div className={`form-page-wrapper ${className}`.trim()}>
       <div className="form-page-container">
@@ -36,7 +46,9 @@ export default function FormPage({
           )}
         </div>
 
-        <div className="form-page-content">{children}</div>
+        <div className="form-page-content">
+          {loading ? <SkeletonLoader type="grid" /> : children}
+        </div>
       </div>
     </div>
   );

@@ -1,5 +1,4 @@
 // import { ProgressSpinner } from 'primereact/progressspinner';
-import { ProgressSpinner } from 'primereact/progressspinner';
 import './Loader.css';
 
 interface LoaderProps {
@@ -7,19 +6,8 @@ interface LoaderProps {
   blur?: boolean;
 }
 
-export default function Loader({ type = 'full', blur = false }: LoaderProps) {
-  return (
-    <div
-      className={`
-        loader-container 
-        loader-${type} 
-        ${blur ? 'loader-blur' : ''}
-      `}
-    >
-      <div className="loader-content fade-in">
-        <ProgressSpinner />
-        {/* <PencilLoaderWithBookCap /> */}
-      </div>
-    </div>
-  );
+import SkeletonLoader from 'shared/new-components/skeleton/SkeletonLoader';
+
+export default function Loader({ type = 'full' }: LoaderProps) {
+  return <SkeletonLoader type={type === 'inline' ? 'card' : 'grid'} />;
 }

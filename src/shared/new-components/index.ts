@@ -5,6 +5,7 @@ import FormGrid from './FormGrid';
 import FormPage from './FormPage';
 import GridPanel from './GridPanel';
 import Tabs from './Tabs';
+import SkeletonLoader from './skeleton/SkeletonLoader';
 
 export {
   Breadcrumb,
@@ -14,4 +15,5 @@ export {
   FormPage,
   GridPanel,
   Tabs,
+  SkeletonLoader,
 };
