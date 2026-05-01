@@ -27,3 +27,12 @@
 .form-page-content {
   @apply space-y-6;
 }
+
+/* ── Dark Theme Support ── */
+.dark-theme .form-page-title {
+  @apply text-white;
+}
+
+.dark-theme .form-page-description {
+  @apply text-slate-400;
+}

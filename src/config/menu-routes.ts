@@ -91,27 +91,82 @@ export const menuConfig: Menu.MenuItem[] = [
     colorScheme: 'amber',
     children: [
       {
-        label: 'Location',
-        description: 'Manage countries, states, cities, and campus locations.',
-        path: '/master/location',
-        icon: 'location_on',
+        label: 'Location Management',
+        slug: 'location',
+        description:
+          'Manage countries, states, divisions, districts, tehsils, and blocks.',
+        path: '/home/sub-menu/location',
+        icon: 'edit_location',
         colorScheme: 'blue',
+        children: [
+          {
+            label: 'State',
+            description: 'Manage states and union territories',
+            path: '/master/location/states',
+            icon: 'globe',
+            colorScheme: 'blue',
+          },
+          {
+            label: 'Division',
+            description: 'Manage divisions',
+            path: '/master/location/divisions',
+            icon: 'folder',
+            colorScheme: 'blue',
+          },
+          {
+            label: 'District',
+            description: 'Manage districts',
+            path: '/master/location/districts',
+            icon: 'map',
+            colorScheme: 'blue',
+          },
+          {
+            label: 'Tehsil',
+            description: 'Manage tehsils',
+            path: '/master/location/tehsils',
+            icon: 'location_city',
+            colorScheme: 'blue',
+          },
+          {
+            label: 'Block',
+            description: 'Manage blocks',
+            path: '/master/location/blocks',
+            icon: 'grid_view',
+            colorScheme: 'blue',
+          },
+        ],
       },
       {
-        label: 'Subject Category',
-        description:
-          'Manage categories and classifications for academic subjects.',
-        path: '/master/subject-category',
-        icon: 'category',
-        colorScheme: 'purple',
-      },
-      {
-        label: 'Office Type',
-        description:
-          'Manage different types of faculty and administrative offices.',
-        path: '/master/office-type',
+        label: 'Faculty & Org Management',
+        slug: 'faculty-management',
+        description: 'Manage office types, departments, and designations.',
+        path: '/home/sub-menu/faculty-management',
         icon: 'apartment',
         colorScheme: 'green',
+        children: [
+          {
+            label: 'Office Type',
+            description:
+              'Manage different types of faculty and administrative offices.',
+            path: '/master/faculty-management/office-type',
+            icon: 'apartment',
+            colorScheme: 'green',
+          },
+          {
+            label: 'Department',
+            description: 'Manage departments',
+            path: '/master/faculty-management/department',
+            icon: 'domain',
+            colorScheme: 'green',
+          },
+          {
+            label: 'Designation',
+            description: 'Manage designations',
+            path: '/master/faculty-management/designation',
+            icon: 'badge',
+            colorScheme: 'green',
+          },
+        ],
       },
     ],
   },

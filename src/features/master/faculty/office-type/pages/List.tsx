@@ -27,7 +27,6 @@ export default function List() {
     >
       <FormCard>
         <GridPanel
-          title="Office Types"
           data={data}
           loading={isLoading}
           onEdit={officetype =>
