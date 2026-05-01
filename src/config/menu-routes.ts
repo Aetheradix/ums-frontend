@@ -126,14 +126,6 @@ export const menuConfig: Menu.MenuItem[] = [
         colorScheme: 'blue',
       },
       {
-        label: 'Subject Category',
-        description:
-          'Manage categories and classifications for academic subjects.',
-        path: '/master/subject-category',
-        icon: 'category',
-        colorScheme: 'purple',
-      },
-      {
         label: 'Office Type',
         description:
           'Manage different types of faculty and administrative offices.',

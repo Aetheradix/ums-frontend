@@ -29,7 +29,6 @@ export default function List() {
       <FormCard>
         {isLoading ? <Loader /> : undefined}
         <GridPanel
-          title="Office Types"
           data={data}
           onEdit={officetype =>
             navigate(masterUrls.officeType.edit(officetype.id))
