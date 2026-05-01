@@ -87,7 +87,7 @@ export function useBlockActiveStatusMutation() {
 
   return useMutation({
     mutationFn: async (data: { id: number; isActive: boolean }) =>
-      await patchBlockStatus(data.id, data.isActive),
+      await patchBlockStatus(data.id),
 
     onSuccess(success, variables) {
       if (!success) return;

@@ -29,13 +29,8 @@ export async function updateTehsil(
   return !result.error;
 }
 
-export async function patchTehsilStatus(
-  id: number,
-  isActive: boolean
-): Promise<boolean> {
-  const result = await ApiService.patch(`${TEHSIL_URL}/${id}/active`, {
-    isActive,
-  });
+export async function patchTehsilStatus(id: number): Promise<boolean> {
+  const result = await ApiService.patch(`${TEHSIL_URL}/${id}`, {});
 
   return !result.error;
 }

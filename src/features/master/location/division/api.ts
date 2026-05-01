@@ -29,13 +29,8 @@ export async function updateDivision(
   return !result.error;
 }
 
-export async function patchDivisionStatus(
-  id: number,
-  isActive: boolean
-): Promise<boolean> {
-  const result = await ApiService.patch(`${DIVISION_URL}/${id}/active`, {
-    isActive,
-  });
+export async function patchDivisionStatus(id: number): Promise<boolean> {
+  const result = await ApiService.patch(`${DIVISION_URL}/${id}`, {});
 
   return !result.error;
 }

@@ -86,7 +86,7 @@ export function useDivisionActiveStatusMutation() {
 
   return useMutation({
     mutationFn: async (data: { id: number; isActive: boolean }) =>
-      await patchDivisionStatus(data.id, data.isActive),
+      await patchDivisionStatus(data.id),
 
     onSuccess(success, variables) {
       if (!success) return;

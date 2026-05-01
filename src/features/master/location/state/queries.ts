@@ -83,7 +83,7 @@ export function useStateActiveStatusMutation() {
 
   return useMutation({
     mutationFn: async (data: { id: number; isActive: boolean }) =>
-      await patchStateStatus(data.id, data.isActive),
+      await patchStateStatus(data.id),
 
     onSuccess(success, variables) {
       if (!success) return;
