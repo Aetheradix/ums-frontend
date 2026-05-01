@@ -28,7 +28,7 @@ export async function updateCaste(
 }
 
 export async function patchCasteStatus(id: number): Promise<boolean> {
-  const result = await ApiService.patch(`${CASTE_URL}/${id}/status`);
+  const result = await ApiService.patch(`${CASTE_URL}/${id}`, {});
 
   return !result.error;
 }

@@ -168,6 +168,38 @@ export const menuConfig: Menu.MenuItem[] = [
           },
         ],
       },
+      {
+        label: 'Human Resource',
+        slug: 'hr',
+        description: 'Manage office types, departments, and designations.',
+        path: '/home/sub-menu/hr',
+        icon: 'apartment',
+        colorScheme: 'red',
+        children: [
+          {
+            label: 'Caste',
+            description:
+              'Manage different types of faculty and administrative offices.',
+            path: '/master/hr/caste',
+            icon: 'apartment',
+            colorScheme: 'red',
+          },
+          {
+            label: 'Religion',
+            description: 'Manage religions',
+            path: '/master/hr/religion',
+            icon: 'domain',
+            colorScheme: 'red',
+          },
+          {
+            label: 'Qualification',
+            description: 'Manage qualifications',
+            path: '/master/hr/qualification',
+            icon: 'badge',
+            colorScheme: 'red',
+          },
+        ],
+      },
     ],
   },
 ];

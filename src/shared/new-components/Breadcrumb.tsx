@@ -55,6 +55,8 @@ export default function Breadcrumb({ items }: BreadcrumbProps) {
         toPath = '/home/sub-menu/location';
       } else if (path.toLowerCase() === 'faculty-management') {
         toPath = '/home/sub-menu/faculty-management';
+      } else if (path.toLowerCase() === 'hr') {
+        toPath = '/home/sub-menu/hr';
       }
 
       generatedItems.push({
