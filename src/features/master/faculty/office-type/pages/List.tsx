@@ -1,7 +1,6 @@
 import { useNavigate } from 'react-router';
 import { Button } from 'shared/components/buttons';
 import StatusButton from 'shared/components/buttons/StatusButton';
-import { Loader } from 'shared/components/progress';
 import { FormCard, FormPage, GridPanel } from 'shared/new-components';
 import { masterUrls } from '../../../urls';
 import {
@@ -27,10 +26,10 @@ export default function List() {
       description="Manage the list of all office types in the system."
     >
       <FormCard>
-        {isLoading ? <Loader /> : undefined}
         <GridPanel
           title="Office Types"
           data={data}
+          loading={isLoading}
           onEdit={officetype =>
             navigate(masterUrls.officeType.edit(officetype.id))
           }

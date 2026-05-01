@@ -1,6 +1,6 @@
 // import { ProgressSpinner } from 'primereact/progressspinner';
+import { ProgressSpinner } from 'primereact/progressspinner';
 import './Loader.css';
-import PencilLoaderWithBookCap from './custom-loader/PencilLoader';
 
 interface LoaderProps {
   type?: 'full' | 'relative' | 'inline';
@@ -17,8 +17,8 @@ export default function Loader({ type = 'full', blur = false }: LoaderProps) {
       `}
     >
       <div className="loader-content fade-in">
-        {/* <ProgressSpinner /> */}
-        <PencilLoaderWithBookCap />
+        <ProgressSpinner />
+        {/* <PencilLoaderWithBookCap /> */}
       </div>
     </div>
   );

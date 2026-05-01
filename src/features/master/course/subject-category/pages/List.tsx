@@ -3,7 +3,6 @@ import { LinkButton } from 'shared/components/buttons';
 import StatusButton from 'shared/components/buttons/StatusButton';
 import { Card, Page } from 'shared/components/panels';
 import { GridPanel } from 'shared/new-components';
-import { Loader } from 'shared/components/progress';
 import { masterUrls } from '../../../urls';
 import {
   useSubjectCategoriesQuery,
@@ -25,10 +24,10 @@ export default function List() {
   return (
     <Page header="Subject Category">
       <Card>
-        {isLoading ? <Loader /> : undefined}
         <GridPanel
           title="Subject Categories"
           data={data}
+          loading={isLoading}
           onEdit={category =>
             navigate(masterUrls.subjectCategory.edit(category.id))
           }
