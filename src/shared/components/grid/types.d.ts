@@ -10,6 +10,7 @@ declare namespace Controls {
     pagination?: Pagination;
     searchFields?: (keyof T)[];
     globalFilter?: string;
+    loading?: boolean;
     cellMemo?: boolean;
     lazyVirtualization?: boolean;
     headerColumnGroup?: React.ReactNode;

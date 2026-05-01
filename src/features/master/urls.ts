@@ -11,12 +11,12 @@ import { tehsilUrls } from './location/tehsil/urls';
 const baseUrl = '/master';
 export const masterUrls = {
   subjectCategory: subjectCategoryUrls(baseUrl),
-  officeType: officeTypeUrls(baseUrl),
-  department: departmentUrls(baseUrl),
+  officeType: officeTypeUrls(`${baseUrl}/faculty-management`),
+  department: departmentUrls(`${baseUrl}/faculty-management`),
   state: stateUrls(`${baseUrl}/location`),
   division: divisionUrls(`${baseUrl}/location`),
   district: districtUrls(`${baseUrl}/location`),
   tehsil: tehsilUrls(`${baseUrl}/location`),
   block: blockUrls(`${baseUrl}/location`),
-  designation: designationUrls(baseUrl),
+  designation: designationUrls(`${baseUrl}/faculty-management`),
 };

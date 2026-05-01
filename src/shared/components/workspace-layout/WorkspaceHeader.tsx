@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import './WorkspaceLayout.css';
+import { WaffleMenu } from 'shared/new-components';
+import './WorkspaceHeader.css';
 
 const Header: React.FC = () => {
   const [isDarkMode, setIsDarkMode] = useState(false);
@@ -11,7 +12,7 @@ const Header: React.FC = () => {
     ).matches;
     if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
       setIsDarkMode(true);
-      document.body.classList.add('dark-theme');
+      document.body.classList.add('dark-theme', 'dark');
     }
   }, []);
 
@@ -19,10 +20,10 @@ const Header: React.FC = () => {
     setIsDarkMode(prev => {
       const newMode = !prev;
       if (newMode) {
-        document.body.classList.add('dark-theme');
+        document.body.classList.add('dark-theme', 'dark');
         localStorage.setItem('theme', 'dark');
       } else {
-        document.body.classList.remove('dark-theme');
+        document.body.classList.remove('dark-theme', 'dark');
         localStorage.setItem('theme', 'light');
       }
       return newMode;
@@ -145,23 +146,7 @@ const Header: React.FC = () => {
               </svg>
               <span className="ws-badge">1</span>
             </div>
-            <div className="ws-icon-btn">
-              <svg
-                width="20"
-                height="20"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <rect x="3" y="3" width="7" height="7" />
-                <rect x="14" y="3" width="7" height="7" />
-                <rect x="14" y="14" width="7" height="7" />
-                <rect x="3" y="14" width="7" height="7" />
-              </svg>
-            </div>
+            <WaffleMenu isDarkMode={isDarkMode} />
           </div>
 
           <div className="ws-user-profile">
