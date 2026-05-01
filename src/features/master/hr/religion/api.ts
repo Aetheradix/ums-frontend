@@ -30,7 +30,7 @@ export async function updateReligion(
 }
 
 export async function patchReligionStatus(id: number): Promise<boolean> {
-  const result = await ApiService.patch(`${RELIGION_URL}/${id}/status`);
+  const result = await ApiService.patch(`${RELIGION_URL}/${id}`, {});
 
   return !result.error;
 }

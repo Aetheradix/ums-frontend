@@ -30,7 +30,7 @@ export async function updateQualification(
 }
 
 export async function patchQualificationStatus(id: number): Promise<boolean> {
-  const result = await ApiService.patch(`${QUALIFICATION_URL}/${id}/status`);
+  const result = await ApiService.patch(`${QUALIFICATION_URL}/${id}`, {});
 
   return !result.error;
 }
