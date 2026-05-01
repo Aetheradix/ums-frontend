@@ -29,7 +29,6 @@ export default function List() {
       <FormCard>
         {isLoading ? <Loader /> : undefined}
         <GridPanel
-          title="Qualifications"
           data={data}
           onEdit={qualification =>
             navigate(masterUrls.qualification.edit(qualification.id))
