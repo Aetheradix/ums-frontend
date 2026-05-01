@@ -3,9 +3,9 @@ import { useParams } from 'react-router-dom';
 import Breadcrumb from 'shared/new-components/Breadcrumb';
 import { menuConfig } from '../../../../config/menu-routes';
 import { homeUrls } from '../../urls';
-import '../styles/subMenu.css';
+import '../styles/masterSubMenu.css';
 
-interface SubMenuHeaderProps {
+interface MasterSubMenuHeaderProps {
   serviceTitle: string;
   category?: string;
 }
@@ -27,12 +27,12 @@ function getModulePath(
   return undefined;
 }
 
-const SubMenuHeader: React.FC<SubMenuHeaderProps> = ({
+const MasterSubMenuHeader: React.FC<MasterSubMenuHeaderProps> = ({
   serviceTitle,
   category,
 }) => {
   const { moduleId } = useParams<{ moduleId: string }>();
-  const path = moduleId ? getModulePath(menuConfig, moduleId) : undefined;
+  const path = getModulePath(menuConfig, moduleId || 'master-data');
 
   const breadcrumbItems = React.useMemo(() => {
     if (!path || path.length === 0) {
@@ -62,15 +62,9 @@ const SubMenuHeader: React.FC<SubMenuHeaderProps> = ({
   return (
     <div className="submenu-header">
       <Breadcrumb items={breadcrumbItems} />
-
-      <div className="submenu-welcome">
-        <h1>
-          Welcome, <span className="submenu-name">Alex Lin</span>
-        </h1>
-        <p>Select a submodule to manage your workspace.</p>
-      </div>
+      <h1 className="submenu-title">{serviceTitle}</h1>
     </div>
   );
 };
 
-export default SubMenuHeader;
+export default MasterSubMenuHeader;

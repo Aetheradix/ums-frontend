@@ -1,10 +1,8 @@
-import React from 'react';
 import { Navigate, useParams } from 'react-router-dom';
 import { menuConfig } from '../../../../config/menu-routes';
-import { homeUrls } from '../../urls';
-import SubMenuGrid from '../components/SubMenuGrid';
-import SubMenuHeader from '../components/SubMenuHeader';
-import '../styles/subMenu.css';
+import MasterSubMenuGrid from '../components/MasterSubMenuGrid';
+import MasterSubMenuHeader from '../components/MasterSubMenuHeader';
+import '../styles/masterSubMenu.css';
 
 function findModuleBySlug(
   items: Menu.MenuItem[],
@@ -20,25 +18,25 @@ function findModuleBySlug(
   return undefined;
 }
 
-const SubMenuPage: React.FC = () => {
+const MasterSubMenuPage: React.FC = () => {
   const { moduleId } = useParams<{ moduleId: string }>();
-  const service = moduleId ? findModuleBySlug(menuConfig, moduleId) : undefined;
+  const service = findModuleBySlug(menuConfig, moduleId || 'master-data');
 
   if (!service || !service.children) {
-    return <Navigate to={homeUrls.menu.root} replace />;
+    return <Navigate to="/home/menu" replace />;
   }
 
   return (
     <div className="submenu-page">
       <div className="submenu-page-container">
-        <SubMenuHeader
+        <MasterSubMenuHeader
           serviceTitle={service.label}
           category={service.category}
         />
-        <SubMenuGrid items={service.children} />
+        <MasterSubMenuGrid items={service.children} />
       </div>
     </div>
   );
 };
 
-export default SubMenuPage;
+export default MasterSubMenuPage;

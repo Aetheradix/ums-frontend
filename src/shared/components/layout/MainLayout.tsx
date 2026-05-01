@@ -9,16 +9,42 @@ export default function MainLayout({ children }: React.PropsWithChildren) {
   const location = useLocation();
   const navigate = useNavigate();
 
-  // Extract master tabs from configuration
+  // Extract master tabs dynamically based on current route
   const masterTabs = useMemo(() => {
+    function getTabsForPath(items: any[], currentPath: string): any[] {
+      for (const item of items) {
+        if (item.children) {
+          if (
+            item.children.some(
+              (child: any) =>
+                child.path &&
+                (currentPath.startsWith(child.path) ||
+                  child.path.startsWith(currentPath))
+            )
+          ) {
+            return item.children;
+          }
+          const found = getTabsForPath(item.children, currentPath);
+          if (found.length > 0) return found;
+        }
+      }
+      return [];
+    }
+
+    const matchedTabs = getTabsForPath(menuConfig, location.pathname);
+    if (matchedTabs.length > 0) return matchedTabs;
+
     const masterData = menuConfig.find(item => item.slug === 'master-data');
     return masterData?.children || [];
-  }, []);
+  }, [location.pathname]);
 
   // Sync active index based on current path
   const activeIndex = useMemo(() => {
     const path = location.pathname;
-    return masterTabs.findIndex(tab => path.startsWith(tab.path || ''));
+    return masterTabs.findIndex(
+      tab =>
+        tab.path && (path.startsWith(tab.path) || tab.path.startsWith(path))
+    );
   }, [location.pathname, masterTabs]);
 
   const handleTabChange = (e: { index: number }) => {
