@@ -11,7 +11,7 @@ const Header: React.FC = () => {
     ).matches;
     if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
       setIsDarkMode(true);
-      document.body.classList.add('dark-theme');
+      document.body.classList.add('dark-theme', 'dark');
     }
   }, []);
 
@@ -19,10 +19,10 @@ const Header: React.FC = () => {
     setIsDarkMode(prev => {
       const newMode = !prev;
       if (newMode) {
-        document.body.classList.add('dark-theme');
+        document.body.classList.add('dark-theme', 'dark');
         localStorage.setItem('theme', 'dark');
       } else {
-        document.body.classList.remove('dark-theme');
+        document.body.classList.remove('dark-theme', 'dark');
         localStorage.setItem('theme', 'light');
       }
       return newMode;
