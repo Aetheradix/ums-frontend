@@ -27,13 +27,8 @@ export async function updateState(
   return !result.error;
 }
 
-export async function patchStateStatus(
-  id: number,
-  isActive: boolean
-): Promise<boolean> {
-  const result = await ApiService.patch(`${STATE_URL}/${id}/active`, {
-    isActive,
-  });
+export async function patchStateStatus(id: number): Promise<boolean> {
+  const result = await ApiService.patch(`${STATE_URL}/${id}`, {});
 
   return !result.error;
 }

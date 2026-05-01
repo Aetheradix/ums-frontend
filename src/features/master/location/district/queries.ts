@@ -86,7 +86,7 @@ export function useDistrictActiveStatusMutation() {
 
   return useMutation({
     mutationFn: async (data: { id: number; isActive: boolean }) =>
-      await patchDistrictStatus(data.id, data.isActive),
+      await patchDistrictStatus(data.id),
 
     onSuccess(success, variables) {
       if (!success) return;

@@ -85,7 +85,7 @@ export function useTehsilActiveStatusMutation() {
 
   return useMutation({
     mutationFn: async (data: { id: number; isActive: boolean }) =>
-      await patchTehsilStatus(data.id, data.isActive),
+      await patchTehsilStatus(data.id),
 
     onSuccess(success, variables) {
       if (!success) return;

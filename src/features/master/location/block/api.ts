@@ -27,13 +27,8 @@ export async function updateBlock(
   return !result.error;
 }
 
-export async function patchBlockStatus(
-  id: number,
-  isActive: boolean
-): Promise<boolean> {
-  const result = await ApiService.patch(`${BLOCK_URL}/${id}/active`, {
-    isActive,
-  });
+export async function patchBlockStatus(id: number): Promise<boolean> {
+  const result = await ApiService.patch(`${BLOCK_URL}/${id}`, {});
 
   return !result.error;
 }

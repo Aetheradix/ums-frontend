@@ -29,13 +29,8 @@ export async function updateDistrict(
   return !result.error;
 }
 
-export async function patchDistrictStatus(
-  id: number,
-  isActive: boolean
-): Promise<boolean> {
-  const result = await ApiService.patch(`${DISTRICT_URL}/${id}/active`, {
-    isActive,
-  });
+export async function patchDistrictStatus(id: number): Promise<boolean> {
+  const result = await ApiService.patch(`${DISTRICT_URL}/${id}`, {});
 
   return !result.error;
 }
