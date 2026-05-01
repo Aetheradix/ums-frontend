@@ -1,8 +1,8 @@
 import { Outlet, useNavigate } from 'react-router';
 import { LinkButton } from 'shared/components/buttons';
 import StatusButton from 'shared/components/buttons/StatusButton';
-import { Card, GridPanel, Page } from 'shared/components/panels';
-import { Loader } from 'shared/components/progress';
+import { Card, Page } from 'shared/components/panels';
+import { GridPanel } from 'shared/new-components';
 import { masterUrls } from '../../../urls';
 import {
   useDepartmentActiveStatusMutation,
@@ -24,10 +24,10 @@ export default function List() {
   return (
     <Page header="Department">
       <Card>
-        {isLoading ? <Loader /> : undefined}
         <GridPanel
           title="Departments"
           data={data}
+          loading={isLoading}
           onEdit={department =>
             navigate(masterUrls.department.edit(department.id))
           }

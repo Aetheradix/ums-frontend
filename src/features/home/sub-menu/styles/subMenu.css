@@ -1,70 +1,59 @@
-/* SubMenu Header Section */
-.submenu-header-section {
-  margin-bottom: 32px;
+@reference "tailwindcss";
+/* SubMenuPage layout */
+.submenu-page {
+  @apply flex-1 py-8;
 }
 
-/* Breadcrumb */
+.submenu-page-container {
+  @apply max-w-[1320px] mx-auto px-6 w-full;
+}
+
+/* SubMenuHeader */
+.submenu-header {
+  @apply mb-8;
+}
+
 .submenu-breadcrumb {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 14px;
-  font-weight: 500;
-  color: var(--db-text-muted, #64748b);
-  margin-bottom: 24px;
+  @apply flex items-center gap-2 text-sm font-medium text-slate-500 mb-6 max-sm:text-xs;
 }
 
 .submenu-breadcrumb-link {
-  color: var(--db-text-muted, #64748b);
-  cursor: pointer;
-  transition: color 0.2s;
-}
-
-.submenu-breadcrumb-link:hover {
-  color: var(--db-primary, #2264dc);
+  @apply cursor-pointer transition-colors duration-200 hover:text-[#2264dc];
 }
 
 .submenu-breadcrumb-sep {
-  color: var(--db-text-muted, #64748b);
-  font-size: 16px;
-}
-
-.submenu-breadcrumb-text {
-  color: var(--db-text-muted, #64748b);
+  @apply text-base;
 }
 
 .submenu-breadcrumb-current {
-  color: var(--db-text-dark, #0f172a);
-  font-weight: 600;
+  @apply text-slate-900 font-semibold;
 }
 
-/* Welcome heading */
 .submenu-welcome h1 {
-  font-size: 30px;
-  font-weight: 700;
-  color: var(--db-text-dark, #0f172a);
-  margin-bottom: 6px;
+  @apply text-[30px] font-bold text-slate-900 mb-1.5 max-md:text-2xl max-sm:text-xl;
 }
 
 .submenu-welcome p {
-  font-size: 15px;
-  font-weight: 400;
-  color: var(--db-text-muted, #64748b);
+  @apply text-[15px] text-slate-500;
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-  .submenu-welcome h1 {
-    font-size: 24px;
-  }
+.submenu-name {
+  @apply text-[#2264dc];
 }
 
-@media (max-width: 480px) {
-  .submenu-welcome h1 {
-    font-size: 20px;
-  }
+/* SubMenuGrid */
+.submenu-grid {
+  @apply grid grid-cols-6 gap-[30px] max-xl:grid-cols-4 max-xl:gap-5 max-lg:grid-cols-3 max-md:grid-cols-2 max-md:gap-4 max-sm:grid-cols-1;
+}
 
-  .submenu-breadcrumb {
-    font-size: 12px;
-  }
+/* Dark Theme Overrides */
+.dark-theme .submenu-welcome h1,
+.dark-theme .submenu-breadcrumb-current,
+.dark-theme .submenu-breadcrumb-sep {
+  color: var(--dark-text);
+}
+
+.dark-theme .submenu-welcome p,
+.dark-theme .submenu-breadcrumb {
+  color: var(--dark-text-secondary);
 }

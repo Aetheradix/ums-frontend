@@ -17,7 +17,6 @@ export default function InputBlock(
     id,
     required,
     errorMessage,
-    className,
     children,
     orientation = 'vertical',
   } = props;
@@ -34,9 +33,8 @@ export default function InputBlock(
         </label>
       ) : null}
 
-      <div className={`input-wrapper ${errorMessage ? 'has-error' : ''}`}>
+      <div className={`input-wrapper${errorMessage ? ' has-error' : ''}`}>
         {children}
-        {className ? <div className={className} /> : null}
         {errorMessage ? (
           <div className="error-message-wrapper">
             <Message severity="error" text={errorMessage} />

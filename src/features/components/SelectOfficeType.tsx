@@ -16,18 +16,15 @@ export default function SelectOfficeType<T extends FieldValues>({
 }: SelectOfficeTypeProps<T> &
   Controls.InputBlockProps & { defaultOptionText?: string }) {
   const { data, isLoading } = useOfficeTypesQuery();
-  const activeData =
-    data?.filter(
-      (officeType: Master.OfficeTypeItem) => officeType.isActive === true
-    ) || [];
+  const activeData = data.filter(item => item.isActive);
 
   return (
     <DropDownList
       data={activeData}
       loading={isLoading}
       textField="name"
-      valueField="officeTypeId"
-      optionValue="officeTypeId"
+      valueField="id"
+      optionValue="id"
       label={label}
       required={true}
       defaultOptionText={defaultOptionText}

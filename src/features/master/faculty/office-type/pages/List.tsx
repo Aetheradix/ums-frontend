@@ -1,8 +1,7 @@
-import { Outlet, useNavigate } from 'react-router';
-import { LinkButton } from 'shared/components/buttons';
+import { useNavigate } from 'react-router';
+import { Button } from 'shared/components/buttons';
 import StatusButton from 'shared/components/buttons/StatusButton';
-import { Card, GridPanel, Page } from 'shared/components/panels';
-import { Loader } from 'shared/components/progress';
+import { FormCard, FormPage, GridPanel } from 'shared/new-components';
 import { masterUrls } from '../../../urls';
 import {
   useOfficeTypeActiveStatusMutation,
@@ -22,12 +21,14 @@ export default function List() {
   };
 
   return (
-    <Page header="Office Type">
-      <Card>
-        {isLoading ? <Loader /> : undefined}
+    <FormPage
+      title="Office Type"
+      description="Manage the list of all office types in the system."
+    >
+      <FormCard>
         <GridPanel
-          title="Office Types`"
           data={data}
+          loading={isLoading}
           onEdit={officetype =>
             navigate(masterUrls.officeType.edit(officetype.id))
           }
@@ -51,16 +52,16 @@ export default function List() {
             },
           ]}
           toolbar={
-            <LinkButton
+            <Button
               label="Create"
               icon="plus"
-              to={masterUrls.officeType.create}
+              variant="primary"
+              onClick={() => navigate(masterUrls.officeType.create)}
             />
           }
           searchBox
         />
-      </Card>
-      <Outlet />
-    </Page>
+      </FormCard>
+    </FormPage>
   );
 }

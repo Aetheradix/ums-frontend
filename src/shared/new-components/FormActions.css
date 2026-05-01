@@ -1,0 +1,39 @@
+@reference "tailwindcss";
+
+.form-actions-container {
+  @apply flex items-center gap-3 pt-5 mt-2 border-t border-slate-100;
+}
+
+.form-actions-left {
+  @apply justify-start;
+}
+
+.form-actions-right {
+  @apply justify-end;
+}
+
+.form-actions-center {
+  @apply justify-center;
+}
+
+.form-actions-container button[type='reset'] {
+  background-color: #dc2626 !important;
+  border-color: #dc2626 !important;
+  color: white !important;
+}
+
+.form-actions-container button[type='reset']:hover {
+  background-color: #b91c1c !important;
+  border-color: #b91c1c !important;
+}
+
+.form-actions-container button[type='submit'] {
+  background-color: #16a34a !important;
+  border-color: #16a34a !important;
+  color: white !important;
+}
+
+.form-actions-container button[type='submit']:hover {
+  background-color: #15803d !important;
+  border-color: #15803d !important;
+}

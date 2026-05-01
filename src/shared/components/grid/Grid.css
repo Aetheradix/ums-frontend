@@ -1,9 +1,13 @@
 .p-datatable .p-datatable-thead > tr > th {
-  background: var(--primary-color) !important;
-  color: var(--white);
-  font-weight: 600;
-  border: none;
-  padding: 0.5rem !important;
+  background-color: #f8fafc !important; /* slate-50 */
+  color: #475569 !important; /* slate-600 */
+  font-weight: 600 !important;
+  border-bottom: 1px solid #e2e8f0 !important; /* slate-200 */
+  border-top: none !important;
+  border-left: none !important;
+  border-right: none !important;
+  padding: 0.75rem 1rem !important;
+  text-align: left !important;
 }
 
 .p-datatable .p-datatable-tbody > tr > td {
@@ -98,9 +102,12 @@
 }
 
 .dark-theme .p-datatable .p-datatable-thead > tr > th {
-  background-color: var(--dark-table-header-bg);
-  color: var(--gray-200) !important;
-  border: 1px solid var(--dark-border);
+  background-color: var(--dark-header-bg) !important;
+  color: #cbd5e1 !important; /* slate-300 */
+  border-bottom: 1px solid var(--dark-border) !important;
+  border-top: none !important;
+  border-left: none !important;
+  border-right: none !important;
 }
 
 .dark-theme .p-datatable .p-datatable-tbody > tr > td {
@@ -118,7 +125,7 @@
 }
 
 .dark-theme .p-datatable .p-sortable-column .p-sortable-column-icon {
-  color: var(--white) !important;
+  color: #94a3b8 !important; /* slate-400 */
   margin-left: 0.5rem;
 }
 
@@ -243,16 +250,10 @@
   background: none !important;
 }
 
-.p-datatable .p-datatable-thead > tr > th {
-  background: var(--datatable-header);
-  color: var(--white);
-  font-weight: 500;
-  border: 1px solid var(--gray-300);
-  padding: 0.2rem 0.5rem !important;
-}
+/* Removed duplicate p-datatable-thead styling */
 
 .p-datatable .p-sortable-column .p-sortable-column-icon {
-  color: var(--gray-200) !important;
+  color: #94a3b8 !important; /* slate-400 */
   margin-left: 0.5rem;
 }
 
@@ -307,6 +308,10 @@
   background-color: var(--dark-card-bg);
 }
 
-.dark-theme .p-datatable .p-datatable-tbody > tr:nth-child(even) > td.p-frozen-column {
+.dark-theme
+  .p-datatable
+  .p-datatable-tbody
+  > tr:nth-child(even)
+  > td.p-frozen-column {
   background-color: var(--dark-p-card-bg);
 }

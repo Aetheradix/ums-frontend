@@ -1,23 +1,36 @@
 import React from 'react';
-import { useParams, Navigate } from 'react-router-dom';
-import SubMenuHeader from '../components/SubMenuHeader';
-import SubMenuGrid from '../components/SubMenuGrid';
+import { Navigate, useParams } from 'react-router-dom';
 import { menuConfig } from '../../../../config/menu-routes';
-import '../styles/subMenu.css';
 import { homeUrls } from '../../urls';
+import SubMenuGrid from '../components/SubMenuGrid';
+import SubMenuHeader from '../components/SubMenuHeader';
+import '../styles/subMenu.css';
+
+function findModuleBySlug(
+  items: Menu.MenuItem[],
+  slug: string
+): Menu.MenuItem | undefined {
+  for (const item of items) {
+    if (item.slug === slug) return item;
+    if (item.children) {
+      const found = findModuleBySlug(item.children, slug);
+      if (found) return found;
+    }
+  }
+  return undefined;
+}
 
 const SubMenuPage: React.FC = () => {
   const { moduleId } = useParams<{ moduleId: string }>();
-
-  const service = menuConfig.find(s => s.slug === moduleId);
+  const service = moduleId ? findModuleBySlug(menuConfig, moduleId) : undefined;
 
   if (!service || !service.children) {
     return <Navigate to={homeUrls.menu.root} replace />;
   }
 
   return (
-    <div className="db-main-content">
-      <div className="dashboard-container">
+    <div className="submenu-page">
+      <div className="submenu-page-container">
         <SubMenuHeader
           serviceTitle={service.label}
           category={service.category}

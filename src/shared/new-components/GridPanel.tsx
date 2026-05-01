@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { TextBox } from '../forms';
-import { Grid } from '../grid';
+import { Grid } from '../components/grid';
+import './GridPanel.css';
 
 interface GridPanelProps<T> extends Controls.GridProps<T> {
   title?: string;
@@ -24,7 +24,7 @@ interface GridPanelProps<T> extends Controls.GridProps<T> {
 export default function GridPanel<T>({
   title,
   toolbar,
-  searchBox = true,
+  searchBox = false,
   exportExcel = false,
   onExportExcel,
   isExporting,
@@ -40,34 +40,17 @@ export default function GridPanel<T>({
   sortOrder,
   ...rest
 }: GridPanelProps<T>) {
-  const [internalGlobalFilter, setInternalGlobalFilter] = useState('');
+  const [internalGlobalFilter] = useState('');
 
   const currentGlobalFilter = rest.globalFilter ?? internalGlobalFilter;
 
-  const handleFilterChange = (value: string) => {
-    if (onFilter) {
-      onFilter({ globalFilter: value });
-    } else {
-      setInternalGlobalFilter(value);
-    }
-  };
-
   return (
-    <div>
-      <div className="flex flex-wrap align-items-center justify-content-between gap-2 my-2">
-        <span className="text-sm text-800 font-semibold">{title}</span>
-        <div className="flex align-items-center gap-2 ml-auto">
+    <div className="grid-panel-wrapper">
+      <div className="grid-panel-header">
+        <span className="grid-panel-title">{title}</span>
+        <div className="grid-panel-toolbar">
           {toolbar}
           {actionButtons}
-          {searchBox ? (
-            <TextBox
-              value={currentGlobalFilter}
-              onChange={handleFilterChange}
-              placeholder="Search..."
-              icon="search"
-              iconPosition="right"
-            />
-          ) : undefined}
         </div>
       </div>
       <Grid

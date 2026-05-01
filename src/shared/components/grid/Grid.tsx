@@ -5,6 +5,7 @@ import {
   type DataTableValueArray,
 } from 'primereact/datatable';
 import React from 'react';
+import { Loader } from '../progress';
 import ButtonColumn from './ButtonColumn';
 import './Grid.css';
 
@@ -71,6 +72,7 @@ function Grid<T>({
       style={{ width: '100%' }}
       globalFilterFields={searchFields as string[]}
       emptyMessage="No Records Found"
+      loadingIcon={<Loader type="inline" />}
       {...(rest as DataTableProps<DataTableValueArray>)}
       onValueChange={onValueChange as (e: DataTableValueArray) => void}
       {...pageProps}

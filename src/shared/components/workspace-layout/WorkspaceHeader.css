@@ -1,0 +1,96 @@
+@reference "tailwindcss";
+
+.ws-header {
+  @apply bg-white border-b border-slate-200 py-3;
+}
+
+.ws-header-inner {
+  @apply max-w-[1320px] mx-auto px-6 flex items-center gap-10 max-md:flex-wrap max-md:gap-4;
+}
+
+.ws-logo-section {
+  @apply flex items-center gap-3 min-w-[180px] max-md:order-1 max-sm:min-w-0;
+}
+
+.ws-logo-box {
+  @apply bg-slate-800 text-white w-10 h-10 flex items-center justify-center rounded-lg font-extrabold text-lg;
+}
+
+.ws-logo-text {
+  @apply flex flex-col;
+}
+
+.ws-logo-title {
+  @apply font-bold text-base leading-tight;
+}
+
+.ws-logo-subtitle {
+  @apply text-[11px] text-slate-500 font-semibold max-sm:hidden;
+}
+
+.ws-search-section {
+  @apply flex-1 max-md:order-3 max-md:w-full max-md:flex-none;
+}
+
+.ws-search-container {
+  @apply relative w-full max-w-[600px] max-md:max-w-none;
+}
+
+.ws-search-icon {
+  @apply absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500;
+}
+
+.ws-search-input {
+  @apply w-full py-3 pl-[42px] pr-3.5 rounded-lg border-none bg-slate-100 text-sm font-medium outline-none;
+}
+
+.ws-header-actions {
+  @apply flex items-center gap-6 max-md:order-2 max-md:gap-3;
+}
+
+.ws-action-icons {
+  @apply flex items-center gap-4 pr-6 border-r border-slate-200 text-slate-500 max-md:pr-3 max-md:gap-3;
+}
+
+.ws-icon-btn {
+  @apply cursor-pointer flex items-center;
+}
+
+.ws-notif-btn {
+  @apply cursor-pointer flex items-center relative;
+}
+
+.ws-badge {
+  @apply absolute -top-1.5 -right-1.5 bg-red-500 text-white text-[9px] font-bold w-[15px] h-[15px] flex items-center justify-center rounded-full border-2 border-white;
+}
+
+.ws-user-profile {
+  @apply flex items-center gap-2.5 cursor-pointer;
+}
+
+.ws-avatar {
+  @apply bg-indigo-500 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold text-[13px];
+}
+
+.ws-username {
+  @apply font-semibold text-sm max-md:hidden;
+}
+
+/* Dark theme styles for header */
+.dark-theme .ws-header {
+  @apply bg-slate-900 border-slate-800 text-slate-100;
+}
+
+.dark-theme .ws-logo-title,
+.dark-theme .ws-username {
+  @apply text-slate-100;
+}
+
+.dark-theme .ws-search-input {
+  @apply bg-slate-800 text-slate-100;
+}
+
+.dark-theme .ws-action-icons,
+.dark-theme .ws-search-icon {
+  @apply text-slate-400;
+}

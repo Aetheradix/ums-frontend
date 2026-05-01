@@ -1,6 +1,5 @@
-import { ActionButtons } from 'features/components';
+import { FormActions, FormGrid } from 'shared/new-components';
 import { TextBox } from 'shared/components/forms';
-import { InputPanel } from 'shared/components/panels';
 import { useOfficeTypeForm } from './form.hook';
 
 interface OfficeTypeFormProps {
@@ -18,30 +17,29 @@ export default function OfficeTypeForm(props: OfficeTypeFormProps) {
 
   return (
     <form onSubmit={handleSubmit}>
-      <InputPanel orientation="horizontal">
+      <FormGrid columns={2}>
         <TextBox
           label="Code"
-          placeholder="Enter Office Type Code "
+          placeholder="Enter Office Type Code"
           {...register('code')}
           maxLength={5}
           required
         />
         <TextBox
-          label="Name "
+          label="Name"
           subLabel="(In English)"
           placeholder="Enter Office Type Name"
           {...register('name')}
           maxLength={40}
           required
         />
-      </InputPanel>
+      </FormGrid>
 
-      <ActionButtons
-        update={props.isEditMode}
+      <FormActions
+        isEditMode={props.isEditMode}
         isLoading={props.isSaving}
         onSave={handleSubmit}
         onReset={reset}
-        saveLabel={''}
       />
     </form>
   );

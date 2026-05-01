@@ -3,13 +3,13 @@ import { useNavigate } from 'react-router-dom';
 import { menuConfig } from '../../../../config/menu-routes';
 import Tile from '../../../../shared/components/Tiles/Tile';
 import { homeUrls } from '../../urls';
-import './ServicesGrid.css';
+import '../styles/menu.css';
 
 const ServicesGrid: React.FC = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="db-services-grid">
+    <div className="services-grid">
       {menuConfig.map((service, index) => (
         <Tile
           key={index}

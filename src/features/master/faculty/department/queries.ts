@@ -43,9 +43,11 @@ export function useDepartmentQuery(id: number) {
       if (!data) return undefined;
 
       return {
-        name: data.name,
         code: data.code,
-        isActive: data.isActive,
+        name: data.name,
+        officeTypeId: data.officeTypeId,
+        hodName: data.hodName,
+        contactNumber: data.contactNumber,
       };
     },
   });
@@ -71,9 +73,12 @@ export function useUpdateDepartmentMutation(id: number) {
 
       const itemToReplace: Master.DepartmentItem = {
         id,
-        name: formData.name,
         code: formData.code,
-        isActive: existing?.isActive || formData.isActive,
+        name: formData.name,
+        officeTypeId: formData.officeTypeId,
+        hodName: formData.hodName,
+        contactNumber: formData.contactNumber,
+        isActive: existing?.isActive,
       };
 
       const updatedItems = [
@@ -99,7 +104,7 @@ export function useDepartmentActiveStatusMutation() {
       if (!success) return;
 
       const result =
-        queryClient.getQueryData<Master.OfficeTypeItem[]>(QUERY_KEY) ?? [];
+        queryClient.getQueryData<Master.DepartmentItem[]>(QUERY_KEY) ?? [];
 
       const index = result.findIndex(item => item.id === variables.id);
       if (index === -1) return;
