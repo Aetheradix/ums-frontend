@@ -137,6 +137,37 @@ export const menuConfig: Menu.MenuItem[] = [
         ],
       },
       {
+        label: 'Course Management',
+        slug: 'course',
+        description: 'Manage course departments, subject categories, and more.',
+        path: '/home/sub-menu/course',
+        icon: 'menu_book',
+        colorScheme: 'purple',
+        children: [
+          {
+            label: 'Course Department',
+            description: 'Manage course departments',
+            path: '/master/course/course-department',
+            icon: 'apartment',
+            colorScheme: 'purple',
+          },
+          {
+            label: 'Course Level',
+            description: 'Manage Course Level',
+            path: '/master/course/course-level',
+            icon: 'apartment',
+            colorScheme: 'purple',
+          },
+          {
+            label: 'Course Exam Type',
+            description: 'Manage Course Exam Type',
+            path: '/master/course/course-exam-type',
+            icon: 'apartment',
+            colorScheme: 'purple',
+          },
+        ],
+      },
+      {
         label: 'Faculty & Org Management',
         slug: 'faculty-management',
         description: 'Manage office types, departments, and designations.',
