@@ -1,6 +1,6 @@
 import { ApiService } from 'services';
 
-const RELIGION_URL = `master/religion`;
+const RELIGION_URL = `master/religions`;
 
 export function getReligions() {
   return ApiService.getList<Master.ReligionItem>(RELIGION_URL);
@@ -30,7 +30,7 @@ export async function updateReligion(
 }
 
 export async function patchReligionStatus(id: number): Promise<boolean> {
-  const result = await ApiService.patch(`${RELIGION_URL}/${id}`, {});
+  const result = await ApiService.patch(`${RELIGION_URL}/${id}/status`, {});
 
   return !result.error;
 }

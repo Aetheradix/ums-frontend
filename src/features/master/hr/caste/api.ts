@@ -1,6 +1,6 @@
 import { ApiService } from 'services';
 
-const CASTE_URL = `master/caste`;
+const CASTE_URL = `master/castes`;
 
 export function getCastes() {
   return ApiService.getList<Master.CasteItem>(CASTE_URL);
@@ -28,7 +28,7 @@ export async function updateCaste(
 }
 
 export async function patchCasteStatus(id: number): Promise<boolean> {
-  const result = await ApiService.patch(`${CASTE_URL}/${id}`, {});
+  const result = await ApiService.patch(`${CASTE_URL}/${id}/status`, {});
 
   return !result.error;
 }
