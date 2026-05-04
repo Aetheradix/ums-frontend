@@ -2,7 +2,7 @@ import { ApiService } from 'services';
 
 const MASTER_API_ROOT = `master/`;
 
-const DESIGNATION_URL = `${MASTER_API_ROOT}designation`;
+const DESIGNATION_URL = `${MASTER_API_ROOT}faculty-designation`;
 
 export function getDesignations() {
   return ApiService.getList<Master.DesignationItem>(DESIGNATION_URL);
@@ -36,7 +36,7 @@ export async function patchDesignationStatus(
   id: number,
   isActive: boolean
 ): Promise<boolean> {
-  const result = await ApiService.patch(`${DESIGNATION_URL}/${id}/active`, {
+  const result = await ApiService.patch(`${DESIGNATION_URL}/${id}/status`, {
     isActive,
   });
 
