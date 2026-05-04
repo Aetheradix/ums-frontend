@@ -35,7 +35,7 @@ export default function List() {
             },
             { field: 'name', header: 'Name' },
             { field: 'code', header: 'Code' },
-            { field: 'districtId', header: 'District' },
+            { field: 'districtName', header: 'District' },
             {
               field: 'isActive',
               header: 'Status',

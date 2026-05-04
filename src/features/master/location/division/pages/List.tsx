@@ -35,7 +35,7 @@ export default function List() {
             },
             { field: 'name', header: 'Name' },
             { field: 'code', header: 'Code' },
-            { field: 'stateId', header: 'State' },
+            { field: 'stateName', header: 'State' },
             {
               field: 'isActive',
               header: 'Status',

@@ -35,7 +35,7 @@ export default function List() {
             },
             { field: 'name', header: 'Name' },
             { field: 'code', header: 'Code' },
-            { field: 'divisionId', header: 'Division' },
+            { field: 'divisionName', header: 'Division' },
             {
               field: 'isActive',
               header: 'Status',
