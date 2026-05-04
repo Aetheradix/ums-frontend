@@ -1,6 +1,6 @@
 import { ApiService } from 'services';
 
-const QUALIFICATION_URL = `master/qualification`;
+const QUALIFICATION_URL = `master/qualifications`;
 
 export function getQualifications() {
   return ApiService.getList<Master.QualificationItem>(QUALIFICATION_URL);
@@ -30,7 +30,10 @@ export async function updateQualification(
 }
 
 export async function patchQualificationStatus(id: number): Promise<boolean> {
-  const result = await ApiService.patch(`${QUALIFICATION_URL}/${id}`, {});
+  const result = await ApiService.patch(
+    `${QUALIFICATION_URL}/${id}/status`,
+    {}
+  );
 
   return !result.error;
 }
