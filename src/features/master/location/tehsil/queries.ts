@@ -67,6 +67,7 @@ export function useUpdateTehsilMutation(id: number) {
         name: formData.name,
         code: formData.code,
         districtId: formData.districtId,
+        districtName: existing?.districtName ?? '',
         isActive: existing?.isActive || formData.isActive,
       };
 

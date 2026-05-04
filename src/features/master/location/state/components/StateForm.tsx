@@ -1,5 +1,5 @@
-import { FormActions, FormGrid } from 'shared/new-components';
 import { TextBox } from 'shared/components/forms';
+import { FormActions, FormGrid } from 'shared/new-components';
 import { useStateForm } from './form.hook';
 
 interface StateFormProps {
@@ -19,18 +19,18 @@ export default function StateForm(props: StateFormProps) {
     <form onSubmit={handleSubmit}>
       <FormGrid columns={2}>
         <TextBox
-          label="Code"
-          placeholder="Enter State Code"
-          {...register('code')}
-          maxLength={5}
-          required
-        />
-        <TextBox
           label="Name"
           subLabel="(In English)"
           placeholder="Enter State Name"
           {...register('name')}
           maxLength={50}
+          required
+        />
+        <TextBox
+          label="Code"
+          placeholder="Enter State Code"
+          {...register('code')}
+          maxLength={5}
           required
         />
       </FormGrid>

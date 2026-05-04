@@ -1,6 +1,6 @@
-import { FormActions, FormGrid } from 'shared/new-components';
 import SelectDivision from 'features/components/SelectDivision';
 import { TextBox } from 'shared/components/forms';
+import { FormActions, FormGrid } from 'shared/new-components';
 import { useDistrictForm } from './form.hook';
 
 interface DistrictFormProps {
@@ -20,18 +20,18 @@ export default function DistrictForm(props: DistrictFormProps) {
     <form onSubmit={handleSubmit}>
       <FormGrid columns={2}>
         <TextBox
-          label="Code"
-          placeholder="Enter District Code"
-          {...register('code')}
-          maxLength={5}
-          required
-        />
-        <TextBox
           label="Name"
           subLabel="(In English)"
           placeholder="Enter District Name"
           {...register('name')}
           maxLength={50}
+          required
+        />
+        <TextBox
+          label="Code"
+          placeholder="Enter District Code"
+          {...register('code')}
+          maxLength={5}
           required
         />
         <SelectDivision {...register('divisionId')} />

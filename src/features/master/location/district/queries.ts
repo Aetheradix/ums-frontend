@@ -68,6 +68,7 @@ export function useUpdateDistrictMutation(id: number) {
         name: formData.name,
         code: formData.code,
         divisionId: formData.divisionId,
+        divisionName: existing?.divisionName ?? '',
         isActive: existing?.isActive || formData.isActive,
       };
 

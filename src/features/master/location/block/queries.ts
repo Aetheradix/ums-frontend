@@ -68,7 +68,9 @@ export function useUpdateBlockMutation(id: number) {
         name: formData.name,
         code: formData.code,
         districtId: formData.districtId,
+        districtName: existing?.districtName ?? '',
         tehsilId: formData.tehsilId,
+        tehsilName: existing?.tehsilName ?? '',
         isActive: existing?.isActive || formData.isActive,
       };
 

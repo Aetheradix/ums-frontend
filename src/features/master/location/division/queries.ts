@@ -68,6 +68,7 @@ export function useUpdateDivisionMutation(id: number) {
         name: formData.name,
         code: formData.code,
         stateId: formData.stateId,
+        stateName: existing?.stateName ?? '',
         isActive: existing?.isActive || formData.isActive,
       };
 
