@@ -1,6 +1,5 @@
-import { ActionButtons } from 'features/components';
 import { TextBox } from 'shared/components/forms';
-import { InputPanel } from 'shared/components/panels';
+import { FormActions, FormGrid } from 'shared/new-components';
 import { useDesignationForm } from './form.hook';
 
 interface DesignationFormProps {
@@ -18,22 +17,21 @@ export default function DesignationForm(props: DesignationFormProps) {
 
   return (
     <form onSubmit={handleSubmit}>
-      <InputPanel orientation="horizontal">
+      <FormGrid columns={1}>
         <TextBox
-          label="Name "
+          label="Name"
           subLabel="(In English)"
           placeholder="Enter Designation Name"
           {...register('name')}
           maxLength={40}
           required
         />
-      </InputPanel>
-      <ActionButtons
-        update={props.isEditMode}
+      </FormGrid>
+      <FormActions
+        isEditMode={props.isEditMode}
         isLoading={props.isSaving}
         onSave={handleSubmit}
         onReset={reset}
-        saveLabel={''}
       />
     </form>
   );

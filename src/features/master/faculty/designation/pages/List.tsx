@@ -1,8 +1,7 @@
-import { Outlet, useNavigate } from 'react-router';
-import { LinkButton } from 'shared/components/buttons';
+import { useNavigate } from 'react-router';
+import { Button } from 'shared/components/buttons';
 import StatusButton from 'shared/components/buttons/StatusButton';
-import { Card, Page } from 'shared/components/panels';
-import { GridPanel } from 'shared/new-components';
+import { FormCard, FormPage, GridPanel } from 'shared/new-components';
 import { masterUrls } from '../../../urls';
 import {
   useDesignationActiveStatusMutation,
@@ -22,10 +21,12 @@ export default function List() {
   };
 
   return (
-    <Page header="Designation">
-      <Card>
+    <FormPage
+      title="Designation"
+      description="Manage the list of all designations in the system."
+    >
+      <FormCard>
         <GridPanel
-          title="Designations"
           data={data}
           loading={isLoading}
           onEdit={designation =>
@@ -50,16 +51,16 @@ export default function List() {
             },
           ]}
           toolbar={
-            <LinkButton
+            <Button
               label="Create"
               icon="plus"
-              to={masterUrls.designation.create}
+              variant="primary"
+              onClick={() => navigate(masterUrls.designation.create)}
             />
           }
           searchBox
         />
-      </Card>
-      <Outlet />
-    </Page>
+      </FormCard>
+    </FormPage>
   );
 }
