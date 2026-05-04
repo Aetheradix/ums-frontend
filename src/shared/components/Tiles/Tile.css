@@ -1,77 +1,123 @@
 @reference "tailwindcss";
-/* ── Tile Container ── */
+
+/* ─────────────────────────────
+   Tile Container
+───────────────────────────── */
 .db-card-container {
   @apply relative transition-all duration-300 ease-in-out;
 }
 
 .db-card-container:hover {
-  @apply -translate-y-1.5;
+  @apply -translate-y-1;
 }
 
-/* ── Service Card ── */
+/* ─────────────────────────────
+   Service Card
+───────────────────────────── */
 .db-service-card {
-  @apply bg-white rounded-[20px] p-5 relative flex flex-col min-h-[160px] cursor-pointer overflow-visible z-[1];
+  @apply bg-white rounded-[22px] p-5 relative flex flex-col min-h-[180px] cursor-pointer overflow-hidden;
+
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.04);
+  border: none !important;
 }
 
-/* Shadow caster that avoids the cutout corner area */
-.db-service-card::before {
-  content: '';
-  @apply absolute inset-0 bg-white rounded-[20px] shadow-[0_8px_24px_rgba(0,0,0,0.04)] -z-[1] transition-all duration-300 ease-in-out;
-  border-top-right-radius: 80px;
+/* Smooth hover */
+.db-service-card:hover {
+  box-shadow: 0 14px 32px rgba(15, 23, 42, 0.08);
 }
 
-/* ── Corner Action (arrow cutout) ── */
+/* ─────────────────────────────
+   Top Right Cutout Area (The Magic Happens Here)
+───────────────────────────── */
 .db-card-corner-action {
-  @apply absolute top-0 right-0 w-16 h-16 bg-[#f8faff] flex items-center justify-center z-[5];
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 68px;
+  height: 68px;
+  background-color: #f5f7ff;
   border-bottom-left-radius: 24px;
+  z-index: 5;
 }
 
+/* 1st Smooth Curve (Top edge connection) */
 .db-card-corner-action::before {
   content: '';
-  @apply absolute top-0 -left-5 w-5 h-5 bg-transparent;
-  background-image: radial-gradient(
-    circle at 0% 100%,
-    transparent 20px,
-    #f8faff 20px
-  );
+  position: absolute;
+  top: 0;
+  left: -20px;
+  width: 20px;
+  height: 20px;
+  background-color: transparent;
+  border-top-right-radius: 20px;
+  box-shadow: 10px -10px 0 10px #f5f7ff;
 }
 
+/* 2nd Smooth Curve (Right edge connection) */
 .db-card-corner-action::after {
   content: '';
-  @apply absolute right-0 top-full w-5 h-5 bg-transparent;
-  background-image: radial-gradient(
-    circle at 0% 100%,
-    transparent 20px,
-    #f8faff 20px
-  );
+  position: absolute;
+  bottom: -20px;
+  right: 0;
+  width: 20px;
+  height: 20px;
+  background-color: transparent;
+  border-top-right-radius: 20px;
+  box-shadow: 10px -10px 0 10px #f5f7ff;
 }
 
-/* ── Arrow Button ── */
+/* ─────────────────────────────
+   Arrow Button
+───────────────────────────── */
 .db-card-arrow {
-  @apply w-9 h-9 bg-white rounded-full flex items-center justify-center shadow-[0_4px_12px_rgba(0,0,0,0.06)] transition-all duration-200 text-slate-900;
+  position: absolute;
+  top: 14px; /* Adjusted to center in the 68px cutout */
+  right: 14px;
+
+  @apply w-10 h-10 rounded-full bg-white flex items-center justify-center text-slate-900 transition-all duration-200;
+
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.08);
+}
+
+.db-card-arrow i {
+  font-size: 14px;
+  font-weight: 600;
 }
 
 .db-card-arrow:hover {
   @apply bg-[#2264dc] text-white;
+  transform: scale(1.05);
 }
 
-/* ── Card Content ── */
+/* ─────────────────────────────
+   Card Content
+───────────────────────────── */
 .db-card-content {
-  @apply flex flex-col h-full;
+  @apply flex flex-col justify-between relative z-[2];
+  flex: 1;
 }
 
 .db-card-icon-box {
-  @apply w-10 h-10 rounded-xl flex items-center justify-center mb-auto;
+  @apply w-15 h-15 rounded-2xl flex items-center justify-center;
+  border: 1px solid #eee;
 }
 
+.db-card-icon-box .icon-base {
+  font-size: 30px;
+}
+
+/* Title */
 .db-card-title {
-  @apply text-[15px] font-bold leading-snug text-slate-900 mt-4 max-w-[90%];
+  @apply text-[16px] font-bold leading-[1.4] text-slate-900 mt-4;
+  white-space: pre-line;
 }
 
+/* Description */
 .db-card-description {
-  @apply text-[13px] font-normal leading-relaxed text-slate-500 mt-2 max-w-[95%];
+  @apply text-[13px] leading-relaxed text-slate-500 mt-2;
 }
 
+/* Badge */
 .db-card-badge {
   @apply inline-flex items-center gap-1.5 text-xs font-semibold text-slate-700 mt-3 px-2.5 py-1 bg-slate-50 rounded-full w-fit;
 }
@@ -80,18 +126,20 @@
   @apply w-1.5 h-1.5 rounded-full shrink-0;
 }
 
-/* ── Icon Color Schemes ── */
+/* ─────────────────────────────
+   Color Schemes
+───────────────────────────── */
 .db-card-icon-box.bg-blue {
-  @apply bg-blue-50 text-blue-500;
+  @apply bg-blue-50 text-blue-600;
 }
 .db-card-icon-box.bg-purple {
-  @apply bg-violet-50 text-violet-500;
+  @apply bg-violet-50 text-violet-600;
 }
 .db-card-icon-box.bg-gray {
-  @apply bg-slate-50 text-slate-500;
+  @apply bg-slate-100 text-slate-600;
 }
 .db-card-icon-box.bg-green {
-  @apply bg-green-50 text-green-500;
+  @apply bg-green-50 text-green-600;
 }
 .db-card-icon-box.bg-orange {
   @apply bg-orange-50 text-orange-600;
@@ -100,45 +148,33 @@
   @apply bg-red-50 text-red-500;
 }
 .db-card-icon-box.bg-pink {
-  @apply bg-rose-50 text-rose-600;
+  @apply bg-rose-50 text-rose-500;
 }
 .db-card-icon-box.bg-teal {
   @apply bg-teal-50 text-teal-600;
 }
 .db-card-icon-box.bg-indigo {
-  @apply bg-indigo-50 text-indigo-500;
+  @apply bg-indigo-50 text-indigo-600;
 }
 .db-card-icon-box.bg-amber {
   @apply bg-amber-50 text-amber-600;
 }
 
-/* ── Dark Theme Overrides ── */
+/* ─────────────────────────────
+   Dark Theme
+───────────────────────────── */
 .dark-theme .db-service-card {
   background-color: var(--dark-card-bg);
+  border-color: rgba(255, 255, 255, 0.06);
 }
 
-.dark-theme .db-service-card::before {
-  background-color: var(--dark-card-bg);
-}
-
+/* Update Cutout curves for Dark Theme */
 .dark-theme .db-card-corner-action {
   background-color: var(--dark-bg);
 }
-
-.dark-theme .db-card-corner-action::before {
-  background-image: radial-gradient(
-    circle at 0% 100%,
-    transparent 20px,
-    var(--dark-bg) 20px
-  );
-}
-
+.dark-theme .db-card-corner-action::before,
 .dark-theme .db-card-corner-action::after {
-  background-image: radial-gradient(
-    circle at 0% 100%,
-    transparent 20px,
-    var(--dark-bg) 20px
-  );
+  box-shadow: 10px -10px 0 10px var(--dark-bg);
 }
 
 .dark-theme .db-card-arrow {
@@ -148,7 +184,7 @@
 
 .dark-theme .db-card-arrow:hover {
   background-color: var(--primary-color);
-  color: var(--white);
+  color: white;
 }
 
 .dark-theme .db-card-title {
@@ -160,7 +196,7 @@
 }
 
 .dark-theme .db-card-badge {
-  background-color: var(--dark-bg);
+  background-color: rgba(255, 255, 255, 0.05);
   color: var(--dark-text);
 }
 

@@ -43,7 +43,7 @@
 
 /* SubMenuGrid */
 .submenu-grid {
-  @apply grid grid-cols-6 gap-[30px] max-xl:grid-cols-4 max-xl:gap-5 max-lg:grid-cols-3 max-md:grid-cols-2 max-md:gap-4 max-sm:grid-cols-1;
+  @apply grid grid-cols-5 gap-[20px] max-xl:grid-cols-4 max-xl:gap-5 max-lg:grid-cols-3 max-md:grid-cols-2 max-md:gap-4 max-sm:grid-cols-1;
 }
 
 /* Dark Theme Overrides */

@@ -45,7 +45,7 @@ export default function Breadcrumb({ items }: BreadcrumbProps) {
       if (path.toLowerCase() === 'location') {
         label = 'Location Management';
       } else if (path.toLowerCase() === 'faculty-management') {
-        label = 'Faculty & Org Management';
+        label = 'Faculty Admin';
       }
 
       let toPath = currentPath;

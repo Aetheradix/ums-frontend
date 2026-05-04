@@ -77,12 +77,12 @@
   @apply absolute -top-1.5 -right-1.5 bg-red-500 text-white text-[9px] font-bold w-[15px] h-[15px] flex items-center justify-center rounded-full border-2 border-white;
 }
 
-.ws-user-profile {
+/* .ws-user-profile {
   @apply flex items-center gap-2.5 cursor-pointer;
-}
+} */
 
 .ws-avatar {
-  @apply bg-indigo-500 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold text-[13px];
+  @apply bg-gradient-to-br from-tile-indigo to-tile-violet text-white w-8 h-8 rounded-full flex items-center justify-center font-bold text-[13px];
 }
 
 .ws-username {
@@ -121,7 +121,7 @@
 
 /* WorkspaceLayout */
 .ws-root {
-  @apply font-sans bg-[#f8faff] min-h-screen text-slate-900 flex flex-col;
+  @apply font-sans bg-[#fbfbfd] min-h-screen text-slate-900 flex flex-col;
 }
 
 .ws-main {
