@@ -68,9 +68,9 @@
   @apply flex items-center gap-2.5 cursor-pointer;
 }
 
-.ws-avatar {
+/* .ws-avatar {
   @apply bg-indigo-500 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold text-[13px];
-}
+} */
 
 .ws-username {
   @apply font-semibold text-sm max-md:hidden;

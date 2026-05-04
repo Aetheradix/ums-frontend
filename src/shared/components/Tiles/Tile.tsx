@@ -1,6 +1,6 @@
 import React from 'react';
-import './Tile.css';
 import { Icon } from '../Icon/Icon';
+import './Tile.css';
 
 interface TileProps {
   title: string;
@@ -42,19 +42,7 @@ const Tile: React.FC<TileProps> = ({
         {/* Top corner action container */}
         <div className="db-card-corner-action">
           <div className="db-card-arrow">
-            <svg
-              viewBox="0 0 24 24"
-              width="16"
-              height="16"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <line x1="5" y1="19" x2="19" y2="5" />
-              <polyline points="9 5 19 5 19 15" />
-            </svg>
+            <i className="pi pi-arrow-up-right"></i>
           </div>
         </div>
 
@@ -66,7 +54,9 @@ const Tile: React.FC<TileProps> = ({
             </div>
           )}
           <div className="db-card-title">{title}</div>
-          {description && <p className="db-card-description">{description}</p>}
+          {description && (
+            <p className="db-card-description line-clamp-2">{description}</p>
+          )}
           {badge && (
             <div className="db-card-badge">
               <span

@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
 @import 'tailwindcss';
 
 /* ============================================================
@@ -15,10 +16,6 @@
   --color-danger: #ef4444;
   --color-warning: #f59e0b;
   --color-info: #06b6d4;
-
-  /* Fonts */
-  --font-sans:
-    'Poppins', 'Inter', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
 }
 
 /* ============================================================
@@ -82,8 +79,33 @@
     var(--dark-input-bg) 12px,
     var(--dark-input-bg) 40px
   );
+
+  --gradient-aurora:
+    radial-gradient(
+      1200px 600px at 10% -10%,
+      hsl(221 100% 96%) 0%,
+      transparent 60%
+    ),
+    radial-gradient(
+      900px 500px at 100% 0%,
+      hsl(262 100% 97%) 0%,
+      transparent 55%
+    ),
+    linear-gradient(180deg, hsl(220 25% 98%) 0%, hsl(220 25% 100%) 100%);
+  --tile-indigo: 226 70% 55%;
+  --tile-violet: 262 70% 60%;
+  /* ui-changes-01-05-2026 */
+  /* Fonts */
+  --font-sans:
+    'Plus Jakarta Sans', 'Poppins', 'Inter', 'Segoe UI', Roboto, Helvetica,
+    Arial, sans-serif;
 }
 
+html,
+body {
+  font-family: var(--font-sans);
+}
+/* ui-changes-01-05-2026 */
 /* ============================================================
    3. BASE LAYER — Global element defaults
    ============================================================ */
