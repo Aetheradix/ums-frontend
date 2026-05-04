@@ -34,11 +34,9 @@ export async function updateDepartment(
 
 export async function patchDepartmentStatus(
   id: number,
-  isActive: boolean
+  _isActive: boolean
 ): Promise<boolean> {
-  const result = await ApiService.patch(`${DEPARTMENT_URL}/${id}/active`, {
-    isActive,
-  });
+  const result = await ApiService.patch(`${DEPARTMENT_URL}/${id}/status`, {});
 
   return !result.error;
 }
