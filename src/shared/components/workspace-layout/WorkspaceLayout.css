@@ -82,7 +82,7 @@
 } */
 
 .ws-avatar {
-  @apply bg-gradient-to-br from-tile-indigo to-tile-violet text-white w-8 h-8 rounded-full flex items-center justify-center font-bold text-[13px];
+  @apply bg-gradient-to-br from-indigo-500 to-violet-500 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold text-[13px];
 }
 
 .ws-username {
