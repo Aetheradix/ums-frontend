@@ -1,6 +1,6 @@
-import { FormActions, FormGrid } from 'shared/new-components';
 import SelectState from 'features/components/SelectState';
 import { TextBox } from 'shared/components/forms';
+import { FormActions, FormGrid } from 'shared/new-components';
 import { useDivisionForm } from './form.hook';
 
 interface DivisionFormProps {
@@ -20,18 +20,18 @@ export default function DivisionForm(props: DivisionFormProps) {
     <form onSubmit={handleSubmit}>
       <FormGrid columns={2}>
         <TextBox
-          label="Code"
-          placeholder="Enter Division Code"
-          {...register('code')}
-          maxLength={5}
-          required
-        />
-        <TextBox
           label="Name"
           subLabel="(In English)"
           placeholder="Enter Division Name"
           {...register('name')}
           maxLength={50}
+          required
+        />
+        <TextBox
+          label="Code"
+          placeholder="Enter Division Code"
+          {...register('code')}
+          maxLength={5}
           required
         />
         <SelectState {...register('stateId')} />

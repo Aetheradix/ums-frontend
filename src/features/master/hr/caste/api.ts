@@ -1,6 +1,6 @@
 import { ApiService } from 'services';
 
-const CASTE_URL = `master/caste`;
+const CASTE_URL = `master/castes`;
 
 export function getCastes() {
   return ApiService.getList<Master.CasteItem>(CASTE_URL);

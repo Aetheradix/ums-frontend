@@ -1,7 +1,7 @@
-import { FormActions, FormGrid } from 'shared/new-components';
 import SelectDistrict from 'features/components/SelectDistrict';
 import SelectTehsil from 'features/components/SelectTehsil';
 import { TextBox } from 'shared/components/forms';
+import { FormActions, FormGrid } from 'shared/new-components';
 import { useBlockForm } from './form.hook';
 
 interface BlockFormProps {
@@ -21,18 +21,18 @@ export default function BlockForm(props: BlockFormProps) {
     <form onSubmit={handleSubmit}>
       <FormGrid columns={2}>
         <TextBox
-          label="Code"
-          placeholder="Enter Block Code"
-          {...register('code')}
-          maxLength={5}
-          required
-        />
-        <TextBox
           label="Name"
           subLabel="(In English)"
           placeholder="Enter Block Name"
           {...register('name')}
           maxLength={50}
+          required
+        />
+        <TextBox
+          label="Code"
+          placeholder="Enter Block Code"
+          {...register('code')}
+          maxLength={5}
           required
         />
         <SelectDistrict {...register('districtId')} />

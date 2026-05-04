@@ -1,6 +1,6 @@
 import { ApiService } from 'services';
 
-const RELIGION_URL = `master/religion`;
+const RELIGION_URL = `master/religions`;
 
 export function getReligions() {
   return ApiService.getList<Master.ReligionItem>(RELIGION_URL);

@@ -1,8 +1,7 @@
-import { Outlet, useNavigate } from 'react-router';
-import { LinkButton } from 'shared/components/buttons';
+import { useNavigate } from 'react-router';
+import { Button } from 'shared/components/buttons';
 import StatusButton from 'shared/components/buttons/StatusButton';
-import { Card, Page } from 'shared/components/panels';
-import { GridPanel } from 'shared/new-components';
+import { FormCard, FormPage, GridPanel } from 'shared/new-components';
 import { masterUrls } from '../../../urls';
 import {
   useDepartmentActiveStatusMutation,
@@ -22,10 +21,12 @@ export default function List() {
   };
 
   return (
-    <Page header="Department">
-      <Card>
+    <FormPage
+      title="Department"
+      description="Manage the list of all departments in the system."
+    >
+      <FormCard>
         <GridPanel
-          title="Departments"
           data={data}
           loading={isLoading}
           onEdit={department =>
@@ -38,7 +39,6 @@ export default function List() {
             },
             { field: 'name', header: 'Name' },
             { field: 'code', header: 'Code' },
-            { field: 'officeTypeName', header: 'Office Type' },
             { field: 'hodName', header: 'Head of Department' },
             { field: 'contactNumber', header: 'Contact Number' },
             {
@@ -54,16 +54,16 @@ export default function List() {
             },
           ]}
           toolbar={
-            <LinkButton
+            <Button
               label="Create"
               icon="plus"
-              to={masterUrls.department.create}
+              variant="primary"
+              onClick={() => navigate(masterUrls.department.create)}
             />
           }
           searchBox
         />
-      </Card>
-      <Outlet />
-    </Page>
+      </FormCard>
+    </FormPage>
   );
 }

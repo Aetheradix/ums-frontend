@@ -35,8 +35,8 @@ export default function List() {
             },
             { field: 'name', header: 'Name' },
             { field: 'code', header: 'Code' },
-            { field: 'districtId', header: 'District' },
-            { field: 'tehsilId', header: 'Tehsil' },
+            { field: 'districtName', header: 'District' },
+            { field: 'tehsilName', header: 'Tehsil' },
             {
               field: 'isActive',
               header: 'Status',

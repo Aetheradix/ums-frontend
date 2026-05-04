@@ -1,7 +1,6 @@
-import { ActionButtons } from 'features/components';
 import SelectOfficeType from 'features/components/SelectOfficeType';
 import { TextBox } from 'shared/components/forms';
-import { InputPanel } from 'shared/components/panels';
+import { FormActions, FormGrid } from 'shared/new-components';
 import { useDepartmentForm } from './form.hook';
 
 interface DepartmentFormProps {
@@ -19,7 +18,7 @@ export default function DepartmentForm(props: DepartmentFormProps) {
 
   return (
     <form onSubmit={handleSubmit}>
-      <InputPanel orientation="horizontal">
+      <FormGrid columns={2}>
         <TextBox
           label="Code"
           placeholder="Enter Department Code "
@@ -48,14 +47,13 @@ export default function DepartmentForm(props: DepartmentFormProps) {
           {...register('contactNumber')}
           required
         />
-      </InputPanel>
+      </FormGrid>
 
-      <ActionButtons
-        update={props.isEditMode}
+      <FormActions
+        isEditMode={props.isEditMode}
         isLoading={props.isSaving}
         onSave={handleSubmit}
         onReset={reset}
-        saveLabel={''}
       />
     </form>
   );

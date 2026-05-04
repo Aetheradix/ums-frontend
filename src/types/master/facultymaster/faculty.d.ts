@@ -17,7 +17,7 @@ declare namespace Master {
     name: string;
     officeTypeId: number;
     hodName: string;
-    contactNumber: number;
+    contactNumber: string;
     isActive: boolean;
     officeTypeName?: string;
   }
@@ -27,7 +27,7 @@ declare namespace Master {
     name: string;
     officeTypeId: number;
     hodName: string;
-    contactNumber: number;
+    contactNumber: string;
   }
 
   type DepartmentItem = Data.WithId<Department>;

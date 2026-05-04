@@ -14,7 +14,7 @@ declare namespace Master {
     stateId: number;
     isActive: boolean;
   }
-  type DivisionItem = Data.WithId<DivisionForm>;
+  type DivisionItem = Data.WithId<DivisionForm> & { stateName: string };
 
   // District
   interface DistrictForm {
@@ -23,7 +23,7 @@ declare namespace Master {
     divisionId: number;
     isActive: boolean;
   }
-  type DistrictItem = Data.WithId<DistrictForm>;
+  type DistrictItem = Data.WithId<DistrictForm> & { divisionName: string };
 
   // Tehsil
   interface TehsilForm {
@@ -32,7 +32,7 @@ declare namespace Master {
     districtId: number;
     isActive: boolean;
   }
-  type TehsilItem = Data.WithId<TehsilForm>;
+  type TehsilItem = Data.WithId<TehsilForm> & { districtName: string };
 
   // Block
   interface BlockForm {
@@ -42,5 +42,8 @@ declare namespace Master {
     tehsilId: number;
     isActive: boolean;
   }
-  type BlockItem = Data.WithId<BlockForm>;
+  type BlockItem = Data.WithId<BlockForm> & {
+    districtName: string;
+    tehsilName: string;
+  };
 }
