@@ -1,11 +1,19 @@
 @reference "tailwindcss";
 
 .breadcrumb-nav {
-  @apply flex items-center gap-2 text-sm font-medium text-slate-500 mb-4 max-sm:text-xs flex-wrap;
+  @apply flex items-center gap-2 text-sm font-medium text-zinc-500 mb-4 max-sm:text-xs flex-wrap;
+}
+
+.dark-theme .breadcrumb-nav {
+  @apply text-zinc-300;
 }
 
 .breadcrumb-separator {
-  @apply text-base text-slate-400 select-none;
+  @apply text-base text-zinc-400 select-none;
+}
+
+.dark-theme .breadcrumb-separator {
+  @apply text-zinc-600;
 }
 
 .breadcrumb-item-active {
@@ -13,7 +21,7 @@
 }
 
 .dark-theme .breadcrumb-item-active {
-  @apply text-slate-100;
+  @apply text-zinc-100;
 }
 
 .breadcrumb-item-link {

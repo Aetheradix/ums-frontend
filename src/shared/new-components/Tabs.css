@@ -21,8 +21,8 @@
 
 /* Active tab – NO padding/border width change */
 .p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
-  @apply text-blue-800 border-blue-600;
-  background-color: rgba(52, 84, 209, 0.075);
+  @apply text-zinc-900 border-black;
+  background-color: #f9f9fb;
   border-radius: 0;
 }
 
@@ -33,11 +33,11 @@
 
 /* Dark Theme */
 .dark-theme .p-tabview .p-tabview-nav {
-  @apply border-slate-700 bg-transparent;
+  @apply border-zinc-700 bg-transparent;
 }
 
 .dark-theme .p-tabview .p-tabview-nav li .p-tabview-nav-link {
-  @apply text-slate-400 bg-transparent;
+  @apply text-zinc-400 bg-transparent;
 }
 
 .dark-theme
@@ -45,9 +45,9 @@
   .p-tabview-nav
   li:not(.p-highlight):hover
   .p-tabview-nav-link {
-  @apply text-slate-200 bg-slate-800 border-slate-600;
+  @apply text-zinc-200 bg-zinc-900 border-zinc-700;
 }
 
 .dark-theme .p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
-  @apply text-blue-400 border-blue-500;
+  @apply text-white border-white;
 }

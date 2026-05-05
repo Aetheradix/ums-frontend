@@ -46,8 +46,8 @@ const mapColorScheme = (
       : 'bg-purple-50 text-purple-600 border-purple-100',
 
     gray: isDarkMode
-      ? 'bg-slate-700 text-slate-300 border-slate-600/40'
-      : 'bg-slate-100 text-slate-600 border-slate-200/40',
+      ? 'bg-zinc-800 text-zinc-300 border-zinc-700/40'
+      : 'bg-zinc-100 text-zinc-600 border-zinc-200/40',
 
     green: isDarkMode
       ? 'bg-emerald-900/30 text-emerald-300 border-emerald-700/40'
@@ -133,8 +133,8 @@ export default function WaffleMenu({ isDarkMode = false }: WaffleMenuProps) {
         <div
           className={`absolute right-0 top-full mt-3 w-[430px] max-h-[560px] overflow-hidden rounded-3xl border z-50 ${
             isDarkMode
-              ? 'bg-slate-900 border-slate-700 text-white'
-              : 'bg-white border-slate-200 text-slate-800'
+              ? 'bg-[#09090b] border-[#27272a] text-[#fafafa]'
+              : 'bg-white border-zinc-200 text-zinc-800'
           }`}
           style={{
             boxShadow: '0 20px 50px rgba(0,0,0,0.12)',
@@ -143,7 +143,7 @@ export default function WaffleMenu({ isDarkMode = false }: WaffleMenuProps) {
           {/* Header */}
           <div
             className={`flex items-center justify-between px-5 pt-4 pb-3 border-b ${
-              isDarkMode ? 'border-slate-700' : 'border-slate-100'
+              isDarkMode ? 'border-[#27272a]' : 'border-zinc-100'
             }`}
           >
             <h3 className="text-lg font-bold tracking-tight">Quick Links</h3>
@@ -151,8 +151,8 @@ export default function WaffleMenu({ isDarkMode = false }: WaffleMenuProps) {
             <button
               className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold transition-all duration-200 ${
                 isDarkMode
-                  ? 'bg-slate-800 border border-slate-700 text-blue-300 hover:bg-slate-700'
-                  : 'bg-blue-50 border border-blue-100 text-blue-700 hover:bg-blue-100'
+                  ? 'bg-[#18181b] border border-[#27272a] text-zinc-100 hover:bg-[#27272a]'
+                  : 'bg-zinc-50 border border-zinc-100 text-zinc-700 hover:bg-zinc-100'
               }`}
             >
               <i className="pi pi-pen-to-square text-base" />
@@ -164,7 +164,7 @@ export default function WaffleMenu({ isDarkMode = false }: WaffleMenuProps) {
           <div className="px-5 pt-4">
             <div
               className={`text-[11px] font-extrabold tracking-wider uppercase mb-3 ${
-                isDarkMode ? 'text-slate-400' : 'text-slate-600'
+                isDarkMode ? 'text-zinc-400' : 'text-zinc-500'
               }`}
             >
               Favorites
@@ -183,8 +183,8 @@ export default function WaffleMenu({ isDarkMode = false }: WaffleMenuProps) {
                   }}
                   className={`rounded-2xl p-3 cursor-pointer border transition-all duration-200 group ${
                     isDarkMode
-                      ? 'bg-slate-800/70 border-slate-700 hover:bg-slate-800'
-                      : 'bg-slate-50 border-slate-100 hover:bg-white hover:shadow-md'
+                      ? 'bg-[#18181b]/70 border-[#27272a] hover:bg-[#18181b]'
+                      : 'bg-zinc-50 border-zinc-100 hover:bg-white hover:shadow-md'
                   }`}
                 >
                   <div
@@ -208,7 +208,7 @@ export default function WaffleMenu({ isDarkMode = false }: WaffleMenuProps) {
           <div className="px-5 py-5">
             <div
               className={`text-[11px] font-extrabold tracking-wider uppercase mb-3 ${
-                isDarkMode ? 'text-slate-400' : 'text-slate-600'
+                isDarkMode ? 'text-zinc-400' : 'text-zinc-600'
               }`}
             >
               Categories
@@ -226,7 +226,7 @@ export default function WaffleMenu({ isDarkMode = false }: WaffleMenuProps) {
                     }
                   }}
                   className={`flex items-center justify-between rounded-2xl px-3 py-3 cursor-pointer transition-all duration-200 group ${
-                    isDarkMode ? 'hover:bg-slate-800' : 'hover:bg-slate-50'
+                    isDarkMode ? 'hover:bg-[#18181b]' : 'hover:bg-zinc-50'
                   }`}
                 >
                   <div className="flex items-center gap-3 min-w-0">
@@ -248,7 +248,7 @@ export default function WaffleMenu({ isDarkMode = false }: WaffleMenuProps) {
 
                       <p
                         className={`text-xs leading-relaxed line-clamp-2 ${
-                          isDarkMode ? 'text-slate-400' : 'text-slate-500'
+                          isDarkMode ? 'text-zinc-400' : 'text-zinc-500'
                         }`}
                       >
                         {item.description}
@@ -259,7 +259,7 @@ export default function WaffleMenu({ isDarkMode = false }: WaffleMenuProps) {
                   {/* Arrow */}
                   <i
                     className={`pi pi-angle-right text-sm ${
-                      isDarkMode ? 'text-slate-500' : 'text-slate-400'
+                      isDarkMode ? 'text-zinc-500' : 'text-zinc-400'
                     }`}
                   />
                 </div>
@@ -270,14 +270,14 @@ export default function WaffleMenu({ isDarkMode = false }: WaffleMenuProps) {
           {/* Footer */}
           <div
             className={`px-5 py-4 border-t ${
-              isDarkMode ? 'border-slate-700' : 'border-slate-100'
+              isDarkMode ? 'border-[#27272a]' : 'border-zinc-100'
             }`}
           >
             <button
               className={`w-full rounded-2xl py-3 text-sm font-semibold transition-all ${
                 isDarkMode
-                  ? 'bg-slate-800 hover:bg-slate-700'
-                  : 'bg-slate-100 hover:bg-slate-200'
+                  ? 'bg-[#18181b] hover:bg-[#27272a] text-[#fafafa]'
+                  : 'bg-zinc-100 hover:bg-zinc-200'
               }`}
             >
               View All Services

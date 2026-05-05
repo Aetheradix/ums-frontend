@@ -84,7 +84,7 @@
 
 /* Active page */
 .p-paginator-page.p-highlight {
-  @apply bg-slate-900 text-white rounded-lg;
+  @apply bg-black text-white rounded-lg border border-black;
 }
 
 /* Ellipsis */
@@ -101,9 +101,20 @@
 }
 
 .dark-theme .p-datatable-thead > tr > th {
-  background-color: var(--dark-header-bg);
-  @apply text-slate-300 border-b;
+  background-color: var(--dark-header-bg) !important;
+  color: #ffffff !important;
+  @apply border-b;
   border-color: var(--dark-border);
+}
+
+.dark-theme .p-datatable-thead > tr > th .p-column-title,
+.dark-theme .p-datatable-thead > tr > th .p-column-header-content {
+  background-color: transparent !important;
+  color: #ffffff !important;
+}
+
+.dark-theme .p-sortable-column .p-sortable-column-icon {
+  @apply text-white;
 }
 
 .dark-theme .p-datatable-tbody > tr > td {
@@ -123,6 +134,14 @@
   background-color: var(--dark-card-bg);
   border-color: var(--dark-border);
   color: var(--dark-card-text);
+}
+
+.dark-theme .p-paginator .p-paginator-page.p-highlight {
+  @apply bg-white text-black border-white;
+}
+
+.dark-theme .p-paginator .p-link {
+  @apply text-zinc-400 hover:bg-zinc-800;
 }
 
 /* --- 4. Misc --- */
