@@ -1,8 +1,10 @@
+
 import { collegeCategoryUrls } from './college/college-category/urls';
 import { collegeTypeUrls } from './college/college-type/urls';
 import { subjectCategoryUrls } from './course/subject-category/urls';
 import { departmentUrls } from './faculty/department/urls';
 import { designationUrls } from './faculty/designation/urls';
+import { facultyUrls } from './faculty/faculty/urls';
 import { officeTypeUrls } from './faculty/office-type/urls';
 import { casteUrls } from './hr/caste/urls';
 import { qualificationUrls } from './hr/qualification/urls';
@@ -15,7 +17,6 @@ import { tehsilUrls } from './location/tehsil/urls';
 
 const baseUrl = '/master';
 export const masterUrls = {
-  subjectCategory: subjectCategoryUrls(baseUrl),
   officeType: officeTypeUrls(`${baseUrl}/faculty-management`),
   department: departmentUrls(`${baseUrl}/faculty-management`),
   state: stateUrls(`${baseUrl}/location`),
@@ -29,4 +30,5 @@ export const masterUrls = {
   religion: religionUrls(`${baseUrl}/hr`),
   collegeType: collegeTypeUrls(`${baseUrl}/college`),
   collegeCategory: collegeCategoryUrls(`${baseUrl}/college`),
+  faculty: facultyUrls(`${baseUrl}/faculty-management`),
 };

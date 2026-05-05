@@ -1,84 +1,75 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import {
-  createSubjectCategory,
-  getSubjectCategories,
-  getSubjectCategory,
-  patchSubjectCategoryStatus,
-  updateSubjectCategory,
+  createFaculty,
+  getFaculty,
+  getFaculties,
+  patchFacultyStatus,
+  updateFaculty,
 } from './api';
 
-const QUERY_KEY = ['@master/subject-category'];
+const QUERY_KEY = ['@master/faculty'];
 
-export function useSubjectCategoriesQuery() {
+export function useFacultiesQuery() {
   const { data = [], isLoading } = useQuery({
     queryKey: QUERY_KEY,
-    queryFn: getSubjectCategories,
+    queryFn: getFaculties,
   });
 
   return { data, isLoading };
 }
 
-export function useCreateSubjectCategoryMutation() {
+export function useCreateFacultyMutation() {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: async (data: CourseMaster.SubjectCategoryCourseForm) =>
-      await createSubjectCategory(data),
+    mutationFn: async (data: Master.FacultyForm) => await createFaculty(data),
 
     onSuccess(data) {
       if (!data) return;
 
       const result =
-        queryClient.getQueryData<CourseMaster.SubjectCategoryItem[]>(
-          QUERY_KEY
-        ) ?? [];
+        queryClient.getQueryData<Master.FacultyItem[]>(QUERY_KEY) ?? [];
 
       queryClient.setQueryData(QUERY_KEY, [...result, data]);
     },
   });
 }
 
-export function useSubjectCategoryQuery(id: number) {
+export function useFacultyQuery(id: number) {
   return useQuery({
     queryKey: [...QUERY_KEY, id],
     queryFn: async () => {
-      const data = await getSubjectCategory(id);
+      const data = await getFaculty(id);
       if (!data) return undefined;
 
       return {
-        categoryName: data.categoryName,
-        categoryNameHindi: data.categoryNameHindi,
-        code: data.code,
-        isActive: data.isActive,
-      };
+        ...data,
+        joiningDate: new Date(data.joiningDate),
+      } as Master.FacultyItem;
     },
   });
 }
 
-export function useUpdateSubjectCategoryMutation(id: number) {
+export function useUpdateFacultyMutation(id: number) {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async (data: CourseMaster.SubjectCategoryCourseForm) =>
-      await updateSubjectCategory(id, data),
+    mutationFn: async (data: Master.FacultyForm) =>
+      await updateFaculty(id, data),
 
     onSuccess(success, formData) {
       if (!success) return;
 
       const result =
-        queryClient.getQueryData<CourseMaster.SubjectCategoryItem[]>(
-          QUERY_KEY
-        ) ?? [];
+        queryClient.getQueryData<Master.FacultyItem[]>(QUERY_KEY) ?? [];
 
       const index = result.findIndex(item => item.id === id);
       if (index === -1) return;
 
       const existing = result[index];
 
-      const itemToReplace: CourseMaster.SubjectCategoryItem = {
+      const itemToReplace: Master.FacultyItem = {
+        ...formData,
         id,
-        categoryName: formData.categoryName,
-        categoryNameHindi: formData.categoryNameHindi,
-        code: formData.categoryCode,
         isActive: existing?.isActive || formData.isActive,
       };
 
@@ -94,20 +85,18 @@ export function useUpdateSubjectCategoryMutation(id: number) {
   });
 }
 
-export function useSubjectCategoryActiveStatusMutation() {
+export function useFacultyActiveStatusMutation() {
   const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: async (data: { id: number; isActive: boolean }) =>
-      await patchSubjectCategoryStatus(data.id, data.isActive),
+      await patchFacultyStatus(data.id, data.isActive),
 
     onSuccess(success, variables) {
       if (!success) return;
 
       const result =
-        queryClient.getQueryData<CourseMaster.SubjectCategoryItem[]>(
-          QUERY_KEY
-        ) ?? [];
+        queryClient.getQueryData<Master.FacultyItem[]>(QUERY_KEY) ?? [];
 
       const index = result.findIndex(item => item.id === variables.id);
       if (index === -1) return;

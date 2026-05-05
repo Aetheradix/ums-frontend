@@ -178,6 +178,13 @@ export const menuConfig: Menu.MenuItem[] = [
             icon: 'badge',
             colorScheme: 'green',
           },
+          {
+            label: 'Faculty',
+            description: 'Manage faculties',
+            path: '/master/faculty-management/faculty',
+            icon: 'groups',
+            colorScheme: 'green',
+          },
         ],
       },
       {

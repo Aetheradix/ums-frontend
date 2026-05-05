@@ -1,5 +1,5 @@
-export function subjectCategoryUrls(baseUrl: string) {
-  const url = `${baseUrl}/subject-category`;
+export function facultyUrls(baseUrl: string) {
+  const url = `${baseUrl}/faculty`;
   return {
     root: url,
     edit: (id: number) => `${url}/edit/${id}`,
