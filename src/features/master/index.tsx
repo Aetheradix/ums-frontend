@@ -1,4 +1,7 @@
 import { Route, Routes } from 'react-router';
+import CollegeCategory from './college/college-category';
+import CollegeType from './college/college-type';
+import SubjectCategory from './course/subject-category';
 import Department from './faculty/department';
 import Designation from './faculty/designation';
 import Faculty from './faculty/faculty';
@@ -24,6 +27,11 @@ export default function Master() {
         <Route path="caste/*" element={<Caste />} />
         <Route path="religion/*" element={<Religion />} />
         <Route path="qualification/*" element={<Qualification />} />
+      </Route>
+
+      <Route path="college/*">
+        <Route path="college-type/*" element={<CollegeType />} />
+        <Route path="college-category/*" element={<CollegeCategory />} />
       </Route>
     </Routes>
   );

@@ -219,6 +219,30 @@ export const menuConfig: Menu.MenuItem[] = [
           },
         ],
       },
+      {
+        label: 'College',
+        slug: 'college',
+        description: 'Manage college types and Categorys.',
+        path: '/home/sub-menu/college',
+        icon: 'school',
+        colorScheme: 'indigo',
+        children: [
+          {
+            label: 'College Type',
+            description: 'Manage college types',
+            path: '/master/college/college-type',
+            icon: 'school',
+            colorScheme: 'indigo',
+          },
+          {
+            label: 'Category',
+            description: 'Manage college categories',
+            path: '/master/college/college-category',
+            icon: 'school',
+            colorScheme: 'red',
+          },
+        ],
+      },
     ],
   },
 ];

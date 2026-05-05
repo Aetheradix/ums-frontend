@@ -1,3 +1,7 @@
+
+import { collegeCategoryUrls } from './college/college-category/urls';
+import { collegeTypeUrls } from './college/college-type/urls';
+import { subjectCategoryUrls } from './course/subject-category/urls';
 import { departmentUrls } from './faculty/department/urls';
 import { designationUrls } from './faculty/designation/urls';
 import { facultyUrls } from './faculty/faculty/urls';
@@ -24,5 +28,7 @@ export const masterUrls = {
   caste: casteUrls(`${baseUrl}/hr`),
   qualification: qualificationUrls(`${baseUrl}/hr`),
   religion: religionUrls(`${baseUrl}/hr`),
+  collegeType: collegeTypeUrls(`${baseUrl}/college`),
+  collegeCategory: collegeCategoryUrls(`${baseUrl}/college`),
   faculty: facultyUrls(`${baseUrl}/faculty-management`),
 };
