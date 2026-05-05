@@ -20,7 +20,7 @@
 }
 
 .welcome-sso-icon {
-  @apply text-blue-500 flex;
+  @apply text-zinc-900 flex;
 }
 
 .welcome-content {
@@ -32,7 +32,7 @@
 }
 
 .welcome-name {
-  @apply text-[#2264dc];
+  @apply text-black;
 }
 
 .welcome-subtext {
@@ -61,7 +61,7 @@
 }
 
 .service-filters-link {
-  @apply text-blue-500 no-underline text-sm font-semibold flex items-center gap-1.5;
+  @apply text-zinc-900 no-underline text-sm font-semibold flex items-center gap-1.5 hover:underline;
 }
 
 .service-filter-tabs {
@@ -73,7 +73,7 @@
 }
 
 .service-filter-tab.active {
-  @apply bg-blue-500 text-white;
+  @apply bg-black text-white;
 }
 
 /* ServicesGrid */
@@ -83,7 +83,7 @@
 
 /* ── Dark Theme Overrides ── */
 .dark-theme .welcome-banner {
-  background-color: var(--dark-card-bg);
+  background: var(--dark-card-bg) !important;
   border-color: var(--dark-border);
 }
 
@@ -123,4 +123,15 @@
 .dark-theme .service-filter-tab:not(.active):hover {
   background-color: var(--dark-card-hover);
   color: var(--white);
+}
+
+.dark-theme .service-filter-tab.active {
+  background-color: var(--white) !important;
+  color: var(--black) !important;
+}
+
+.dark-theme .service-filters-link,
+.dark-theme .welcome-name,
+.dark-theme .welcome-sso-icon {
+  color: var(--white) !important;
 }

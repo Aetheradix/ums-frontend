@@ -24,10 +24,10 @@ export default function SkeletonLoader({ type = 'grid' }: SkeletonLoaderProps) {
     return () => observer.disconnect();
   }, []);
 
-  const bgColor = isDark ? 'bg-slate-800' : 'bg-slate-100';
-  const borderColor = isDark ? 'border-slate-700/60' : 'border-slate-200/60';
-  const boneColor = isDark ? 'bg-slate-700/70' : 'bg-slate-200';
-  const subBoneColor = isDark ? 'bg-slate-700/40' : 'bg-slate-200/50';
+  const bgColor = isDark ? 'bg-transparent' : 'bg-zinc-100';
+  const borderColor = isDark ? 'border-zinc-800' : 'border-zinc-200/60';
+  const boneColor = isDark ? 'bg-zinc-800/80' : 'bg-zinc-200';
+  const subBoneColor = isDark ? 'bg-zinc-800/40' : 'bg-zinc-200/50';
 
   if (type === 'card') {
     return (

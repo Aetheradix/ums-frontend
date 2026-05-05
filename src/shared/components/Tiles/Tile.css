@@ -99,7 +99,7 @@
 
 .db-card-icon-box {
   @apply w-15 h-15 rounded-2xl flex items-center justify-center;
-  border: 1px solid #eee;
+  border: none;
 }
 
 .db-card-icon-box .icon-base {
@@ -164,13 +164,28 @@
    Dark Theme
 ───────────────────────────── */
 .dark-theme .db-service-card {
-  background-color: var(--dark-card-bg);
-  border-color: rgba(255, 255, 255, 0.06);
+  background-color: #121214;
+  border: none !important;
+  box-shadow:
+    inset 0 0 0 1px var(--dark-border),
+    0 10px 30px rgba(0, 0, 0, 0.4);
+  overflow: hidden;
+}
+
+.dark-theme .db-service-card:hover {
+  background-color: #18181b;
+  box-shadow:
+    inset 0 0 0 1px #3f3f46,
+    0 15px 40px rgba(0, 0, 0, 0.6);
 }
 
 /* Update Cutout curves for Dark Theme */
 .dark-theme .db-card-corner-action {
   background-color: var(--dark-bg);
+  top: 0;
+  right: 0;
+  width: 68px;
+  height: 68px;
 }
 .dark-theme .db-card-corner-action::before,
 .dark-theme .db-card-corner-action::after {

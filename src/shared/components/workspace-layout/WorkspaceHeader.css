@@ -78,19 +78,19 @@
 
 /* Dark theme styles for header */
 .dark-theme .ws-header {
-  @apply bg-slate-900 border-slate-800 text-slate-100;
+  @apply bg-zinc-950 border-zinc-800 text-zinc-100;
 }
 
 .dark-theme .ws-logo-title,
 .dark-theme .ws-username {
-  @apply text-slate-100;
+  @apply text-zinc-100;
 }
 
 .dark-theme .ws-search-input {
-  @apply bg-slate-800 text-slate-100;
+  @apply bg-zinc-900 text-zinc-100;
 }
 
 .dark-theme .ws-action-icons,
 .dark-theme .ws-search-icon {
-  @apply text-slate-400;
+  @apply text-zinc-400;
 }

@@ -21,9 +21,11 @@
 
 /* ── Variants ── */
 .button-variant-primary {
-  background-color: var(--success-color);
-  border-color: var(--success-color) !important;
-  @apply text-white;
+  @apply bg-black text-white! border-black;
+}
+
+.button-variant-primary i {
+  @apply text-white!;
 }
 
 .button-variant-success {
@@ -53,9 +55,11 @@
 }
 
 .button-variant-outlined {
-  @apply bg-transparent w-full;
-  border: 1px solid var(--danger-color);
-  color: var(--danger-color);
+  @apply bg-transparent w-full border border-zinc-900 text-zinc-900;
+}
+
+.button-variant-outlined i {
+  @apply text-zinc-900;
 }
 
 .button-variant-text {
@@ -97,13 +101,17 @@
 
 /* ── Dark theme ── */
 .dark-theme .button-variant-primary {
-  background-color: var(--dark-button-bg);
-  border-color: var(--dark-button-bg);
-  color: var(--dark-text);
+  background-color: #ffffff !important;
+  color: #000000 !important;
+  border: 1px solid #ffffff !important;
+}
+
+.dark-theme .button-variant-primary i {
+  color: #000000 !important;
 }
 
 .dark-theme .button-variant-primary:hover {
-  background-color: var(--dark-button-hover);
+  background-color: #e4e4e7 !important;
 }
 
 .dark-theme .button-variant-success {
@@ -131,13 +139,13 @@
 }
 
 .dark-theme .button-variant-outlined {
-  @apply bg-transparent;
-  border-color: var(--dark-border-opacity);
-  color: var(--dark-text);
+  background-color: #27272a !important;
+  border-color: #3f3f46 !important;
+  color: #ffffff !important;
 }
 
 .dark-theme .button-variant-outlined:hover {
-  background-color: var(--dark-link-hover);
+  background-color: #3f3f46 !important;
 }
 
 .dark-theme .button-variant-text {

@@ -11,7 +11,11 @@
 
 /* HEADER */
 .form-card-header {
-  @apply flex items-start justify-between px-6 py-4 border-b border-slate-100;
+  @apply flex items-start justify-between px-6 py-4 border-b border-zinc-100;
+}
+
+.dark-theme .form-card-header {
+  @apply border-zinc-800;
 }
 
 /* LEFT SECTION (icon + text) */
@@ -22,20 +26,36 @@
 /* ICON */
 .form-card-icon {
   @apply w-13 h-13 rounded-full flex items-center justify-center flex-shrink-0;
-  background: linear-gradient(135deg, #eff6ff, #dbeafe);
+  background: linear-gradient(135deg, #f4f4f5, #e4e4e7);
+}
+
+.dark-theme .form-card-icon {
+  background: #18181b;
 }
 
 .form-card-icon i {
-  @apply text-blue-600 text-lg;
+  @apply text-zinc-600 text-lg;
+}
+
+.dark-theme .form-card-icon i {
+  @apply text-zinc-400;
 }
 
 /* TEXT */
 .form-card-title {
-  @apply text-lg font-semibold text-slate-800 m-0;
+  @apply text-lg font-semibold text-zinc-800 m-0;
+}
+
+.dark-theme .form-card-title {
+  @apply text-white;
 }
 
 .form-card-subtitle {
-  @apply text-sm text-slate-500 mt-0.5 m-0;
+  @apply text-sm text-zinc-500 mt-0.5 m-0;
+}
+
+.dark-theme .form-card-subtitle {
+  @apply text-[var(--dark-text-secondary)];
 }
 
 /* RIGHT ACTION */

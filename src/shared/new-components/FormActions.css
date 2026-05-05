@@ -1,7 +1,11 @@
 @reference "tailwindcss";
 
 .form-actions-container {
-  @apply flex items-center gap-3 pt-5 mt-2 border-t border-slate-100;
+  @apply flex items-center gap-3 pt-5 mt-2 border-t border-zinc-100;
+}
+
+.dark-theme .form-actions-container {
+  @apply border-zinc-800;
 }
 
 .form-actions-left {

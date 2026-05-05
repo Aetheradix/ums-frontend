@@ -36,6 +36,15 @@
   @apply text-red-500 ml-0.5;
 }
 
+/* ── Dark Theme Overrides ── */
+.dark-theme .label-main {
+  @apply text-white;
+}
+
+.dark-theme .label-sub {
+  @apply text-[var(--dark-text-secondary)];
+}
+
 /* ── Input Wrapper ── */
 .input-wrapper {
   @apply relative w-full;
@@ -58,6 +67,10 @@
 
 .input-field-wrapper input::placeholder {
   @apply text-slate-400;
+}
+
+.dark-theme .input-field-wrapper input::placeholder {
+  color: var(--dark-placeholder);
 }
 
 /* ── Error State ── */

@@ -28,7 +28,7 @@
   --primary-color: #2264dc;
   --secondary-color: #447fec;
   --body-bg: var(--white);
-  --main-content-bg: aliceblue;
+  --main-content-bg: #fafafa;
   --text-gray-dark: #4b5563;
   --placeholder-gray: #cccccc;
   --scrollbar-track-bg: #dddddd;
@@ -41,33 +41,33 @@
   --toast-border: #cccccc;
   --toast-shadow: rgba(0, 0, 0, 0.1);
 
-  /* Dark Theme Base Vars */
-  --dark-bg: #0f172a;
-  --dark-card-bg: #1e293b;
-  --dark-card-hover: #334155;
-  --dark-text: #f1f5f9;
-  --dark-text-secondary: #cbd5e1;
-  --dark-border: #334155;
-  --dark-shadow: rgba(0, 0, 0, 0.3);
-  --dark-input-bg: #333333;
-  --dark-input-border: #555555;
-  --dark-placeholder: #cccccc;
-  --dark-button-bg: #ffffff8e;
-  --dark-button-hover: #45a049;
-  --dark-header-bg: #1a1a1a;
-  --dark-table-header-bg: #2c2c2c;
-  --dark-navbar-bg: #1a1a1a;
-  --dark-navbar-border: #333333;
-  --dark-dropdown-bg: #1a1a1a;
-  --dark-dropdown-border: #333333;
-  --dark-dropdown-shadow: rgba(0, 0, 0, 0.5);
-  --dark-link-hover: #333333;
-  --dark-p-card-bg: #2a2a2a;
-  --dark-card-text: #cccccc;
-  --dark-card-shadow: rgba(255, 255, 255, 0.1);
-  --dark-login-title: var(--white);
-  --dark-login-subtitle: #cccccc;
-  --dark-overlay-bg: rgba(30, 41, 59, 0.8);
+  /* Dark Theme Base Vars (Zinc-style) */
+  --dark-bg: #09090b;
+  --dark-card-bg: #121214;
+  --dark-card-hover: #18181b;
+  --dark-text: #ffffff;
+  --dark-text-secondary: #d4d4d8;
+  --dark-border: #27272a;
+  --dark-shadow: rgba(0, 0, 0, 0.6);
+  --dark-input-bg: #09090b;
+  --dark-input-border: #27272a;
+  --dark-placeholder: #a1a1aa;
+  --dark-button-bg: #27272a;
+  --dark-button-hover: #3f3f46;
+  --dark-header-bg: #09090b;
+  --dark-table-header-bg: #18181b;
+  --dark-navbar-bg: #09090b;
+  --dark-navbar-border: #27272a;
+  --dark-dropdown-bg: #09090b;
+  --dark-dropdown-border: #27272a;
+  --dark-dropdown-shadow: rgba(0, 0, 0, 0.7);
+  --dark-link-hover: #18181b;
+  --dark-p-card-bg: #09090b;
+  --dark-card-text: #e4e4e7;
+  --dark-card-shadow: rgba(0, 0, 0, 0.4);
+  --dark-login-title: #ffffff;
+  --dark-login-subtitle: #a1a1aa;
+  --dark-overlay-bg: rgba(9, 9, 11, 0.85);
 
   /* Misc */
   --sidebar-overlay-bg: rgba(0, 0, 0, 0.45);
@@ -244,8 +244,8 @@ body {
 .p-button {
   @apply rounded-md font-medium flex items-center;
   transition: all 0.3s ease;
-  color: var(--primary-color);
-  border: 1px solid var(--primary-color);
+  color: #000000;
+  border: 1px solid #000000;
   padding: 0.5rem 1rem;
   gap: 0.5rem;
 }
@@ -640,14 +640,14 @@ body {
 }
 
 .dark-theme .instruction-box {
-  background-color: #0f172a;
-  border: 1px solid #494949;
+  background-color: #09090b;
+  border: 1px solid #27272a;
   color: var(--dark-text);
 }
 
 .dark-theme .checkbox-highlight-val {
-  background-color: #3b3a00;
-  color: #fff9c4;
+  background-color: #3f3f46;
+  color: #fafafa;
 }
 
 .dark-theme table th {
@@ -660,8 +660,8 @@ body {
 }
 
 .dark-theme .bg-even-group td {
-  background-color: #1e293b !important;
-  color: #f1f5f9 !important;
+  background-color: #18181b !important;
+  color: #ffffff !important;
 }
 
 .dark-theme .bg-odd-group td {
@@ -708,15 +708,15 @@ body {
    12. SYSTEMATIC GRID LOOK
    ============================================================ */
 .p-datatable {
-  @apply w-full border border-slate-200 rounded-lg overflow-hidden shadow-sm;
+  @apply w-full border border-zinc-200 rounded-lg overflow-hidden shadow-sm;
 }
 
 .p-datatable .p-datatable-thead > tr > th {
-  @apply bg-slate-50 text-slate-700 font-semibold py-3 px-4 border-b border-slate-200 text-sm;
+  @apply bg-zinc-50 text-zinc-700 font-semibold py-3 px-4 border-b border-zinc-200 text-sm;
 }
 
 .p-datatable .p-datatable-tbody > tr > td {
-  @apply py-3 px-4 border-b border-slate-100 text-sm;
+  @apply py-3 px-4 border-b border-zinc-100 text-sm;
 }
 
 .p-datatable .p-datatable-tbody > tr:last-child > td {
@@ -724,24 +724,24 @@ body {
 }
 
 .p-paginator {
-  @apply border-t border-slate-200 py-3 text-sm px-5;
+  @apply border-t border-zinc-200 py-3 text-sm px-5;
 }
 
 /* Dark Theme Adjustments for Grid */
 .dark-theme .p-datatable {
-  @apply border-[#334155];
+  @apply border-[#27272a];
 }
 
 .dark-theme .p-datatable .p-datatable-thead > tr > th {
-  @apply bg-[#1e293b] text-slate-300 border-[#334155];
+  @apply bg-[#18181b] text-white border-[#27272a];
 }
 
 .dark-theme .p-datatable .p-datatable-tbody > tr > td {
-  @apply border-[#334155] text-slate-300;
+  @apply border-[#27272a] text-white;
 }
 
 .dark-theme .p-paginator {
-  @apply border-[#334155] bg-[#1e293b] text-slate-300;
+  @apply border-[#27272a] bg-[#18181b] text-zinc-300;
 }
 
 .pl-40 {
