@@ -1,5 +1,6 @@
 import { departmentUrls } from './faculty/department/urls';
 import { designationUrls } from './faculty/designation/urls';
+import { facultyUrls } from './faculty/faculty/urls';
 import { officeTypeUrls } from './faculty/office-type/urls';
 import { casteUrls } from './hr/caste/urls';
 import { qualificationUrls } from './hr/qualification/urls';
@@ -23,4 +24,5 @@ export const masterUrls = {
   caste: casteUrls(`${baseUrl}/hr`),
   qualification: qualificationUrls(`${baseUrl}/hr`),
   religion: religionUrls(`${baseUrl}/hr`),
+  faculty: facultyUrls(`${baseUrl}/faculty-management`),
 };

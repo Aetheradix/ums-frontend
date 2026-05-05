@@ -8,7 +8,7 @@ import { masterUrls } from '../../../urls';
 import DepartmentForm from '../components/DepartmentForm';
 import { useDepartmentQuery, useUpdateDepartmentMutation } from '../queries';
 
-const DEFAULT = {
+const DEFAULT: Master.DepartmentForm = {
   code: '',
   name: '',
   officeTypeId: 0,

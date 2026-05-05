@@ -1,4 +1,19 @@
 declare namespace Master {
+  interface Faculty {
+    code: string;
+    name: string;
+    officeTypeId: number;
+    officeTypeName?: string;
+    departmentId: number;
+    departmentName?: string;
+    designationId: number;
+    designationName?: string;
+    joiningDate: Date;
+    mobile: string;
+    email: string;
+    isActive: boolean;
+  }
+
   interface FacultyForm {
     code: string;
     name: string;
@@ -10,7 +25,7 @@ declare namespace Master {
     email: string;
     isActive: boolean;
   }
-  type FacultyItem = Data.WithId<FacultyForm>;
+  type FacultyItem = Data.WithId<Faculty>;
 
   interface Department {
     code: string;
