@@ -37,3 +37,8 @@ export async function deleteCollegeCategory(id: number): Promise<boolean> {
   const result = await ApiService.del(`${COLLEGE_CATEGORY_URL}/${id}`);
   return !result.error;
 }
+
+export async function patchCollegeCategoryStatus(id: number): Promise<boolean> {
+  const result = await ApiService.patch(`${COLLEGE_CATEGORY_URL}/${id}`, {});
+  return !result.error;
+}

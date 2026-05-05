@@ -1,6 +1,5 @@
-import { ActionButtons } from 'features/components';
 import { TextBox } from 'shared/components/forms';
-import { InputPanel } from 'shared/components/panels';
+import { FormActions, FormGrid } from 'shared/new-components';
 import { useCollegeTypeForm } from './form.hook';
 
 interface CollegeTypeFormProps {
@@ -18,7 +17,7 @@ export default function CollegeTypeForm(props: CollegeTypeFormProps) {
 
   return (
     <form onSubmit={handleSubmit}>
-      <InputPanel orientation="horizontal">
+      <FormGrid columns={2}>
         <TextBox
           label="Name"
           subLabel="(In English)"
@@ -27,10 +26,10 @@ export default function CollegeTypeForm(props: CollegeTypeFormProps) {
           maxLength={100}
           required
         />
-      </InputPanel>
+      </FormGrid>
 
-      <ActionButtons
-        update={props.isEditMode}
+      <FormActions
+        isEditMode={props.isEditMode}
         isLoading={props.isSaving}
         onSave={handleSubmit}
         onReset={reset}

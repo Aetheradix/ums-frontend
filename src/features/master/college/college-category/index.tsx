@@ -6,10 +6,9 @@ import List from './pages/List';
 export default function CollegeCategory() {
   return (
     <Routes>
-      <Route path="/*" element={<List />}>
-        <Route path="create" element={<Create />} />
-        <Route path=":id/edit" element={<Edit />} />
-      </Route>
+      <Route index element={<List />} />
+      <Route path="create" element={<Create />} />
+      <Route path="edit/:id" element={<Edit />} />
     </Routes>
   );
 }

@@ -1,7 +1,7 @@
-import { ActionButtons } from 'features/components';
 import { TextBox } from 'shared/components/forms';
 import DropDownList from 'shared/components/forms/DropDownList';
 import { InputPanel } from 'shared/components/panels';
+import { FormActions, FormGrid } from 'shared/new-components';
 import { useCollegeTypesQuery } from 'features/master/college/college-type/queries';
 import { useCollegeCategoryForm } from './form.hook';
 
@@ -22,7 +22,7 @@ export default function CollegeCategoryForm(props: CollegeCategoryFormProps) {
 
   return (
     <form onSubmit={handleSubmit}>
-      <InputPanel orientation="horizontal">
+      <FormGrid columns={2}>
         <DropDownList
           label="College Type"
           {...register('collegeTypeId')}
@@ -40,10 +40,10 @@ export default function CollegeCategoryForm(props: CollegeCategoryFormProps) {
           maxLength={100}
           required
         />
-      </InputPanel>
+      </FormGrid>
 
-      <ActionButtons
-        update={props.isEditMode}
+      <FormActions
+        isEditMode={props.isEditMode}
         isLoading={props.isSaving}
         onSave={handleSubmit}
         onReset={reset}

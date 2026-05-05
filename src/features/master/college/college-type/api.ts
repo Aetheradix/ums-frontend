@@ -37,3 +37,8 @@ export async function deleteCollegeType(id: number): Promise<boolean> {
   const result = await ApiService.del(`${COLLEGE_TYPE_URL}/${id}`);
   return !result.error;
 }
+
+export async function patchCollegeTypeStatus(id: number): Promise<boolean> {
+  const result = await ApiService.patch(`${COLLEGE_TYPE_URL}/${id}`, {});
+  return !result.error;
+}

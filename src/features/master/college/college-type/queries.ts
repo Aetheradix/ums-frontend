@@ -5,6 +5,7 @@ import {
   getCollegeTypes,
   deleteCollegeType,
   updateCollegeType,
+  patchCollegeTypeStatus,
 } from './api';
 
 const QUERY_KEY = ['@master/college-type'];
@@ -106,6 +107,38 @@ export function useDeleteCollegeTypeMutation() {
       const updatedItems = result.filter(item => item.id !== id);
 
       queryClient.setQueryData(QUERY_KEY, updatedItems);
+    },
+  });
+}
+
+export function useCollegeTypeActiveStatusMutation() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (data: { id: number; isActive: boolean }) =>
+      await patchCollegeTypeStatus(data.id),
+
+    onSuccess(success, variables) {
+      if (!success) return;
+
+      const result =
+        queryClient.getQueryData<CollegeMaster.CollegeTypeItem[]>(
+          QUERY_KEY
+        ) ?? [];
+
+      const index = result.findIndex(item => item.id === variables.id);
+      if (index === -1) return;
+
+      const updatedItem = {
+        ...result[index],
+        isActive: variables.isActive,
+      };
+
+      queryClient.setQueryData(QUERY_KEY, [
+        ...result.slice(0, index),
+        updatedItem,
+        ...result.slice(index + 1),
+      ]);
     },
   });
 }

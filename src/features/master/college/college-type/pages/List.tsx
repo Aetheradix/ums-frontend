@@ -1,36 +1,31 @@
-import { Outlet, useNavigate } from 'react-router';
-import { Button, LinkButton } from 'shared/components/buttons';
-import { Card, GridPanel, Page } from 'shared/components/panels';
+import { useNavigate } from 'react-router';
+import { Button } from 'shared/components/buttons';
+import StatusButton from 'shared/components/buttons/StatusButton';
 import { Loader } from 'shared/components/progress';
+import { FormCard, FormPage, GridPanel } from 'shared/new-components';
 import { masterUrls } from '../../../urls';
-import {
-  useCollegeTypesQuery,
-  useDeleteCollegeTypeMutation,
-} from '../queries';
-import { ToastService } from 'services';
+import { useCollegeTypesQuery, useCollegeTypeActiveStatusMutation } from '../queries';
 
 export default function List() {
   const { data, isLoading } = useCollegeTypesQuery();
   const navigate = useNavigate();
-  const { mutateAsync } = useDeleteCollegeTypeMutation();
+  const { mutateAsync } = useCollegeTypeActiveStatusMutation();
 
-  const handleDelete = async (item: CollegeMaster.CollegeTypeItem) => {
-    if (window.confirm('Are you sure you want to delete this item?')) {
-      try {
-        const res = await mutateAsync(item.id);
-        if (res) ToastService.success('Deleted successfully');
-      } catch {
-        ToastService.error('Failed to delete');
-      }
-    }
+  const handleToggleStatus = async (item: CollegeMaster.CollegeTypeItem) => {
+    await mutateAsync({
+      id: item.id,
+      isActive: !item.isActive,
+    });
   };
 
   return (
-    <Page header="College Type">
-      <Card>
+    <FormPage
+      title="College Type"
+      description="Manage the list of all college types in the system."
+    >
+      <FormCard>
         {isLoading ? <Loader /> : undefined}
         <GridPanel
-          title="College Types"
           data={data}
           onEdit={collegeType =>
             navigate(masterUrls.collegeType.edit(collegeType.id))
@@ -42,29 +37,28 @@ export default function List() {
             },
             { field: 'name', header: 'Name' },
             {
-              header: 'Action',
+              field: 'isActive',
+              header: 'Status',
               sortable: false,
               cell: (item: CollegeMaster.CollegeTypeItem) => (
-                <Button
-                  icon="trash"
-                  variant="danger"
-                  onClick={() => handleDelete(item)}
-                  size="small"
+                <StatusButton
+                  value={item.isActive}
+                  onClick={() => handleToggleStatus(item)}
                 />
               ),
             },
           ]}
           toolbar={
-            <LinkButton
+            <Button
               label="Create"
               icon="plus"
-              to={masterUrls.collegeType.create}
+              variant="primary"
+              onClick={() => navigate(masterUrls.collegeType.create)}
             />
           }
           searchBox
         />
-      </Card>
-      <Outlet />
-    </Page>
+      </FormCard>
+    </FormPage>
   );
 }

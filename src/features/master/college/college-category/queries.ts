@@ -5,6 +5,7 @@ import {
   getCollegeCategories,
   deleteCollegeCategory,
   updateCollegeCategory,
+  patchCollegeCategoryStatus,
 } from './api';
 
 const QUERY_KEY = ['@master/college-category'];
@@ -108,6 +109,38 @@ export function useDeleteCollegeCategoryMutation() {
       const updatedItems = result.filter(item => item.id !== id);
 
       queryClient.setQueryData(QUERY_KEY, updatedItems);
+    },
+  });
+}
+
+export function useCollegeCategoryActiveStatusMutation() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (data: { id: number; isActive: boolean }) =>
+      await patchCollegeCategoryStatus(data.id),
+
+    onSuccess(success, variables) {
+      if (!success) return;
+
+      const result =
+        queryClient.getQueryData<CollegeMaster.CollegeCategoryItem[]>(
+          QUERY_KEY
+        ) ?? [];
+
+      const index = result.findIndex(item => item.id === variables.id);
+      if (index === -1) return;
+
+      const updatedItem = {
+        ...result[index],
+        isActive: variables.isActive,
+      };
+
+      queryClient.setQueryData(QUERY_KEY, [
+        ...result.slice(0, index),
+        updatedItem,
+        ...result.slice(index + 1),
+      ]);
     },
   });
 }

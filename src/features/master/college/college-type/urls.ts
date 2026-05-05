@@ -3,6 +3,6 @@ export const collegeTypeUrls = (baseUrl: string) => {
   return {
     root: prefix,
     create: `${prefix}/create`,
-    edit: (id: string | number) => `${prefix}/${id}/edit`,
+    edit: (id: string | number) => `${prefix}/edit/${id}`,
   };
 };

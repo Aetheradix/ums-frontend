@@ -1,9 +1,10 @@
 import { useCallback } from 'react';
 import { useNavigate } from 'react-router';
 import { ToastService } from 'services';
-import { Modal } from 'shared/components/popups';
+import { FormCard, FormPage } from 'shared/new-components';
 import { Loader } from 'shared/components/progress';
 import { useParamsId } from 'shared/hooks/params';
+import { masterUrls } from '../../../urls';
 import CollegeCategoryForm from '../components/CollegeCategoryForm';
 import { useCollegeCategoryQuery, useUpdateCollegeCategoryMutation } from '../queries';
 
@@ -12,44 +13,45 @@ const DEFAULT = {
   collegeTypeId: 0,
 };
 
-interface Props {
-  onSave: () => void;
-}
-
-function EditModalContent(props: Props) {
+export default function Edit() {
+  const navigate = useNavigate();
   const id = useParamsId();
   const { mutateAsync, isPending } = useUpdateCollegeCategoryMutation(id);
   const { data = DEFAULT, isLoading } = useCollegeCategoryQuery(id);
+
+  const handleBack = useCallback(() => {
+    navigate(masterUrls.collegeCategory.root);
+  }, [navigate]);
 
   if (isLoading) {
     return <Loader />;
   }
 
-  return (
-    <CollegeCategoryForm
-      fetchData={data}
-      isSaving={isPending}
-      isEditMode
-      onSubmit={async data => {
-        const result = await mutateAsync(data);
-        if (result) {
-          ToastService.success('College Category updated successfully.');
-          props.onSave();
-        }
-      }}
-    />
-  );
-}
-
-export default function Edit() {
-  const navigate = useNavigate();
-  const handleBack = useCallback(() => {
-    navigate(-1);
-  }, [navigate]);
+  async function handleSubmit(data: CollegeMaster.CollegeCategoryForm) {
+    try {
+      const result = await mutateAsync(data);
+      if (result) {
+        ToastService.success('College Category updated successfully.');
+        handleBack();
+      }
+    } catch {
+      ToastService.error('Failed to update college category');
+    }
+  }
 
   return (
-    <Modal header="Edit College Category" onHide={handleBack} visible>
-      <EditModalContent onSave={handleBack} />
-    </Modal>
+    <FormPage
+      title="Edit College Category"
+      description="Update the college category details."
+    >
+      <FormCard title="College Category Details">
+        <CollegeCategoryForm
+          fetchData={data}
+          isSaving={isPending}
+          isEditMode
+          onSubmit={handleSubmit}
+        />
+      </FormCard>
+    </FormPage>
   );
 }
