@@ -2,7 +2,7 @@ import { errors } from 'config/errors';
 import { useAppForm } from 'shared/hooks/form';
 import validation, { expressions, keys } from 'shared/utils/validation';
 
-const schema = validation.create<OfficeTypeMaster.OfficeTypeForm>(o => ({
+const schema = validation.create<Master.OfficeTypeForm>(o => ({
   name: o
     .string()
     .required()
@@ -20,14 +20,13 @@ const schema = validation.create<OfficeTypeMaster.OfficeTypeForm>(o => ({
 }));
 
 export function useOfficeTypeForm(
-  submitCallback: Forms.SubmitFunc<OfficeTypeMaster.OfficeTypeForm>,
-  defaultValues?: Forms.FetchDataFunc<OfficeTypeMaster.OfficeTypeForm>
+  submitCallback: Forms.SubmitFunc<Master.OfficeTypeForm>,
+  defaultValues?: Forms.FetchDataFunc<Master.OfficeTypeForm>
 ) {
-  const { register, handleSubmit, reset } =
-    useAppForm<OfficeTypeMaster.OfficeTypeForm>({
-      defaultValues: defaultValues,
-      resolver: validation.resolver(schema),
-    });
+  const { register, handleSubmit, reset } = useAppForm<Master.OfficeTypeForm>({
+    defaultValues: defaultValues,
+    resolver: validation.resolver(schema),
+  });
 
   return {
     register,

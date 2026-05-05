@@ -1,62 +1,92 @@
+@reference "tailwindcss";
+/* ── Input Block Container ── */
 .input-block {
-  width: 100%;
-  margin-bottom: 0.75em;
-  position: relative;
+  @apply w-full mb-3 relative;
 }
 
 .input-block.vertical {
-  display: flex;
-  flex-direction: column;
+  @apply flex flex-col;
 }
 
 .input-block.vertical label {
-  margin-bottom: 0.35em;
-  font-weight: 600;
+  @apply mb-1.5 font-semibold;
 }
 
 .input-block.horizontal {
-  display: grid;
+  @apply grid gap-3;
   grid-template-columns: 150px 1fr;
-  gap: 0.75em;
   border-bottom: 1px solid var(--gray-200);
-  padding-bottom: 0.75em;
+  @apply pb-3;
 }
 
 .input-block.horizontal label {
-  font-weight: 600;
-  margin: 0;
+  @apply font-semibold m-0;
 }
 
+/* ── Label parts ── */
+.label-text {
+  @apply inline-flex;
+}
+
+.sub-label {
+  @apply block text-[0.7em] font-normal mt-1 ml-0.5;
+  color: var(--sub-lable-color);
+}
+
+.required {
+  @apply ml-0.5;
+  color: var(--danger-color);
+}
+
+/* ── Input Wrapper ── */
 .input-wrapper {
-  display: flex;
-  flex-direction: column;
-  position: relative;
+  @apply flex flex-col relative;
 }
 
+.input-wrapper > *:first-child {
+  @apply mb-0;
+}
+
+/* ── Checkbox overlay inside input ── */
+.input-checkbox-overlay {
+  @apply flex items-center absolute top-1/2 left-2 -translate-y-1/2 z-10;
+}
+
+/* ── Icon inside input ── */
+.input-icon {
+  @apply absolute top-1/2 -translate-y-1/2 pointer-events-none text-gray-500;
+}
+
+/* ── Error Message ── */
 .error-message-wrapper {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  right: 0;
-  z-index: 1000;
-  pointer-events: none;
+  @apply absolute top-full left-0 right-0 z-[1000] pointer-events-none;
 }
 
 .error-message-wrapper .p-inline-message {
-  position: relative;
-  margin-top: 2px;
-  border-radius: 4px;
+  @apply relative mt-0.5 rounded pointer-events-auto;
   animation: slideDown 0.2s ease-out;
-  pointer-events: auto;
 }
 
 .error-message-wrapper .p-inline-message::before {
   content: '';
-  position: absolute;
-  top: -6px;
-  left: 12px;
-  width: 10px;
-  height: 10px;
+  @apply absolute -top-1.5 left-3 w-2.5 h-2.5;
+}
+
+.input-block .p-inline-message.p-inline-message-error {
+  @apply py-[0.05em] px-2 bg-transparent! justify-start w-full;
+}
+
+.input-block .p-inline-message-text {
+  @apply text-[0.7em] font-bold;
+}
+
+.input-block.horizontal .error-message-wrapper {
+  grid-column: 2;
+}
+
+/* ── Input full-width wrapper ── */
+.input-field-wrapper {
+  @apply relative w-full;
 }
 
 @keyframes slideDown {
@@ -68,42 +98,4 @@
     opacity: 1;
     transform: translateY(0);
   }
-}
-
-.input-block .p-inline-message.p-inline-message-error {
-  padding: 0.05em 0.5em;
-  background: transparent !important;
-  justify-content: flex-start;
-  width: 100%;
-}
-
-.input-block .p-inline-message-text {
-  font-size: 0.7em;
-  font-weight: 700;
-}
-
-.required {
-  color: var(--danger-color);
-  margin-left: 0.15em;
-}
-
-.sub-label {
-  display: block;
-  color: var(--sub-lable-color);
-  font-size: 0.7em;
-  font-weight: 400;
-  margin-top: 0.3rem;
-  margin-left: 0.1rem;
-}
-
-.label-text {
-  display: inline-flex;
-}
-
-.input-block.horizontal .error-message-wrapper {
-  grid-column: 2;
-}
-
-.input-wrapper > *:first-child {
-  margin-bottom: 0;
 }

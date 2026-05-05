@@ -1,0 +1,19 @@
+@reference "tailwindcss";
+
+.main-layout-nav {
+  @apply bg-white w-full border-b border-slate-200;
+}
+
+.main-layout-content {
+  @apply bg-[#f8faff] flex-1 min-h-[calc(100vh-140px)];
+}
+
+/* ── Dark Theme Overrides ── */
+.dark-theme .main-layout-nav {
+  background-color: var(--dark-card-bg) !important;
+  border-color: var(--dark-border) !important;
+}
+
+.dark-theme .main-layout-content {
+  background-color: var(--dark-bg);
+}

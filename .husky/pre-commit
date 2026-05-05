@@ -1,0 +1,23 @@
+branch_name=$(git rev-parse --abbrev-ref HEAD)
+
+# Block protected branches
+if [ "$branch_name" = "main" ] || [ "$branch_name" = "qa" ]; then
+  echo "❌ Direct commits to '$branch_name' are not allowed."
+  echo "👉 Please create a feature/bugfix branch."
+  exit 1
+fi
+
+pattern="^(feature|bugfix|hotfix|release)/[a-z0-9._-]+$"
+
+if ! echo "$branch_name" | grep -Eq "$pattern"; then
+  echo "Invalid branch name: $branch_name"
+  echo "Expected format:"
+  echo "feature/xyz-name"
+  echo "bugfix/xyz-name"
+  echo "hotfix/xyz-name"
+  echo "release/x.y.z"
+  exit 1
+fi
+
+npx lint-staged
+npm run type-check

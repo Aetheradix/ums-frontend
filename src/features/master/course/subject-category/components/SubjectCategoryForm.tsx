@@ -51,6 +51,7 @@ export default function SubjectCategoryCourseForm(
         isLoading={props.isSaving}
         onSave={handleSubmit}
         onReset={reset}
+        saveLabel={''}
       />
     </form>
   );

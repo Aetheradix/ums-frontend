@@ -3,7 +3,7 @@ import { Button, ButtonPanel } from 'shared/components/buttons';
 interface ActionButtonsProps {
   update?: boolean;
   isLoading?: boolean;
-  onSave: () => void;
+  onSave?: () => void;
   onReset?: () => void;
   saveLabel?: string;
 }
@@ -13,6 +13,7 @@ function ActionButtons({
   isLoading,
   onSave,
   onReset,
+  saveLabel,
 }: ActionButtonsProps) {
   return (
     <ButtonPanel>
@@ -36,7 +37,7 @@ function ActionButtons({
       ) : (
         <>
           <Button
-            label="Save"
+            label={saveLabel || 'Save'}
             type="submit"
             onClick={onSave}
             icon="save"
