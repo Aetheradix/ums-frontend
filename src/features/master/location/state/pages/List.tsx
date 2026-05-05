@@ -25,6 +25,7 @@ export default function List() {
     >
       <FormCard>
         {isLoading ? <Loader /> : undefined}
+
         <GridPanel
           data={data}
           onEdit={state => navigate(masterUrls.state.edit(state.id))}
@@ -48,14 +49,23 @@ export default function List() {
             },
           ]}
           toolbar={
-            <Button
-              label="Create"
-              icon="plus"
-              variant="primary"
-              onClick={() => navigate(masterUrls.state.create)}
-            />
+            <div className="flex w-full items-center justify-between mb-3">
+              <div className="relative">
+                <i className="pi pi-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
+                <input
+                  type="text"
+                  placeholder="Search..."
+                  className="p-inputtext w-64 pl-40"
+                />
+              </div>
+              <Button
+                label="Create"
+                icon="plus"
+                variant="primary"
+                onClick={() => navigate(masterUrls.state.create)}
+              />
+            </div>
           }
-          searchBox
         />
       </FormCard>
     </FormPage>

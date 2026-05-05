@@ -31,7 +31,11 @@ export default function Create() {
       title="Create State"
       description="Fill in the details to add a new state."
     >
-      <FormCard title="State Details">
+      <FormCard
+        title="State Details"
+        subtitle="Provide the basic information for the new state."
+        icon="map"
+      >
         <StateForm onSubmit={handleSubmit} isSaving={isPending} />
       </FormCard>
     </FormPage>

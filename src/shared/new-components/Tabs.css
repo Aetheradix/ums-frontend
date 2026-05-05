@@ -1,7 +1,7 @@
 @reference "tailwindcss";
 
 .p-tabview .p-tabview-nav {
-  @apply flex items-center list-none m-0 p-0 border-b border-slate-200 overflow-x-auto gap-2;
+  @apply flex items-center list-none m-0 p-0 overflow-x-auto gap-2;
 }
 
 .p-tabview .p-tabview-nav li {
@@ -9,22 +9,29 @@
 }
 
 .p-tabview .p-tabview-nav li .p-tabview-nav-link {
-  @apply flex items-center px-4 py-3 rounded-t-lg font-medium text-slate-600 no-underline transition-colors duration-200 cursor-pointer border-b-2 border-transparent;
+  @apply flex items-center px-4 py-4 font-bold text-slate-600 no-underline cursor-pointer border-b-3 border-transparent transition-all duration-200;
+  font-family: var(--font-sans);
+  font-size: 15px;
 }
 
-.p-tabview .p-tabview-nav li:not(.p-highlight):hover .p-tabview-nav-link {
-  @apply text-blue-600 bg-blue-50 border-blue-200;
-}
+/* Hover (optional – smooth, no layout shift) */
+/* .p-tabview .p-tabview-nav li:not(.p-highlight):hover .p-tabview-nav-link {
+  @apply text-blue-800 bg-blue-50 border-blue-200;
+} */
 
+/* Active tab – NO padding/border width change */
 .p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
-  @apply text-blue-600 border-blue-600 bg-transparent;
+  @apply text-blue-800 border-blue-600;
+  background-color: rgba(52, 84, 209, 0.075);
+  border-radius: 0;
 }
 
+/* Panels */
 .p-tabview .p-tabview-panels {
   @apply p-0 m-0 bg-transparent border-none;
 }
 
-/* Dark Theme Support */
+/* Dark Theme */
 .dark-theme .p-tabview .p-tabview-nav {
   @apply border-slate-700 bg-transparent;
 }
@@ -42,5 +49,5 @@
 }
 
 .dark-theme .p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
-  @apply text-blue-400 border-blue-500 bg-transparent;
+  @apply text-blue-400 border-blue-500;
 }

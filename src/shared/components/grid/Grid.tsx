@@ -34,20 +34,21 @@ function paginationProps(pagination: Controls.Pagination) {
   }
 
   const defaultProps = {
-    rowsPerPageOptions: [10, 20, 30, 50, 100, 150, 200],
-    currentPageReportTemplate: '{first}-{last} of {totalRecords} records',
+    rowsPerPageOptions: [10, 20, 30, 50],
     paginatorTemplate:
-      'RowsPerPageDropdown FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport',
+      'CurrentPageReport RowsPerPageDropdown FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink',
+    currentPageReportTemplate: 'Showing {first}-{last} of {totalRecords} items',
   };
+
   if (pagination === true) {
-    return { rows: 100, ...defaultProps };
+    return { rows: 10, ...defaultProps };
   }
 
   const paginationType = pagination as Controls.PaginationProps;
 
   return {
     ...defaultProps,
-    rows: paginationType.rows ?? 100,
+    rows: paginationType.rows ?? 10,
   };
 }
 
@@ -64,9 +65,21 @@ function Grid<T>({
   ...rest
 }: React.PropsWithChildren<Controls.GridProps<T>>) {
   const pageProps = paginationProps(pagination);
+
+  // 🔥 Dummy data for testing
+  const dummyData = Array.from({ length: 25 }, (_, i) => ({
+    id: i + 1,
+    name: `State ${i + 1}`,
+    code: `C${i + 1}`,
+    isActive: i % 2 === 0,
+  }));
   return (
     <DataTable
-      value={data as DataTableValueArray}
+      value={
+        (data && (data as DataTableValueArray).length
+          ? data
+          : dummyData) as DataTableValueArray
+      }
       scrollable
       scrollHeight={rest.scrollHeight ?? '500px'}
       style={{ width: '100%' }}
@@ -77,10 +90,8 @@ function Grid<T>({
       onValueChange={onValueChange as (e: DataTableValueArray) => void}
       {...pageProps}
       paginator={!!pageProps}
-      paginatorLeft={
-        <span className="font-semibold text-sm">Records Per Page</span>
-      }
-      paginatorDropdownAppendTo="self"
+      pageLinkSize={3}
+      paginatorDropdownAppendTo={document.body}
       stripedRows
       removableSort={false}
       virtualScrollerOptions={

@@ -1,7 +1,8 @@
 @reference "tailwindcss";
+
 /* ── Input Block Container ── */
 .input-block {
-  @apply w-full mb-3 relative;
+  @apply w-full mb-4 relative;
 }
 
 .input-block.vertical {
@@ -9,91 +10,88 @@
 }
 
 .input-block.vertical label {
-  @apply mb-1.5 font-semibold;
+  @apply mb-1.5;
 }
 
 .input-block.horizontal {
-  @apply grid gap-3;
+  @apply grid gap-3 pb-3;
   grid-template-columns: 150px 1fr;
   border-bottom: 1px solid var(--gray-200);
-  @apply pb-3;
 }
 
 .input-block.horizontal label {
-  @apply font-semibold m-0;
+  @apply m-0;
 }
 
-/* ── Label parts ── */
-.label-text {
-  @apply inline-flex;
+/* ── Label ── */
+.label-main {
+  @apply inline-flex items-center gap-1 text-sm font-bold text-slate-800;
 }
 
-.sub-label {
-  @apply block text-[0.7em] font-normal mt-1 ml-0.5;
-  color: var(--sub-lable-color);
+.label-sub {
+  @apply text-xs font-normal text-slate-400 ml-1;
 }
 
-.required {
-  @apply ml-0.5;
-  color: var(--danger-color);
+.label-required {
+  @apply text-red-500 ml-0.5;
 }
 
 /* ── Input Wrapper ── */
 .input-wrapper {
-  @apply flex flex-col relative;
+  @apply relative w-full;
 }
 
-.input-wrapper > *:first-child {
-  @apply mb-0;
-}
-
-/* ── Checkbox overlay inside input ── */
-.input-checkbox-overlay {
-  @apply flex items-center absolute top-1/2 left-2 -translate-y-1/2 z-10;
-}
-
-/* ── Icon inside input ── */
-.input-icon {
-  @apply absolute top-1/2 -translate-y-1/2 pointer-events-none text-gray-500;
-}
-
-/* ── Error Message ── */
-.error-message-wrapper {
-  @apply absolute top-full left-0 right-0 z-[1000] pointer-events-none;
-}
-
-.error-message-wrapper .p-inline-message {
-  @apply relative mt-0.5 rounded pointer-events-auto;
-  animation: slideDown 0.2s ease-out;
-}
-
-.error-message-wrapper .p-inline-message::before {
-  content: '';
-  @apply absolute -top-1.5 left-3 w-2.5 h-2.5;
-}
-
-.input-block .p-inline-message.p-inline-message-error {
-  @apply py-[0.05em] px-2 bg-transparent! justify-start w-full;
-}
-
-.input-block .p-inline-message-text {
-  @apply text-[0.7em] font-bold;
-}
-
-.input-block.horizontal .error-message-wrapper {
-  grid-column: 2;
-}
-
-/* ── Input full-width wrapper ── */
+/* ── Input Field ── */
 .input-field-wrapper {
   @apply relative w-full;
 }
 
+.input-field-wrapper input {
+  @apply w-full h-11 rounded-lg border border-slate-200
+  px-3 pr-24 text-sm text-slate-700
+  outline-none transition-all duration-200;
+}
+
+.input-field-wrapper input:focus {
+  @apply border-blue-500 ring-2 ring-blue-100;
+}
+
+.input-field-wrapper input::placeholder {
+  @apply text-slate-400;
+}
+
+/* ── Error State ── */
+.input-wrapper.has-error input {
+  @apply border-red-400 focus:border-red-500 focus:ring-red-100;
+}
+
+/* ── Modern Inline Error Badge ── */
+.input-error-badge {
+  @apply absolute right-3 top-1/2 -translate-y-1/2
+  text-[10px] font-semibold tracking-wide
+  text-red-600 bg-white
+  px-1.5 py-0.5 rounded-md
+  pointer-events-none z-10;
+}
+
+/* ── Checkbox overlay ── */
+.input-checkbox-overlay {
+  @apply flex items-center absolute top-1/2 left-2 -translate-y-1/2 z-10;
+}
+
+/* ── Input icon ── */
+.input-icon {
+  @apply absolute top-1/2 -translate-y-1/2
+  pointer-events-none text-gray-400;
+}
+
+/* ── Animation ── */
 @keyframes slideDown {
   from {
     opacity: 0;
     transform: translateY(-5px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);

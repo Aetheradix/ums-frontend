@@ -64,7 +64,7 @@
 
 /* ── Sizes ── */
 .button-size-small {
-  @apply px-3 py-[0.3rem] text-sm w-full;
+  @apply px-3 py-[0.3rem] text-sm;
 }
 
 .button-size-medium {
