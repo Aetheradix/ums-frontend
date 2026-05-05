@@ -16,11 +16,10 @@ export async function getCollegeType(id: number) {
 }
 
 export async function createCollegeType(form: CollegeMaster.CollegeTypeForm) {
-  const { error, data } =
-    await ApiService.post<CollegeMaster.CollegeTypeItem>(
-      COLLEGE_TYPE_URL,
-      form
-    );
+  const { error, data } = await ApiService.post<CollegeMaster.CollegeTypeItem>(
+    COLLEGE_TYPE_URL,
+    form
+  );
 
   return !error ? data : undefined;
 }
@@ -39,6 +38,6 @@ export async function deleteCollegeType(id: number): Promise<boolean> {
 }
 
 export async function patchCollegeTypeStatus(id: number): Promise<boolean> {
-  const result = await ApiService.patch(`${COLLEGE_TYPE_URL}/${id}`, {});
+  const result = await ApiService.patch(`${COLLEGE_TYPE_URL}/${id}/status`, {});
   return !result.error;
 }

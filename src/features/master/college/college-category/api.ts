@@ -5,7 +5,9 @@ const MASTER_API_ROOT = `master/`;
 const COLLEGE_CATEGORY_URL = `${MASTER_API_ROOT}college-categories`;
 
 export function getCollegeCategories() {
-  return ApiService.getList<CollegeMaster.CollegeCategoryItem>(COLLEGE_CATEGORY_URL);
+  return ApiService.getList<CollegeMaster.CollegeCategoryItem>(
+    COLLEGE_CATEGORY_URL
+  );
 }
 
 export async function getCollegeCategory(id: number) {
@@ -15,7 +17,9 @@ export async function getCollegeCategory(id: number) {
   return data;
 }
 
-export async function createCollegeCategory(form: CollegeMaster.CollegeCategoryForm) {
+export async function createCollegeCategory(
+  form: CollegeMaster.CollegeCategoryForm
+) {
   const { error, data } =
     await ApiService.post<CollegeMaster.CollegeCategoryItem>(
       COLLEGE_CATEGORY_URL,
@@ -39,6 +43,9 @@ export async function deleteCollegeCategory(id: number): Promise<boolean> {
 }
 
 export async function patchCollegeCategoryStatus(id: number): Promise<boolean> {
-  const result = await ApiService.patch(`${COLLEGE_CATEGORY_URL}/${id}`, {});
+  const result = await ApiService.patch(
+    `${COLLEGE_CATEGORY_URL}/${id}/status`,
+    {}
+  );
   return !result.error;
 }

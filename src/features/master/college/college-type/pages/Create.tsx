@@ -32,7 +32,7 @@ export default function Create() {
       description="Fill in the details to add a new college type."
     >
       <FormCard title="College Type Details">
-        <CollegeTypeForm onSubmit={handleSubmit} isSaving={isPending} />
+        <CollegeTypeForm onSubmit={handleSubmit} isSaving={isPending} isEditMode={false} />
       </FormCard>
     </FormPage>
   );

@@ -32,7 +32,7 @@ export default function Create() {
       description="Fill in the details to add a new college category."
     >
       <FormCard title="College Category Details">
-        <CollegeCategoryForm onSubmit={handleSubmit} isSaving={isPending} />
+        <CollegeCategoryForm onSubmit={handleSubmit} isSaving={isPending} isEditMode={false} />
       </FormCard>
     </FormPage>
   );

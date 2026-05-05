@@ -1,8 +1,6 @@
+import SelectCollegeType from 'features/components/SelectCollegeType';
 import { TextBox } from 'shared/components/forms';
-import DropDownList from 'shared/components/forms/DropDownList';
-import { InputPanel } from 'shared/components/panels';
 import { FormActions, FormGrid } from 'shared/new-components';
-import { useCollegeTypesQuery } from 'features/master/college/college-type/queries';
 import { useCollegeCategoryForm } from './form.hook';
 
 interface CollegeCategoryFormProps {
@@ -18,20 +16,10 @@ export default function CollegeCategoryForm(props: CollegeCategoryFormProps) {
     props.fetchData
   );
 
-  const { data: collegeTypes } = useCollegeTypesQuery();
-
   return (
     <form onSubmit={handleSubmit}>
       <FormGrid columns={2}>
-        <DropDownList
-          label="College Type"
-          {...register('collegeTypeId')}
-          data={collegeTypes}
-          textField="name"
-          valueField="id"
-          defaultOptionText="Select College Type"
-          required
-        />
+        <SelectCollegeType {...register('collegeTypeId')} />
         <TextBox
           label="Name"
           subLabel="(In English)"
@@ -51,3 +39,4 @@ export default function CollegeCategoryForm(props: CollegeCategoryFormProps) {
     </form>
   );
 }
+
