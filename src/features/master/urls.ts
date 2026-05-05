@@ -1,5 +1,6 @@
 import { collegeCategoryUrls } from './college/college-category/urls';
 import { collegeTypeUrls } from './college/college-type/urls';
+import { courseTenureUrls } from './course/course-tenure/urls';
 import { departmentUrls } from './faculty/department/urls';
 import { designationUrls } from './faculty/designation/urls';
 import { facultyUrls } from './faculty/faculty/urls';
@@ -15,6 +16,7 @@ import { tehsilUrls } from './location/tehsil/urls';
 
 const baseUrl = '/master';
 export const masterUrls = {
+  courseTenure: courseTenureUrls(baseUrl),
   officeType: officeTypeUrls(`${baseUrl}/faculty-management`),
   department: departmentUrls(`${baseUrl}/faculty-management`),
   state: stateUrls(`${baseUrl}/location`),

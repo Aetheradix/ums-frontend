@@ -149,6 +149,23 @@ export const menuConfig: Menu.MenuItem[] = [
         ],
       },
       {
+        label: 'Course Management',
+        slug: 'course',
+        description: 'Manage course departments, subject categories, and more.',
+        path: '/home/sub-menu/course',
+        icon: 'menu_book',
+        colorScheme: 'purple',
+        children: [
+          {
+            label: 'Course Tenure',
+            description: 'Manage Course Tenure',
+            path: '/master/course/course-tenure',
+            icon: 'apartment',
+            colorScheme: 'purple',
+          },
+        ],
+      },
+      {
         label: 'Faculty Admin',
         slug: 'faculty-management',
         description: 'Manage office types, departments, and designations.',
