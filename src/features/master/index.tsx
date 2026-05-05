@@ -1,4 +1,5 @@
 import { Route, Routes } from 'react-router';
+import AcademicYear from './academic/academic-year';
 import Department from './faculty/department';
 import Designation from './faculty/designation';
 import OfficeType from './faculty/office-type';
@@ -22,6 +23,10 @@ export default function Master() {
         <Route path="caste/*" element={<Caste />} />
         <Route path="religion/*" element={<Religion />} />
         <Route path="qualification/*" element={<Qualification />} />
+      </Route>
+
+      <Route path="academic/*">
+        <Route path="academic-year/*" element={<AcademicYear />} />
       </Route>
     </Routes>
   );
