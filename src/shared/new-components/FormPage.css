@@ -5,11 +5,17 @@
 }
 
 .form-page-container {
-  @apply max-w-[1320px] mx-auto px-6 py-6 w-full;
+  @apply max-w-[1320px] mx-auto w-full;
 }
 
+/* 🔥 FIXED HEADER */
 .form-page-header {
-  @apply flex items-start justify-between mb-6 max-sm:flex-col max-sm:gap-3;
+  @apply flex items-start justify-between mb-6 max-sm:flex-col-reverse max-sm:gap-4;
+}
+
+/* LEFT SIDE WRAPPER */
+.form-page-header-left {
+  @apply flex flex-col gap-1;
 }
 
 .form-page-title {
@@ -20,8 +26,16 @@
   @apply text-sm text-slate-500 mt-1 m-0 max-w-xl;
 }
 
+/* RIGHT SIDE (NAV / ACTION) */
+.form-page-header-right {
+  @apply flex flex-col items-end gap-2 max-sm:items-start;
+}
+
+.form-page-header-right nav {
+  @apply m-0 p-0;
+}
 .form-page-action {
-  @apply flex-shrink-0;
+  @apply flex-shrink-0 flex items-center mt-1;
 }
 
 .form-page-content {

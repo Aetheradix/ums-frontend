@@ -1,8 +1,8 @@
+import { menuConfig } from 'config/menu-routes';
 import React, { useMemo } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { Tabs } from 'shared/new-components';
 import WorkspaceLayout from 'shared/components/workspace-layout/WorkspaceLayout';
-import { menuConfig } from 'config/menu-routes';
+import { Tabs } from 'shared/new-components';
 import './MainLayout.css';
 
 export default function MainLayout({ children }: React.PropsWithChildren) {
@@ -59,7 +59,7 @@ export default function MainLayout({ children }: React.PropsWithChildren) {
       {/* Sub-Navigation for Master Modules */}
       {activeIndex >= 0 && (
         <div className="main-layout-nav">
-          <div className="max-w-[1320px] mx-auto px-6 pt-3">
+          <div className="max-w-[1320px] mx-auto px-6">
             <Tabs
               activeIndex={activeIndex}
               onTabChange={handleTabChange}

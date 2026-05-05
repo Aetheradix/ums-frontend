@@ -4,6 +4,7 @@ import './FormCard.css';
 interface FormCardProps {
   title?: string;
   subtitle?: string;
+  icon?: string;
   children: React.ReactNode;
   className?: string;
   headerAction?: React.ReactNode;
@@ -12,6 +13,7 @@ interface FormCardProps {
 export default function FormCard({
   title,
   subtitle,
+  icon,
   children,
   className = '',
   headerAction,
@@ -21,11 +23,26 @@ export default function FormCard({
       {/* Card Header */}
       {(title || headerAction) && (
         <div className="form-card-header">
-          <div>
-            {title && <h2 className="form-card-title">{title}</h2>}
-            {subtitle && <p className="form-card-subtitle">{subtitle}</p>}
+          {/* LEFT SIDE */}
+          <div className="form-card-header-left">
+            {/* ICON */}
+            {icon && (
+              <div className="form-card-icon">
+                <i className={`pi pi-${icon}`} />
+              </div>
+            )}
+
+            {/* TITLE + SUBTITLE */}
+            <div>
+              {title && <h2 className="form-card-title">{title}</h2>}
+              {subtitle && <p className="form-card-subtitle">{subtitle}</p>}
+            </div>
           </div>
-          {headerAction && <div>{headerAction}</div>}
+
+          {/* RIGHT SIDE */}
+          {headerAction && (
+            <div className="form-card-header-action">{headerAction}</div>
+          )}
         </div>
       )}
 

@@ -13,7 +13,7 @@ interface LinkButtonProps {
 export default function LinkButton(props: LinkButtonProps) {
   const { size = 'medium' } = props;
   const hasIcon = !!props.icon;
-  const className = `p-component p-button mb-2 p-button-outlined button-size-${size}${hasIcon ? ' p-button-icon-left' : ''}`;
+  const className = `p-component p-button p-button-outlined button-size-${size}${hasIcon ? ' p-button-icon-left' : ''}`;
   return (
     <Link to={props.to} className={className}>
       {hasIcon ? (

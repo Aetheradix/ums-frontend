@@ -99,6 +99,7 @@
   --font-sans:
     'Plus Jakarta Sans', 'Poppins', 'Inter', 'Segoe UI', Roboto, Helvetica,
     Arial, sans-serif;
+  font-family: var(--font-sans);
 }
 
 html,
@@ -129,7 +130,7 @@ body {
   }
 
   table td {
-    @apply p-1 text-black text-left;
+    @apply text-black text-left;
   }
 
   /* Scrollbar */
@@ -240,17 +241,23 @@ body {
 .p-multiselect {
   @apply border border-gray-300 shadow-sm;
 }
-
 .p-button {
-  @apply rounded-md font-medium;
+  @apply rounded-md font-medium flex items-center;
   transition: all 0.3s ease;
   color: var(--primary-color);
   border: 1px solid var(--primary-color);
-  padding: 0.35rem 1rem;
+  padding: 0.5rem 1rem;
+  gap: 0.5rem;
+}
+
+.p-button .p-button-icon-left {
+  font-size: 0.7rem;
+  font-weight: 700;
 }
 
 .p-column-title {
   @apply whitespace-nowrap font-bold;
+  color: #333;
 }
 
 .p-multiselect .p-multiselect-label {
@@ -303,22 +310,6 @@ body {
 
 .link-margin {
   margin-bottom: 0.7rem;
-}
-
-/* Paginator hide */
-.hide-paging-dropdown .p-paginator-left-content,
-.hide-paging-dropdown .p-paginator .p-dropdown,
-.hide-paging-dropdown .p-paginator-rpp-options {
-  display: none !important;
-}
-
-/* Row grouping colors */
-.bg-even-group td {
-  background-color: #e0f2fe !important;
-}
-
-.bg-odd-group td {
-  background-color: #ffffff !important;
 }
 
 /* ============================================================
@@ -733,7 +724,7 @@ body {
 }
 
 .p-paginator {
-  @apply border-t border-slate-200 py-3 bg-slate-50 text-sm;
+  @apply border-t border-slate-200 py-3 text-sm px-5;
 }
 
 /* Dark Theme Adjustments for Grid */
@@ -751,4 +742,8 @@ body {
 
 .dark-theme .p-paginator {
   @apply border-[#334155] bg-[#1e293b] text-slate-300;
+}
+
+.pl-40 {
+  padding-left: 40px;
 }
