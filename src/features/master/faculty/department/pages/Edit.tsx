@@ -13,7 +13,7 @@ const DEFAULT = {
   name: '',
   officeTypeId: 0,
   hodName: '',
-  contactNumber: 0,
+  contactNumber: '',
 };
 
 export default function Edit() {
