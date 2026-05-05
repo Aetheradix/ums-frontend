@@ -39,6 +39,7 @@ export default function List() {
             },
             { field: 'name', header: 'Name' },
             { field: 'code', header: 'Code' },
+            { field: 'officeTypeName', header: 'Office Type' },
             { field: 'hodName', header: 'Head of Department' },
             { field: 'contactNumber', header: 'Contact Number' },
             {

@@ -3,7 +3,7 @@ import { Button } from 'shared/components/buttons';
 import StatusButton from 'shared/components/buttons/StatusButton';
 import { FormCard, FormPage, GridPanel } from 'shared/new-components';
 import { masterUrls } from '../../../urls';
-import { useFacultyActiveStatusMutation, useFacultiesQuery } from '../queries';
+import { useFacultiesQuery, useFacultyActiveStatusMutation } from '../queries';
 
 export default function List() {
   const { data, isLoading } = useFacultiesQuery();
@@ -34,6 +34,9 @@ export default function List() {
             },
             { field: 'name', header: 'Name' },
             { field: 'code', header: 'Code' },
+            { field: 'officeTypeName', header: 'Office Type' },
+            { field: 'departmentName', header: 'Department' },
+            { field: 'designationName', header: 'Designation' },
             { field: 'mobile', header: 'Mobile' },
             { field: 'email', header: 'Email' },
             {
