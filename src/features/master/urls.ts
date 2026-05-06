@@ -1,6 +1,7 @@
 import { collegeCategoryUrls } from './college/college-category/urls';
 import { collegeTypeUrls } from './college/college-type/urls';
 import { courseDepartmentUrls } from './course/course-department/urls';
+import { courseLevelUrls } from './course/course-level/urls';
 import { courseStreamUrls } from './course/course-stream/urls';
 import { courseTenureUrls } from './course/course-tenure/urls';
 import { departmentUrls } from './faculty/department/urls';
@@ -18,6 +19,7 @@ import { tehsilUrls } from './location/tehsil/urls';
 
 const baseUrl = '/master';
 export const masterUrls = {
+  courseLevel: courseLevelUrls(baseUrl),
   courseDepartment: courseDepartmentUrls(baseUrl),
   courseTenure: courseTenureUrls(baseUrl),
   courseStream: courseStreamUrls(baseUrl),

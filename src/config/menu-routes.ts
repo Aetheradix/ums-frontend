@@ -177,6 +177,13 @@ export const menuConfig: Menu.MenuItem[] = [
             icon: 'apartment',
             colorScheme: 'purple',
           },
+          {
+            label: 'Course Level',
+            description: 'Manage Course Level',
+            path: '/master/course/course-level',
+            icon: 'apartment',
+            colorScheme: 'purple',
+          },
         ],
       },
       {
