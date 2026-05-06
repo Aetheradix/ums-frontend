@@ -163,6 +163,13 @@ export const menuConfig: Menu.MenuItem[] = [
             icon: 'apartment',
             colorScheme: 'purple',
           },
+          {
+            label: 'Course Department',
+            description: 'Manage course departments',
+            path: '/master/course/course-department',
+            icon: 'apartment',
+            colorScheme: 'purple',
+          },
         ],
       },
       {
