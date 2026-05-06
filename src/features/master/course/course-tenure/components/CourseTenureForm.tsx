@@ -1,5 +1,5 @@
-import { FormActions, FormGrid } from 'shared/new-components';
 import { TextBox } from 'shared/components/forms';
+import { FormActions, FormGrid } from 'shared/new-components';
 import { useCourseTenureForm } from './form.hook';
 
 interface CourseTenureFormProps {
@@ -20,7 +20,7 @@ export default function CourseTenureForm(props: CourseTenureFormProps) {
       <FormGrid columns={2}>
         <TextBox
           label="Code"
-          placeholder="Enter Department Code"
+          placeholder="Enter Tenure Code"
           {...register('code')}
           maxLength={10}
           required
@@ -28,7 +28,7 @@ export default function CourseTenureForm(props: CourseTenureFormProps) {
         <TextBox
           label="Name"
           subLabel="(In English)"
-          placeholder="Enter Department Name"
+          placeholder="Enter Tenure Name"
           {...register('name')}
           maxLength={100}
           required

@@ -18,18 +18,18 @@ export default function Create() {
     try {
       const result = await mutateAsync(data);
       if (result) {
-        ToastService.success('Course Department created successfully.');
+        ToastService.success('Course Tenure created successfully.');
         handleBack();
       }
     } catch {
-      ToastService.error('Failed to create course department');
+      ToastService.error('Failed to create course tenure');
     }
   }
 
   return (
     <FormPage
-      title="Create Course Department"
-      description="Fill in the details to add a new course department."
+      title="Create Course Tenure"
+      description="Fill in the details to add a new course Tenure."
     >
       <FormCard title="Department Details">
         <CourseTenureForm onSubmit={handleSubmit} isSaving={isPending} />
