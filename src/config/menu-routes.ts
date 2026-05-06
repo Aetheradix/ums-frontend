@@ -170,6 +170,13 @@ export const menuConfig: Menu.MenuItem[] = [
             icon: 'apartment',
             colorScheme: 'purple',
           },
+          {
+            label: 'Course Stream',
+            description: 'Manage Course Stream',
+            path: '/master/course/course-stream',
+            icon: 'apartment',
+            colorScheme: 'purple',
+          },
         ],
       },
       {
