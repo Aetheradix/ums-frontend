@@ -5,4 +5,11 @@ declare namespace CourseMaster {
     isActive: boolean;
   }
   type CourseTenureItem = Data.WithId<CourseTenureForm>;
+
+  interface CourseDepartmentForm {
+    code: string;
+    name: string;
+    isActive: boolean;
+  }
+  type CourseDepartmentItem = Data.WithId<CourseDepartmentForm>;
 }
