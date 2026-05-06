@@ -198,6 +198,13 @@ export const menuConfig: Menu.MenuItem[] = [
             icon: 'apartment',
             colorScheme: 'purple',
           },
+          {
+            label: 'Course Master',
+            description: 'Manage Course Master',
+            path: '/master/course/course-master',
+            icon: 'menu_book',
+            colorScheme: 'purple',
+          },
         ],
       },
       {

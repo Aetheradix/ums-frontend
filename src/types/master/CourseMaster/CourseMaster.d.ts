@@ -41,4 +41,19 @@ declare namespace CourseMaster {
   }
 
   type CourseExamTypeItem = Data.WithId<CourseExamTypeForm>;
+
+  interface CourseMasterForm {
+    code: string;
+    name: string;
+    levelId: number;
+    departmentId: number;
+    streamId: number;
+    modeId: number;
+    tenureId: number;
+    examTypeId: number;
+    totalTerms: number;
+    description: string;
+    isActive: boolean;
+  }
+  type CourseMasterItem = Data.WithId<CourseMasterForm>;
 }
