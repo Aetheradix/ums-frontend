@@ -12,4 +12,11 @@ declare namespace CourseMaster {
     isActive: boolean;
   }
   type CourseDepartmentItem = Data.WithId<CourseDepartmentForm>;
+
+  interface CourseStreamForm {
+    code: string;
+    name: string;
+    isActive: boolean;
+  }
+  type CourseStreamItem = Data.WithId<CourseStreamForm>;
 }
