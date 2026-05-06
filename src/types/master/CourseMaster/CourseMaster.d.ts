@@ -26,4 +26,11 @@ declare namespace CourseMaster {
     isActive: boolean;
   }
   type CourseLevelItem = Data.WithId<CourseLevelForm>;
+
+  interface CourseModeOfEducationForm {
+    code: string;
+    name: string;
+    isActive: boolean;
+  }
+  type CourseModeOfEducationItem = Data.WithId<CourseModeOfEducationForm>;
 }
