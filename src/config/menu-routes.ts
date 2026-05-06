@@ -191,6 +191,13 @@ export const menuConfig: Menu.MenuItem[] = [
             icon: 'apartment',
             colorScheme: 'purple',
           },
+          {
+            label: 'Course Exam Type',
+            description: 'Manage Course Exam Type',
+            path: '/master/course/course-exam-type',
+            icon: 'apartment',
+            colorScheme: 'purple',
+          },
         ],
       },
       {
