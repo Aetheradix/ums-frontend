@@ -184,6 +184,13 @@ export const menuConfig: Menu.MenuItem[] = [
             icon: 'apartment',
             colorScheme: 'purple',
           },
+          {
+            label: 'Course Mode of Education',
+            description: 'Manage Course Mode of Education',
+            path: '/master/course/course-mode-of-education',
+            icon: 'apartment',
+            colorScheme: 'purple',
+          },
         ],
       },
       {
