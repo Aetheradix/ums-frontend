@@ -23,16 +23,14 @@ export default function List() {
 
   return (
     <FormPage
-      title="Course Department"
-      description="Manage the list of all course departments in the system."
+      title="Course Tenure"
+      description="Manage the list of all course Tenure in the system."
     >
       <FormCard>
         {isLoading ? <Loader /> : undefined}
         <GridPanel
           data={data}
-          onEdit={department =>
-            navigate(masterUrls.courseTenure.edit(department.id))
-          }
+          onEdit={tenure => navigate(masterUrls.courseTenure.edit(tenure.id))}
           columns={[
             {
               cell: (_, option) => <span>{option.rowIndex + 1}</span>,
