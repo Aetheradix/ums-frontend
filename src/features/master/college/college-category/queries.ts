@@ -1,17 +1,21 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import {
   createCollegeCategory,
-  getCollegeCategory,
-  getCollegeCategories,
   deleteCollegeCategory,
-  updateCollegeCategory,
+  getCollegeCategories,
+  getCollegeCategory,
   patchCollegeCategoryStatus,
+  updateCollegeCategory,
 } from './api';
 
 const QUERY_KEY = ['@master/college-category'];
 
 export function useCollegeCategoriesQuery() {
-  const { data = [], isLoading, refetch } = useQuery({
+  const {
+    data = [],
+    isLoading,
+    refetch,
+  } = useQuery({
     queryKey: QUERY_KEY,
     queryFn: getCollegeCategories,
   });
@@ -22,14 +26,14 @@ export function useCollegeCategoriesQuery() {
 export function useCreateCollegeCategoryMutation() {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: async (data: CollegeMaster.CollegeCategoryForm) =>
+    mutationFn: async (data: Master.College.CollegeCategoryForm) =>
       await createCollegeCategory(data),
 
     onSuccess(data) {
       if (!data) return;
 
       const result =
-        queryClient.getQueryData<CollegeMaster.CollegeCategoryItem[]>(
+        queryClient.getQueryData<Master.College.CollegeCategoryItem[]>(
           QUERY_KEY
         ) ?? [];
 
@@ -57,14 +61,14 @@ export function useUpdateCollegeCategoryMutation(id: number) {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async (data: CollegeMaster.CollegeCategoryForm) =>
+    mutationFn: async (data: Master.College.CollegeCategoryForm) =>
       await updateCollegeCategory(id, data),
 
     onSuccess(success, formData) {
       if (!success) return;
 
       const result =
-        queryClient.getQueryData<CollegeMaster.CollegeCategoryItem[]>(
+        queryClient.getQueryData<Master.College.CollegeCategoryItem[]>(
           QUERY_KEY
         ) ?? [];
 
@@ -73,7 +77,7 @@ export function useUpdateCollegeCategoryMutation(id: number) {
 
       const existing = result[index];
 
-      const itemToReplace: CollegeMaster.CollegeCategoryItem = {
+      const itemToReplace: Master.College.CollegeCategoryItem = {
         id,
         name: formData.name,
         collegeTypeId: formData.collegeTypeId,
@@ -102,7 +106,7 @@ export function useDeleteCollegeCategoryMutation() {
       if (!success) return;
 
       const result =
-        queryClient.getQueryData<CollegeMaster.CollegeCategoryItem[]>(
+        queryClient.getQueryData<Master.College.CollegeCategoryItem[]>(
           QUERY_KEY
         ) ?? [];
 
@@ -124,7 +128,7 @@ export function useCollegeCategoryActiveStatusMutation() {
       if (!success) return;
 
       const result =
-        queryClient.getQueryData<CollegeMaster.CollegeCategoryItem[]>(
+        queryClient.getQueryData<Master.College.CollegeCategoryItem[]>(
           QUERY_KEY
         ) ?? [];
 

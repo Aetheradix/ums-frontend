@@ -4,8 +4,8 @@ import { FormActions, FormGrid } from 'shared/new-components';
 import { useCollegeCategoryForm } from './form.hook';
 
 interface CollegeCategoryFormProps {
-  onSubmit: (data: CollegeMaster.CollegeCategoryForm) => Promise<void>;
-  fetchData?: Forms.FetchDataFunc<CollegeMaster.CollegeCategoryForm>;
+  onSubmit: (data: Master.College.CollegeCategoryForm) => Promise<void>;
+  fetchData?: Forms.FetchDataFunc<Master.College.CollegeCategoryForm>;
   isSaving?: boolean;
   isEditMode?: boolean;
 }
@@ -39,4 +39,3 @@ export default function CollegeCategoryForm(props: CollegeCategoryFormProps) {
     </form>
   );
 }
-

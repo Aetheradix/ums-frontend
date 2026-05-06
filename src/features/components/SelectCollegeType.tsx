@@ -17,7 +17,9 @@ export default function SelectCollegeType<T extends FieldValues>({
   Controls.InputBlockProps & { defaultOptionText?: string }) {
   const { data, isLoading } = useCollegeTypesQuery();
   const activeData =
-    data?.filter((item: CollegeMaster.CollegeTypeItem) => item.isActive === true) || [];
+    data?.filter(
+      (item: Master.College.CollegeTypeItem) => item.isActive === true
+    ) || [];
 
   return (
     <DropDownList

@@ -2,7 +2,7 @@ import { errors } from 'config/errors';
 import { useAppForm } from 'shared/hooks/form';
 import validation, { expressions, keys } from 'shared/utils/validation';
 
-const schema = validation.create<CollegeMaster.CollegeTypeForm>(o => ({
+const schema = validation.create<Master.College.CollegeTypeForm>(o => ({
   name: o
     .string()
     .required()
@@ -13,11 +13,11 @@ const schema = validation.create<CollegeMaster.CollegeTypeForm>(o => ({
 }));
 
 export function useCollegeTypeForm(
-  submitCallback: Forms.SubmitFunc<CollegeMaster.CollegeTypeForm>,
-  defaultValues?: Forms.FetchDataFunc<CollegeMaster.CollegeTypeForm>
+  submitCallback: Forms.SubmitFunc<Master.College.CollegeTypeForm>,
+  defaultValues?: Forms.FetchDataFunc<Master.College.CollegeTypeForm>
 ) {
   const { register, handleSubmit, reset } =
-    useAppForm<CollegeMaster.CollegeTypeForm>({
+    useAppForm<Master.College.CollegeTypeForm>({
       defaultValues: defaultValues,
       resolver: validation.resolver(schema),
     });

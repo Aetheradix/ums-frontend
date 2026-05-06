@@ -14,7 +14,7 @@ export default function Create() {
     navigate(masterUrls.collegeCategory.root);
   }, [navigate]);
 
-  async function handleSubmit(data: CollegeMaster.CollegeCategoryForm) {
+  async function handleSubmit(data: Master.College.CollegeCategoryForm) {
     try {
       const result = await mutateAsync(data);
       if (result) {
@@ -32,7 +32,11 @@ export default function Create() {
       description="Fill in the details to add a new college category."
     >
       <FormCard title="College Category Details">
-        <CollegeCategoryForm onSubmit={handleSubmit} isSaving={isPending} isEditMode={false} />
+        <CollegeCategoryForm
+          onSubmit={handleSubmit}
+          isSaving={isPending}
+          isEditMode={false}
+        />
       </FormCard>
     </FormPage>
   );

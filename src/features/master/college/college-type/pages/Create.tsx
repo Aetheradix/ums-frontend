@@ -14,7 +14,7 @@ export default function Create() {
     navigate(masterUrls.collegeType.root);
   }, [navigate]);
 
-  async function handleSubmit(data: CollegeMaster.CollegeTypeForm) {
+  async function handleSubmit(data: Master.College.CollegeTypeForm) {
     try {
       const result = await mutateAsync(data);
       if (result) {
@@ -32,7 +32,11 @@ export default function Create() {
       description="Fill in the details to add a new college type."
     >
       <FormCard title="College Type Details">
-        <CollegeTypeForm onSubmit={handleSubmit} isSaving={isPending} isEditMode={false} />
+        <CollegeTypeForm
+          onSubmit={handleSubmit}
+          isSaving={isPending}
+          isEditMode={false}
+        />
       </FormCard>
     </FormPage>
   );

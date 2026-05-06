@@ -1,17 +1,21 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import {
   createCollegeType,
+  deleteCollegeType,
   getCollegeType,
   getCollegeTypes,
-  deleteCollegeType,
-  updateCollegeType,
   patchCollegeTypeStatus,
+  updateCollegeType,
 } from './api';
 
 const QUERY_KEY = ['@master/college-type'];
 
 export function useCollegeTypesQuery() {
-  const { data = [], isLoading, refetch } = useQuery({
+  const {
+    data = [],
+    isLoading,
+    refetch,
+  } = useQuery({
     queryKey: QUERY_KEY,
     queryFn: getCollegeTypes,
   });
@@ -22,16 +26,15 @@ export function useCollegeTypesQuery() {
 export function useCreateCollegeTypeMutation() {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: async (data: CollegeMaster.CollegeTypeForm) =>
+    mutationFn: async (data: Master.College.CollegeTypeForm) =>
       await createCollegeType(data),
 
     onSuccess(data) {
       if (!data) return;
 
       const result =
-        queryClient.getQueryData<CollegeMaster.CollegeTypeItem[]>(
-          QUERY_KEY
-        ) ?? [];
+        queryClient.getQueryData<Master.College.CollegeTypeItem[]>(QUERY_KEY) ??
+        [];
 
       queryClient.setQueryData(QUERY_KEY, [...result, data]);
     },
@@ -56,23 +59,22 @@ export function useUpdateCollegeTypeMutation(id: number) {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async (data: CollegeMaster.CollegeTypeForm) =>
+    mutationFn: async (data: Master.College.CollegeTypeForm) =>
       await updateCollegeType(id, data),
 
     onSuccess(success, formData) {
       if (!success) return;
 
       const result =
-        queryClient.getQueryData<CollegeMaster.CollegeTypeItem[]>(
-          QUERY_KEY
-        ) ?? [];
+        queryClient.getQueryData<Master.College.CollegeTypeItem[]>(QUERY_KEY) ??
+        [];
 
       const index = result.findIndex(item => item.id === id);
       if (index === -1) return;
 
       const existing = result[index];
 
-      const itemToReplace: CollegeMaster.CollegeTypeItem = {
+      const itemToReplace: Master.College.CollegeTypeItem = {
         id,
         name: formData.name,
         isActive: existing?.isActive ?? true,
@@ -100,9 +102,8 @@ export function useDeleteCollegeTypeMutation() {
       if (!success) return;
 
       const result =
-        queryClient.getQueryData<CollegeMaster.CollegeTypeItem[]>(
-          QUERY_KEY
-        ) ?? [];
+        queryClient.getQueryData<Master.College.CollegeTypeItem[]>(QUERY_KEY) ??
+        [];
 
       const updatedItems = result.filter(item => item.id !== id);
 
@@ -122,9 +123,8 @@ export function useCollegeTypeActiveStatusMutation() {
       if (!success) return;
 
       const result =
-        queryClient.getQueryData<CollegeMaster.CollegeTypeItem[]>(
-          QUERY_KEY
-        ) ?? [];
+        queryClient.getQueryData<Master.College.CollegeTypeItem[]>(QUERY_KEY) ??
+        [];
 
       const index = result.findIndex(item => item.id === variables.id);
       if (index === -1) return;

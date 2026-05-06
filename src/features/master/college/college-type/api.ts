@@ -5,18 +5,18 @@ const MASTER_API_ROOT = `master/`;
 const COLLEGE_TYPE_URL = `${MASTER_API_ROOT}college-types`;
 
 export function getCollegeTypes() {
-  return ApiService.getList<CollegeMaster.CollegeTypeItem>(COLLEGE_TYPE_URL);
+  return ApiService.getList<Master.College.CollegeTypeItem>(COLLEGE_TYPE_URL);
 }
 
 export async function getCollegeType(id: number) {
-  const { data } = await ApiService.get<CollegeMaster.CollegeTypeItem>(
+  const { data } = await ApiService.get<Master.College.CollegeTypeItem>(
     `${COLLEGE_TYPE_URL}/${id}`
   );
   return data;
 }
 
-export async function createCollegeType(form: CollegeMaster.CollegeTypeForm) {
-  const { error, data } = await ApiService.post<CollegeMaster.CollegeTypeItem>(
+export async function createCollegeType(form: Master.College.CollegeTypeForm) {
+  const { error, data } = await ApiService.post<Master.College.CollegeTypeItem>(
     COLLEGE_TYPE_URL,
     form
   );
@@ -26,7 +26,7 @@ export async function createCollegeType(form: CollegeMaster.CollegeTypeForm) {
 
 export async function updateCollegeType(
   id: number,
-  form: CollegeMaster.CollegeTypeForm
+  form: Master.College.CollegeTypeForm
 ): Promise<boolean> {
   const result = await ApiService.put(`${COLLEGE_TYPE_URL}/${id}`, form);
   return !result.error;

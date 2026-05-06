@@ -4,14 +4,17 @@ import StatusButton from 'shared/components/buttons/StatusButton';
 import { Loader } from 'shared/components/progress';
 import { FormCard, FormPage, GridPanel } from 'shared/new-components';
 import { masterUrls } from '../../../urls';
-import { useCollegeTypesQuery, useCollegeTypeActiveStatusMutation } from '../queries';
+import {
+  useCollegeTypeActiveStatusMutation,
+  useCollegeTypesQuery,
+} from '../queries';
 
 export default function List() {
   const { data, isLoading } = useCollegeTypesQuery();
   const navigate = useNavigate();
   const { mutateAsync } = useCollegeTypeActiveStatusMutation();
 
-  const handleToggleStatus = async (item: CollegeMaster.CollegeTypeItem) => {
+  const handleToggleStatus = async (item: Master.College.CollegeTypeItem) => {
     await mutateAsync({
       id: item.id,
       isActive: !item.isActive,
@@ -40,7 +43,7 @@ export default function List() {
               field: 'isActive',
               header: 'Status',
               sortable: false,
-              cell: (item: CollegeMaster.CollegeTypeItem) => (
+              cell: (item: Master.College.CollegeTypeItem) => (
                 <StatusButton
                   value={item.isActive}
                   onClick={() => handleToggleStatus(item)}

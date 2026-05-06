@@ -1,9 +1,9 @@
+import { useCollegeTypesQuery } from 'features/master/college/college-type/queries';
 import { useNavigate } from 'react-router';
 import { Button } from 'shared/components/buttons';
 import StatusButton from 'shared/components/buttons/StatusButton';
 import { Loader } from 'shared/components/progress';
 import { FormCard, FormPage, GridPanel } from 'shared/new-components';
-import { useCollegeTypesQuery } from 'features/master/college/college-type/queries';
 import { masterUrls } from '../../../urls';
 import {
   useCollegeCategoriesQuery,
@@ -16,7 +16,9 @@ export default function List() {
   const navigate = useNavigate();
   const { mutateAsync } = useCollegeCategoryActiveStatusMutation();
 
-  const handleToggleStatus = async (item: CollegeMaster.CollegeCategoryItem) => {
+  const handleToggleStatus = async (
+    item: Master.College.CollegeCategoryItem
+  ) => {
     await mutateAsync({
       id: item.id,
       isActive: !item.isActive,
@@ -47,7 +49,7 @@ export default function List() {
             { field: 'name', header: 'Name' },
             {
               header: 'College Type',
-              cell: (item: CollegeMaster.CollegeCategoryItem) => (
+              cell: (item: Master.College.CollegeCategoryItem) => (
                 <span>{getCollegeTypeName(item.collegeTypeId)}</span>
               ),
             },
@@ -55,7 +57,7 @@ export default function List() {
               field: 'isActive',
               header: 'Status',
               sortable: false,
-              cell: (item: CollegeMaster.CollegeCategoryItem) => (
+              cell: (item: Master.College.CollegeCategoryItem) => (
                 <StatusButton
                   value={item.isActive}
                   onClick={() => handleToggleStatus(item)}

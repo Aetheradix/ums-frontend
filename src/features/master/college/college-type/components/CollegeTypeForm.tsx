@@ -3,8 +3,8 @@ import { FormActions, FormGrid } from 'shared/new-components';
 import { useCollegeTypeForm } from './form.hook';
 
 interface CollegeTypeFormProps {
-  onSubmit: (data: CollegeMaster.CollegeTypeForm) => Promise<void>;
-  fetchData?: Forms.FetchDataFunc<CollegeMaster.CollegeTypeForm>;
+  onSubmit: (data: Master.College.CollegeTypeForm) => Promise<void>;
+  fetchData?: Forms.FetchDataFunc<Master.College.CollegeTypeForm>;
   isSaving?: boolean;
   isEditMode?: boolean;
 }
