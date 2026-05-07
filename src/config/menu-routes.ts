@@ -290,6 +290,13 @@ export const menuConfig: Menu.MenuItem[] = [
             icon: 'school',
             colorScheme: 'indigo',
           },
+          {
+            label: 'Programme',
+            description: 'Manage programmes',
+            path: '/master/other/programme',
+            icon: 'school',
+            colorScheme: 'indigo',
+          },
         ],
       },
     ],
