@@ -1,0 +1,120 @@
+@reference "tailwindcss";
+
+/* ── Overlay ── */
+.form-popup-overlay {
+  @apply fixed inset-0 z-50 flex items-center justify-center;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(4px);
+  animation: form-popup-overlay-in 0.2s ease-out;
+}
+
+@keyframes form-popup-overlay-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* ── Panel ── */
+.form-popup-panel {
+  @apply bg-white rounded-2xl shadow-2xl w-full mx-4 overflow-hidden;
+  max-width: 560px;
+  animation: form-popup-slide-in 0.25s ease-out;
+}
+
+.form-popup-panel.form-popup-lg {
+  max-width: 720px;
+}
+
+@keyframes form-popup-slide-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* ── Header ── */
+.form-popup-header {
+  @apply flex items-center justify-between px-6 py-5 border-b border-zinc-100;
+}
+
+.form-popup-header-left {
+  @apply flex flex-col gap-0.5;
+}
+
+.form-popup-title {
+  @apply text-lg font-semibold text-zinc-900 m-0 leading-tight;
+}
+
+.form-popup-subtitle {
+  @apply text-sm text-zinc-500 m-0;
+}
+
+.form-popup-close {
+  @apply w-8 h-8 flex items-center justify-center rounded-lg border-none cursor-pointer
+         text-zinc-400 bg-transparent transition-all duration-150;
+}
+
+.form-popup-close:hover {
+  @apply bg-zinc-100 text-zinc-700;
+}
+
+.form-popup-close i {
+  @apply text-sm;
+}
+
+/* ── Body ── */
+.form-popup-body {
+  @apply px-6 py-5;
+  max-height: 65vh;
+  overflow-y: auto;
+}
+
+/* Scrollbar styling */
+.form-popup-body::-webkit-scrollbar {
+  width: 4px;
+}
+
+.form-popup-body::-webkit-scrollbar-track {
+  @apply bg-transparent;
+}
+
+.form-popup-body::-webkit-scrollbar-thumb {
+  @apply bg-zinc-200 rounded-full;
+}
+
+/* ── Dark Theme ── */
+.dark-theme .form-popup-overlay {
+  background: rgba(0, 0, 0, 0.6);
+}
+
+.dark-theme .form-popup-panel {
+  background-color: var(--dark-card-bg);
+  border: 1px solid var(--dark-border);
+}
+
+.dark-theme .form-popup-header {
+  @apply border-zinc-800;
+}
+
+.dark-theme .form-popup-title {
+  @apply text-white;
+}
+
+.dark-theme .form-popup-subtitle {
+  @apply text-zinc-400;
+}
+
+.dark-theme .form-popup-close:hover {
+  @apply bg-zinc-800 text-zinc-200;
+}
+
+.dark-theme .form-popup-body::-webkit-scrollbar-thumb {
+  @apply bg-zinc-700;
+}

@@ -1,25 +1,38 @@
-import { useNavigate } from 'react-router-dom';
+import { useCallback, useState } from 'react';
 import { Button } from 'shared/components/buttons';
 import StatusButton from 'shared/components/buttons/StatusButton';
 import { Loader } from 'shared/components/progress';
-import { FormCard, FormPage, GridPanel } from 'shared/new-components';
-import { masterUrls } from '../../../urls';
+import {
+  FormCard,
+  FormPage,
+  FormPopup,
+  GridPanel,
+} from 'shared/new-components';
+import { ToastService } from 'services';
+import CourseStreamForm from '../components/CourseStreamForm';
 import {
   useCourseStreamActiveStatusMutation,
+  useCourseStreamQuery,
   useCourseStreamsQuery,
+  useCreateCourseStreamMutation,
+  useUpdateCourseStreamMutation,
 } from '../queries';
+
+type PopupState =
+  | { mode: 'closed' }
+  | { mode: 'create' }
+  | { mode: 'edit'; id: number };
 
 export default function List() {
   const { data, isLoading } = useCourseStreamsQuery();
-  const navigate = useNavigate();
-  const { mutateAsync } = useCourseStreamActiveStatusMutation();
+  const { mutateAsync: toggleStatus } = useCourseStreamActiveStatusMutation();
+  const [popup, setPopup] = useState<PopupState>({ mode: 'closed' });
 
   const handleToggleStatus = async (item: CourseMaster.CourseStreamItem) => {
-    await mutateAsync({
-      id: item.id,
-      isActive: !item.isActive,
-    });
+    await toggleStatus({ id: item.id, isActive: !item.isActive });
   };
+
+  const closePopup = useCallback(() => setPopup({ mode: 'closed' }), []);
 
   return (
     <FormPage
@@ -30,9 +43,7 @@ export default function List() {
         {isLoading ? <Loader /> : undefined}
         <GridPanel
           data={data}
-          onEdit={department =>
-            navigate(masterUrls.courseStream.edit(department.id))
-          }
+          onEdit={department => setPopup({ mode: 'edit', id: department.id })}
           columns={[
             {
               cell: (_, option) => <span>{option.rowIndex + 1}</span>,
@@ -57,12 +68,83 @@ export default function List() {
               label="Create"
               icon="plus"
               variant="primary"
-              onClick={() => navigate(masterUrls.courseStream.create)}
+              onClick={() => setPopup({ mode: 'create' })}
             />
           }
           searchBox
         />
       </FormCard>
+
+      <FormPopup
+        visible={popup.mode === 'create'}
+        onHide={closePopup}
+        title="Create Course Stream"
+        subtitle="Fill in the details to add a new course stream."
+      >
+        <CreateContent onClose={closePopup} />
+      </FormPopup>
+
+      <FormPopup
+        visible={popup.mode === 'edit'}
+        onHide={closePopup}
+        title="Edit Course Stream"
+        subtitle="Update the details of the course stream."
+      >
+        {popup.mode === 'edit' && (
+          <EditContent id={popup.id} onClose={closePopup} />
+        )}
+      </FormPopup>
     </FormPage>
+  );
+}
+
+function CreateContent({ onClose }: { onClose: () => void }) {
+  const { mutateAsync, isPending } = useCreateCourseStreamMutation();
+
+  async function handleSubmit(data: CourseMaster.CourseStreamForm) {
+    try {
+      const result = await mutateAsync(data);
+      if (result) {
+        ToastService.success('Course Stream created successfully.');
+        onClose();
+      }
+    } catch {
+      ToastService.error('Failed to create course stream');
+    }
+  }
+
+  return <CourseStreamForm onSubmit={handleSubmit} isSaving={isPending} />;
+}
+
+function EditContent({ id, onClose }: { id: number; onClose: () => void }) {
+  const { mutateAsync, isPending } = useUpdateCourseStreamMutation(id);
+  const { data, isLoading } = useCourseStreamQuery(id);
+  const DEFAULT: CourseMaster.CourseStreamForm = {
+    code: '',
+    name: '',
+    isActive: true,
+  };
+
+  async function handleSubmit(formData: CourseMaster.CourseStreamForm) {
+    try {
+      const result = await mutateAsync(formData);
+      if (result) {
+        ToastService.success('Course Stream updated successfully.');
+        onClose();
+      }
+    } catch {
+      ToastService.error('Failed to update course stream');
+    }
+  }
+
+  if (isLoading) return <Loader />;
+
+  return (
+    <CourseStreamForm
+      fetchData={data ?? DEFAULT}
+      isSaving={isPending}
+      isEditMode
+      onSubmit={handleSubmit}
+    />
   );
 }
