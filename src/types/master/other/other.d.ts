@@ -25,4 +25,9 @@ declare namespace Master {
     }
     type ProgrammeItem = Data.WithId<Programme>;
   }
+
+  interface ResidencyStatusItem {
+    id: number;
+    name: string;
+  }
 }
