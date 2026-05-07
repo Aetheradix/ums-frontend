@@ -275,6 +275,23 @@ export const menuConfig: Menu.MenuItem[] = [
           },
         ],
       },
+      {
+        label: 'Other Masters',
+        slug: 'other',
+        description: 'Manage masters.',
+        path: '/home/sub-menu/other',
+        icon: 'school',
+        colorScheme: 'indigo',
+        children: [
+          {
+            label: 'Degree Level',
+            description: 'Manage degree levels',
+            path: '/master/other/degree-level',
+            icon: 'school',
+            colorScheme: 'indigo',
+          },
+        ],
+      },
     ],
   },
 ];
