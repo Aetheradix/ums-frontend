@@ -297,6 +297,13 @@ export const menuConfig: Menu.MenuItem[] = [
             icon: 'school',
             colorScheme: 'indigo',
           },
+          {
+            label: 'Specialisation',
+            description: 'Manage specialisations',
+            path: '/master/other/specialisation',
+            icon: 'school',
+            colorScheme: 'indigo',
+          },
         ],
       },
     ],
