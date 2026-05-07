@@ -3,7 +3,7 @@ import { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ToastService } from 'services';
 import { FormCard, FormPage } from 'shared/new-components';
-import CourseLevelForm from '../../course-level/components/CourseLevelForm';
+import CourseExamTypeForm from '../components/CourseExamTypeForm';
 import { useCreateCourseExamTypeMutation } from '../queries';
 
 export default function Create() {
@@ -32,7 +32,7 @@ export default function Create() {
       description="Fill in the details to add a new course level."
     >
       <FormCard title="Level Details">
-        <CourseLevelForm onSubmit={handleSubmit} isSaving={isPending} />
+        <CourseExamTypeForm onSubmit={handleSubmit} isSaving={isPending} />
       </FormCard>
     </FormPage>
   );
