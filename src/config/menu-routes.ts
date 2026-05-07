@@ -157,30 +157,9 @@ export const menuConfig: Menu.MenuItem[] = [
         colorScheme: 'purple',
         children: [
           {
-            label: 'Course Tenure',
-            description: 'Manage Course Tenure',
-            path: '/master/course/course-tenure',
-            icon: 'apartment',
-            colorScheme: 'purple',
-          },
-          {
-            label: 'Course Department',
-            description: 'Manage course departments',
-            path: '/master/course/course-department',
-            icon: 'apartment',
-            colorScheme: 'purple',
-          },
-          {
             label: 'Course Stream',
             description: 'Manage Course Stream',
             path: '/master/course/course-stream',
-            icon: 'apartment',
-            colorScheme: 'purple',
-          },
-          {
-            label: 'Course Level',
-            description: 'Manage Course Level',
-            path: '/master/course/course-level',
             icon: 'apartment',
             colorScheme: 'purple',
           },
@@ -198,15 +177,9 @@ export const menuConfig: Menu.MenuItem[] = [
             icon: 'apartment',
             colorScheme: 'purple',
           },
-          {
-            label: 'Course Master',
-            description: 'Manage Course Master',
-            path: '/master/course/course-master',
-            icon: 'menu_book',
-            colorScheme: 'purple',
-          },
         ],
       },
+
       {
         label: 'Faculty Admin',
         slug: 'faculty-management',
