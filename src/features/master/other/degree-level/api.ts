@@ -9,7 +9,6 @@ export function getDegreeLevels() {
 }
 
 export async function getDegreeLevel(id: number) {
-  debugger;
   const { data } = await ApiService.get<Master.Other.DegreeLevelForm>(
     `${DEGREE_LEVEL_URL}/${id}`
   );
