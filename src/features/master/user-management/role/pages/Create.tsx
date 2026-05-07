@@ -16,7 +16,6 @@ export default function Create() {
 
   async function handleSubmit(formData: Master.UserManagement.RoleForm) {
     try {
-      debugger;
       const result = await mutateAsync(formData);
       if (result) {
         ToastService.success('Role saved successfully.');
