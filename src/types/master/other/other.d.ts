@@ -13,7 +13,7 @@ declare namespace Master {
     interface ProgrammeForm {
       name: string;
       programmeDuration: string;
-      degreeLevelId?: number;
+      degreeLevelId: number;
     }
 
     interface Programme {
