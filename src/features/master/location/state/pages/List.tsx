@@ -65,23 +65,14 @@ export default function List() {
             },
           ]}
           toolbar={
-            <div className="flex w-full items-center justify-between mb-3">
-              <div className="relative">
-                <i className="pi pi-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
-                <input
-                  type="text"
-                  placeholder="Search..."
-                  className="p-inputtext w-64 pl-40"
-                />
-              </div>
-              <Button
-                label="Create"
-                icon="plus"
-                variant="primary"
-                onClick={() => setPopup({ mode: 'create' })}
-              />
-            </div>
+            <Button
+              label="Create"
+              icon="plus"
+              variant="primary"
+              onClick={() => setPopup({ mode: 'create' })}
+            />
           }
+          searchBox
         />
       </FormCard>
 
