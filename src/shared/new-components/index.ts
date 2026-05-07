@@ -3,6 +3,7 @@ import FormActions from './FormActions';
 import FormCard from './FormCard';
 import FormGrid from './FormGrid';
 import FormPage from './FormPage';
+import FormPopup from './FormPopup';
 import GridPanel from './GridPanel';
 import Tabs from './Tabs';
 import SkeletonLoader from './skeleton/SkeletonLoader';
@@ -14,6 +15,7 @@ export {
   FormCard,
   FormGrid,
   FormPage,
+  FormPopup,
   GridPanel,
   Tabs,
   SkeletonLoader,

@@ -1,25 +1,38 @@
-import { useNavigate } from 'react-router';
+import { useCallback, useState } from 'react';
 import { Button } from 'shared/components/buttons';
 import StatusButton from 'shared/components/buttons/StatusButton';
 import { Loader } from 'shared/components/progress';
-import { FormCard, FormPage, GridPanel } from 'shared/new-components';
-import { masterUrls } from '../../../urls';
 import {
+  FormCard,
+  FormPage,
+  FormPopup,
+  GridPanel,
+} from 'shared/new-components';
+import { ToastService } from 'services';
+import QualificationForm from '../components/QualificationForm';
+import {
+  useCreateQualificationMutation,
   useQualificationActiveStatusMutation,
+  useQualificationQuery,
   useQualificationsQuery,
+  useUpdateQualificationMutation,
 } from '../queries';
+
+type PopupState =
+  | { mode: 'closed' }
+  | { mode: 'create' }
+  | { mode: 'edit'; id: number };
 
 export default function List() {
   const { data, isLoading } = useQualificationsQuery();
-  const navigate = useNavigate();
-  const { mutateAsync } = useQualificationActiveStatusMutation();
+  const { mutateAsync: toggleStatus } = useQualificationActiveStatusMutation();
+  const [popup, setPopup] = useState<PopupState>({ mode: 'closed' });
 
   const handleToggleStatus = async (item: Master.QualificationItem) => {
-    await mutateAsync({
-      id: item.id,
-      isActive: !item.isActive,
-    });
+    await toggleStatus({ id: item.id, isActive: !item.isActive });
   };
+
+  const closePopup = useCallback(() => setPopup({ mode: 'closed' }), []);
 
   return (
     <FormPage
@@ -31,7 +44,7 @@ export default function List() {
         <GridPanel
           data={data}
           onEdit={qualification =>
-            navigate(masterUrls.qualification.edit(qualification.id))
+            setPopup({ mode: 'edit', id: qualification.id })
           }
           columns={[
             {
@@ -58,12 +71,84 @@ export default function List() {
               label="Create"
               icon="plus"
               variant="primary"
-              onClick={() => navigate(masterUrls.qualification.create)}
+              onClick={() => setPopup({ mode: 'create' })}
             />
           }
           searchBox
         />
       </FormCard>
+
+      <FormPopup
+        visible={popup.mode === 'create'}
+        onHide={closePopup}
+        title="Create Qualification"
+        subtitle="Fill in the details to add a new qualification."
+      >
+        <CreateContent onClose={closePopup} />
+      </FormPopup>
+
+      <FormPopup
+        visible={popup.mode === 'edit'}
+        onHide={closePopup}
+        title="Edit Qualification"
+        subtitle="Update the details of the qualification."
+      >
+        {popup.mode === 'edit' && (
+          <EditContent id={popup.id} onClose={closePopup} />
+        )}
+      </FormPopup>
     </FormPage>
+  );
+}
+
+function CreateContent({ onClose }: { onClose: () => void }) {
+  const { mutateAsync, isPending } = useCreateQualificationMutation();
+
+  async function handleSubmit(data: Master.QualificationForm) {
+    try {
+      const result = await mutateAsync(data);
+      if (result) {
+        ToastService.success('Qualification created successfully.');
+        onClose();
+      }
+    } catch {
+      ToastService.error('Failed to create qualification');
+    }
+  }
+
+  return <QualificationForm onSubmit={handleSubmit} isSaving={isPending} />;
+}
+
+function EditContent({ id, onClose }: { id: number; onClose: () => void }) {
+  const { mutateAsync, isPending } = useUpdateQualificationMutation(id);
+  const { data, isLoading } = useQualificationQuery(id);
+  const DEFAULT: Master.QualificationForm = {
+    name: '',
+    subject: '',
+    code: '',
+    isActive: true,
+  };
+
+  async function handleSubmit(formData: Master.QualificationForm) {
+    try {
+      const result = await mutateAsync(formData);
+      if (result) {
+        ToastService.success('Qualification updated successfully.');
+        onClose();
+      }
+    } catch {
+      ToastService.error('Failed to update qualification');
+    }
+  }
+
+  if (isLoading) return <Loader />;
+
+  return (
+    <QualificationForm
+      fetchData={data ?? DEFAULT}
+      isSaving={isPending}
+      isEditMode
+      onSubmit={handleSubmit}
+    />
   );
 }

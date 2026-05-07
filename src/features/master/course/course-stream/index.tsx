@@ -1,14 +1,11 @@
-import { Route, Routes } from 'react-router-dom';
-import Create from './pages/Create';
-import Edit from './pages/Edit';
+import { Route, Routes } from 'react-router';
 import List from './pages/List';
 
 export default function CourseStream() {
   return (
     <Routes>
       <Route index element={<List />} />
-      <Route path="create" element={<Create />} />
-      <Route path="edit/:id" element={<Edit />} />
+      <Route path="*" element={<List />} />
     </Routes>
   );
 }
