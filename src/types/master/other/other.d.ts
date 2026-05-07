@@ -24,10 +24,22 @@ declare namespace Master {
       isActive: boolean;
     }
     type ProgrammeItem = Data.WithId<Programme>;
-  }
 
-  interface ResidencyStatusItem {
-    id: number;
-    name: string;
+    interface SpecialisationForm {
+      name: string;
+      programmeId: number;
+    }
+    interface Specialisation {
+      name: string;
+      programmeId: number;
+      programmeName?: string;
+      isActive: boolean;
+    }
+    type SpecialisationItem = Data.WithId<Specialisation>;
+
+    interface ResidencyStatusItem {
+      id: number;
+      name: string;
+    }
   }
 }
