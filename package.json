@@ -39,6 +39,7 @@
     "react-router-dom": "^7.14.2",
     "tailwindcss": "^4.2.4",
     "to-words": "^5.5.0",
+    "vite-tsconfig-paths": "^6.1.1",
     "zustand": "^5.0.12"
   },
   "devDependencies": {
@@ -60,7 +61,6 @@
     "typescript": "^6.0.3",
     "vite": "^8.0.10",
     "vite-plugin-checker": "^0.13.0",
-    "vite-plugin-mkcert": "^2.0.0",
-    "vite-tsconfig-paths": "^6.1.1"
+    "vite-plugin-mkcert": "^2.0.0"
   }
 }

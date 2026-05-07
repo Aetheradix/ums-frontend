@@ -302,6 +302,23 @@ export const menuConfig: Menu.MenuItem[] = [
           },
         ],
       },
+      {
+        label: 'User Management',
+        slug: 'user-management',
+        description: 'Manage user roles and permissions.',
+        path: '/home/sub-menu/user-management',
+        icon: 'people',
+        colorScheme: 'blue',
+        children: [
+          {
+            label: 'Role',
+            description: 'Manage user roles',
+            path: '/master/user-management/roles',
+            icon: 'people',
+            colorScheme: 'blue',
+          },
+        ],
+      },
     ],
   },
 ];

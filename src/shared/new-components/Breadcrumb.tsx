@@ -48,6 +48,8 @@ export default function Breadcrumb({ items }: BreadcrumbProps) {
         label = 'Faculty Admin';
       } else if (path.toLowerCase() === 'course') {
         label = 'Course Management';
+      } else if (path.toLowerCase() === 'user-management') {
+        label = 'User Management';
       }
 
       let toPath = currentPath;
@@ -61,6 +63,8 @@ export default function Breadcrumb({ items }: BreadcrumbProps) {
         toPath = '/home/sub-menu/hr';
       } else if (path.toLowerCase() === 'course') {
         toPath = '/home/sub-menu/course';
+      } else if (path.toLowerCase() === 'user-management') {
+        toPath = '/home/sub-menu/user-management';
       }
 
       generatedItems.push({

@@ -19,6 +19,9 @@ import { districtUrls } from './location/district/urls';
 import { divisionUrls } from './location/division/urls';
 import { stateUrls } from './location/state/urls';
 import { tehsilUrls } from './location/tehsil/urls';
+import { roleUrls } from './user-management/role/urls';
+import { userRoleMappingUrls } from './user-management/user-role-mapping/urls';
+import { userUrls } from './user-management/user/urls';
 
 const baseUrl = '/master';
 export const masterUrls = {
@@ -40,7 +43,10 @@ export const masterUrls = {
   caste: casteUrls(`${baseUrl}/hr`),
   qualification: qualificationUrls(`${baseUrl}/hr`),
   religion: religionUrls(`${baseUrl}/hr`),
+  role: roleUrls(`${baseUrl}/user-management`),
   collegeType: collegeTypeUrls(`${baseUrl}/college`),
   collegeCategory: collegeCategoryUrls(`${baseUrl}/college`),
   faculty: facultyUrls(`${baseUrl}/faculty-management`),
+  user: userUrls(`${baseUrl}/user-management`),
+  userRoleMapping: userRoleMappingUrls(`${baseUrl}/user-management`),
 };

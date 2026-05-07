@@ -5,48 +5,42 @@ import { Loader } from 'shared/components/progress';
 import { useParamsId } from 'shared/hooks/params';
 import { FormCard, FormPage } from 'shared/new-components';
 import { masterUrls } from '../../../urls';
-import TehsilForm from '../components/TehsilForm';
-import { useTehsilQuery, useUpdateTehsilMutation } from '../queries';
+import RoleForm from '../components/RoleForm';
+import { useRoleQuery, useUpdateRoleMutation } from '../queries';
 
-const DEFAULT: Master.TehsilForm = {
-  code: '',
+const DEFAULT: Master.UserManagement.RoleForm = {
   name: '',
-  districtId: 0,
-  isActive: true,
 };
 
 export default function Edit() {
   const navigate = useNavigate();
-  const id = Number(useParamsId());
-  const { mutateAsync, isPending } = useUpdateTehsilMutation(id);
-  const { data = DEFAULT, isLoading } = useTehsilQuery(id);
+  const id = useParamsId('id').toString();
+  const { mutateAsync, isPending } = useUpdateRoleMutation(id);
+  const { data = DEFAULT, isLoading } = useRoleQuery(id);
 
   const handleBack = useCallback(() => {
-    navigate(masterUrls.tehsil.root);
+    navigate(masterUrls.role.root);
   }, [navigate]);
 
-  async function handleSubmit(formData: Master.TehsilForm) {
+  async function handleSubmit(formData: Master.UserManagement.RoleForm) {
     try {
       const result = await mutateAsync(formData);
       if (result) {
-        ToastService.success('Tehsil updated successfully.');
+        ToastService.success('Role updated successfully.');
         handleBack();
       }
     } catch {
-      ToastService.error('Failed to update tehsil');
+      ToastService.error('Failed to update role');
     }
   }
 
   return (
-    <FormPage
-      title="Edit Tehsil"
-      description="Update the details of the tehsil."
-    >
-      <FormCard title="Tehsil Details">
+    <FormPage title="Edit Role" description="Update the details of the role.">
+      <FormCard title="Role Details">
         {isLoading ? (
           <Loader />
         ) : (
-          <TehsilForm
+          <RoleForm
             fetchData={data}
             isSaving={isPending}
             isEditMode
