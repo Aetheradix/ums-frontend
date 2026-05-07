@@ -10,4 +10,9 @@ declare namespace Master {
     }
     type DegreeLevelItem = Data.WithId<DegreeLevel>;
   }
+
+  interface ResidencyStatusItem {
+    id: number;
+    name: string;
+  }
 }

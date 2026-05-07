@@ -1,6 +1,6 @@
+import { useResidencyStatusesQuery } from 'features/master/other/residency-status/queries';
 import type { FieldValues } from 'react-hook-form';
 import { DropDownList } from 'shared/components/forms';
-import { useResidencyStatusesQuery } from '../master/residency-status/queries';
 
 interface SelectResidencyStatusProps<
   T extends FieldValues,
