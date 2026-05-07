@@ -302,6 +302,23 @@ export const menuConfig: Menu.MenuItem[] = [
           },
         ],
       },
+      {
+        label: 'Sis',
+        slug: 'sis',
+        description: 'Manage sis types masters.',
+        path: '/home/sub-menu/sis',
+        icon: 'school',
+        colorScheme: 'indigo',
+        children: [
+          {
+            label: 'Degree Level',
+            description: 'Manage degree levels',
+            path: '/master/sis/degree-level',
+            icon: 'school',
+            colorScheme: 'indigo',
+          },
+        ],
+      },
     ],
   },
 ];

@@ -61,6 +61,8 @@ export default function Breadcrumb({ items }: BreadcrumbProps) {
         toPath = '/home/sub-menu/hr';
       } else if (path.toLowerCase() === 'course') {
         toPath = '/home/sub-menu/course';
+      } else if (path.toLowerCase() === 'sis') {
+        toPath = '/home/sub-menu/sis';
       }
 
       generatedItems.push({
