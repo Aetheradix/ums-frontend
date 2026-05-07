@@ -2,7 +2,7 @@ import { errors } from 'config/errors';
 import { useAppForm } from 'shared/hooks/form';
 import validation, { expressions, keys } from 'shared/utils/validation';
 
-const schema = validation.create<Master.Sis.DegreeLevelForm>(o => ({
+const schema = validation.create<Master.Other.DegreeLevelForm>(o => ({
   name: o
     .string()
     .required()
@@ -13,11 +13,11 @@ const schema = validation.create<Master.Sis.DegreeLevelForm>(o => ({
 }));
 
 export function useDegreeLevelForm(
-  submitCallback: Forms.SubmitFunc<Master.Sis.DegreeLevelForm>,
-  defaultValues?: Forms.FetchDataFunc<Master.Sis.DegreeLevelForm>
+  submitCallback: Forms.SubmitFunc<Master.Other.DegreeLevelForm>,
+  defaultValues?: Forms.FetchDataFunc<Master.Other.DegreeLevelForm>
 ) {
   const { register, control, handleSubmit, reset } =
-    useAppForm<Master.Sis.DegreeLevelForm>({
+    useAppForm<Master.Other.DegreeLevelForm>({
       defaultValues: defaultValues,
       resolver: validation.resolver(schema),
     });

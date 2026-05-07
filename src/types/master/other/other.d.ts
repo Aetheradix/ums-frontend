@@ -1,5 +1,5 @@
 declare namespace Master {
-  namespace Sis {
+  namespace Other {
     interface DegreeLevelForm {
       name: string;
     }

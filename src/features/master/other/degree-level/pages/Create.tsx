@@ -14,7 +14,7 @@ export default function Create() {
     navigate(masterUrls.degreeLevel.root);
   }, [navigate]);
 
-  async function handleSubmit(data: Master.Sis.DegreeLevelForm) {
+  async function handleSubmit(data: Master.Other.DegreeLevelForm) {
     try {
       const result = await mutateAsync(data);
       if (result) {

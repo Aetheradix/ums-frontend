@@ -15,7 +15,7 @@ import { districtUrls } from './location/district/urls';
 import { divisionUrls } from './location/division/urls';
 import { stateUrls } from './location/state/urls';
 import { tehsilUrls } from './location/tehsil/urls';
-import { degreeLevelUrls } from './sis/degree-level/urls';
+import { degreeLevelUrls } from './other/degree-level/urls';
 
 const baseUrl = '/master';
 export const masterUrls = {
@@ -36,5 +36,5 @@ export const masterUrls = {
   collegeType: collegeTypeUrls(`${baseUrl}/college`),
   collegeCategory: collegeCategoryUrls(`${baseUrl}/college`),
   faculty: facultyUrls(`${baseUrl}/faculty-management`),
-  degreeLevel: degreeLevelUrls(`${baseUrl}/sis`),
+  degreeLevel: degreeLevelUrls(`${baseUrl}/other`),
 };

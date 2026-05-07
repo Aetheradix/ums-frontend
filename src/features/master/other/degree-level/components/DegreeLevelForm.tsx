@@ -3,8 +3,8 @@ import { FormActions, FormGrid } from 'shared/new-components';
 import { useDegreeLevelForm } from './form.hook';
 
 interface DegreeLevelFormProps {
-  onSubmit: (data: Master.Sis.DegreeLevelForm) => Promise<void>;
-  fetchData?: Forms.FetchDataFunc<Master.Sis.DegreeLevelForm>;
+  onSubmit: (data: Master.Other.DegreeLevelForm) => Promise<void>;
+  fetchData?: Forms.FetchDataFunc<Master.Other.DegreeLevelForm>;
   isSaving?: boolean;
   isEditMode?: boolean;
 }

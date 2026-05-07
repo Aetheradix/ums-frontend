@@ -13,7 +13,7 @@ export default function List() {
   const navigate = useNavigate();
   const { mutateAsync } = useDegreeLevelActiveStatusMutation();
 
-  const handleToggleStatus = async (item: Master.Sis.DegreeLevelItem) => {
+  const handleToggleStatus = async (item: Master.Other.DegreeLevelItem) => {
     await mutateAsync({
       id: item.id,
       isActive: !item.isActive,
@@ -27,7 +27,7 @@ export default function List() {
     >
       <FormCard>
         <GridPanel
-          data={data as Master.Sis.DegreeLevelItem[]}
+          data={data as Master.Other.DegreeLevelItem[]}
           loading={isLoading}
           onEdit={degreeLevel =>
             navigate(masterUrls.degreeLevel.edit(degreeLevel.id))
@@ -42,7 +42,7 @@ export default function List() {
               field: 'isActive',
               header: 'Status',
               sortable: false,
-              cell: (item: Master.Sis.DegreeLevelItem) => (
+              cell: (item: Master.Other.DegreeLevelItem) => (
                 <StatusButton
                   value={item.isActive}
                   onClick={() => handleToggleStatus(item)}

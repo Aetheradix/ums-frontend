@@ -21,14 +21,15 @@ export function useDegreeLevelsQuery() {
 export function useCreateDegreeLevelMutation() {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: async (data: Master.Sis.DegreeLevelForm) =>
+    mutationFn: async (data: Master.Other.DegreeLevelForm) =>
       await createDegreeLevel(data),
 
     onSuccess(data) {
       if (!data) return;
 
       const result =
-        queryClient.getQueryData<Master.Sis.DegreeLevelItem[]>(QUERY_KEY) ?? [];
+        queryClient.getQueryData<Master.Other.DegreeLevelItem[]>(QUERY_KEY) ??
+        [];
 
       queryClient.setQueryData(QUERY_KEY, [...result, data]);
     },
@@ -53,21 +54,22 @@ export function useUpdateDegreeLevelMutation(id: number) {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async (data: Master.Sis.DegreeLevelForm) =>
+    mutationFn: async (data: Master.Other.DegreeLevelForm) =>
       await updateDegreeLevel(id, data),
 
     onSuccess(success, formData) {
       if (!success) return;
 
       const result =
-        queryClient.getQueryData<Master.Sis.DegreeLevelItem[]>(QUERY_KEY) ?? [];
+        queryClient.getQueryData<Master.Other.DegreeLevelItem[]>(QUERY_KEY) ??
+        [];
 
       const index = result.findIndex(item => item.id === id);
       if (index === -1) return;
 
       const existing = result[index];
 
-      const itemToReplace: Master.Sis.DegreeLevelItem = {
+      const itemToReplace: Master.Other.DegreeLevelItem = {
         id: id,
         name: formData.name,
         isActive: existing?.isActive,
@@ -96,7 +98,8 @@ export function useDegreeLevelActiveStatusMutation() {
       if (!success) return;
 
       const result =
-        queryClient.getQueryData<Master.Sis.DegreeLevelItem[]>(QUERY_KEY) ?? [];
+        queryClient.getQueryData<Master.Other.DegreeLevelItem[]>(QUERY_KEY) ??
+        [];
 
       const index = result.findIndex(item => item.id === variables.id);
       if (index === -1) return;

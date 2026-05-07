@@ -5,19 +5,19 @@ const MASTER_API_ROOT = `master/`;
 const DEGREE_LEVEL_URL = `${MASTER_API_ROOT}degree-level`;
 
 export function getDegreeLevels() {
-  return ApiService.getList<Master.Sis.DegreeLevelForm>(DEGREE_LEVEL_URL);
+  return ApiService.getList<Master.Other.DegreeLevelForm>(DEGREE_LEVEL_URL);
 }
 
 export async function getDegreeLevel(id: number) {
   debugger;
-  const { data } = await ApiService.get<Master.Sis.DegreeLevelForm>(
+  const { data } = await ApiService.get<Master.Other.DegreeLevelForm>(
     `${DEGREE_LEVEL_URL}/${id}`
   );
   return data;
 }
 
-export async function createDegreeLevel(form: Master.Sis.DegreeLevelForm) {
-  const { error, data } = await ApiService.post<Master.Sis.DegreeLevelForm>(
+export async function createDegreeLevel(form: Master.Other.DegreeLevelForm) {
+  const { error, data } = await ApiService.post<Master.Other.DegreeLevelForm>(
     DEGREE_LEVEL_URL,
     form
   );
@@ -27,7 +27,7 @@ export async function createDegreeLevel(form: Master.Sis.DegreeLevelForm) {
 
 export async function updateDegreeLevel(
   id: number,
-  form: Master.Sis.DegreeLevelForm
+  form: Master.Other.DegreeLevelForm
 ): Promise<boolean> {
   const result = await ApiService.put(`${DEGREE_LEVEL_URL}/${id}`, form);
   return !result.error;

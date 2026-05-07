@@ -8,7 +8,7 @@ import { masterUrls } from '../../../urls';
 import DegreeLevelForm from '../components/DegreeLevelForm';
 import { useDegreeLevelQuery, useUpdateDegreeLevelMutation } from '../queries';
 
-const DEFAULT: Master.Sis.DegreeLevelForm = {
+const DEFAULT: Master.Other.DegreeLevelForm = {
   name: '',
 };
 
@@ -26,7 +26,7 @@ export default function Edit() {
     return <Loader />;
   }
 
-  async function handleSubmit(data: Master.Sis.DegreeLevelForm) {
+  async function handleSubmit(data: Master.Other.DegreeLevelForm) {
     try {
       const result = await mutateAsync(data);
       if (result) {
