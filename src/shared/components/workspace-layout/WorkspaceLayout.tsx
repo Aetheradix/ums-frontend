@@ -1,9 +1,9 @@
 import React from 'react';
 import WorkspaceFooterBar from './WorkspaceFooterBar';
-import WorkspaceFooterNav from './WorkspaceFooterNav';
+// import WorkspaceFooterNav from './WorkspaceFooterNav';
 import WorkspaceHeader from './WorkspaceHeader';
-import WorkspaceTopBar from './WorkspaceTopBar';
 import './WorkspaceLayout.css';
+import WorkspaceTopBar from './WorkspaceTopBar';
 
 export const WorkspaceLayout: React.FC<{ children: React.ReactNode }> = ({
   children,
@@ -12,7 +12,7 @@ export const WorkspaceLayout: React.FC<{ children: React.ReactNode }> = ({
     <WorkspaceTopBar />
     <WorkspaceHeader />
     <main className="ws-main">{children}</main>
-    <WorkspaceFooterNav />
+    {/* <WorkspaceFooterNav /> */}
     <WorkspaceFooterBar />
   </div>
 );
