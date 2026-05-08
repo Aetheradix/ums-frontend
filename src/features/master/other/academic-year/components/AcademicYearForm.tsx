@@ -23,7 +23,7 @@ export default function AcademicYearForm(props: AcademicYearFormProps) {
           subLabel="(In English)"
           placeholder="Enter Academic Year Name"
           {...register('name')}
-          maxLength={50}
+          maxLength={4}
           required
         />
 
@@ -32,7 +32,7 @@ export default function AcademicYearForm(props: AcademicYearFormProps) {
           subLabel="(In English)"
           placeholder="Enter Session"
           {...register('session')}
-          maxLength={50}
+          maxLength={7}
           required
         />
       </FormGrid>
