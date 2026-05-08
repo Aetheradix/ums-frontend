@@ -17,6 +17,7 @@ import { stateUrls } from './location/state/urls';
 import { tehsilUrls } from './location/tehsil/urls';
 import { degreeLevelUrls } from './other/degree-level/urls';
 import { programmeUrls } from './other/programme/urls';
+import { schemeUrls } from './scheme/urls';
 
 const baseUrl = '/master';
 export const masterUrls = {
@@ -39,4 +40,7 @@ export const masterUrls = {
   faculty: facultyUrls(`${baseUrl}/faculty-management`),
   degreeLevel: degreeLevelUrls(`${baseUrl}/other`),
   programme: programmeUrls(`${baseUrl}/other`),
+  scheme: schemeUrls.scheme,
+  schemeType: schemeUrls.schemeType,
+  schemeCategory: schemeUrls.schemeCategory,
 };
