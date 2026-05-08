@@ -12,6 +12,8 @@ import Religion from './hr/religion';
 import Location from './location';
 import AcademicYear from './other/academic-year';
 import DegreeLevel from './other/degree-level';
+import Programme from './other/programme';
+import Specialisation from './other/specialisation';
 
 export default function Master() {
   return (
@@ -40,6 +42,8 @@ export default function Master() {
       <Route path="other/*">
         <Route path="degree-level/*" element={<DegreeLevel />} />
         <Route path="academic-year/*" element={<AcademicYear />} />
+        <Route path="programme/*" element={<Programme />} />
+        <Route path="specialisation/*" element={<Specialisation />} />
       </Route>
     </Routes>
   );

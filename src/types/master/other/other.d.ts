@@ -18,5 +18,36 @@ declare namespace Master {
     }
 
     type AcademicYearItem = Data.WithId<AcademicYearForm>;
+    interface ProgrammeForm {
+      name: string;
+      programmeDuration: string;
+      degreeLevelId: number;
+    }
+
+    interface Programme {
+      name: string;
+      programmeDuration: string;
+      degreeLevelId: number;
+      degreeLevelName?: string;
+      isActive: boolean;
+    }
+    type ProgrammeItem = Data.WithId<Programme>;
+
+    interface SpecialisationForm {
+      name: string;
+      programmeId: number;
+    }
+    interface Specialisation {
+      name: string;
+      programmeId: number;
+      programmeName?: string;
+      isActive: boolean;
+    }
+    type SpecialisationItem = Data.WithId<Specialisation>;
+
+    interface ResidencyStatusItem {
+      id: number;
+      name: string;
+    }
   }
 }
