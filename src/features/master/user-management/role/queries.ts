@@ -31,7 +31,6 @@ export function useRoleQuery(id: string) {
   return useQuery({
     queryKey: [...QUERY_KEY, id],
     queryFn: async () => {
-      debugger;
       const data = await getRole(id);
       if (!data) return undefined;
       return {

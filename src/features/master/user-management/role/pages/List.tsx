@@ -8,13 +8,6 @@ import { useRolesQuery } from '../queries';
 export default function List() {
   const { data, isLoading } = useRolesQuery();
   const navigate = useNavigate();
-  // const { mutateAsync } = useRoleMutation();
-
-  // const handleToggleStatus = async (item: Master.UserManagement.RoleItem) => {
-  //   await mutateAsync({
-  //     id: item.roleId,
-  //   });
-  // };
 
   return (
     <FormPage

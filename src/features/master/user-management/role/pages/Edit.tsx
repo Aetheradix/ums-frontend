@@ -25,7 +25,6 @@ export default function Edit() {
   async function handleSubmit(formData: Master.UserManagement.RoleForm) {
     try {
       const result = await mutateAsync(formData);
-      debugger;
       if (result) {
         ToastService.success('Role updated successfully.');
         handleBack();
