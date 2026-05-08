@@ -10,6 +10,7 @@ import Caste from './hr/caste';
 import Qualification from './hr/qualification';
 import Religion from './hr/religion';
 import Location from './location';
+import AcademicYear from './other/academic-year';
 import DegreeLevel from './other/degree-level';
 
 export default function Master() {
@@ -38,6 +39,7 @@ export default function Master() {
 
       <Route path="other/*">
         <Route path="degree-level/*" element={<DegreeLevel />} />
+        <Route path="academic-year/*" element={<AcademicYear />} />
       </Route>
     </Routes>
   );
