@@ -291,9 +291,23 @@ export const menuConfig: Menu.MenuItem[] = [
             colorScheme: 'indigo',
           },
           {
+            label: 'Academic Year',
+            description: 'Manage academic year records and session details',
+            path: '/master/other/academic-year',
+            icon: 'school',
+            colorScheme: 'indigo',
+          },
+          {
             label: 'Programme',
             description: 'Manage programmes',
             path: '/master/other/programme',
+            icon: 'school',
+            colorScheme: 'indigo',
+          },
+          {
+            label: 'Specialisation',
+            description: 'Manage specialisations',
+            path: '/master/other/specialisation',
             icon: 'school',
             colorScheme: 'indigo',
           },

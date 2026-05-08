@@ -15,9 +15,11 @@ import { districtUrls } from './location/district/urls';
 import { divisionUrls } from './location/division/urls';
 import { stateUrls } from './location/state/urls';
 import { tehsilUrls } from './location/tehsil/urls';
+import { academicYearUrls } from './other/academic-year/urls';
 import { degreeLevelUrls } from './other/degree-level/urls';
 import { programmeUrls } from './other/programme/urls';
 import { schemeUrls } from './schemes/urls';
+import { specialisationUrls } from './other/specialisation/urls';
 
 const baseUrl = '/master';
 export const masterUrls = {
@@ -39,8 +41,10 @@ export const masterUrls = {
   collegeCategory: collegeCategoryUrls(`${baseUrl}/college`),
   faculty: facultyUrls(`${baseUrl}/faculty-management`),
   degreeLevel: degreeLevelUrls(`${baseUrl}/other`),
+  academicYear: academicYearUrls(`${baseUrl}/other`),
   programme: programmeUrls(`${baseUrl}/other`),
   scheme: schemeUrls(baseUrl).scheme,
   schemeType: schemeUrls(baseUrl).schemeType,
   schemeCategory: schemeUrls(baseUrl).schemeCategory,
+  specialisation: specialisationUrls(`${baseUrl}/other`),
 };

@@ -10,6 +10,14 @@ declare namespace Master {
     }
     type DegreeLevelItem = Data.WithId<DegreeLevel>;
 
+    // Academic-Year
+    interface AcademicYearForm {
+      name: string;
+      session: string;
+      isActive: boolean;
+    }
+
+    type AcademicYearItem = Data.WithId<AcademicYearForm>;
     interface ProgrammeForm {
       name: string;
       programmeDuration: string;
@@ -24,10 +32,26 @@ declare namespace Master {
       isActive: boolean;
     }
     type ProgrammeItem = Data.WithId<Programme>;
-  }
 
-  interface ResidencyStatusItem {
-    id: number;
-    name: string;
+    interface SpecialisationForm {
+      name: string;
+      programmeId: number;
+    }
+    interface Specialisation {
+      name: string;
+      programmeId: number;
+      programmeName?: string;
+      isActive: boolean;
+    }
+    type SpecialisationItem = Data.WithId<Specialisation>;
+
+    interface ResidencyStatusItem {
+      id: number;
+      name: string;
+    }
+    interface AddressTypeItem {
+      id: number;
+      name: string;
+    }
   }
 }

@@ -1,7 +1,4 @@
 import { Route, Routes } from 'react-router';
-import CollegeCategory from './college/college-category';
-import CollegeType from './college/college-type';
-import Course from './course';
 import Department from './faculty/department';
 import Designation from './faculty/designation';
 import Faculty from './faculty/faculty';
@@ -10,9 +7,14 @@ import Caste from './hr/caste';
 import Qualification from './hr/qualification';
 import Religion from './hr/religion';
 import Location from './location';
+import AcademicYear from './other/academic-year';
 import DegreeLevel from './other/degree-level';
 import Programme from './other/programme';
 import Scheme from './schemes';
+import Specialisation from './other/specialisation';
+import Course from './course';
+import CollegeCategory from './college/college-category';
+import CollegeType from './college/college-type';
 
 export default function Master() {
   return (
@@ -40,7 +42,9 @@ export default function Master() {
 
       <Route path="other/*">
         <Route path="degree-level/*" element={<DegreeLevel />} />
+        <Route path="academic-year/*" element={<AcademicYear />} />
         <Route path="programme/*" element={<Programme />} />
+        <Route path="specialisation/*" element={<Specialisation />} />
       </Route>
       <Route path="schemes/*" element={<Scheme />} />
     </Routes>
