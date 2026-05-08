@@ -41,5 +41,9 @@ declare namespace Master {
       id: number;
       name: string;
     }
+    interface AddressTypeItem {
+      id: number;
+      name: string;
+    }
   }
 }
