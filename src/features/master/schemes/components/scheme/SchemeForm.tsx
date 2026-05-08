@@ -1,5 +1,8 @@
-import { useSchemeTypesQuery, useSchemesCategoriesQuery } from 'features/master/scheme/queries';
-import { TextBox, DropDownList } from 'shared/components/forms';
+import {
+  useSchemeTypesQuery,
+  useSchemesCategoriesQuery,
+} from 'features/master/schemes/queries';
+import { DropDownList, TextBox } from 'shared/components/forms';
 import { FormActions, FormGrid } from 'shared/new-components';
 import { useSchemeForm } from './form.hook';
 
@@ -28,13 +31,18 @@ export default function SchemeForm(props: SchemeFormProps) {
 
   // Filter categories based on selected scheme type
   const filteredCategories = selectedSchemeTypeId
-    ? schemeCategories.filter((sc: Master.Scheme.SchemeCategoryItem) => sc.schemeTypeId === selectedSchemeTypeId)
+    ? schemeCategories.filter(
+        (sc: Master.Scheme.SchemeCategoryItem) =>
+          sc.schemeTypeId === selectedSchemeTypeId
+      )
     : [];
 
-  const schemeCategoryOptions = filteredCategories.map((sc: Master.Scheme.SchemeCategoryItem) => ({
-    value: sc.id,
-    text: sc.name,
-  }));
+  const schemeCategoryOptions = filteredCategories.map(
+    (sc: Master.Scheme.SchemeCategoryItem) => ({
+      value: sc.id,
+      text: sc.name,
+    })
+  );
 
   return (
     <form onSubmit={handleSubmit}>
@@ -57,7 +65,11 @@ export default function SchemeForm(props: SchemeFormProps) {
           textField="text"
           valueField="value"
           required
-          defaultOptionText={selectedSchemeTypeId ? "Select Scheme Category" : "Select Scheme Type First"}
+          defaultOptionText={
+            selectedSchemeTypeId
+              ? 'Select Scheme Category'
+              : 'Select Scheme Type First'
+          }
           disabled={!selectedSchemeTypeId}
         />
         <TextBox

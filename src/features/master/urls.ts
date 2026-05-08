@@ -17,7 +17,7 @@ import { stateUrls } from './location/state/urls';
 import { tehsilUrls } from './location/tehsil/urls';
 import { degreeLevelUrls } from './other/degree-level/urls';
 import { programmeUrls } from './other/programme/urls';
-import { schemeUrls } from './scheme/urls';
+import { schemeUrls } from './schemes/urls';
 
 const baseUrl = '/master';
 export const masterUrls = {

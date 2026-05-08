@@ -1,18 +1,26 @@
+import {
+  useSchemeTypesQuery,
+  useSchemesCategoriesQuery,
+} from 'features/master/schemes/queries';
 import { useCallback, useState } from 'react';
-import { useSchemeTypesQuery } from 'features/master/scheme/queries';
+import { ToastService } from 'services';
 import { Button } from 'shared/components/buttons';
 import StatusButton from 'shared/components/buttons/StatusButton';
 import { Loader } from 'shared/components/progress';
-import { FormCard, FormPage, FormPopup, GridPanel } from 'shared/new-components';
-import { ToastService } from 'services';
-import SchemeCategoryForm from '../../components/scheme-category/SchemeCategoryForm';
 import {
-  useSchemesCategoriesQuery,
-  useSchemeCategoryActiveStatusMutation,
-  useCreateSchemeCategoryMutation,
-  useUpdateSchemeCategoryMutation,
-  useSchemeCategoryQuery,
-} from '../../queries';
+  FormCard,
+  FormPage,
+  FormPopup,
+  GridPanel,
+} from 'shared/new-components';
+import SchemeForm from '../../components/scheme/SchemeForm';
+import {
+  useCreateSchemeMutation,
+  useSchemeActiveStatusMutation,
+  useSchemeQuery,
+  useSchemesQuery,
+  useUpdateSchemeMutation,
+} from '../../scheme-queries';
 
 type PopupState =
   | { mode: 'closed' }
@@ -20,14 +28,13 @@ type PopupState =
   | { mode: 'edit'; id: number };
 
 export default function List() {
-  const { data, isLoading } = useSchemesCategoriesQuery();
+  const { data, isLoading } = useSchemesQuery();
   const { data: schemeTypes = [] } = useSchemeTypesQuery();
-  const { mutateAsync } = useSchemeCategoryActiveStatusMutation();
+  const { data: schemeCategories = [] } = useSchemesCategoriesQuery();
+  const { mutateAsync } = useSchemeActiveStatusMutation();
   const [popup, setPopup] = useState<PopupState>({ mode: 'closed' });
 
-  const handleToggleStatus = async (
-    item: Master.Scheme.SchemeCategoryItem
-  ) => {
+  const handleToggleStatus = async (item: Master.Scheme.SchemeItem) => {
     await mutateAsync({
       id: item.id,
       isActive: !item.isActive,
@@ -36,39 +43,52 @@ export default function List() {
 
   const closePopup = useCallback(() => setPopup({ mode: 'closed' }), []);
 
-  const getSchemTypeName = (schemeTypeId: number) => {
+  const getSchemeTypeName = (schemeTypeId: number) => {
     return schemeTypes.find(st => st.id === schemeTypeId)?.name || '-';
+  };
+
+  const getSchemeCategoryName = (schemeCategoryId: number) => {
+    return (
+      schemeCategories.find(
+        (sc: Master.Scheme.SchemeCategoryItem) => sc.id === schemeCategoryId
+      )?.name || '-'
+    );
   };
 
   return (
     <FormPage
-      title="Scheme Category"
-      description="Manage the list of all scheme categories in the system."
+      title="Scheme"
+      description="Manage the list of all schemes in the system."
     >
       <FormCard>
         {isLoading ? <Loader /> : undefined}
         <GridPanel
           data={data}
-          onEdit={schemeCategory =>
-            setPopup({ mode: 'edit', id: schemeCategory.id })
-          }
+          onEdit={scheme => setPopup({ mode: 'edit', id: scheme.id })}
           columns={[
             {
               cell: (_, option) => <span>{option.rowIndex + 1}</span>,
               width: '30px',
             },
             { field: 'name', header: 'Name' },
+            { field: 'code', header: 'Code' },
             {
               header: 'Scheme Type',
-              cell: (item: Master.Scheme.SchemeCategoryItem) => (
-                <span>{getSchemTypeName(item.schemeTypeId)}</span>
+              cell: (item: Master.Scheme.SchemeItem) => (
+                <span>{getSchemeTypeName(item.schemeTypeId)}</span>
+              ),
+            },
+            {
+              header: 'Scheme Category',
+              cell: (item: Master.Scheme.SchemeItem) => (
+                <span>{getSchemeCategoryName(item.schemeCategoryId)}</span>
               ),
             },
             {
               field: 'isActive',
               header: 'Status',
               sortable: false,
-              cell: (item: Master.Scheme.SchemeCategoryItem) => (
+              cell: (item: Master.Scheme.SchemeItem) => (
                 <StatusButton
                   value={item.isActive}
                   onClick={() => handleToggleStatus(item)}
@@ -91,8 +111,8 @@ export default function List() {
       <FormPopup
         visible={popup.mode === 'create'}
         onHide={closePopup}
-        title="Create Scheme Category"
-        subtitle="Fill in the details to add a new scheme category."
+        title="Create Scheme"
+        subtitle="Fill in the details to add a new scheme."
       >
         <CreateContent onClose={closePopup} />
       </FormPopup>
@@ -100,8 +120,8 @@ export default function List() {
       <FormPopup
         visible={popup.mode === 'edit'}
         onHide={closePopup}
-        title="Edit Scheme Category"
-        subtitle="Update the scheme category details."
+        title="Edit Scheme"
+        subtitle="Update the scheme details."
       >
         {popup.mode === 'edit' && (
           <EditContent id={popup.id} onClose={closePopup} />
@@ -112,22 +132,22 @@ export default function List() {
 }
 
 function CreateContent({ onClose }: { onClose: () => void }) {
-  const { mutateAsync, isPending } = useCreateSchemeCategoryMutation();
+  const { mutateAsync, isPending } = useCreateSchemeMutation();
 
-  async function handleSubmit(data: Master.Scheme.SchemeCategoryForm) {
+  async function handleSubmit(data: Master.Scheme.SchemeForm) {
     try {
       const result = await mutateAsync(data);
       if (result) {
-        ToastService.success('Scheme Category created successfully.');
+        ToastService.success('Scheme created successfully.');
         onClose();
       }
     } catch {
-      ToastService.error('Failed to create scheme category');
+      ToastService.error('Failed to create scheme');
     }
   }
 
   return (
-    <SchemeCategoryForm
+    <SchemeForm
       onSubmit={handleSubmit}
       isSaving={isPending}
       isEditMode={false}
@@ -136,26 +156,26 @@ function CreateContent({ onClose }: { onClose: () => void }) {
 }
 
 function EditContent({ id, onClose }: { id: number; onClose: () => void }) {
-  const { mutateAsync, isPending } = useUpdateSchemeCategoryMutation(id);
-  const { data, isLoading } = useSchemeCategoryQuery(id);
-  const DEFAULT = { name: '', schemeTypeId: 0 };
+  const { mutateAsync, isPending } = useUpdateSchemeMutation(id);
+  const { data, isLoading } = useSchemeQuery(id);
+  const DEFAULT = { name: '', code: '', schemeTypeId: 0, schemeCategoryId: 0 };
 
   if (isLoading) return <Loader />;
 
-  async function handleSubmit(formData: Master.Scheme.SchemeCategoryForm) {
+  async function handleSubmit(formData: Master.Scheme.SchemeForm) {
     try {
       const result = await mutateAsync(formData);
       if (result) {
-        ToastService.success('Scheme Category updated successfully.');
+        ToastService.success('Scheme updated successfully.');
         onClose();
       }
     } catch {
-      ToastService.error('Failed to update scheme category');
+      ToastService.error('Failed to update scheme');
     }
   }
 
   return (
-    <SchemeCategoryForm
+    <SchemeForm
       fetchData={data ?? DEFAULT}
       isSaving={isPending}
       isEditMode

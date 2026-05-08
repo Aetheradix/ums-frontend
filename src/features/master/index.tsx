@@ -12,7 +12,7 @@ import Religion from './hr/religion';
 import Location from './location';
 import DegreeLevel from './other/degree-level';
 import Programme from './other/programme';
-import Scheme from './scheme';
+import Scheme from './schemes';
 
 export default function Master() {
   return (
@@ -42,7 +42,7 @@ export default function Master() {
         <Route path="degree-level/*" element={<DegreeLevel />} />
         <Route path="programme/*" element={<Programme />} />
       </Route>
-      <Route path="scheme/*" element={<Scheme />} />
+      <Route path="schemes/*" element={<Scheme />} />
     </Routes>
   );
 }
