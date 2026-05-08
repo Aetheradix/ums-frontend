@@ -53,11 +53,11 @@ export function useUpdateRoleMutation(id: string) {
       const result =
         queryClient.getQueryData<Master.UserManagement.RoleItem[]>(QUERY_KEY) ??
         [];
-      const index = result.findIndex(item => item.roleId === id);
+      const index = result.findIndex(item => item.id === id);
       if (index === -1) return;
 
       const itemToReplace: Master.UserManagement.RoleItem = {
-        roleId: id,
+        id: id,
         name: formData.name,
       };
 
