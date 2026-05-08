@@ -68,6 +68,14 @@ export async function handleNotOkResponse(response: Response) {
     return typedJson;
   }
 
+  if (typedJson.code === 'conflict') {
+    PubSubService.publish(
+      '@event/api-error',
+      typedJson.detail || 'A conflict occurred.'
+    );
+    return typedJson;
+  }
+
   PubSubService.publish(
     '@event/api-error',
     typedJson.detail || typedJson.title || 'An error occurred.'

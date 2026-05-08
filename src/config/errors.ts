@@ -9,4 +9,5 @@ export const errors = {
     'Only English letters, spaces, and characters . , ( ) & / are accepted.',
   hindiWithSymbols:
     'Only Hindi letters, spaces, and characters . , ( ) & / are accepted.',
+  numericOnly: 'Only numbers are accepted.',
 };

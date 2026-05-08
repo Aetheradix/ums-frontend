@@ -16,6 +16,7 @@ export const messages = {
   'number.min': 'Must be >= {#limit}',
   'number.max': 'Must be <= {#limit}',
   'number.base': 'Invalid number',
+  'string.pattern.base': 'Invalid format',
 };
 
 export const keys = {
