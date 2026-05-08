@@ -40,18 +40,47 @@ export default function GridPanel<T>({
   sortOrder,
   ...rest
 }: GridPanelProps<T>) {
-  const [internalGlobalFilter] = useState('');
+  const [internalGlobalFilter, setInternalGlobalFilter] = useState('');
 
   const currentGlobalFilter = rest.globalFilter ?? internalGlobalFilter;
 
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setInternalGlobalFilter(value);
+    if (onFilter) {
+      onFilter({ globalFilter: value });
+    }
+  };
+
   return (
     <div className="grid-panel-wrapper">
-      <div className="grid-panel-header">
-        <span className="grid-panel-title">{title}</span>
-        <div className="grid-panel-toolbar">
-          {toolbar}
-          {actionButtons}
-        </div>
+      <div className="grid-panel-header mb-3">
+        {searchBox ? (
+          <div className="flex w-full items-center justify-between">
+            <div className="relative">
+              <i className="pi pi-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
+              <input
+                type="text"
+                placeholder="Search..."
+                value={currentGlobalFilter}
+                onChange={handleSearchChange}
+                className="p-inputtext w-64 pl-40"
+              />
+            </div>
+            <div className="flex items-center gap-3">
+              {toolbar}
+              {actionButtons}
+            </div>
+          </div>
+        ) : (
+          <>
+            <span className="grid-panel-title">{title}</span>
+            <div className="grid-panel-toolbar">
+              {toolbar}
+              {actionButtons}
+            </div>
+          </>
+        )}
       </div>
       <Grid
         {...rest}

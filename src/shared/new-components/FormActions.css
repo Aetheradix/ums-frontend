@@ -20,24 +20,59 @@
   @apply justify-center;
 }
 
+/* ── Light Theme Buttons ── */
+
+/* Reset Button (Grey) */
 .form-actions-container button[type='reset'] {
-  background-color: #dc2626 !important;
-  border-color: #dc2626 !important;
-  color: white !important;
+  background-color: #f4f4f5 !important;
+  border-color: #e4e4e7 !important;
+  color: #18181b !important;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
 }
 
 .form-actions-container button[type='reset']:hover {
-  background-color: #b91c1c !important;
-  border-color: #b91c1c !important;
+  background-color: #e4e4e7 !important;
+  border-color: #d4d4d8 !important;
+  color: #09090b !important;
 }
 
+/* Submit Button (Black) */
 .form-actions-container button[type='submit'] {
-  background-color: #16a34a !important;
-  border-color: #16a34a !important;
-  color: white !important;
+  background-color: #18181b !important;
+  border-color: #18181b !important;
+  color: #ffffff !important;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
 }
 
 .form-actions-container button[type='submit']:hover {
-  background-color: #15803d !important;
-  border-color: #15803d !important;
+  background-color: #27272a !important;
+  border-color: #27272a !important;
+}
+
+/* ── Dark Theme Buttons ── */
+
+/* Reset Button (Dark Grey) */
+.dark-theme .form-actions-container button[type='reset'] {
+  background-color: #27272a !important;
+  border-color: #3f3f46 !important;
+  color: #f4f4f5 !important;
+}
+
+.dark-theme .form-actions-container button[type='reset']:hover {
+  background-color: #3f3f46 !important;
+  border-color: #52525b !important;
+  color: #ffffff !important;
+}
+
+/* Submit Button (White/Light Zinc) */
+.dark-theme .form-actions-container button[type='submit'] {
+  background-color: #f4f4f5 !important;
+  border-color: #f4f4f5 !important;
+  color: #09090b !important;
+}
+
+.dark-theme .form-actions-container button[type='submit']:hover {
+  background-color: #e4e4e7 !important;
+  border-color: #e4e4e7 !important;
+  color: #09090b !important;
 }

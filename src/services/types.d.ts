@@ -22,6 +22,7 @@ declare namespace Api {
 
   type TypedError = {
     type: string;
+    title?: string;
     code: 'not_found' | 'validation_failure' | 'conflict' | 'unauthorized';
     detail: string;
     errors?: TypedValidationError[];

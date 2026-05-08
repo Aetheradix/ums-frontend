@@ -1,24 +1,38 @@
-import { useNavigate } from 'react-router';
+import { useCallback, useState } from 'react';
 import { Button } from 'shared/components/buttons';
 import StatusButton from 'shared/components/buttons/StatusButton';
-import { FormCard, FormPage, GridPanel } from 'shared/new-components';
-import { masterUrls } from '../../../urls';
 import {
+  FormCard,
+  FormPage,
+  FormPopup,
+  GridPanel,
+} from 'shared/new-components';
+import { Loader } from 'shared/components/progress';
+import { ToastService } from 'services';
+import OfficeTypeForm from '../components/OfficeTypeForm';
+import {
+  useCreateOfficeTypeMutation,
   useOfficeTypeActiveStatusMutation,
+  useOfficeTypeQuery,
   useOfficeTypesQuery,
+  useUpdateOfficeTypeMutation,
 } from '../queries';
+
+type PopupState =
+  | { mode: 'closed' }
+  | { mode: 'create' }
+  | { mode: 'edit'; id: number };
 
 export default function List() {
   const { data, isLoading } = useOfficeTypesQuery();
-  const navigate = useNavigate();
-  const { mutateAsync } = useOfficeTypeActiveStatusMutation();
+  const { mutateAsync: toggleStatus } = useOfficeTypeActiveStatusMutation();
+  const [popup, setPopup] = useState<PopupState>({ mode: 'closed' });
 
   const handleToggleStatus = async (item: Master.OfficeTypeItem) => {
-    await mutateAsync({
-      id: item.id,
-      isActive: !item.isActive,
-    });
+    await toggleStatus({ id: item.id, isActive: !item.isActive });
   };
+
+  const closePopup = useCallback(() => setPopup({ mode: 'closed' }), []);
 
   return (
     <FormPage
@@ -29,9 +43,7 @@ export default function List() {
         <GridPanel
           data={data}
           loading={isLoading}
-          onEdit={officetype =>
-            navigate(masterUrls.officeType.edit(officetype.id))
-          }
+          onEdit={officetype => setPopup({ mode: 'edit', id: officetype.id })}
           columns={[
             {
               cell: (_, option) => <span>{option.rowIndex + 1}</span>,
@@ -56,12 +68,79 @@ export default function List() {
               label="Create"
               icon="plus"
               variant="primary"
-              onClick={() => navigate(masterUrls.officeType.create)}
+              onClick={() => setPopup({ mode: 'create' })}
             />
           }
           searchBox
         />
       </FormCard>
+
+      <FormPopup
+        visible={popup.mode === 'create'}
+        onHide={closePopup}
+        title="Create Office Type"
+        subtitle="Fill in the details to add a new office type."
+      >
+        <CreateContent onClose={closePopup} />
+      </FormPopup>
+
+      <FormPopup
+        visible={popup.mode === 'edit'}
+        onHide={closePopup}
+        title="Edit Office Type"
+        subtitle="Update the details of the office type."
+      >
+        {popup.mode === 'edit' && (
+          <EditContent id={popup.id} onClose={closePopup} />
+        )}
+      </FormPopup>
     </FormPage>
+  );
+}
+
+function CreateContent({ onClose }: { onClose: () => void }) {
+  const { mutateAsync, isPending } = useCreateOfficeTypeMutation();
+
+  async function handleSubmit(data: Master.OfficeTypeForm) {
+    try {
+      const result = await mutateAsync(data);
+      if (result) {
+        ToastService.success('Office Type created successfully.');
+        onClose();
+      }
+    } catch {
+      ToastService.error('Failed to create office type');
+    }
+  }
+
+  return <OfficeTypeForm onSubmit={handleSubmit} isSaving={isPending} />;
+}
+
+function EditContent({ id, onClose }: { id: number; onClose: () => void }) {
+  const { mutateAsync, isPending } = useUpdateOfficeTypeMutation(id);
+  const { data, isLoading } = useOfficeTypeQuery(id);
+  const DEFAULT = { code: '', name: '' };
+
+  async function handleSubmit(formData: Master.OfficeTypeForm) {
+    try {
+      const result = await mutateAsync(formData);
+      if (result) {
+        ToastService.success('Office Type updated successfully.');
+        onClose();
+      }
+    } catch {
+      ToastService.error('Failed to update office type');
+    }
+  }
+
+  if (isLoading) return <Loader />;
+
+  return (
+    <OfficeTypeForm
+      fetchData={data ?? DEFAULT}
+      isSaving={isPending}
+      isEditMode
+      onSubmit={handleSubmit}
+    />
   );
 }

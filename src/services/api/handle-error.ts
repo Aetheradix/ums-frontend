@@ -12,6 +12,7 @@ const titles: Record<number, Api.EventMessage> = {
     title: 'Access Denied',
     messages: ['You cannot access this resource.'],
   },
+  409: { title: 'Conflict', messages: ['A conflict occurred.'] },
   500: {
     title: 'Server Issue',
     messages: ['There seems to be a server issue.'],
@@ -67,7 +68,18 @@ export async function handleNotOkResponse(response: Response) {
     return typedJson;
   }
 
-  PubSubService.publish('@event/api-error', json.detail);
+  if (typedJson.code === 'conflict') {
+    PubSubService.publish(
+      '@event/api-error',
+      typedJson.detail || 'A conflict occurred.'
+    );
+    return typedJson;
+  }
+
+  PubSubService.publish(
+    '@event/api-error',
+    typedJson.detail || typedJson.title || 'An error occurred.'
+  );
 }
 
 export async function handleError(error: string) {
