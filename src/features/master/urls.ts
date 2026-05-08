@@ -40,7 +40,7 @@ export const masterUrls = {
   faculty: facultyUrls(`${baseUrl}/faculty-management`),
   degreeLevel: degreeLevelUrls(`${baseUrl}/other`),
   programme: programmeUrls(`${baseUrl}/other`),
-  scheme: schemeUrls.scheme,
-  schemeType: schemeUrls.schemeType,
-  schemeCategory: schemeUrls.schemeCategory,
+  scheme: schemeUrls(baseUrl).scheme,
+  schemeType: schemeUrls(baseUrl).schemeType,
+  schemeCategory: schemeUrls(baseUrl).schemeCategory,
 };
