@@ -19,5 +19,13 @@ if ! echo "$branch_name" | grep -Eq "$pattern"; then
   exit 1
 fi
 
-npx lint-staged
-npm run type-check
+echo "Running lint-staged"
+npx lint-staged || exit 1
+
+echo "Running type-checks"
+npm run type-check || exit 1
+
+echo "Running production build"
+npm run build || exit 1
+
+echo "All checks passed ready to merge."
