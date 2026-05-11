@@ -1,5 +1,5 @@
 export const schemeUrls = (baseUrl: string) => {
-  const prefix = `${baseUrl}/scheme`;
+  const prefix = `${baseUrl}/schemes`;
   return {
     root: prefix,
     create: `${prefix}/create`,
