@@ -1,6 +1,6 @@
-import { useSchemeTypesQuery } from 'features/master/schemes/scheme-type/queries';
-import { useSchemesCategoriesQuery } from 'features/master/schemes/scheme-category/queries';
-import { DropDownList, TextBox } from 'shared/components/forms';
+import SelectSchemeType from 'features/components/SelectSchemeType';
+import SelectSchemeCategory from 'features/components/SelectSchemeCategory';
+import { TextBox } from 'shared/components/forms';
 import { FormActions, FormGrid } from 'shared/new-components';
 import { useSchemeForm } from './form.hook';
 
@@ -16,59 +16,24 @@ export default function SchemeForm(props: SchemeFormProps) {
     props.onSubmit,
     props.fetchData
   );
-  const { data: schemeTypes = [] } = useSchemeTypesQuery();
-  const { data: schemeCategories = [] } = useSchemesCategoriesQuery();
 
   // Watch the schemeTypeId field to filter categories
   const selectedSchemeTypeId = watch('schemeTypeId');
 
-  const schemeTypeOptions = schemeTypes.map(st => ({
-    value: st.id,
-    text: st.name,
-  }));
-
-  // Filter categories based on selected scheme type
-  const filteredCategories = selectedSchemeTypeId
-    ? schemeCategories.filter(
-        (sc: Master.Scheme.SchemeCategoryItem) =>
-          sc.schemeTypeId === selectedSchemeTypeId
-      )
-    : [];
-
-  const schemeCategoryOptions = filteredCategories.map(
-    (sc: Master.Scheme.SchemeCategoryItem) => ({
-      value: sc.id,
-      text: sc.name,
-    })
-  );
-
   return (
     <form onSubmit={handleSubmit}>
       <FormGrid columns={2}>
-        <DropDownList
-          name="schemeTypeId"
-          control={control}
-          label="Scheme Type"
-          data={schemeTypeOptions}
-          textField="text"
-          valueField="value"
-          required
-          defaultOptionText="Select Scheme Type"
-        />
-        <DropDownList
-          name="schemeCategoryId"
-          control={control}
-          label="Scheme Category"
-          data={schemeCategoryOptions}
-          textField="text"
-          valueField="value"
-          required
+        <SelectSchemeType {...register('schemeTypeId')} control={control} />
+        <SelectSchemeCategory 
+          {...register('schemeCategoryId')} 
+          control={control} 
+          schemeTypeId={selectedSchemeTypeId}
+          disabled={!selectedSchemeTypeId}
           defaultOptionText={
             selectedSchemeTypeId
               ? 'Select Scheme Category'
               : 'Select Scheme Type First'
           }
-          disabled={!selectedSchemeTypeId}
         />
         <TextBox
           label="Name"

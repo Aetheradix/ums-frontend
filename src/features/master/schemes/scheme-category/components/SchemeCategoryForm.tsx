@@ -1,5 +1,5 @@
-import { useSchemeTypesQuery } from 'features/master/schemes/scheme-type/queries';
-import { DropDownList, TextBox } from 'shared/components/forms';
+import SelectSchemeType from 'features/components/SelectSchemeType';
+import { TextBox } from 'shared/components/forms';
 import { FormActions, FormGrid } from 'shared/new-components';
 import { useSchemeCategoryForm } from './form.hook';
 
@@ -15,26 +15,11 @@ export default function SchemeCategoryForm(props: SchemeCategoryFormProps) {
     props.onSubmit,
     props.fetchData
   );
-  const { data: schemeTypes = [] } = useSchemeTypesQuery();
-
-  const schemeTypeOptions = schemeTypes.map(st => ({
-    value: st.id,
-    text: st.name,
-  }));
 
   return (
     <form onSubmit={handleSubmit}>
       <FormGrid columns={2}>
-        <DropDownList
-          name="schemeTypeId"
-          control={control}
-          label="Scheme Type"
-          data={schemeTypeOptions}
-          textField="text"
-          valueField="value"
-          required
-          defaultOptionText="Select Scheme Type"
-        />
+        <SelectSchemeType {...register('schemeTypeId')} control={control} />
         <TextBox
           label="Name"
           subLabel="(In English)"

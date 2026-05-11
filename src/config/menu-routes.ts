@@ -322,13 +322,6 @@ export const menuConfig: Menu.MenuItem[] = [
         colorScheme: 'teal',
         children: [
           {
-            label: 'Scheme',
-            description: 'Manage schemes',
-            path: '/master/schemes/scheme',
-            icon: 'assignment',
-            colorScheme: 'teal',
-          },
-          {
             label: 'Scheme Type',
             description: 'Manage scheme types',
             path: '/master/schemes/scheme-type',
@@ -340,6 +333,13 @@ export const menuConfig: Menu.MenuItem[] = [
             description: 'Manage scheme categories',
             path: '/master/schemes/scheme-category',
             icon: 'category',
+            colorScheme: 'teal',
+          },
+          {
+            label: 'Scheme',
+            description: 'Manage schemes',
+            path: '/master/schemes/scheme',
+            icon: 'assignment',
             colorScheme: 'teal',
           },
         ],

@@ -1,23 +1,31 @@
-import { useSchemeTypesQuery } from 'features/master/schemes/scheme-type/queries';
+import { useSchemesCategoriesQuery } from 'features/master/schemes/scheme-category/queries';
 import type { FieldValues } from 'react-hook-form';
 import { DropDownList } from 'shared/components/forms';
 
-interface SelectSchemeTypeProps<
+interface SelectSchemeCategoryProps<
   T extends FieldValues,
 > extends Controls.FormProps<T> {
   label?: string;
   disabled?: boolean;
+  schemeTypeId?: number;
 }
 
-export default function SelectSchemeType<T extends FieldValues>({
+export default function SelectSchemeCategory<T extends FieldValues>({
   defaultOptionText,
-  label = 'Scheme Type',
+  label = 'Scheme Category',
+  schemeTypeId,
   ...props
-}: SelectSchemeTypeProps<T> &
+}: SelectSchemeCategoryProps<T> &
   Controls.InputBlockProps & { defaultOptionText?: string }) {
-  const { data, isLoading } = useSchemeTypesQuery();
+  const { data, isLoading } = useSchemesCategoriesQuery();
+  
+  // Filter active and match schemeTypeId if provided
   const activeData =
-    data?.filter((item: Master.Scheme.SchemeTypeItem) => item.isActive === true) || [];
+    data?.filter((item: Master.Scheme.SchemeCategoryItem) => {
+      if (!item.isActive) return false;
+      if (schemeTypeId && item.schemeTypeId !== schemeTypeId) return false;
+      return true;
+    }) || [];
 
   return (
     <DropDownList
