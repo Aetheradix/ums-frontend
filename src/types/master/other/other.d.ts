@@ -24,6 +24,13 @@ declare namespace Master {
       degreeLevelId: number;
     }
 
+    // Nationality
+    interface NationalityForm {
+      name: string;
+      isActive: boolean;
+    }
+    type NationalityItem = Data.WithId<NationalityForm>;
+
     interface Programme {
       name: string;
       programmeDuration: string;
