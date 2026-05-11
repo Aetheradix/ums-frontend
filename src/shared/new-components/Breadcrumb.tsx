@@ -48,6 +48,8 @@ export default function Breadcrumb({ items }: BreadcrumbProps) {
         label = 'Faculty Admin';
       } else if (path.toLowerCase() === 'course') {
         label = 'Course Management';
+      } else if (path.toLowerCase() === 'grant') {
+        label = 'Grants';
       }
 
       let toPath = currentPath;
