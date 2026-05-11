@@ -18,6 +18,9 @@ import Course from './course';
 import CollegeCategory from './college/college-category';
 import CollegeType from './college/college-type';
 
+import GrantCategory from './grant/grant-category';
+import GrantType from './grant/grant-type';
+
 export default function Master() {
   return (
     <Routes>
@@ -49,6 +52,11 @@ export default function Master() {
         <Route path="specialisation/*" element={<Specialisation />} />
       </Route>
 
+      <Route path="grant/*">
+        <Route path="grant-type/*" element={<GrantType />} />
+        <Route path="grant-category/*" element={<GrantCategory />} />
+      </Route>
+      
       <Route path="schemes/*">
         <Route path="scheme/*" element={<Scheme />} />
         <Route path="scheme-type/*" element={<SchemeType />} />

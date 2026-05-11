@@ -22,6 +22,8 @@ import { schemeUrls } from './schemes/scheme/urls';
 import { schemeTypeUrls } from './schemes/scheme-type/urls';
 import { schemeCategoryUrls } from './schemes/scheme-category/urls';
 import { specialisationUrls } from './other/specialisation/urls';
+import { grantTypeUrls } from './grant/grant-type/urls';
+import { grantCategoryUrls } from './grant/grant-category/urls';
 
 const baseUrl = '/master';
 export const masterUrls = {
@@ -49,4 +51,6 @@ export const masterUrls = {
   schemeType: schemeTypeUrls(`${baseUrl}/schemes`),
   schemeCategory: schemeCategoryUrls(`${baseUrl}/schemes`),
   specialisation: specialisationUrls(`${baseUrl}/other`),
+  grantType: grantTypeUrls(`${baseUrl}/grant`),
+  grantCategory: grantCategoryUrls(`${baseUrl}/grant`),
 };
