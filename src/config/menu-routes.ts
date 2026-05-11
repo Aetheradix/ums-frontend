@@ -306,6 +306,30 @@ export const menuConfig: Menu.MenuItem[] = [
           },
         ],
       },
+      {
+        label: 'Grant',
+        slug: 'grant',
+        description: 'Manage grant types and categories.',
+        path: '/home/sub-menu/grant',
+        icon: 'workspace_premium',
+        colorScheme: 'purple',
+        children: [
+          {
+            label: 'Grant Type',
+            description: 'Manage grant types',
+            path: '/master/grant/grant-type',
+            icon: 'workspace_premium',
+            colorScheme: 'purple',
+          },
+          {
+            label: 'Grant Category',
+            description: 'Manage grant categories',
+            path: '/master/grant/grant-category',
+            icon: 'category',
+            colorScheme: 'purple',
+          },
+        ],
+      },
     ],
   },
 ];

@@ -14,6 +14,9 @@ import DegreeLevel from './other/degree-level';
 import Programme from './other/programme';
 import Specialisation from './other/specialisation';
 
+import GrantCategory from './grant/grant-category';
+import GrantType from './grant/grant-type';
+
 export default function Master() {
   return (
     <Routes>
@@ -42,6 +45,11 @@ export default function Master() {
         <Route path="degree-level/*" element={<DegreeLevel />} />
         <Route path="programme/*" element={<Programme />} />
         <Route path="specialisation/*" element={<Specialisation />} />
+      </Route>
+
+      <Route path="grant/*">
+        <Route path="grant-type/*" element={<GrantType />} />
+        <Route path="grant-category/*" element={<GrantCategory />} />
       </Route>
     </Routes>
   );
