@@ -58,8 +58,8 @@ declare namespace Master {
       name: string;
     }
     interface OccupationItem {
-      id: number;
-      name: string;
+      id: string;
+      text: string;
     }
   }
 }
