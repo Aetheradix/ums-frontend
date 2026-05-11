@@ -1,14 +1,14 @@
 import { useCallback, useState } from 'react';
+import { ToastService } from 'services';
 import { Button } from 'shared/components/buttons';
 import StatusButton from 'shared/components/buttons/StatusButton';
+import { Loader } from 'shared/components/progress';
 import {
   FormCard,
   FormPage,
   FormPopup,
   GridPanel,
 } from 'shared/new-components';
-import { Loader } from 'shared/components/progress';
-import { ToastService } from 'services';
 import DegreeLevelForm from '../components/DegreeLevelForm';
 import {
   useCreateDegreeLevelMutation,

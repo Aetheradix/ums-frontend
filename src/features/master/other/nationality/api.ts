@@ -3,9 +3,8 @@ import { ApiService } from 'services';
 const MASTER_API_ROOT = `master/`;
 
 const NATIONALITY_URL = `${MASTER_API_ROOT}nationality`;
-
 export function getNationalities() {
-  return ApiService.getList<Master.Other.NationalityForm>(NATIONALITY_URL);
+  return ApiService.getList<Master.Other.NationalityItem>(NATIONALITY_URL);
 }
 
 export async function getNationality(id: number) {
@@ -36,7 +35,7 @@ export async function patchNationalityStatus(
   id: number,
   isActive: boolean
 ): Promise<boolean> {
-  const result = await ApiService.patch(`${NATIONALITY_URL}/${id}/status`, {
+  const result = await ApiService.patch(`${NATIONALITY_URL}/${id}`, {
     isActive,
   });
   return !result.error;

@@ -311,6 +311,13 @@ export const menuConfig: Menu.MenuItem[] = [
             icon: 'school',
             colorScheme: 'indigo',
           },
+          {
+            label: 'Nationality',
+            description: 'Manage nationalities',
+            path: '/master/other/nationality',
+            icon: 'school',
+            colorScheme: 'indigo',
+          },
         ],
       },
     ],

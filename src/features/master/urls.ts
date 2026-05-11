@@ -17,6 +17,7 @@ import { stateUrls } from './location/state/urls';
 import { tehsilUrls } from './location/tehsil/urls';
 import { academicYearUrls } from './other/academic-year/urls';
 import { degreeLevelUrls } from './other/degree-level/urls';
+import { nationalityUrls } from './other/nationality/urls';
 import { programmeUrls } from './other/programme/urls';
 import { specialisationUrls } from './other/specialisation/urls';
 
@@ -43,4 +44,5 @@ export const masterUrls = {
   academicYear: academicYearUrls(`${baseUrl}/other`),
   programme: programmeUrls(`${baseUrl}/other`),
   specialisation: specialisationUrls(`${baseUrl}/other`),
+  Nationality: nationalityUrls(`${baseUrl}/other`),
 };
