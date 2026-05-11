@@ -24,48 +24,19 @@ const DisplayLayout: React.FC<ReportLayoutProps> = ({
       <div className="report-container">
         <header className="flex flex-column align-items-center mb-5 text-center">
           {(title || subtitle) && (
-            <h2
-              className="uppercase m-0 p-0"
-              style={{
-                fontSize: '1.3rem',
-                fontWeight: '800',
-                color: '#000000',
-                lineHeight: '1.2',
-                letterSpacing: '0.5px',
-              }}
-            >
+            <h2 className="uppercase m-0 p-0 report-heading">
               {title} {subtitle ? `[${subtitle}]` : ''}
             </h2>
           )}
 
           {heading && (
             <div className="w-full mt-2">
-              <h1
-                className="uppercase m-0"
-                style={{
-                  fontSize: '1.3rem',
-                  fontWeight: '800',
-                  color: '#000000',
-                  lineHeight: '1.2',
-                }}
-              >
-                {heading}
-              </h1>
+              <h1 className="uppercase m-0 report-title">{heading}</h1>
             </div>
           )}
 
           {caption && (
-            <p
-              className="uppercase m-0 mt-2"
-              style={{
-                fontSize: '1.3rem',
-                fontWeight: '800',
-                color: '#000000',
-                lineHeight: '1.2',
-              }}
-            >
-              {caption}
-            </p>
+            <p className="uppercase m-0 mt-2 report-caption">{caption}</p>
           )}
         </header>
 

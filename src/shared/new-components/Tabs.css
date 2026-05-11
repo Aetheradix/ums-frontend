@@ -32,22 +32,18 @@
 }
 
 /* Dark Theme */
-.dark-theme .p-tabview .p-tabview-nav {
+.dark .p-tabview .p-tabview-nav {
   @apply border-zinc-700 bg-transparent;
 }
 
-.dark-theme .p-tabview .p-tabview-nav li .p-tabview-nav-link {
+.dark .p-tabview .p-tabview-nav li .p-tabview-nav-link {
   @apply text-zinc-400 bg-transparent;
 }
 
-.dark-theme
-  .p-tabview
-  .p-tabview-nav
-  li:not(.p-highlight):hover
-  .p-tabview-nav-link {
+.dark .p-tabview .p-tabview-nav li:not(.p-highlight):hover .p-tabview-nav-link {
   @apply text-zinc-200 bg-zinc-900 border-zinc-700;
 }
 
-.dark-theme .p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
+.dark .p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
   @apply text-white border-white;
 }

@@ -9,11 +9,11 @@
 }
 
 /* ── Dark Theme Overrides ── */
-.dark-theme .main-layout-nav {
+.dark .main-layout-nav {
   background-color: var(--dark-card-bg) !important;
   border-color: var(--dark-border) !important;
 }
 
-.dark-theme .main-layout-content {
+.dark .main-layout-content {
   background-color: var(--dark-bg);
 }

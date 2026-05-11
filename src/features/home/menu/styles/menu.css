@@ -61,7 +61,14 @@
 }
 
 .service-filters-link {
-  @apply text-zinc-900 no-underline text-sm font-semibold flex items-center gap-1.5 hover:underline;
+  @apply text-zinc-900 text-sm font-semibold flex items-center gap-1.5 transition-opacity hover:opacity-70 no-underline hover:no-underline;
+}
+
+.service-filters-link i {
+  font-size: 10px;
+  display: flex;
+  align-items: center;
+  margin-top: 1px;
 }
 
 .service-filter-tabs {
@@ -82,56 +89,56 @@
 }
 
 /* ── Dark Theme Overrides ── */
-.dark-theme .welcome-banner {
+.dark .welcome-banner {
   background: var(--dark-card-bg) !important;
   border-color: var(--dark-border);
 }
 
-.dark-theme .welcome-sso-badge {
+.dark .welcome-sso-badge {
   background-color: var(--dark-bg);
   border-color: var(--dark-border);
-  color: var(--dark-text-secondary);
+  color: var(--text-secondary);
 }
 
-.dark-theme .welcome-heading {
+.dark .welcome-heading {
   color: var(--dark-text);
 }
 
-.dark-theme .welcome-subtext {
-  color: var(--dark-text-secondary);
+.dark .welcome-subtext {
+  color: var(--text-secondary);
 }
 
-.dark-theme .welcome-btn-outline {
+.dark .welcome-btn-outline {
   background-color: var(--dark-bg);
   border-color: var(--dark-border);
   color: var(--dark-text);
 }
 
-.dark-theme .welcome-btn-outline:hover {
+.dark .welcome-btn-outline:hover {
   background-color: var(--dark-card-hover);
 }
 
-.dark-theme .service-filters-title {
+.dark .service-filters-title {
   color: var(--dark-text);
 }
 
-.dark-theme .service-filter-tab:not(.active) {
+.dark .service-filter-tab:not(.active) {
   background-color: var(--dark-card-bg);
-  color: var(--dark-text-secondary);
+  color: var(--text-secondary);
 }
 
-.dark-theme .service-filter-tab:not(.active):hover {
+.dark .service-filter-tab:not(.active):hover {
   background-color: var(--dark-card-hover);
   color: var(--white);
 }
 
-.dark-theme .service-filter-tab.active {
+.dark .service-filter-tab.active {
   background-color: var(--white) !important;
   color: var(--black) !important;
 }
 
-.dark-theme .service-filters-link,
-.dark-theme .welcome-name,
-.dark-theme .welcome-sso-icon {
+.dark .service-filters-link,
+.dark .welcome-name,
+.dark .welcome-sso-icon {
   color: var(--white) !important;
 }

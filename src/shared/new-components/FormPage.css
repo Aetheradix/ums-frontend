@@ -48,10 +48,10 @@
 }
 
 /* ── Dark Theme Support ── */
-.dark-theme .form-page-title {
+.dark .form-page-title {
   @apply text-white;
 }
 
-.dark-theme .form-page-description {
+.dark .form-page-description {
   @apply text-slate-400;
 }

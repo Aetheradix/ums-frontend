@@ -15,6 +15,6 @@
   @apply text-lg font-semibold text-zinc-800;
 }
 
-.dark-theme .grid-panel-title {
+.dark .grid-panel-title {
   @apply text-zinc-100;
 }
