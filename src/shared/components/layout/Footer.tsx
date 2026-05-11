@@ -1,9 +1,6 @@
 export default function Footer() {
   return (
-    <div
-      className="bg-900 text-white px-4 py-3 flex align-items-center justify-content-between text-xs font-medium"
-      style={{ backgroundColor: 'var(--dark-bg, #09090b)' }}
-    >
+    <div className="footer-bar bg-900 text-white px-4 py-3 flex align-items-center justify-content-between text-xs font-medium">
       <div className="text-zinc-400">
         © 2026 UMS Systems - Enterprise Operating System
       </div>

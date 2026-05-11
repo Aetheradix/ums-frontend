@@ -4,7 +4,8 @@ import { Controller, type FieldValues } from 'react-hook-form';
 import InputBlock from './InputBlock';
 
 interface CaptchaProps<TForm extends FieldValues>
-  extends Controls.FormProps<TForm>,
+  extends
+    Controls.FormProps<TForm>,
     Controls.InputBlockProps,
     Controls.InputProps {
   captchaCode: string;
@@ -27,18 +28,11 @@ function InnerCaptcha({
   const inputId = id ?? name;
   return (
     <InputBlock label={label} id={inputId} errorMessage={errorMessage}>
-      <div
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: '0.5rem',
-          width: '100%',
-        }}
-      >
+      <div className="captcha-row">
         <div
-          style={{
-            cursor: onRegenerate ? 'pointer' : 'default',
-          }}
+          className={`captcha-image-wrapper ${
+            onRegenerate ? 'cursor-pointer' : ''
+          }`}
           onClick={onRegenerate}
           title={onRegenerate ? 'Click to regenerate captcha' : undefined}
         >
@@ -47,22 +41,7 @@ function InnerCaptcha({
         {onRegenerate && (
           <span
             onClick={onRegenerate}
-            style={{
-              cursor: 'pointer',
-              fontSize: '1.2rem',
-              color: '#007bff',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              flexShrink: 0,
-              transition: 'transform 0.4s ease', // smooth animation
-            }}
-            onMouseEnter={e =>
-              (e.currentTarget.style.transform = 'rotate(90deg)')
-            }
-            onMouseLeave={e =>
-              (e.currentTarget.style.transform = 'rotate(0deg)')
-            }
+            className="captcha-refresh"
             title="Refresh captcha"
           >
             <i className="pi pi-sync font-bold" />
@@ -76,7 +55,7 @@ function InnerCaptcha({
           onChange={e => onChange?.(e.target.value)}
           invalid={!!errorMessage}
           placeholder="Enter captcha"
-          style={{ flex: 1, minWidth: 0 }}
+          className={`${rest.className ?? ''} flex-1 min-w-0`.trim()}
           {...rest}
         />
       </div>

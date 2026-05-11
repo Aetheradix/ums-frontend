@@ -5,7 +5,8 @@ import { Controller, type FieldValues } from 'react-hook-form';
 import InputBlock from './InputBlock';
 
 interface DatePickerProps<TForm extends FieldValues>
-  extends Controls.FormProps<TForm>,
+  extends
+    Controls.FormProps<TForm>,
     Controls.InputBlockProps,
     Controls.InputProps {
   value?: Date;
@@ -45,21 +46,9 @@ function InnerDatePicker({
       errorMessage={errorMessage}
       required={required}
     >
-      <div
-        className="p-input-icon-left datepicker-wrapper w-full"
-        style={{ position: 'relative' }}
-      >
+      <div className="p-input-icon-left datepicker-wrapper w-full">
         {showCheckbox && (
-          <div
-            className="flex items-center"
-            style={{
-              position: 'absolute',
-              top: '50%',
-              left: '0.5rem',
-              transform: 'translateY(-50%)',
-              zIndex: 10,
-            }}
-          >
+          <div className="date-picker-checkbox-container flex items-center">
             <PrimeCheckbox
               checked={checkboxChecked ?? false}
               onChange={e => onCheckboxChange?.(e.checked ?? false)}

@@ -1,81 +1,58 @@
 import { Avatar } from 'primereact/avatar';
 import { InputText } from 'primereact/inputtext';
+import './MainHeader.css';
 
 export default function MainHeader() {
   return (
-    <div className="bg-white border-bottom-1 border-100 px-4 py-3 flex align-items-center justify-content-between">
-      <div className="flex align-items-center gap-3">
-        <div
-          className="bg-900 text-white border-round-md flex align-items-center justify-content-center font-bold shadow-sm"
-          style={{ width: '40px', height: '40px', backgroundColor: '#18181b' }}
-        >
-          N
-        </div>
+    <div className="main-header">
+      {/* Left Section */}
+      <div className="main-header-left">
+        <div className="main-header-logo">N</div>
+
         <div>
-          <div
-            className="font-bold text-base line-height-1"
-            style={{ color: 'var(--dark-text, #111827)' }}
-          >
-            UMS ERP
-          </div>
-          <div
-            className="text-xs font-bold mt-1"
-            style={{ color: 'var(--dark-text-secondary, #6b7280)' }}
-          >
-            Workspace OS
-          </div>
+          <div className="main-header-title">UMS ERP</div>
+
+          <div className="main-header-subtitle">Workspace OS</div>
         </div>
       </div>
 
-      <div className="flex-1 max-w-2xl px-8 ml-8">
-        <div className="relative w-full h-3rem">
-          <i
-            className="pi pi-search text-500 absolute left-0 top-50 translate-middle-y ml-3"
-            style={{ pointerEvents: 'none' }}
-          ></i>
+      {/* Search */}
+      <div className="main-header-search-wrapper">
+        <div className="main-header-search-box">
+          <i className="pi pi-search main-header-search-icon" />
+
           <InputText
-            placeholder="Search Services,records,people..."
-            className="w-full border-none h-full border-round-lg text-sm font-semibold"
-            style={{
-              backgroundColor: 'var(--dark-input-bg, #f4f4f5)',
-              paddingLeft: '3rem',
-            }}
+            placeholder="Search Services, records, people..."
+            className="main-header-search-input"
           />
         </div>
       </div>
 
-      <div className="flex align-items-center gap-4 text-700">
-        <div className="flex gap-4 pr-3 border-right-1 border-100">
-          <i className="pi pi-question-circle text-2xl cursor-pointer hover:text-blue-600 transition-colors"></i>
-          <div className="relative cursor-pointer">
-            <i className="pi pi-bell text-2xl hover:text-blue-600 transition-colors"></i>
-            <span
-              className="absolute top-0 right-0 bg-red-500 border-circle flex align-items-center justify-content-center text-white font-bold"
-              style={{
-                width: '15px',
-                height: '15px',
-                fontSize: '9px',
-                transform: 'translate(40%, -20%)',
-              }}
-            >
-              1
-            </span>
+      {/* Right Section */}
+      <div className="main-header-right">
+        <div className="main-header-actions">
+          <i className="pi pi-question-circle main-header-action-icon" />
+
+          <div className="main-header-notification">
+            <i className="pi pi-bell main-header-action-icon" />
+
+            <span className="main-header-badge">1</span>
           </div>
-          <i className="pi pi-th-large text-2xl cursor-pointer hover:text-blue-600 transition-colors"></i>
+
+          <i className="pi pi-th-large main-header-action-icon" />
         </div>
 
-        <div className="flex align-items-center gap-2 cursor-pointer">
+        {/* User */}
+        <div className="main-header-user">
           <Avatar
             label="AL"
             shape="circle"
-            style={{
-              backgroundColor: '#6366f1',
-              color: '#ffffff',
-              fontWeight: 'bold',
-            }}
+            className="main-header-user-avatar"
           />
-          <span className="font-bold text-900 text-sm">Alex Lin</span>
-          <i className="pi pi-chevron-down text-xs text-400"></i>
+
+          <span className="main-header-user-name">Alex Lin</span>
+
+          <i className="pi pi-chevron-down main-header-user-arrow" />
         </div>
       </div>
     </div>

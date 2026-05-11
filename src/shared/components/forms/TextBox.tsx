@@ -61,10 +61,9 @@ function InnerTextBox({
           </div>
         ) : icon ? (
           <i
-            className={`pi pi-${icon} input-icon`}
-            style={
-              iconPosition === 'left' ? { left: '1rem' } : { right: '1rem' }
-            }
+            className={`pi pi-${icon} input-icon ${
+              iconPosition === 'left' ? 'input-icon-left' : 'input-icon-right'
+            }`}
           />
         ) : undefined}
         <InputText

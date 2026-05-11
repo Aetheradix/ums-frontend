@@ -30,10 +30,7 @@ const StatCardSkeleton: React.FC = () => (
 );
 
 const MetricCardSkeleton: React.FC = () => (
-  <div
-    className="skeleton-card border-round-xl p-4 h-full flex flex-column justify-content-between gap-5"
-    style={{ background: 'var(--surface-100)' }}
-  >
+  <div className="skeleton-card skeleton-card-metric border-round-xl p-4 h-full flex flex-column justify-content-between gap-5">
     <div className="flex align-items-center gap-2">
       <Skeleton
         shape="rectangle"
@@ -80,15 +77,11 @@ const ChartCardSkeleton: React.FC = () => (
       ))}
     </div>
     {/* Fake bar chart */}
-    <div
-      className="flex-1 flex align-items-end gap-2 px-2 pb-2"
-      style={{ minHeight: '280px' }}
-    >
+    <div className="flex-1 flex align-items-end gap-2 px-2 pb-2 skeleton-chart-body">
       {BAR_HEIGHTS.map((h, i) => (
         <div
           key={i}
-          className="flex-1 flex flex-column justify-content-end"
-          style={{ height: '100%' }}
+          className="flex-1 flex flex-column justify-content-end skeleton-bar-column"
         >
           <Skeleton width="100%" height={h} borderRadius="4px 4px 0 0" />
         </div>

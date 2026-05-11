@@ -93,54 +93,54 @@
 }
 
 /* --- 3. Dark Theme --- */
-.dark-theme .p-datatable {
+.dark .p-datatable {
   @apply border;
   background-color: var(--dark-card-bg);
   color: var(--dark-card-text);
   border-color: var(--dark-border);
 }
 
-.dark-theme .p-datatable-thead > tr > th {
+.dark .p-datatable-thead > tr > th {
   background-color: var(--dark-header-bg) !important;
-  color: #ffffff !important;
+  color: var(--white) !important;
   @apply border-b;
   border-color: var(--dark-border);
 }
 
-.dark-theme .p-datatable-thead > tr > th .p-column-title,
-.dark-theme .p-datatable-thead > tr > th .p-column-header-content {
+.dark .p-datatable-thead > tr > th .p-column-title,
+.dark .p-datatable-thead > tr > th .p-column-header-content {
   background-color: transparent !important;
-  color: #ffffff !important;
+  color: var(--white) !important;
 }
 
-.dark-theme .p-sortable-column .p-sortable-column-icon {
+.dark .p-sortable-column .p-sortable-column-icon {
   @apply text-white;
 }
 
-.dark-theme .p-datatable-tbody > tr > td {
+.dark .p-datatable-tbody > tr > td {
   background-color: var(--dark-card-bg);
   color: var(--gray-300);
 }
 
-.dark-theme .p-datatable-tbody > tr:nth-child(even) {
+.dark .p-datatable-tbody > tr:nth-child(even) {
   background-color: var(--dark-p-card-bg);
 }
 
-.dark-theme .p-datatable-tbody > tr:hover {
+.dark .p-datatable-tbody > tr:hover {
   background-color: var(--dark-input-bg);
 }
 
-.dark-theme .p-paginator {
+.dark .p-paginator {
   background-color: var(--dark-card-bg);
   border-color: var(--dark-border);
   color: var(--dark-card-text);
 }
 
-.dark-theme .p-paginator .p-paginator-page.p-highlight {
+.dark .p-paginator .p-paginator-page.p-highlight {
   @apply bg-white text-black border-white;
 }
 
-.dark-theme .p-paginator .p-link {
+.dark .p-paginator .p-link {
   @apply text-zinc-400 hover:bg-zinc-800;
 }
 

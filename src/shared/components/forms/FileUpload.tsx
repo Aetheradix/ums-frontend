@@ -6,7 +6,8 @@ import { getPhotoUrl } from 'shared/utils/photoUrl';
 import InputBlock from './InputBlock';
 
 interface FileUploadProps<TForm extends FieldValues>
-  extends Controls.FormProps<TForm>,
+  extends
+    Controls.FormProps<TForm>,
     Controls.InputBlockProps,
     Controls.InputProps {
   value?: File | null;
@@ -121,39 +122,23 @@ function InnerFileUpload({
         <div className="flex flex-column align-items-center mb-2">
           {showPreview && (
             <div
-              className="flex align-items-center justify-content-centerSurface-0"
-              style={{
-                width: previewWidth,
-                height: previewHeight,
-                border: '2px solid #ffffff',
-                borderRadius: '6px',
-                backgroundColor: '#f8f9fa',
-                overflow: 'hidden',
-                marginBottom: '10px',
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}
+              className="file-upload-preview flex align-items-center justify-content-center surface-0"
+              style={
+                {
+                  '--preview-width': `${previewWidth}px`,
+                  '--preview-height': `${previewHeight}px`,
+                  '--preview-icon-size': `${iconSize}px`,
+                } as React.CSSProperties
+              }
             >
               {displayUrl ? (
                 <img
                   src={displayUrl}
                   alt="Preview"
                   onError={() => setLocalPreview(null)}
-                  style={{
-                    width: '100%',
-                    height: '100%',
-                    objectFit: 'contain',
-                  }}
                 />
               ) : (
-                <i
-                  className="pi pi-user"
-                  style={{
-                    fontSize: `${iconSize}px`,
-                    color: '#dee2e6',
-                  }}
-                />
+                <i className="pi pi-user file-upload-icon" />
               )}
             </div>
           )}
@@ -177,17 +162,7 @@ function InnerFileUpload({
           />
 
           {uploadNote && (
-            <small
-              style={{
-                color: 'red',
-                marginTop: '4px',
-                display: 'block',
-                fontSize: '11px',
-                textAlign: 'center',
-              }}
-            >
-              {uploadNote}
-            </small>
+            <small className="file-upload-note">{uploadNote}</small>
           )}
         </div>
       </div>

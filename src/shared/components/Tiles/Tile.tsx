@@ -18,7 +18,17 @@ interface TileProps {
     | 'amber';
   description?: string;
   badge?: string;
-  badgeColor?: string;
+  badgeColor?:
+    | 'blue'
+    | 'purple'
+    | 'gray'
+    | 'green'
+    | 'orange'
+    | 'red'
+    | 'pink'
+    | 'teal'
+    | 'indigo'
+    | 'amber';
   onClick?: () => void;
 }
 
@@ -28,7 +38,7 @@ const Tile: React.FC<TileProps> = ({
   colorScheme = 'gray',
   description,
   badge,
-  badgeColor,
+  badgeColor = 'green',
   onClick,
 }) => {
   return (
@@ -53,16 +63,16 @@ const Tile: React.FC<TileProps> = ({
               {typeof icon === 'string' ? <Icon name={icon} /> : icon}
             </div>
           )}
+
           <div className="db-card-title">{title}</div>
+
           {description && (
             <p className="db-card-description line-clamp-2">{description}</p>
           )}
+
           {badge && (
             <div className="db-card-badge">
-              <span
-                className="db-card-badge-dot"
-                style={{ backgroundColor: badgeColor || '#22c55e' }}
-              />
+              <span className={`db-card-badge-dot badge-${badgeColor}`} />
               {badge}
             </div>
           )}
