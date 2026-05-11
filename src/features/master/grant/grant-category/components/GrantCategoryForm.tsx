@@ -4,8 +4,8 @@ import { FormActions, FormGrid } from 'shared/new-components';
 import { useGrantCategoryForm } from './form.hook';
 
 interface GrantCategoryFormProps {
-  onSubmit: (data: GrantMaster.GrantCategoryForm) => Promise<void>;
-  fetchData?: Forms.FetchDataFunc<GrantMaster.GrantCategoryForm>;
+  onSubmit: (data: Master.Grant.GrantCategoryForm) => Promise<void>;
+  fetchData?: Forms.FetchDataFunc<Master.Grant.GrantCategoryForm>;
   isSaving?: boolean;
   isEditMode?: boolean;
 }

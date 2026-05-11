@@ -22,14 +22,14 @@ export function useGrantCategoriesQuery() {
 export function useCreateGrantCategoryMutation() {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: async (data: GrantMaster.GrantCategoryForm) =>
+    mutationFn: async (data: Master.Grant.GrantCategoryForm) =>
       await createGrantCategory(data),
 
     onSuccess(data) {
       if (!data) return;
 
       const result =
-        queryClient.getQueryData<GrantMaster.GrantCategoryItem[]>(
+        queryClient.getQueryData<Master.Grant.GrantCategoryItem[]>(
           QUERY_KEY
         ) ?? [];
 
@@ -57,14 +57,14 @@ export function useUpdateGrantCategoryMutation(id: number) {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async (data: GrantMaster.GrantCategoryForm) =>
+    mutationFn: async (data: Master.Grant.GrantCategoryForm) =>
       await updateGrantCategory(id, data),
 
     onSuccess(success, formData) {
       if (!success) return;
 
       const result =
-        queryClient.getQueryData<GrantMaster.GrantCategoryItem[]>(
+        queryClient.getQueryData<Master.Grant.GrantCategoryItem[]>(
           QUERY_KEY
         ) ?? [];
 
@@ -73,7 +73,7 @@ export function useUpdateGrantCategoryMutation(id: number) {
 
       const existing = result[index];
 
-      const itemToReplace: GrantMaster.GrantCategoryItem = {
+      const itemToReplace: Master.Grant.GrantCategoryItem = {
         id,
         name: formData.name,
         grantTypeId: formData.grantTypeId,
@@ -102,7 +102,7 @@ export function useDeleteGrantCategoryMutation() {
       if (!success) return;
 
       const result =
-        queryClient.getQueryData<GrantMaster.GrantCategoryItem[]>(
+        queryClient.getQueryData<Master.Grant.GrantCategoryItem[]>(
           QUERY_KEY
         ) ?? [];
 
@@ -124,7 +124,7 @@ export function useGrantCategoryActiveStatusMutation() {
       if (!success) return;
 
       const result =
-        queryClient.getQueryData<GrantMaster.GrantCategoryItem[]>(
+        queryClient.getQueryData<Master.Grant.GrantCategoryItem[]>(
           QUERY_KEY
         ) ?? [];
 

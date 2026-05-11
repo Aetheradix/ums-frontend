@@ -22,14 +22,14 @@ export function useGrantTypesQuery() {
 export function useCreateGrantTypeMutation() {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: async (data: GrantMaster.GrantTypeForm) =>
+    mutationFn: async (data: Master.Grant.GrantTypeForm) =>
       await createGrantType(data),
 
     onSuccess(data) {
       if (!data) return;
 
       const result =
-        queryClient.getQueryData<GrantMaster.GrantTypeItem[]>(
+        queryClient.getQueryData<Master.Grant.GrantTypeItem[]>(
           QUERY_KEY
         ) ?? [];
 
@@ -56,14 +56,14 @@ export function useUpdateGrantTypeMutation(id: number) {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async (data: GrantMaster.GrantTypeForm) =>
+    mutationFn: async (data: Master.Grant.GrantTypeForm) =>
       await updateGrantType(id, data),
 
     onSuccess(success, formData) {
       if (!success) return;
 
       const result =
-        queryClient.getQueryData<GrantMaster.GrantTypeItem[]>(
+        queryClient.getQueryData<Master.Grant.GrantTypeItem[]>(
           QUERY_KEY
         ) ?? [];
 
@@ -72,7 +72,7 @@ export function useUpdateGrantTypeMutation(id: number) {
 
       const existing = result[index];
 
-      const itemToReplace: GrantMaster.GrantTypeItem = {
+      const itemToReplace: Master.Grant.GrantTypeItem = {
         id,
         name: formData.name,
         isActive: existing?.isActive ?? true,
@@ -100,7 +100,7 @@ export function useDeleteGrantTypeMutation() {
       if (!success) return;
 
       const result =
-        queryClient.getQueryData<GrantMaster.GrantTypeItem[]>(
+        queryClient.getQueryData<Master.Grant.GrantTypeItem[]>(
           QUERY_KEY
         ) ?? [];
 
@@ -122,7 +122,7 @@ export function useGrantTypeActiveStatusMutation() {
       if (!success) return;
 
       const result =
-        queryClient.getQueryData<GrantMaster.GrantTypeItem[]>(
+        queryClient.getQueryData<Master.Grant.GrantTypeItem[]>(
           QUERY_KEY
         ) ?? [];
 

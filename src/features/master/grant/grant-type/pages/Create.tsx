@@ -14,7 +14,7 @@ export default function Create() {
     navigate(masterUrls.grantType.root);
   }, [navigate]);
 
-  async function handleSubmit(data: GrantMaster.GrantTypeForm) {
+  async function handleSubmit(data: Master.Grant.GrantTypeForm) {
     try {
       const result = await mutateAsync(data);
       if (result) {

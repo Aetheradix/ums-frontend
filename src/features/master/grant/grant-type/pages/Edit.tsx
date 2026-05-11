@@ -26,7 +26,7 @@ export default function Edit() {
     return <Loader />;
   }
 
-  async function handleSubmit(data: GrantMaster.GrantTypeForm) {
+  async function handleSubmit(data: Master.Grant.GrantTypeForm) {
     try {
       const result = await mutateAsync(data);
       if (result) {

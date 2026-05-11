@@ -5,18 +5,18 @@ const MASTER_API_ROOT = `master/`;
 const GRANT_TYPE_URL = `${MASTER_API_ROOT}grant-types`;
 
 export function getGrantTypes() {
-  return ApiService.getList<GrantMaster.GrantTypeItem>(GRANT_TYPE_URL);
+  return ApiService.getList<Master.Grant.GrantTypeItem>(GRANT_TYPE_URL);
 }
 
 export async function getGrantType(id: number) {
-  const { data } = await ApiService.get<GrantMaster.GrantTypeItem>(
+  const { data } = await ApiService.get<Master.Grant.GrantTypeItem>(
     `${GRANT_TYPE_URL}/${id}`
   );
   return data;
 }
 
-export async function createGrantType(form: GrantMaster.GrantTypeForm) {
-  const { error, data } = await ApiService.post<GrantMaster.GrantTypeItem>(
+export async function createGrantType(form: Master.Grant.GrantTypeForm) {
+  const { error, data } = await ApiService.post<Master.Grant.GrantTypeItem>(
     GRANT_TYPE_URL,
     form
   );
@@ -26,7 +26,7 @@ export async function createGrantType(form: GrantMaster.GrantTypeForm) {
 
 export async function updateGrantType(
   id: number,
-  form: GrantMaster.GrantTypeForm
+  form: Master.Grant.GrantTypeForm
 ): Promise<boolean> {
   const result = await ApiService.put(`${GRANT_TYPE_URL}/${id}`, form);
   return !result.error;

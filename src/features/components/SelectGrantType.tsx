@@ -17,7 +17,7 @@ export default function SelectGrantType<T extends FieldValues>({
   Controls.InputBlockProps & { defaultOptionText?: string }) {
   const { data, isLoading } = useGrantTypesQuery();
   const activeData =
-    data?.filter((item: GrantMaster.GrantTypeItem) => item.isActive === true) || [];
+    data?.filter((item: Master.Grant.GrantTypeItem) => item.isActive === true) || [];
 
   return (
     <DropDownList

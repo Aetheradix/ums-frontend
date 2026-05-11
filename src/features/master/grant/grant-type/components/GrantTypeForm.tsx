@@ -3,8 +3,8 @@ import { FormActions, FormGrid } from 'shared/new-components';
 import { useGrantTypeForm } from './form.hook';
 
 interface GrantTypeFormProps {
-  onSubmit: (data: GrantMaster.GrantTypeForm) => Promise<void>;
-  fetchData?: Forms.FetchDataFunc<GrantMaster.GrantTypeForm>;
+  onSubmit: (data: Master.Grant.GrantTypeForm) => Promise<void>;
+  fetchData?: Forms.FetchDataFunc<Master.Grant.GrantTypeForm>;
   isSaving?: boolean;
   isEditMode?: boolean;
 }

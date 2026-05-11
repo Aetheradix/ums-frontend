@@ -5,23 +5,23 @@ const MASTER_API_ROOT = `master/`;
 const GRANT_CATEGORY_URL = `${MASTER_API_ROOT}grant-categories`;
 
 export function getGrantCategories() {
-  return ApiService.getList<GrantMaster.GrantCategoryItem>(
+  return ApiService.getList<Master.Grant.GrantCategoryItem>(
     GRANT_CATEGORY_URL
   );
 }
 
 export async function getGrantCategory(id: number) {
-  const { data } = await ApiService.get<GrantMaster.GrantCategoryItem>(
+  const { data } = await ApiService.get<Master.Grant.GrantCategoryItem>(
     `${GRANT_CATEGORY_URL}/${id}`
   );
   return data;
 }
 
 export async function createGrantCategory(
-  form: GrantMaster.GrantCategoryForm
+  form: Master.Grant.GrantCategoryForm
 ) {
   const { error, data } =
-    await ApiService.post<GrantMaster.GrantCategoryItem>(
+    await ApiService.post<Master.Grant.GrantCategoryItem>(
       GRANT_CATEGORY_URL,
       form
     );
@@ -31,7 +31,7 @@ export async function createGrantCategory(
 
 export async function updateGrantCategory(
   id: number,
-  form: GrantMaster.GrantCategoryForm
+  form: Master.Grant.GrantCategoryForm
 ): Promise<boolean> {
   const result = await ApiService.put(`${GRANT_CATEGORY_URL}/${id}`, form);
   return !result.error;

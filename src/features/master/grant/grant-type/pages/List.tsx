@@ -28,7 +28,7 @@ export default function List() {
   const { mutateAsync: toggleStatus } = useGrantTypeActiveStatusMutation();
   const [popup, setPopup] = useState<PopupState>({ mode: 'closed' });
 
-  const handleToggleStatus = async (item: GrantMaster.GrantTypeItem) => {
+  const handleToggleStatus = async (item: Master.Grant.GrantTypeItem) => {
     await toggleStatus({ id: item.id, isActive: !item.isActive });
   };
 
@@ -54,7 +54,7 @@ export default function List() {
               field: 'isActive',
               header: 'Status',
               sortable: false,
-              cell: (item: GrantMaster.GrantTypeItem) => (
+              cell: (item: Master.Grant.GrantTypeItem) => (
                 <StatusButton
                   value={item.isActive}
                   onClick={() => handleToggleStatus(item)}
@@ -100,7 +100,7 @@ export default function List() {
 function CreateContent({ onClose }: { onClose: () => void }) {
   const { mutateAsync, isPending } = useCreateGrantTypeMutation();
 
-  async function handleSubmit(data: GrantMaster.GrantTypeForm) {
+  async function handleSubmit(data: Master.Grant.GrantTypeForm) {
     try {
       const result = await mutateAsync(data);
       if (result) {
@@ -128,7 +128,7 @@ function EditContent({ id, onClose }: { id: number; onClose: () => void }) {
 
   if (isLoading) return <Loader />;
 
-  async function handleSubmit(formData: GrantMaster.GrantTypeForm) {
+  async function handleSubmit(formData: Master.Grant.GrantTypeForm) {
     try {
       const result = await mutateAsync(formData);
       if (result) {
