@@ -1,4 +1,7 @@
 import { Route, Routes } from 'react-router';
+import CollegeCategory from './college/college-category';
+import CollegeType from './college/college-type';
+import Course from './course';
 import Department from './faculty/department';
 import Designation from './faculty/designation';
 import Faculty from './faculty/faculty';
@@ -10,13 +13,10 @@ import Location from './location';
 import AcademicYear from './other/academic-year';
 import DegreeLevel from './other/degree-level';
 import Programme from './other/programme';
-import Scheme from './schemes/scheme';
-import SchemeType from './schemes/scheme-type';
-import SchemeCategory from './schemes/scheme-category';
 import Specialisation from './other/specialisation';
-import Course from './course';
-import CollegeCategory from './college/college-category';
-import CollegeType from './college/college-type';
+import Scheme from './schemes/scheme';
+import SchemeCategory from './schemes/scheme-category';
+import SchemeType from './schemes/scheme-type';
 
 import GrantCategory from './grant/grant-category';
 import GrantType from './grant/grant-type';
@@ -56,9 +56,9 @@ export default function Master() {
         <Route path="grant-type/*" element={<GrantType />} />
         <Route path="grant-category/*" element={<GrantCategory />} />
       </Route>
-      
-      <Route path="schemes/*">
-        <Route path="scheme/*" element={<Scheme />} />
+
+      <Route path="scheme/*">
+        <Route path="schemes/*" element={<Scheme />} />
         <Route path="scheme-type/*" element={<SchemeType />} />
         <Route path="scheme-category/*" element={<SchemeCategory />} />
       </Route>
