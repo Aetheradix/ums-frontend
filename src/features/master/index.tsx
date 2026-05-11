@@ -10,6 +10,9 @@ import Location from './location';
 import AcademicYear from './other/academic-year';
 import DegreeLevel from './other/degree-level';
 import Programme from './other/programme';
+import Scheme from './schemes/scheme';
+import SchemeType from './schemes/scheme-type';
+import SchemeCategory from './schemes/scheme-category';
 import Specialisation from './other/specialisation';
 import Course from './course';
 import CollegeCategory from './college/college-category';
@@ -44,6 +47,12 @@ export default function Master() {
         <Route path="academic-year/*" element={<AcademicYear />} />
         <Route path="programme/*" element={<Programme />} />
         <Route path="specialisation/*" element={<Specialisation />} />
+      </Route>
+
+      <Route path="schemes/*">
+        <Route path="scheme/*" element={<Scheme />} />
+        <Route path="scheme-type/*" element={<SchemeType />} />
+        <Route path="scheme-category/*" element={<SchemeCategory />} />
       </Route>
     </Routes>
   );

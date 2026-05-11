@@ -313,6 +313,37 @@ export const menuConfig: Menu.MenuItem[] = [
           },
         ],
       },
+      {
+        label: 'Scheme',
+        slug: 'scheme',
+        description: 'Manage scheme types and categories.',
+        path: '/home/sub-menu/scheme',
+        icon: 'assignment',
+        colorScheme: 'teal',
+        children: [
+          {
+            label: 'Scheme Type',
+            description: 'Manage scheme types',
+            path: '/master/schemes/scheme-type',
+            icon: 'assignment',
+            colorScheme: 'teal',
+          },
+          {
+            label: 'Scheme Category',
+            description: 'Manage scheme categories',
+            path: '/master/schemes/scheme-category',
+            icon: 'category',
+            colorScheme: 'teal',
+          },
+          {
+            label: 'Scheme',
+            description: 'Manage schemes',
+            path: '/master/schemes/scheme',
+            icon: 'assignment',
+            colorScheme: 'teal',
+          },
+        ],
+      },
     ],
   },
 ];
