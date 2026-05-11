@@ -21,7 +21,7 @@ export default function SelectGender<T extends FieldValues>({
     <DropDownList
       data={data}
       loading={isLoading}
-      textField="name"
+      textField="text"
       valueField="id"
       optionValue="id"
       label={label}

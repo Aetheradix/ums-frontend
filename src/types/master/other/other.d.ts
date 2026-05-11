@@ -58,8 +58,8 @@ declare namespace Master {
       name: string;
     }
     interface GenderItem {
-      id: number;
-      name: string;
+      id: string;
+      text: string;
     }
   }
 }
