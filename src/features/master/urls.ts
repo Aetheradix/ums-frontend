@@ -18,7 +18,9 @@ import { tehsilUrls } from './location/tehsil/urls';
 import { academicYearUrls } from './other/academic-year/urls';
 import { degreeLevelUrls } from './other/degree-level/urls';
 import { programmeUrls } from './other/programme/urls';
-import { schemeUrls } from './schemes/urls';
+import { schemeUrls } from './schemes/scheme/urls';
+import { schemeTypeUrls } from './schemes/scheme-type/urls';
+import { schemeCategoryUrls } from './schemes/scheme-category/urls';
 import { specialisationUrls } from './other/specialisation/urls';
 
 const baseUrl = '/master';
@@ -43,8 +45,8 @@ export const masterUrls = {
   degreeLevel: degreeLevelUrls(`${baseUrl}/other`),
   academicYear: academicYearUrls(`${baseUrl}/other`),
   programme: programmeUrls(`${baseUrl}/other`),
-  scheme: schemeUrls(baseUrl).scheme,
-  schemeType: schemeUrls(baseUrl).schemeType,
-  schemeCategory: schemeUrls(baseUrl).schemeCategory,
+  scheme: schemeUrls(`${baseUrl}/schemes`),
+  schemeType: schemeTypeUrls(`${baseUrl}/schemes`),
+  schemeCategory: schemeCategoryUrls(`${baseUrl}/schemes`),
   specialisation: specialisationUrls(`${baseUrl}/other`),
 };

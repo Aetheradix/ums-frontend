@@ -1,78 +1,75 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import {
-  createScheme,
-  deleteScheme,
-  getSchemes,
-  getScheme,
-  patchSchemeStatus,
-  updateScheme,
-} from './scheme-api';
+  createSchemeType,
+  deleteSchemeType,
+  getSchemeTypes,
+  getSchemeType,
+  patchSchemeTypeStatus,
+  updateSchemeType,
+} from './api';
 
-const SCHEME_QUERY_KEY = ['@master/scheme'];
+const QUERY_KEY = ['@master/scheme-type'];
 
-export function useSchemesQuery() {
+export function useSchemeTypesQuery() {
   const {
     data = [],
     isLoading,
     refetch,
   } = useQuery({
-    queryKey: SCHEME_QUERY_KEY,
-    queryFn: getSchemes,
+    queryKey: QUERY_KEY,
+    queryFn: getSchemeTypes,
   });
 
   return { data, isLoading, refetch };
 }
 
-export function useCreateSchemeMutation() {
+export function useCreateSchemeTypeMutation() {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: async (data: Master.Scheme.SchemeForm) =>
-      await createScheme(data),
+    mutationFn: async (data: Master.Scheme.SchemeTypeForm) =>
+      await createSchemeType(data),
 
     onSuccess(data) {
       if (!data) return;
 
       const result =
-        queryClient.getQueryData<Master.Scheme.SchemeItem[]>(
-          SCHEME_QUERY_KEY
+        queryClient.getQueryData<Master.Scheme.SchemeTypeItem[]>(
+          QUERY_KEY
         ) ?? [];
 
-      queryClient.setQueryData(SCHEME_QUERY_KEY, [...result, data]);
+      queryClient.setQueryData(QUERY_KEY, [...result, data]);
     },
   });
 }
 
-export function useSchemeQuery(id: number) {
+export function useSchemeTypeQuery(id: number) {
   return useQuery({
-    queryKey: [...SCHEME_QUERY_KEY, id],
+    queryKey: [...QUERY_KEY, id],
     queryFn: async () => {
-      const data = await getScheme(id);
+      const data = await getSchemeType(id);
       if (!data) return undefined;
 
       return {
         name: data.name,
-        code: data.code,
-        schemeTypeId: data.schemeTypeId,
-        schemeCategoryId: data.schemeCategoryId,
         isActive: data.isActive,
       };
     },
   });
 }
 
-export function useUpdateSchemeMutation(id: number) {
+export function useUpdateSchemeTypeMutation(id: number) {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async (data: Master.Scheme.SchemeForm) =>
-      await updateScheme(id, data),
+    mutationFn: async (data: Master.Scheme.SchemeTypeForm) =>
+      await updateSchemeType(id, data),
 
     onSuccess(success, formData) {
       if (!success) return;
 
       const result =
-        queryClient.getQueryData<Master.Scheme.SchemeItem[]>(
-          SCHEME_QUERY_KEY
+        queryClient.getQueryData<Master.Scheme.SchemeTypeItem[]>(
+          QUERY_KEY
         ) ?? [];
 
       const index = result.findIndex(item => item.id === id);
@@ -80,12 +77,9 @@ export function useUpdateSchemeMutation(id: number) {
 
       const existing = result[index];
 
-      const itemToReplace: Master.Scheme.SchemeItem = {
+      const itemToReplace: Master.Scheme.SchemeTypeItem = {
         id,
         name: formData.name,
-        code: formData.code,
-        schemeTypeId: formData.schemeTypeId,
-        schemeCategoryId: formData.schemeCategoryId,
         isActive: existing?.isActive ?? true,
       };
 
@@ -95,46 +89,46 @@ export function useUpdateSchemeMutation(id: number) {
         ...result.slice(index + 1),
       ];
 
-      queryClient.setQueryData(SCHEME_QUERY_KEY, updatedItems);
-      queryClient.setQueryData([...SCHEME_QUERY_KEY, id], formData);
+      queryClient.setQueryData(QUERY_KEY, updatedItems);
+      queryClient.setQueryData([...QUERY_KEY, id], formData);
     },
   });
 }
 
-export function useDeleteSchemeMutation() {
+export function useDeleteSchemeTypeMutation() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async (id: number) => await deleteScheme(id),
+    mutationFn: async (id: number) => await deleteSchemeType(id),
 
     onSuccess(success, id) {
       if (!success) return;
 
       const result =
-        queryClient.getQueryData<Master.Scheme.SchemeItem[]>(
-          SCHEME_QUERY_KEY
+        queryClient.getQueryData<Master.Scheme.SchemeTypeItem[]>(
+          QUERY_KEY
         ) ?? [];
 
       const updatedItems = result.filter(item => item.id !== id);
 
-      queryClient.setQueryData(SCHEME_QUERY_KEY, updatedItems);
+      queryClient.setQueryData(QUERY_KEY, updatedItems);
     },
   });
 }
 
-export function useSchemeActiveStatusMutation() {
+export function useSchemeTypeActiveStatusMutation() {
   const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: async (data: { id: number; isActive: boolean }) =>
-      await patchSchemeStatus(data.id),
+      await patchSchemeTypeStatus(data.id),
 
     onSuccess(success, variables) {
       if (!success) return;
 
       const result =
-        queryClient.getQueryData<Master.Scheme.SchemeItem[]>(
-          SCHEME_QUERY_KEY
+        queryClient.getQueryData<Master.Scheme.SchemeTypeItem[]>(
+          QUERY_KEY
         ) ?? [];
 
       const index = result.findIndex(item => item.id === variables.id);
@@ -145,7 +139,7 @@ export function useSchemeActiveStatusMutation() {
         isActive: variables.isActive,
       };
 
-      queryClient.setQueryData(SCHEME_QUERY_KEY, [
+      queryClient.setQueryData(QUERY_KEY, [
         ...result.slice(0, index),
         updatedItem,
         ...result.slice(index + 1),

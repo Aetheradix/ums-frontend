@@ -1,7 +1,5 @@
-import {
-  useSchemeTypesQuery,
-  useSchemesCategoriesQuery,
-} from 'features/master/schemes/queries';
+import { useSchemeTypesQuery } from 'features/master/schemes/scheme-type/queries';
+import { useSchemesCategoriesQuery } from 'features/master/schemes/scheme-category/queries';
 import { useCallback, useState } from 'react';
 import { ToastService } from 'services';
 import { Button } from 'shared/components/buttons';
@@ -13,14 +11,14 @@ import {
   FormPopup,
   GridPanel,
 } from 'shared/new-components';
-import SchemeForm from '../../components/scheme/SchemeForm';
+import SchemeForm from '../components/SchemeForm';
 import {
   useCreateSchemeMutation,
   useSchemeActiveStatusMutation,
   useSchemeQuery,
   useSchemesQuery,
   useUpdateSchemeMutation,
-} from '../../scheme-queries';
+} from '../queries';
 
 type PopupState =
   | { mode: 'closed' }

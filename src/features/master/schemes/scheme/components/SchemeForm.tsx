@@ -1,7 +1,5 @@
-import {
-  useSchemeTypesQuery,
-  useSchemesCategoriesQuery,
-} from 'features/master/schemes/queries';
+import { useSchemeTypesQuery } from 'features/master/schemes/scheme-type/queries';
+import { useSchemesCategoriesQuery } from 'features/master/schemes/scheme-category/queries';
 import { DropDownList, TextBox } from 'shared/components/forms';
 import { FormActions, FormGrid } from 'shared/new-components';
 import { useSchemeForm } from './form.hook';

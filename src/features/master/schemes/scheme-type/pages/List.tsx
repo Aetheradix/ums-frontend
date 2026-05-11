@@ -4,14 +4,14 @@ import StatusButton from 'shared/components/buttons/StatusButton';
 import { Loader } from 'shared/components/progress';
 import { FormCard, FormPage, FormPopup, GridPanel } from 'shared/new-components';
 import { ToastService } from 'services';
-import SchemeTypeForm from '../../components/scheme-type/SchemeTypeForm';
+import SchemeTypeForm from '../components/SchemeTypeForm';
 import {
   useSchemeTypeActiveStatusMutation,
   useSchemeTypesQuery,
   useCreateSchemeTypeMutation,
   useUpdateSchemeTypeMutation,
   useSchemeTypeQuery,
-} from '../../queries';
+} from '../queries';
 
 type PopupState =
   | { mode: 'closed' }

@@ -2,12 +2,14 @@ import { useCallback } from 'react';
 import { useNavigate, useParams } from 'react-router';
 import { ToastService } from 'services';
 import { FormCard, FormPage } from 'shared/new-components';
-import { schemeUrls } from '../../urls';
-import SchemeCategoryForm from '../../components/scheme-category/SchemeCategoryForm';
+import { schemeCategoryUrls } from '../urls';
+import SchemeCategoryForm from '../components/SchemeCategoryForm';
 import {
   useSchemeCategoryQuery,
   useUpdateSchemeCategoryMutation,
-} from '../../queries';
+} from '../queries';
+
+const schemeCategoryUrl = schemeCategoryUrls('/master/schemes');
 
 export default function Edit() {
   const { id } = useParams<{ id: string }>();
@@ -20,7 +22,7 @@ export default function Edit() {
   );
 
   const handleBack = useCallback(() => {
-    navigate(schemeUrls.schemeCategory.root);
+    navigate(schemeCategoryUrl.root);
   }, [navigate]);
 
   async function handleSubmit(data: Master.Scheme.SchemeCategoryForm) {

@@ -2,12 +2,14 @@ import { useCallback } from 'react';
 import { useNavigate, useParams } from 'react-router';
 import { ToastService } from 'services';
 import { FormCard, FormPage } from 'shared/new-components';
-import { schemeUrls } from '../../urls';
-import SchemeTypeForm from '../../components/scheme-type/SchemeTypeForm';
+import { schemeTypeUrls } from '../urls';
+import SchemeTypeForm from '../components/SchemeTypeForm';
 import {
   useSchemeTypeQuery,
   useUpdateSchemeTypeMutation,
-} from '../../queries';
+} from '../queries';
+
+const schemeTypeUrl = schemeTypeUrls('/master/schemes');
 
 export default function Edit() {
   const { id } = useParams<{ id: string }>();
@@ -18,7 +20,7 @@ export default function Edit() {
   const { mutateAsync, isPending } = useUpdateSchemeTypeMutation(schemeTypeId);
 
   const handleBack = useCallback(() => {
-    navigate(schemeUrls.schemeType.root);
+    navigate(schemeTypeUrl.root);
   }, [navigate]);
 
   async function handleSubmit(data: Master.Scheme.SchemeTypeForm) {

@@ -2,16 +2,18 @@ import { useCallback } from 'react';
 import { useNavigate } from 'react-router';
 import { ToastService } from 'services';
 import { FormCard, FormPage } from 'shared/new-components';
-import { schemeUrls } from '../../urls';
-import SchemeCategoryForm from '../../components/scheme-category/SchemeCategoryForm';
-import { useCreateSchemeCategoryMutation } from '../../queries';
+import { schemeCategoryUrls } from '../urls';
+import SchemeCategoryForm from '../components/SchemeCategoryForm';
+import { useCreateSchemeCategoryMutation } from '../queries';
+
+const schemeCategoryUrl = schemeCategoryUrls('/master/schemes');
 
 export default function Create() {
   const navigate = useNavigate();
   const { mutateAsync, isPending } = useCreateSchemeCategoryMutation();
 
   const handleBack = useCallback(() => {
-    navigate(schemeUrls.schemeCategory.root);
+    navigate(schemeCategoryUrl.root);
   }, [navigate]);
 
   async function handleSubmit(data: Master.Scheme.SchemeCategoryForm) {
