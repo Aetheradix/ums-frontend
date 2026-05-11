@@ -53,5 +53,13 @@ declare namespace Master {
       id: number;
       name: string;
     }
+    interface SemesterItem {
+      id: number;
+      name: string;
+    }
+    interface GenderItem {
+      id: number;
+      name: string;
+    }
   }
 }
