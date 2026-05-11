@@ -57,6 +57,10 @@ declare namespace Master {
       id: number;
       name: string;
     }
+    interface OccupationItem {
+      id: string;
+      text: string;
+    }
     interface GenderItem {
       id: string;
       text: string;
