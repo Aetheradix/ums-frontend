@@ -8,6 +8,7 @@ import { grantCategoryUrls } from './grant/grant-category/urls';
 import { grantTypeUrls } from './grant/grant-type/urls';
 import { eligibilityApplicationProcessUrls } from './grant/eligibility-application-process/urls';
 import { casteUrls } from './hr/caste/urls';
+import { postUrls } from './hr/post/urls';
 import { qualificationUrls } from './hr/qualification/urls';
 import { religionUrls } from './hr/religion/urls';
 import { blockUrls } from './location/block/urls';
@@ -37,6 +38,7 @@ export const masterUrls = {
   block: blockUrls(`${baseUrl}/location`),
   designation: designationUrls(`${baseUrl}/faculty-management`),
   caste: casteUrls(`${baseUrl}/hr`),
+  post: postUrls(`${baseUrl}/hr`),
   qualification: qualificationUrls(`${baseUrl}/hr`),
   religion: religionUrls(`${baseUrl}/hr`),
   collegeType: collegeTypeUrls(`${baseUrl}/college`),
