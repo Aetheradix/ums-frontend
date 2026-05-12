@@ -148,37 +148,23 @@ export const menuConfig: Menu.MenuItem[] = [
           },
         ],
       },
-      // {
-      //   label: 'Course Management',
-      //   slug: 'course',
-      //   description: 'Manage course departments, subject categories, and more.',
-      //   path: '/home/sub-menu/course',
-      //   icon: 'menu_book',
-      //   colorScheme: 'purple',
-      //   children: [
-      //     {
-      //       label: 'Course Stream',
-      //       description: 'Manage Course Stream',
-      //       path: '/master/course/course-stream',
-      //       icon: 'apartment',
-      //       colorScheme: 'purple',
-      //     },
-      //     {
-      //       label: 'Course Mode of Education',
-      //       description: 'Manage Course Mode of Education',
-      //       path: '/master/course/course-mode-of-education',
-      //       icon: 'apartment',
-      //       colorScheme: 'purple',
-      //     },
-      //     {
-      //       label: 'Course Exam Type',
-      //       description: 'Manage Course Exam Type',
-      //       path: '/master/course/course-exam-type',
-      //       icon: 'apartment',
-      //       colorScheme: 'purple',
-      //     },
-      //   ],
-      // },
+      {
+        label: 'Subject Management',
+        slug: 'subject',
+        description: 'Manage subject , categories, and more.',
+        path: '/home/sub-menu/subject',
+        icon: 'menu_book',
+        colorScheme: 'purple',
+        children: [
+          {
+            label: 'Mode Of Education',
+            description: 'Manage Mode of Education',
+            path: '/master/subject/programme-mode-of-education',
+            icon: 'apartment',
+            colorScheme: 'purple',
+          },
+        ],
+      },
 
       {
         label: 'Faculty Admin',
@@ -227,28 +213,35 @@ export const menuConfig: Menu.MenuItem[] = [
         icon: 'apartment',
         colorScheme: 'red',
         children: [
-          {
-            label: 'Caste',
-            description:
-              'Manage different types of faculty and administrative offices.',
-            path: '/master/hr/caste',
-            icon: 'apartment',
-            colorScheme: 'red',
-          },
-          {
-            label: 'Religion',
-            description: 'Manage religions',
-            path: '/master/hr/religion',
-            icon: 'domain',
-            colorScheme: 'red',
-          },
-          {
-            label: 'Qualification',
-            description: 'Manage qualifications',
-            path: '/master/hr/qualification',
-            icon: 'badge',
-            colorScheme: 'red',
-          },
+           {
+             label: 'Caste',
+             description:
+               'Manage different types of faculty and administrative offices.',
+             path: '/master/hr/caste',
+             icon: 'apartment',
+             colorScheme: 'red',
+           },
+           {
+             label: 'Post',
+             description: 'Manage posts and positions',
+             path: '/master/hr/post',
+             icon: 'work',
+             colorScheme: 'red',
+           },
+           {
+             label: 'Religion',
+             description: 'Manage religions',
+             path: '/master/hr/religion',
+             icon: 'domain',
+             colorScheme: 'red',
+           },
+           {
+             label: 'Qualification',
+             description: 'Manage qualifications',
+             path: '/master/hr/qualification',
+             icon: 'badge',
+             colorScheme: 'red',
+           },
         ],
       },
       {
@@ -311,6 +304,13 @@ export const menuConfig: Menu.MenuItem[] = [
             icon: 'school',
             colorScheme: 'indigo',
           },
+          {
+            label: 'Nationality',
+            description: 'Manage nationalities',
+            path: '/master/other/nationality',
+            icon: 'school',
+            colorScheme: 'indigo',
+          },
         ],
       },
       {
@@ -333,6 +333,13 @@ export const menuConfig: Menu.MenuItem[] = [
             description: 'Manage grant categories',
             path: '/master/grant/grant-category',
             icon: 'category',
+            colorScheme: 'purple',
+          },
+          {
+            label: 'Eligibility Application Process',
+            description: 'Manage eligibility criteria and application process',
+            path: '/master/grant/eligibility-application-process',
+            icon: 'assignment_turned_in',
             colorScheme: 'purple',
           },
         ],

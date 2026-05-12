@@ -15,7 +15,7 @@
    Service Card
 ───────────────────────────── */
 .db-service-card {
-  @apply bg-white rounded-[22px] p-5 relative flex flex-col min-h-[180px] cursor-pointer overflow-hidden;
+  @apply rounded-[22px] p-5 relative flex flex-col min-h-[180px] cursor-pointer overflow-hidden bg-[var(--bg-white)];
 
   box-shadow: 0 8px 24px rgba(15, 23, 42, 0.04);
   border: none !important;
@@ -71,7 +71,7 @@
   top: 14px;
   right: 14px;
 
-  @apply w-10 h-10 rounded-full bg-white flex items-center justify-center text-slate-900 transition-all duration-200;
+  @apply w-10 h-10 rounded-full flex items-center justify-center text-slate-900 transition-all duration-200;
 
   box-shadow: 0 4px 14px rgba(15, 23, 42, 0.08);
 }
@@ -82,10 +82,8 @@
 }
 
 .db-card-arrow:hover {
-  @apply text-white;
-  transform: scale(1.05);
+  @apply scale-105;
 }
-
 /* ─────────────────────────────
    Card Content
 ───────────────────────────── */

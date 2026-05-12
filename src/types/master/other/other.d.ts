@@ -24,6 +24,13 @@ declare namespace Master {
       degreeLevelId: number;
     }
 
+    // Nationality
+    interface NationalityForm {
+      name: string;
+      isActive: boolean;
+    }
+    type NationalityItem = Data.WithId<NationalityForm>;
+
     interface Programme {
       name: string;
       programmeDuration: string;
@@ -66,6 +73,16 @@ declare namespace Master {
       text: string;
     }
     interface RelationshipItem {
+      id: string;
+      text: string;
+    }
+    interface BloodGroupItem {
+      id: string;
+      text: string;
+    }
+
+    // Language-Preferences
+    interface LanguagePreferenceItem {
       id: string;
       text: string;
     }

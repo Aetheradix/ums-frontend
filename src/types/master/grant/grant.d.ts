@@ -14,5 +14,16 @@ declare namespace Master {
     }
 
     type GrantCategoryItem = Data.WithId<GrantCategoryForm>;
+
+    interface EligibilityApplicationProcessForm {
+      grantTypeId: number;
+      grantCategoryId: number;
+      eligibilityText: string;
+      applicationProcessText: string;
+      approvalProcessText: string;
+      isActive: boolean;
+    }
+
+    type EligibilityApplicationProcessItem = Data.WithId<EligibilityApplicationProcessForm>;
   }
 }

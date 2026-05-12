@@ -82,10 +82,11 @@
 /* ── Modern Inline Error Badge ── */
 .input-error-badge {
   @apply absolute right-3 top-1/2 -translate-y-1/2
-  text-[10px] font-semibold tracking-wide
-  text-red-600 bg-white
-  px-1.5 py-0.5 rounded-md
-  pointer-events-none z-10;
+         text-[10px] font-semibold tracking-wide
+         bg-[var(--bg-white)]
+         text-[var(--color-danger)]
+         px-1.5 py-0.5 rounded-md
+         pointer-events-none z-10;
 }
 
 /* ── Checkbox overlay ── */

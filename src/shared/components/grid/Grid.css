@@ -11,9 +11,9 @@
 
 /* Remove hover effects */
 .p-datatable .p-datatable-tbody > tr:hover {
-  @apply bg-white;
+  @apply transition-colors;
+  background-color: var(--bg-white);
 }
-
 .p-datatable .p-datatable-tbody > tr,
 .p-datatable .p-datatable-tbody > tr:hover * {
   transition: none !important;
@@ -31,7 +31,8 @@
 
 /* Frozen columns */
 .p-datatable .p-datatable-tbody > tr > td.p-frozen-column {
-  @apply bg-white;
+  @apply transition-colors;
+  background-color: var(--bg-white);
 }
 
 .p-datatable .p-datatable-tbody > tr:nth-child(even) > td.p-frozen-column {
@@ -40,7 +41,9 @@
 
 /* --- 2. Paginator --- */
 .p-paginator {
-  @apply flex items-center justify-between px-4 py-2 bg-white border-t border-slate-200 min-h-[4rem];
+  @apply flex items-center justify-between px-4 py-2 border-t min-h-[4rem];
+  background-color: var(--bg-white);
+  border-color: var(--color-gray-200);
 }
 
 /* Left content */
@@ -137,7 +140,7 @@
 }
 
 .dark .p-paginator .p-paginator-page.p-highlight {
-  @apply bg-white text-black border-white;
+  @apply text-black border-white bg-[var(--bg-white)];
 }
 
 .dark .p-paginator .p-link {
