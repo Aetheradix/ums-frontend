@@ -2,7 +2,7 @@
 @import 'tailwindcss';
 
 /* ============================================================
-   1. TAILWIND v4 THEME — Custom Design Tokens
+   1. TAILWIND v4 THEME — DESIGN TOKENS
    ============================================================ */
 @theme {
   /* Neutral Colors */
@@ -18,55 +18,110 @@
   --color-gray-800: #27272a;
   --color-gray-900: #18181b;
 
-  /* Status & Semantic */
+  /* Brand */
+  --color-primary: var(--color-black);
+  --color-primary-hover: #1e56be;
+  --color-primary-shadow: #041c8a;
+
+  /* Semantic */
   --color-success: #10b981;
-  --color-success-alt: #22c55e;
   --color-danger: #d1143e;
   --color-warning: #f59e0b;
   --color-info: #06b6d4;
 
-  /* Additional Colors */
+  /* Additional */
   --color-indigo-500: #6366f1;
   --color-blue-500: #007bff;
   --color-green-700: #057e29;
 
-  /* Brand Colors */
-  /* --color-primary: #2264dc; */
-  --color-primary: var(--color-black);
-  --color-primary-hover: #1e56be;
-  --color-primary-shadow: #041c8a;
+  /* Surface */
+  --surface-light: #f8f9fa;
+  --surface-info-bg: #e0f2fe;
+  --surface-info-border: #38bdf8;
+
+  /* Border */
+  --border-light: #dee2e6;
+
+  /* Badge */
+  --badge-warning-bg: #fef08a;
+  --badge-warning-text: #854d0e;
+
+  /* Radius */
+  --radius-xs: 0.25rem;
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-2xl: 1.5rem;
+  --radius-3xl: 2rem;
+
+  /* Font */
+  --font-sans:
+    'Plus Jakarta Sans', 'Poppins', 'Inter', 'Segoe UI', Roboto, Helvetica,
+    Arial, sans-serif;
 }
 
 /* ============================================================
-   2. CSS CUSTOM PROPERTIES — For PrimeReact & dark theme
+   2. ROOT VARIABLES — APP LEVEL
    ============================================================ */
 :root {
+  /* Base */
   --white: var(--color-white);
   --black: var(--color-black);
-  --transparent: transparent;
+
+  /* Primary */
   --primary-color: var(--color-primary);
   --bg-primary: var(--color-primary);
+
+  /* Background */
   --body-bg: var(--color-white);
   --main-content-bg: #fafafa;
+  --bg-white: #ffffff;
+
+  /* Text */
   --text-gray-dark: #4b5563;
-  --placeholder-gray: var(--color-gray-100);
-  --scrollbar-track-bg: #dddddd;
-  --border-light-color: oklch(92.9% 0.013 255.508);
-  --radius-sm: 6px;
-  --color-surface-light: #f8f9fa;
-  --color-border-light: #dee2e6;
   --text-secondary: var(--color-gray-500);
+
+  /* Placeholder */
+  --placeholder-gray: var(--color-gray-100);
+
+  /* Borders */
+  --border-light-color: oklch(92.9% 0.013 255.508);
+  --border-color: var(--border-light);
+
+  /* Surface */
+  --color-surface-light: var(--surface-light);
+  --color-border-light: var(--border-light);
+
+  /* Scrollbar */
+  --scrollbar-track-bg: #dddddd;
+
+  /* Generic */
   --border: 1px solid var(--border-light-color);
 
-  /* Toast */
-  --toast-success-start: #057e29;
+  /* Instructions */
+  --instruction-bg: var(--surface-info-bg);
+  --instruction-border: var(--surface-info-border);
+
+  /* Checkbox */
+  --checkbox-highlight-bg: var(--badge-warning-bg);
+  --checkbox-highlight-text: var(--badge-warning-text);
+
+  /* ========================================================
+     Toast
+     ======================================================== */
+  --toast-success-start: #16a34a;
   --toast-success-end: #057e29;
+
   --toast-info-start: #3b82f6;
   --toast-info-end: #2563eb;
+
   --toast-border: #fafafa;
   --toast-shadow: rgba(0, 0, 0, 0.1);
 
-  /* Dark Theme Base Vars (Zinc-style) */
+  /* ========================================================
+     DARK THEME
+     ======================================================== */
   --dark-bg: var(--color-primary);
 
   --dark-surface: #121214;
@@ -88,6 +143,7 @@
   --dark-button-hover: var(--color-gray-700);
 
   --dark-header-bg: var(--color-primary);
+
   --dark-navbar-bg: var(--color-primary);
   --dark-navbar-border: var(--dark-border);
 
@@ -99,6 +155,7 @@
 
   --dark-card-bg: var(--dark-surface);
   --dark-card-hover: var(--dark-surface-hover);
+
   --dark-card-text: #e4e4e7;
   --dark-card-shadow: rgba(0, 0, 0, 0.4);
 
@@ -107,9 +164,13 @@
   --dark-login-title: var(--color-white);
   --dark-login-subtitle: var(--color-gray-400);
 
-  /* Misc */
+  /* ========================================================
+     Misc
+     ======================================================== */
   --sidebar-overlay-bg: rgba(0, 0, 0, 0.45);
+
   --header-gradient-stripe: var(--white) 0e;
+
   --dark-header-gradient: repeating-linear-gradient(
     215deg,
     var(--header-gradient-stripe),
@@ -130,25 +191,31 @@
       transparent 55%
     ),
     linear-gradient(180deg, hsl(220 25% 98%) 0%, hsl(220 25% 100%) 100%);
+
   --tile-indigo: 226 70% 55%;
   --tile-violet: 262 70% 60%;
-  /* Fonts */
-  --font-sans:
-    'Plus Jakarta Sans', 'Poppins', 'Inter', 'Segoe UI', Roboto, Helvetica,
-    Arial, sans-serif;
+
   font-family: var(--font-sans);
 }
 
+/* ============================================================
+   3. DARK MODE
+   ============================================================ */
 .dark body,
 [data-theme='dark'] body {
   --primary-color: #fafafa;
   --primary-rgb: 92, 94, 216;
   --secondary-color: #0a0a0a;
+
   background-color: var(--dark-bg);
   color: var(--dark-text);
+
   --text-secondary: #d4d4d8;
 }
 
+/* ============================================================
+   4. GLOBAL TYPOGRAPHY
+   ============================================================ */
 html,
 body {
   font-family: var(--font-sans);
@@ -225,7 +292,7 @@ body {
   }
 
   .app-layout.sidebar-open .main-layout {
-    @apply ml-[250px] flex-1;
+    @apply ml-62.5 flex-1;
     width: calc(100vw - 250px);
   }
 
@@ -252,16 +319,17 @@ body {
   /* Instruction box */
   .instruction-box {
     @apply rounded-[10px];
-    background-color: #e0f2fe;
-    border: 1px solid #38bdf8;
+    background-color: var(--instruction-bg);
+    border: 1px solid var(--instruction-border);
     color: var(--primary-color);
   }
 
   /* Highlight values */
   .checkbox-highlight-val {
-    @apply rounded px-1 py-0.5 inline-block font-medium;
-    background-color: #fef08a;
-    color: #854d0e;
+    @apply inline-block rounded px-1 py-0.5 font-medium;
+
+    background-color: var(--checkbox-highlight-bg);
+    color: var(--checkbox-highlight-text);
   }
 
   .rollback-value {
@@ -280,8 +348,8 @@ body {
   .footer-bar {
     background-color: var(--dark-bg, var(--primary-color));
   }
-
-  .main-header-avatar {
+  /* no where calling - 11/5/2026 */
+  /* .main-header-avatar {
     width: 40px;
     height: 40px;
     background-color: #18181b;
@@ -293,26 +361,26 @@ body {
 
   .main-header-subtitle {
     color: var(--text-secondary);
-  }
+  } */
 
-  .main-header-search-input {
+  /* .main-header-search-input {
     background-color: var(--dark-input-bg, #f4f4f5);
     padding-left: 3rem;
-  }
+  } */
 
-  .main-header-badge {
+  /* .main-header-badge {
     width: 15px;
     height: 15px;
     font-size: 9px;
     transform: translate(40%, -20%);
-  }
+  } */
 
-  .main-header-user-avatar {
+  /* .main-header-user-avatar {
     background-color: var(--color-indigo-500);
     color: var(--white);
     font-weight: 700;
-  }
-
+  } */
+  /* no where calling - 11/5/2026 */
   .report-heading,
   .report-title,
   .report-caption {
@@ -946,7 +1014,8 @@ body {
 } */
 
 .p-datatable .p-datatable-tbody > tr > td {
-  @apply py-3 px-4 border-b border-zinc-100 text-sm;
+  @apply py-3 px-4 text-sm;
+  border-bottom: 1px solid var(--color-gray-100);
 }
 
 .p-datatable .p-datatable-tbody > tr:last-child > td {

@@ -11,8 +11,12 @@
 }
 
 /* Dropdown */
-.ws-waffle-dropdown {
+/* remove max height to show view all footer */
+/* .ws-waffle-dropdown {
   @apply absolute right-0 top-full mt-3 w-[430px] max-h-[560px] overflow-hidden rounded-3xl border z-50;
+} */
+.ws-waffle-dropdown {
+  @apply absolute right-0 top-full mt-3 w-[430px] overflow-hidden rounded-3xl border z-50;
 }
 
 /* ─────────────────────────────
@@ -24,7 +28,10 @@
   }
 }
 .ws-waffle-dropdown.light {
-  @apply bg-white border-zinc-200 text-zinc-800;
+  @apply border;
+  background-color: var(--bg-white);
+  border-color: var(--color-gray-200);
+  color: var(--color-gray-800);
 }
 
 .ws-waffle-dropdown.dark {
@@ -33,11 +40,11 @@
 
 /* Header */
 .ws-waffle-header {
-  @apply flex items-center justify-between px-5 pt-4 pb-3 border-b;
+  @apply flex items-center justify-between px-5 pt-3 pb-2 border-b;
 }
 
 .ws-waffle-dropdown.light .ws-waffle-header {
-  @apply border-zinc-100;
+  border: 1px solid var(--color-gray-100);
 }
 
 .ws-waffle-dropdown.dark .ws-waffle-header {
@@ -54,7 +61,8 @@
 }
 
 .ws-waffle-dropdown.light .ws-waffle-edit-btn {
-  @apply bg-zinc-50 border border-zinc-100 text-zinc-700 hover:bg-zinc-100;
+  @apply bg-zinc-50 border text-zinc-700 hover:bg-zinc-100;
+  border-color: var(--color-gray-100);
 }
 
 .ws-waffle-dropdown.dark .ws-waffle-edit-btn {
@@ -64,6 +72,7 @@
 /* Sections */
 .ws-waffle-section {
   @apply px-5 py-4;
+  border-bottom: 1px solid var(--color-gray-100);
 }
 
 .ws-waffle-section-title {
@@ -88,7 +97,13 @@
 }
 
 .ws-waffle-dropdown.light .ws-waffle-favorite-card {
-  @apply bg-zinc-50 border-zinc-100 hover:bg-white hover:shadow-md;
+  @apply hover:shadow-md;
+  background-color: var(--color-surface-light);
+  border-color: var(--color-gray-100);
+}
+
+.ws-waffle-dropdown.light .ws-waffle-favorite-card:hover {
+  background-color: var(--bg-white);
 }
 
 .ws-waffle-dropdown.dark .ws-waffle-favorite-card {
@@ -159,7 +174,7 @@
 }
 
 .ws-waffle-dropdown.light .ws-waffle-footer {
-  @apply border-zinc-100;
+  border: 1px solid var(--color-gray-100);
 }
 
 .ws-waffle-dropdown.dark .ws-waffle-footer {
@@ -167,15 +182,12 @@
 }
 
 .ws-waffle-footer-btn {
-  @apply w-full rounded-2xl py-3 text-sm font-semibold transition-all;
-}
-
-.ws-waffle-dropdown.light .ws-waffle-footer-btn {
-  @apply bg-zinc-100 hover:bg-zinc-200;
-}
-
-.ws-waffle-dropdown.dark .ws-waffle-footer-btn {
-  @apply bg-gray-900 hover:bg-gray-800 text-white;
+  @apply w-full rounded-lg py-3 text-sm font-semibold transition-all border
+         bg-[var(--primary-color)]
+         text-[var(--white)]
+         border-[var(--primary-color)]
+         hover:bg-[var(--white)]
+         hover:text-[var(--primary-color)];
 }
 
 /* Label */

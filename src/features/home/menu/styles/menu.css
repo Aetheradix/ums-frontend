@@ -44,7 +44,12 @@
 }
 
 .welcome-btn-outline {
-  @apply inline-flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-semibold border border-slate-200 text-slate-700 bg-white hover:bg-slate-50 transition-all duration-200 max-md:flex-1 max-md:justify-center cursor-pointer;
+  @apply inline-flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-semibold border
+         border-slate-200 text-slate-700
+         bg-[var(--bg-white)]
+         hover:bg-slate-50
+         transition-all duration-200
+         max-md:flex-1 max-md:justify-center cursor-pointer;
 }
 
 .welcome-btn-filled {

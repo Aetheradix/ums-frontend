@@ -17,7 +17,7 @@
 
 /* WorkspaceHeader */
 .ws-header {
-  @apply bg-white border-b border-slate-200 py-3;
+  @apply border-b border-slate-200 py-3 bg-[var(--bg-white)];
 }
 
 .ws-header-inner {
@@ -94,9 +94,8 @@
 
 /* WorkspaceFooterNav */
 .ws-footer-nav {
-  @apply bg-white py-5 border-t border-slate-200;
+  @apply py-5 border-t border-slate-200 bg-[var(--bg-white)];
 }
-
 .ws-footer-nav-inner {
   @apply max-w-[1320px] mx-auto px-6 flex items-center flex-wrap gap-4 max-md:gap-3 max-md:justify-center;
 }
