@@ -1,9 +1,9 @@
 import { useCallback } from 'react';
 import { useNavigate } from 'react-router';
 import { ToastService } from 'services';
-import { FormCard, FormPage } from 'shared/new-components';
 import { Loader } from 'shared/components/progress';
 import { useParamsId } from 'shared/hooks/params';
+import { FormCard, FormPage } from 'shared/new-components';
 import { masterUrls } from '../../../urls';
 import CasteForm from '../components/CasteForm';
 import { useCasteQuery, useUpdateCasteMutation } from '../queries';
@@ -15,7 +15,7 @@ const DEFAULT: Master.CasteForm = {
 
 export default function Edit() {
   const navigate = useNavigate();
-  const id = useParamsId();
+  const id = Number(useParamsId());
   const { mutateAsync, isPending } = useUpdateCasteMutation(id);
   const { data = DEFAULT, isLoading } = useCasteQuery(id);
 

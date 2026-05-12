@@ -16,7 +16,7 @@ const DEFAULT: Master.StateForm = {
 
 export default function Edit() {
   const navigate = useNavigate();
-  const id = useParamsId();
+  const id = Number(useParamsId());
   const { mutateAsync, isPending } = useUpdateStateMutation(id);
   const { data = DEFAULT, isLoading } = useStateQuery(id);
 

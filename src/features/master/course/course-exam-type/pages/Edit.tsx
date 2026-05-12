@@ -19,7 +19,7 @@ const DEFAULT: CourseMaster.CourseExamTypeForm = {
 
 export default function Edit() {
   const navigate = useNavigate();
-  const id = useParamsId();
+  const id = Number(useParamsId());
   const { mutateAsync, isPending } = useUpdateCourseExamTypeMutation(id);
   const { data = DEFAULT, isLoading } = useCourseExamTypeQuery(id);
 

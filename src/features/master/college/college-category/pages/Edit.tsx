@@ -18,7 +18,7 @@ const DEFAULT = {
 
 export default function Edit() {
   const navigate = useNavigate();
-  const id = useParamsId();
+  const id = Number(useParamsId());
   const { mutateAsync, isPending } = useUpdateCollegeCategoryMutation(id);
   const { data = DEFAULT, isLoading } = useCollegeCategoryQuery(id);
 
@@ -32,6 +32,7 @@ export default function Edit() {
 
   async function handleSubmit(data: CollegeMaster.CollegeCategoryForm) {
     try {
+      debugger;
       const result = await mutateAsync(data);
       if (result) {
         ToastService.success('College Category updated successfully.');

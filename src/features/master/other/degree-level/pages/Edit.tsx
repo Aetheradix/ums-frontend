@@ -14,7 +14,7 @@ const DEFAULT: Master.Other.DegreeLevelForm = {
 
 export default function Edit() {
   const navigate = useNavigate();
-  const id = useParamsId();
+  const id = Number(useParamsId());
   const { mutateAsync, isPending } = useUpdateDegreeLevelMutation(id);
   const { data = DEFAULT, isLoading } = useDegreeLevelQuery(id);
 

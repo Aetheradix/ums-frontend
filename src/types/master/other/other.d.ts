@@ -53,5 +53,9 @@ declare namespace Master {
       id: number;
       name: string;
     }
+    interface PreviousInstituteTypeItem {
+      id: number;
+      name: string;
+    }
   }
 }

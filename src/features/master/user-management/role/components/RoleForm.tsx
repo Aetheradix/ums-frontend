@@ -1,3 +1,4 @@
+import SelectPreviousInstituteType from 'features/components/SelectPreviousInstitutionType';
 import { TextBox } from 'shared/components/forms';
 import { FormActions, FormGrid } from 'shared/new-components';
 import { useRoleForm } from './form.hook';
@@ -26,6 +27,7 @@ export default function RoleForm(props: RoleFormProps) {
           maxLength={50}
           required
         />
+        <SelectPreviousInstituteType />
       </FormGrid>
       <FormActions
         isEditMode={props.isEditMode}
