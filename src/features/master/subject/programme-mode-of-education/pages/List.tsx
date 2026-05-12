@@ -9,13 +9,13 @@ import {
   GridPanel,
 } from 'shared/new-components';
 import { ToastService } from 'services';
-import CourseStreamForm from '../components/CourseStreamForm';
+import ProgrammeModeOfEducationForm from '../components/ProgrammeModeOfEducationForm';
 import {
-  useCourseStreamActiveStatusMutation,
-  useCourseStreamQuery,
-  useCourseStreamsQuery,
-  useCreateCourseStreamMutation,
-  useUpdateCourseStreamMutation,
+  useProgrammeModeOfEducationActiveStatusMutation,
+  useProgrammeModeOfEducationQuery,
+  useProgrammeModeOfEducationsQuery,
+  useCreateProgrammeModeOfEducationMutation,
+  useUpdateProgrammeModeOfEducationMutation,
 } from '../queries';
 
 type PopupState =
@@ -24,11 +24,14 @@ type PopupState =
   | { mode: 'edit'; id: number };
 
 export default function List() {
-  const { data, isLoading } = useCourseStreamsQuery();
-  const { mutateAsync: toggleStatus } = useCourseStreamActiveStatusMutation();
+  const { data, isLoading } = useProgrammeModeOfEducationsQuery();
+  const { mutateAsync: toggleStatus } =
+    useProgrammeModeOfEducationActiveStatusMutation();
   const [popup, setPopup] = useState<PopupState>({ mode: 'closed' });
 
-  const handleToggleStatus = async (item: CourseMaster.CourseStreamItem) => {
+  const handleToggleStatus = async (
+    item: CourseMaster.ProgrammeModeOfEducationItem
+  ) => {
     await toggleStatus({ id: item.id, isActive: !item.isActive });
   };
 
@@ -36,8 +39,8 @@ export default function List() {
 
   return (
     <FormPage
-      title="Course Stream"
-      description="Manage the list of all course streams in the system."
+      title="Programme Mode of Education"
+      description="Manage the list of all Programme Mode of Educations in the system."
     >
       <FormCard>
         {isLoading ? <Loader /> : undefined}
@@ -55,7 +58,7 @@ export default function List() {
               field: 'isActive',
               header: 'Status',
               sortable: false,
-              cell: (item: CourseMaster.CourseStreamItem) => (
+              cell: (item: CourseMaster.ProgrammeModeOfEducationItem) => (
                 <StatusButton
                   value={item.isActive}
                   onClick={() => handleToggleStatus(item)}
@@ -78,8 +81,8 @@ export default function List() {
       <FormPopup
         visible={popup.mode === 'create'}
         onHide={closePopup}
-        title="Create Course Stream"
-        subtitle="Fill in the details to add a new course stream."
+        title="Create Programme Mode of Education"
+        subtitle="Fill in the details to add a new Programme Mode of Education."
       >
         <CreateContent onClose={closePopup} />
       </FormPopup>
@@ -87,8 +90,8 @@ export default function List() {
       <FormPopup
         visible={popup.mode === 'edit'}
         onHide={closePopup}
-        title="Edit Course Stream"
-        subtitle="Update the details of the course stream."
+        title="Edit Programme Mode of Education"
+        subtitle="Update the details of the Programme Mode of Education."
       >
         {popup.mode === 'edit' && (
           <EditContent id={popup.id} onClose={closePopup} />
@@ -99,48 +102,61 @@ export default function List() {
 }
 
 function CreateContent({ onClose }: { onClose: () => void }) {
-  const { mutateAsync, isPending } = useCreateCourseStreamMutation();
+  const { mutateAsync, isPending } =
+    useCreateProgrammeModeOfEducationMutation();
 
-  async function handleSubmit(data: CourseMaster.CourseStreamForm) {
+  async function handleSubmit(data: CourseMaster.ProgrammeModeOfEducationForm) {
     try {
       const result = await mutateAsync(data);
       if (result) {
-        ToastService.success('Course Stream created successfully.');
+        ToastService.success(
+          'Programme Mode of Education created successfully.'
+        );
         onClose();
       }
     } catch {
-      ToastService.error('Failed to create course stream');
+      ToastService.error('Failed to create Programme Mode of Education');
     }
   }
 
-  return <CourseStreamForm onSubmit={handleSubmit} isSaving={isPending} />;
+  return (
+    <ProgrammeModeOfEducationForm
+      onSubmit={handleSubmit}
+      isSaving={isPending}
+    />
+  );
 }
 
 function EditContent({ id, onClose }: { id: number; onClose: () => void }) {
-  const { mutateAsync, isPending } = useUpdateCourseStreamMutation(id);
-  const { data, isLoading } = useCourseStreamQuery(id);
-  const DEFAULT: CourseMaster.CourseStreamForm = {
+  const { mutateAsync, isPending } =
+    useUpdateProgrammeModeOfEducationMutation(id);
+  const { data, isLoading } = useProgrammeModeOfEducationQuery(id);
+  const DEFAULT: CourseMaster.ProgrammeModeOfEducationForm = {
     code: '',
     name: '',
     isActive: true,
   };
 
-  async function handleSubmit(formData: CourseMaster.CourseStreamForm) {
+  async function handleSubmit(
+    formData: CourseMaster.ProgrammeModeOfEducationForm
+  ) {
     try {
       const result = await mutateAsync(formData);
       if (result) {
-        ToastService.success('Course Stream updated successfully.');
+        ToastService.success(
+          'Programme Mode of Education updated successfully.'
+        );
         onClose();
       }
     } catch {
-      ToastService.error('Failed to update course stream');
+      ToastService.error('Failed to update Programme Mode of Education');
     }
   }
 
   if (isLoading) return <Loader />;
 
   return (
-    <CourseStreamForm
+    <ProgrammeModeOfEducationForm
       fetchData={data ?? DEFAULT}
       isSaving={isPending}
       isEditMode

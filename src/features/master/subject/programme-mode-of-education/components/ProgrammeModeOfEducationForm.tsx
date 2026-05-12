@@ -1,16 +1,18 @@
 import { FormActions, FormGrid } from 'shared/new-components';
 import { TextBox } from 'shared/components/forms';
-import { useCourseStreamForm } from './form.hook';
+import { useProgrammeModeOfEducationForm } from './form.hook';
 
-interface CourseStreamFormProps {
-  onSubmit: (data: CourseMaster.CourseStreamForm) => Promise<void>;
-  fetchData?: Forms.FetchDataFunc<CourseMaster.CourseStreamForm>;
+interface ProgrammeModeOfEducationFormProps {
+  onSubmit: (data: CourseMaster.ProgrammeModeOfEducationForm) => Promise<void>;
+  fetchData?: Forms.FetchDataFunc<CourseMaster.ProgrammeModeOfEducationForm>;
   isSaving?: boolean;
   isEditMode?: boolean;
 }
 
-export default function CourseStreamForm(props: CourseStreamFormProps) {
-  const { register, handleSubmit, reset } = useCourseStreamForm(
+export default function ProgrammeModeOfEducationForm(
+  props: ProgrammeModeOfEducationFormProps
+) {
+  const { register, handleSubmit, reset } = useProgrammeModeOfEducationForm(
     props.onSubmit,
     props.fetchData
   );
@@ -20,7 +22,7 @@ export default function CourseStreamForm(props: CourseStreamFormProps) {
       <FormGrid columns={2}>
         <TextBox
           label="Code"
-          placeholder="Enter Department Code"
+          placeholder="Enter Mode of Education Code"
           {...register('code')}
           maxLength={10}
           required
@@ -28,7 +30,7 @@ export default function CourseStreamForm(props: CourseStreamFormProps) {
         <TextBox
           label="Name"
           subLabel="(In English)"
-          placeholder="Enter Department Name"
+          placeholder="Enter Mode of Education Name"
           {...register('name')}
           maxLength={100}
           required

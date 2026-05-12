@@ -5,13 +5,13 @@ import { FormCard, FormPage } from 'shared/new-components';
 import { Loader } from 'shared/components/progress';
 import { useParamsId } from 'shared/hooks/params';
 import { masterUrls } from '../../../urls';
-import CourseStreamForm from '../components/CourseStreamForm';
+import ProgrammeModeOfEducationForm from '../components/ProgrammeModeOfEducationForm';
 import {
-  useCourseStreamQuery,
-  useUpdateCourseStreamMutation,
+  useProgrammeModeOfEducationQuery,
+  useUpdateProgrammeModeOfEducationMutation,
 } from '../queries';
 
-const DEFAULT: CourseMaster.CourseStreamForm = {
+const DEFAULT: CourseMaster.ProgrammeModeOfEducationForm = {
   code: '',
   name: '',
   isActive: true,
@@ -20,35 +20,38 @@ const DEFAULT: CourseMaster.CourseStreamForm = {
 export default function Edit() {
   const navigate = useNavigate();
   const id = useParamsId();
-  const { mutateAsync, isPending } = useUpdateCourseStreamMutation(id);
-  const { data = DEFAULT, isLoading } = useCourseStreamQuery(id);
+  const { mutateAsync, isPending } =
+    useUpdateProgrammeModeOfEducationMutation(id);
+  const { data = DEFAULT, isLoading } = useProgrammeModeOfEducationQuery(id);
 
   const handleBack = useCallback(() => {
-    navigate(masterUrls.courseStream.root);
+    navigate(masterUrls.ProgrammeModeOfEducation.root);
   }, [navigate]);
 
-  async function handleSubmit(formData: CourseMaster.CourseStreamForm) {
+  async function handleSubmit(
+    formData: CourseMaster.ProgrammeModeOfEducationForm
+  ) {
     try {
       const result = await mutateAsync(formData);
       if (result) {
-        ToastService.success('Course Stream updated successfully.');
+        ToastService.success('Course Department updated successfully.');
         handleBack();
       }
     } catch {
-      ToastService.error('Failed to update course stream');
+      ToastService.error('Failed to update course department');
     }
   }
 
   return (
     <FormPage
-      title="Edit Course Stream"
-      description="Update the details of the course stream."
+      title="Edit Course Department"
+      description="Update the details of the course department."
     >
-      <FormCard title="Stream Details">
+      <FormCard title="Department Details">
         {isLoading ? (
           <Loader />
         ) : (
-          <CourseStreamForm
+          <ProgrammeModeOfEducationForm
             fetchData={data}
             isSaving={isPending}
             isEditMode

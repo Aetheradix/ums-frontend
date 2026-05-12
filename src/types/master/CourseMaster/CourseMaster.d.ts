@@ -6,12 +6,12 @@ declare namespace CourseMaster {
   }
   type CourseStreamItem = Data.WithId<CourseStreamForm>;
 
-  interface CourseModeOfEducationForm {
+  interface ProgrammeModeOfEducationForm {
     code: string;
     name: string;
     isActive: boolean;
   }
-  type CourseModeOfEducationItem = Data.WithId<CourseModeOfEducationForm>;
+  type ProgrammeModeOfEducationItem = Data.WithId<ProgrammeModeOfEducationForm>;
 
   interface CourseExamTypeForm {
     code: string;

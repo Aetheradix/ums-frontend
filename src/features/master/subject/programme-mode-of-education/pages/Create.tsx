@@ -3,18 +3,19 @@ import { useNavigate } from 'react-router';
 import { ToastService } from 'services';
 import { FormCard, FormPage } from 'shared/new-components';
 import { masterUrls } from '../../../urls';
-import CourseModeOfEducationForm from '../components/CourseModeOfEducationForm';
-import { useCreateCourseModeOfEducationMutation } from '../queries';
+import ProgrammeModeOfEducationForm from '../components/ProgrammeModeOfEducationForm';
+import { useCreateProgrammeModeOfEducationMutation } from '../queries';
 
 export default function Create() {
   const navigate = useNavigate();
-  const { mutateAsync, isPending } = useCreateCourseModeOfEducationMutation();
+  const { mutateAsync, isPending } =
+    useCreateProgrammeModeOfEducationMutation();
 
   const handleBack = useCallback(() => {
-    navigate(masterUrls.courseModeOfEducation.root);
+    navigate(masterUrls.ProgrammeModeOfEducation.root);
   }, [navigate]);
 
-  async function handleSubmit(data: CourseMaster.CourseModeOfEducationForm) {
+  async function handleSubmit(data: CourseMaster.ProgrammeModeOfEducationForm) {
     try {
       const result = await mutateAsync(data);
       if (result) {
@@ -32,7 +33,7 @@ export default function Create() {
       description="Fill in the details to add a new course department."
     >
       <FormCard title="Department Details">
-        <CourseModeOfEducationForm
+        <ProgrammeModeOfEducationForm
           onSubmit={handleSubmit}
           isSaving={isPending}
         />
