@@ -213,28 +213,35 @@ export const menuConfig: Menu.MenuItem[] = [
         icon: 'apartment',
         colorScheme: 'red',
         children: [
-          {
-            label: 'Caste',
-            description:
-              'Manage different types of faculty and administrative offices.',
-            path: '/master/hr/caste',
-            icon: 'apartment',
-            colorScheme: 'red',
-          },
-          {
-            label: 'Religion',
-            description: 'Manage religions',
-            path: '/master/hr/religion',
-            icon: 'domain',
-            colorScheme: 'red',
-          },
-          {
-            label: 'Qualification',
-            description: 'Manage qualifications',
-            path: '/master/hr/qualification',
-            icon: 'badge',
-            colorScheme: 'red',
-          },
+           {
+             label: 'Caste',
+             description:
+               'Manage different types of faculty and administrative offices.',
+             path: '/master/hr/caste',
+             icon: 'apartment',
+             colorScheme: 'red',
+           },
+           {
+             label: 'Post',
+             description: 'Manage posts and positions',
+             path: '/master/hr/post',
+             icon: 'work',
+             colorScheme: 'red',
+           },
+           {
+             label: 'Religion',
+             description: 'Manage religions',
+             path: '/master/hr/religion',
+             icon: 'domain',
+             colorScheme: 'red',
+           },
+           {
+             label: 'Qualification',
+             description: 'Manage qualifications',
+             path: '/master/hr/qualification',
+             icon: 'badge',
+             colorScheme: 'red',
+           },
         ],
       },
       {

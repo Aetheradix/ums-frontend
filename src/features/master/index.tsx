@@ -6,6 +6,7 @@ import Designation from './faculty/designation';
 import Faculty from './faculty/faculty';
 import OfficeType from './faculty/office-type';
 import Caste from './hr/caste';
+import Post from './hr/post';
 import Qualification from './hr/qualification';
 import Religion from './hr/religion';
 import Location from './location';
@@ -36,6 +37,7 @@ export default function Master() {
 
       <Route path="hr/*">
         <Route path="caste/*" element={<Caste />} />
+        <Route path="post/*" element={<Post />} />
         <Route path="religion/*" element={<Religion />} />
         <Route path="qualification/*" element={<Qualification />} />
       </Route>
