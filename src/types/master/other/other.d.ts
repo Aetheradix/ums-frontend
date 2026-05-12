@@ -72,6 +72,10 @@ declare namespace Master {
       id: string;
       text: string;
     }
+    interface RelationshipItem {
+      id: string;
+      text: string;
+    }
     interface BloodGroupItem {
       id: string;
       text: string;
