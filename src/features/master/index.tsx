@@ -12,12 +12,12 @@ import Religion from './hr/religion';
 import Location from './location';
 import AcademicYear from './other/academic-year';
 import DegreeLevel from './other/degree-level';
+import Nationality from './other/nationality';
 import Programme from './other/programme';
 import Specialisation from './other/specialisation';
 import Scheme from './schemes/scheme';
 import SchemeCategory from './schemes/scheme-category';
 import SchemeType from './schemes/scheme-type';
-
 import GrantCategory from './grant/grant-category';
 import GrantType from './grant/grant-type';
 
@@ -50,6 +50,7 @@ export default function Master() {
         <Route path="academic-year/*" element={<AcademicYear />} />
         <Route path="programme/*" element={<Programme />} />
         <Route path="specialisation/*" element={<Specialisation />} />
+        <Route path="nationality/*" element={<Nationality />} />
       </Route>
 
       <Route path="grant/*">

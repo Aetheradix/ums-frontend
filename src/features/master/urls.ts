@@ -19,6 +19,7 @@ import { stateUrls } from './location/state/urls';
 import { tehsilUrls } from './location/tehsil/urls';
 import { academicYearUrls } from './other/academic-year/urls';
 import { degreeLevelUrls } from './other/degree-level/urls';
+import { nationalityUrls } from './other/nationality/urls';
 import { programmeUrls } from './other/programme/urls';
 import { specialisationUrls } from './other/specialisation/urls';
 import { schemeCategoryUrls } from './schemes/scheme-category/urls';
@@ -51,6 +52,7 @@ export const masterUrls = {
   schemeType: schemeTypeUrls(`${baseUrl}/scheme`),
   schemeCategory: schemeCategoryUrls(`${baseUrl}/scheme`),
   specialisation: specialisationUrls(`${baseUrl}/other`),
+  Nationality: nationalityUrls(`${baseUrl}/other`),
   grantType: grantTypeUrls(`${baseUrl}/grant`),
   grantCategory: grantCategoryUrls(`${baseUrl}/grant`),
 };

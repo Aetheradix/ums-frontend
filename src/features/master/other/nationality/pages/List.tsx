@@ -9,13 +9,13 @@ import {
   FormPopup,
   GridPanel,
 } from 'shared/new-components';
-import DegreeLevelForm from '../components/DegreeLevelForm';
+import NationalityForm from '../components/NationalityForm';
 import {
-  useCreateDegreeLevelMutation,
-  useDegreeLevelActiveStatusMutation,
-  useDegreeLevelQuery,
-  useDegreeLevelsQuery,
-  useUpdateDegreeLevelMutation,
+  useCreateNationalityMutation,
+  useNationalitiesQuery,
+  useNationalityActiveStatusMutation,
+  useNationalityQuery,
+  useUpdateNationalityMutation,
 } from '../queries';
 
 type PopupState =
@@ -24,11 +24,11 @@ type PopupState =
   | { mode: 'edit'; id: number };
 
 export default function List() {
-  const { data, isLoading } = useDegreeLevelsQuery();
-  const { mutateAsync: toggleStatus } = useDegreeLevelActiveStatusMutation();
+  const { data, isLoading } = useNationalitiesQuery();
+  const { mutateAsync: toggleStatus } = useNationalityActiveStatusMutation();
   const [popup, setPopup] = useState<PopupState>({ mode: 'closed' });
 
-  const handleToggleStatus = async (item: Master.Other.DegreeLevelItem) => {
+  const handleToggleStatus = async (item: Master.Other.NationalityItem) => {
     await toggleStatus({
       id: item.id,
       isActive: !item.isActive,
@@ -39,14 +39,14 @@ export default function List() {
 
   return (
     <FormPage
-      title="Degree Level"
-      description="Manage the list of all degree levels in the system."
+      title="Nationality"
+      description="Manage the list of all nationalities in the system."
     >
       <FormCard>
         <GridPanel
-          data={data as Master.Other.DegreeLevelItem[]}
+          data={data as Master.Other.NationalityItem[]}
           loading={isLoading}
-          onEdit={degreeLevel => setPopup({ mode: 'edit', id: degreeLevel.id })}
+          onEdit={nationality => setPopup({ mode: 'edit', id: nationality.id })}
           columns={[
             {
               cell: (_, option) => <span>{option.rowIndex + 1}</span>,
@@ -57,7 +57,7 @@ export default function List() {
               field: 'isActive',
               header: 'Status',
               sortable: false,
-              cell: (item: Master.Other.DegreeLevelItem) => (
+              cell: (item: Master.Other.NationalityItem) => (
                 <StatusButton
                   value={item.isActive}
                   onClick={() => handleToggleStatus(item)}
@@ -80,8 +80,8 @@ export default function List() {
       <FormPopup
         visible={popup.mode === 'create'}
         onHide={closePopup}
-        title="Create Degree Level"
-        subtitle="Fill in the details to add a new degree level."
+        title="Create Nationality"
+        subtitle="Fill in the details to add a new nationality."
       >
         <CreateContent onClose={closePopup} />
       </FormPopup>
@@ -89,8 +89,8 @@ export default function List() {
       <FormPopup
         visible={popup.mode === 'edit'}
         onHide={closePopup}
-        title="Edit Degree Level"
-        subtitle="Update the details of the degree level."
+        title="Edit Nationality"
+        subtitle="Update the details of the nationality."
       >
         {popup.mode === 'edit' && (
           <EditContent id={popup.id} onClose={closePopup} />
@@ -101,44 +101,44 @@ export default function List() {
 }
 
 function CreateContent({ onClose }: { onClose: () => void }) {
-  const { mutateAsync, isPending } = useCreateDegreeLevelMutation();
+  const { mutateAsync, isPending } = useCreateNationalityMutation();
 
-  async function handleSubmit(data: Master.Other.DegreeLevelForm) {
+  async function handleSubmit(data: Master.Other.NationalityForm) {
     try {
       const result = await mutateAsync(data);
       if (result) {
-        ToastService.success('Degree level created successfully.');
+        ToastService.success('Nationality created successfully.');
         onClose();
       }
     } catch {
-      ToastService.error('Failed to create degree level.');
+      ToastService.error('Failed to create nationality.');
     }
   }
 
-  return <DegreeLevelForm onSubmit={handleSubmit} isSaving={isPending} />;
+  return <NationalityForm onSubmit={handleSubmit} isSaving={isPending} />;
 }
 
 function EditContent({ id, onClose }: { id: number; onClose: () => void }) {
-  const { mutateAsync, isPending } = useUpdateDegreeLevelMutation(id);
-  const { data, isLoading } = useDegreeLevelQuery(id);
+  const { mutateAsync, isPending } = useUpdateNationalityMutation(id);
+  const { data, isLoading } = useNationalityQuery(id);
   const DEFAULT = { name: '' };
 
-  async function handleSubmit(formData: Master.Other.DegreeLevelForm) {
+  async function handleSubmit(formData: Master.Other.NationalityForm) {
     try {
       const result = await mutateAsync(formData);
       if (result) {
-        ToastService.success('Degree level updated successfully.');
+        ToastService.success('Nationality updated successfully.');
         onClose();
       }
     } catch {
-      ToastService.error('Failed to update degree level');
+      ToastService.error('Failed to update nationality');
     }
   }
 
   if (isLoading) return <Loader />;
 
   return (
-    <DegreeLevelForm
+    <NationalityForm
       fetchData={data ?? DEFAULT}
       isSaving={isPending}
       isEditMode
