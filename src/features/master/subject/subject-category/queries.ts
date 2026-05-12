@@ -1,32 +1,32 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import {
-  createProgrammeModeOfEducation,
-  getProgrammeModeOfEducation,
-  getProgrammeModeOfEducations,
-  patchProgrammeModeOfEducationStatus,
-  updateProgrammeModeOfEducation,
+  createSubjectCategory,
+  getSubjectCategory,
+  getSubjectCategories,
+  patchSubjectCategoryStatus,
+  updateSubjectCategory,
 } from './api';
 
-const QUERY_KEY = ['@master/programme-mode-of-educations'];
+const QUERY_KEY = ['@master/subject-categories'];
 
-export function useProgrammeModeOfEducationsQuery() {
+export function useSubjectCategoriesQuery() {
   const { data = [], isLoading } = useQuery({
     queryKey: QUERY_KEY,
-    queryFn: getProgrammeModeOfEducations,
+    queryFn: getSubjectCategories,
   });
   return { data, isLoading };
 }
 
-export function useCreateProgrammeModeOfEducationMutation() {
+export function useCreateSubjectCategoryMutation() {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: async (data: SubjectMaster.ProgrammeModeOfEducationForm) =>
-      await createProgrammeModeOfEducation(data),
+    mutationFn: async (data: SubjectMaster.SubjectCategoryForm) =>
+      await createSubjectCategory(data),
 
     onSuccess(data) {
       if (!data) return;
       const result =
-        queryClient.getQueryData<SubjectMaster.ProgrammeModeOfEducationItem[]>(
+        queryClient.getQueryData<SubjectMaster.SubjectCategoryItem[]>(
           QUERY_KEY
         ) ?? [];
       queryClient.setQueryData(QUERY_KEY, [...result, data]);
@@ -34,11 +34,11 @@ export function useCreateProgrammeModeOfEducationMutation() {
   });
 }
 
-export function useProgrammeModeOfEducationQuery(id: number) {
+export function useSubjectCategoryQuery(id: number) {
   return useQuery({
     queryKey: [...QUERY_KEY, id],
     queryFn: async () => {
-      const data = await getProgrammeModeOfEducation(id);
+      const data = await getSubjectCategory(id);
       if (!data) return undefined;
       return {
         name: data.name,
@@ -49,25 +49,25 @@ export function useProgrammeModeOfEducationQuery(id: number) {
   });
 }
 
-export function useUpdateProgrammeModeOfEducationMutation(id: number) {
+export function useUpdateSubjectCategoryMutation(id: number) {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async (data: SubjectMaster.ProgrammeModeOfEducationForm) =>
-      await updateProgrammeModeOfEducation(id, data),
+    mutationFn: async (data: SubjectMaster.SubjectCategoryForm) =>
+      await updateSubjectCategory(id, data),
 
     onSuccess(success, formData) {
       if (!success) return;
 
       const result =
-        queryClient.getQueryData<SubjectMaster.ProgrammeModeOfEducationItem[]>(
+        queryClient.getQueryData<SubjectMaster.SubjectCategoryItem[]>(
           QUERY_KEY
         ) ?? [];
       const index = result.findIndex(item => item.id === id);
       if (index === -1) return;
 
       const existing = result[index];
-      const itemToReplace: SubjectMaster.ProgrammeModeOfEducationItem = {
+      const itemToReplace: SubjectMaster.SubjectCategoryItem = {
         id,
         name: formData.name,
         code: formData.code,
@@ -84,18 +84,18 @@ export function useUpdateProgrammeModeOfEducationMutation(id: number) {
   });
 }
 
-export function useProgrammeModeOfEducationActiveStatusMutation() {
+export function useSubjectCategoryActiveStatusMutation() {
   const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: async (data: { id: number; isActive: boolean }) =>
-      await patchProgrammeModeOfEducationStatus(data.id),
+      await patchSubjectCategoryStatus(data.id),
 
     onSuccess(success, variables) {
       if (!success) return;
 
       const result =
-        queryClient.getQueryData<SubjectMaster.ProgrammeModeOfEducationItem[]>(
+        queryClient.getQueryData<SubjectMaster.SubjectCategoryItem[]>(
           QUERY_KEY
         ) ?? [];
 

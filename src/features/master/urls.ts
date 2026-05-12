@@ -24,9 +24,12 @@ import { schemeTypeUrls } from './schemes/scheme-type/urls';
 import { schemeUrls } from './schemes/scheme/urls';
 import { ProgrammeModeOfEducationUrls } from './subject/programme-mode-of-education/urls';
 
+import { subjectCategoryUrls } from './subject/subject-category/urls';
+
 const baseUrl = '/master';
 export const masterUrls = {
   ProgrammeModeOfEducation: ProgrammeModeOfEducationUrls(baseUrl),
+  subjectCategory: subjectCategoryUrls(baseUrl),
   officeType: officeTypeUrls(`${baseUrl}/faculty-management`),
   department: departmentUrls(`${baseUrl}/faculty-management`),
   state: stateUrls(`${baseUrl}/location`),

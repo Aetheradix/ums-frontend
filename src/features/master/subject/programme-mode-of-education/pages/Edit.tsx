@@ -1,9 +1,9 @@
 import { useCallback } from 'react';
 import { useNavigate } from 'react-router';
 import { ToastService } from 'services';
-import { FormCard, FormPage } from 'shared/new-components';
 import { Loader } from 'shared/components/progress';
 import { useParamsId } from 'shared/hooks/params';
+import { FormCard, FormPage } from 'shared/new-components';
 import { masterUrls } from '../../../urls';
 import ProgrammeModeOfEducationForm from '../components/ProgrammeModeOfEducationForm';
 import {
@@ -11,7 +11,7 @@ import {
   useUpdateProgrammeModeOfEducationMutation,
 } from '../queries';
 
-const DEFAULT: CourseMaster.ProgrammeModeOfEducationForm = {
+const DEFAULT: SubjectMaster.ProgrammeModeOfEducationForm = {
   code: '',
   name: '',
   isActive: true,
@@ -29,7 +29,7 @@ export default function Edit() {
   }, [navigate]);
 
   async function handleSubmit(
-    formData: CourseMaster.ProgrammeModeOfEducationForm
+    formData: SubjectMaster.ProgrammeModeOfEducationForm
   ) {
     try {
       const result = await mutateAsync(formData);

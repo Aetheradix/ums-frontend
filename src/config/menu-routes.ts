@@ -163,6 +163,13 @@ export const menuConfig: Menu.MenuItem[] = [
             icon: 'apartment',
             colorScheme: 'purple',
           },
+          {
+            label: 'Subject Category',
+            description: 'Manage Subject Category',
+            path: '/master/subject/subject-category',
+            icon: 'apartment',
+            colorScheme: 'purple',
+          },
         ],
       },
 

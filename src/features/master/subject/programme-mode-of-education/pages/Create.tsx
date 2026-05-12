@@ -15,7 +15,9 @@ export default function Create() {
     navigate(masterUrls.ProgrammeModeOfEducation.root);
   }, [navigate]);
 
-  async function handleSubmit(data: CourseMaster.ProgrammeModeOfEducationForm) {
+  async function handleSubmit(
+    data: SubjectMaster.ProgrammeModeOfEducationForm
+  ) {
     try {
       const result = await mutateAsync(data);
       if (result) {

@@ -1,5 +1,4 @@
 import { useCallback, useState } from 'react';
-import { ToastService } from 'services';
 import { Button } from 'shared/components/buttons';
 import StatusButton from 'shared/components/buttons/StatusButton';
 import { Loader } from 'shared/components/progress';
@@ -9,13 +8,14 @@ import {
   FormPopup,
   GridPanel,
 } from 'shared/new-components';
-import ProgrammeModeOfEducationForm from '../components/ProgrammeModeOfEducationForm';
+import { ToastService } from 'services';
+import SubjectCategoryForm from '../components/SubjectCategoryForm';
 import {
-  useCreateProgrammeModeOfEducationMutation,
-  useProgrammeModeOfEducationActiveStatusMutation,
-  useProgrammeModeOfEducationQuery,
-  useProgrammeModeOfEducationsQuery,
-  useUpdateProgrammeModeOfEducationMutation,
+  useSubjectCategoryActiveStatusMutation,
+  useSubjectCategoryQuery,
+  useSubjectCategoriesQuery,
+  useCreateSubjectCategoryMutation,
+  useUpdateSubjectCategoryMutation,
 } from '../queries';
 
 type PopupState =
@@ -24,13 +24,13 @@ type PopupState =
   | { mode: 'edit'; id: number };
 
 export default function List() {
-  const { data, isLoading } = useProgrammeModeOfEducationsQuery();
+  const { data, isLoading } = useSubjectCategoriesQuery();
   const { mutateAsync: toggleStatus } =
-    useProgrammeModeOfEducationActiveStatusMutation();
+    useSubjectCategoryActiveStatusMutation();
   const [popup, setPopup] = useState<PopupState>({ mode: 'closed' });
 
   const handleToggleStatus = async (
-    item: SubjectMaster.ProgrammeModeOfEducationItem
+    item: SubjectMaster.SubjectCategoryItem
   ) => {
     await toggleStatus({ id: item.id, isActive: !item.isActive });
   };
@@ -39,14 +39,14 @@ export default function List() {
 
   return (
     <FormPage
-      title="Programme Mode of Education"
-      description="Manage the list of all Programme Mode of Educations in the system."
+      title="Subject Category"
+      description="Manage the list of all subject categories in the system."
     >
       <FormCard>
         {isLoading ? <Loader /> : undefined}
         <GridPanel
           data={data}
-          onEdit={department => setPopup({ mode: 'edit', id: department.id })}
+          onEdit={item => setPopup({ mode: 'edit', id: item.id })}
           columns={[
             {
               cell: (_, option) => <span>{option.rowIndex + 1}</span>,
@@ -58,7 +58,7 @@ export default function List() {
               field: 'isActive',
               header: 'Status',
               sortable: false,
-              cell: (item: SubjectMaster.ProgrammeModeOfEducationItem) => (
+              cell: (item: SubjectMaster.SubjectCategoryItem) => (
                 <StatusButton
                   value={item.isActive}
                   onClick={() => handleToggleStatus(item)}
@@ -81,8 +81,8 @@ export default function List() {
       <FormPopup
         visible={popup.mode === 'create'}
         onHide={closePopup}
-        title="Create Programme Mode of Education"
-        subtitle="Fill in the details to add a new Programme Mode of Education."
+        title="Create Subject Category"
+        subtitle="Fill in the details to add a new subject category."
       >
         <CreateContent onClose={closePopup} />
       </FormPopup>
@@ -90,8 +90,8 @@ export default function List() {
       <FormPopup
         visible={popup.mode === 'edit'}
         onHide={closePopup}
-        title="Edit Programme Mode of Education"
-        subtitle="Update the details of the Programme Mode of Education."
+        title="Edit Subject Category"
+        subtitle="Update the details of the subject category."
       >
         {popup.mode === 'edit' && (
           <EditContent id={popup.id} onClose={closePopup} />
@@ -102,63 +102,48 @@ export default function List() {
 }
 
 function CreateContent({ onClose }: { onClose: () => void }) {
-  const { mutateAsync, isPending } =
-    useCreateProgrammeModeOfEducationMutation();
+  const { mutateAsync, isPending } = useCreateSubjectCategoryMutation();
 
-  async function handleSubmit(
-    data: SubjectMaster.ProgrammeModeOfEducationForm
-  ) {
+  async function handleSubmit(data: SubjectMaster.SubjectCategoryForm) {
     try {
       const result = await mutateAsync(data);
       if (result) {
-        ToastService.success(
-          'Programme Mode of Education created successfully.'
-        );
+        ToastService.success('Subject Category created successfully.');
         onClose();
       }
     } catch {
-      ToastService.error('Failed to create Programme Mode of Education');
+      ToastService.error('Failed to create subject category.');
     }
   }
 
-  return (
-    <ProgrammeModeOfEducationForm
-      onSubmit={handleSubmit}
-      isSaving={isPending}
-    />
-  );
+  return <SubjectCategoryForm onSubmit={handleSubmit} isSaving={isPending} />;
 }
 
 function EditContent({ id, onClose }: { id: number; onClose: () => void }) {
-  const { mutateAsync, isPending } =
-    useUpdateProgrammeModeOfEducationMutation(id);
-  const { data, isLoading } = useProgrammeModeOfEducationQuery(id);
-  const DEFAULT: SubjectMaster.ProgrammeModeOfEducationForm = {
+  const { mutateAsync, isPending } = useUpdateSubjectCategoryMutation(id);
+  const { data, isLoading } = useSubjectCategoryQuery(id);
+  const DEFAULT: SubjectMaster.SubjectCategoryForm = {
     code: '',
     name: '',
     isActive: true,
   };
 
-  async function handleSubmit(
-    formData: SubjectMaster.ProgrammeModeOfEducationForm
-  ) {
+  async function handleSubmit(formData: SubjectMaster.SubjectCategoryForm) {
     try {
       const result = await mutateAsync(formData);
       if (result) {
-        ToastService.success(
-          'Programme Mode of Education updated successfully.'
-        );
+        ToastService.success('Subject Category updated successfully.');
         onClose();
       }
     } catch {
-      ToastService.error('Failed to update Programme Mode of Education');
+      ToastService.error('Failed to update subject category.');
     }
   }
 
   if (isLoading) return <Loader />;
 
   return (
-    <ProgrammeModeOfEducationForm
+    <SubjectCategoryForm
       fetchData={data ?? DEFAULT}
       isSaving={isPending}
       isEditMode
