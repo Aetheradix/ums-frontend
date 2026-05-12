@@ -76,5 +76,11 @@ declare namespace Master {
       id: string;
       text: string;
     }
+
+    // Language-Preferences
+    interface LanguagePreferenceItem {
+      id: string;
+      text: string;
+    }
   }
 }
