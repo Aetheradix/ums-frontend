@@ -90,31 +90,31 @@
 }
 
 /* ── Dark Theme ── */
-.dark-theme .form-popup-overlay {
+.dark .form-popup-overlay {
   background: rgba(0, 0, 0, 0.6);
 }
 
-.dark-theme .form-popup-panel {
+.dark .form-popup-panel {
   background-color: var(--dark-card-bg);
   border: 1px solid var(--dark-border);
 }
 
-.dark-theme .form-popup-header {
+.dark .form-popup-header {
   @apply border-zinc-800;
 }
 
-.dark-theme .form-popup-title {
+.dark .form-popup-title {
   @apply text-white;
 }
 
-.dark-theme .form-popup-subtitle {
+.dark .form-popup-subtitle {
   @apply text-zinc-400;
 }
 
-.dark-theme .form-popup-close:hover {
+.dark .form-popup-close:hover {
   @apply bg-zinc-800 text-zinc-200;
 }
 
-.dark-theme .form-popup-body::-webkit-scrollbar-thumb {
+.dark .form-popup-body::-webkit-scrollbar-thumb {
   @apply bg-zinc-700;
 }

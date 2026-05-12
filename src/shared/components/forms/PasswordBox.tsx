@@ -5,7 +5,8 @@ import './PasswordBox.css';
 import InputBlock from './InputBlock';
 
 interface PasswordBoxProps<TForm extends FieldValues>
-  extends Controls.FormProps<TForm>,
+  extends
+    Controls.FormProps<TForm>,
     Controls.InputBlockProps,
     Controls.InputProps {
   value?: string;
@@ -31,25 +32,14 @@ function InnerPasswordBox({
   const inputId = id ?? name;
   return (
     <InputBlock label={label} id={inputId} errorMessage={errorMessage}>
-      <span
-        className={`p-input-icon-${iconPosition}`}
-        style={{ width: 'auto', position: 'relative' }}
-      >
+      <span className={`p-input-icon-${iconPosition} password-icon-wrapper`}>
         {icon && (
           <i
-            className={icon}
-            style={{
-              fontSize: '1rem',
-              color: '#000',
-              ...(iconPosition === 'left'
-                ? { left: '1rem' }
-                : { right: '0rem' }),
-              position: 'absolute',
-              top: '50%',
-              // transform: 'translateY(-50%)',
-              pointerEvents: 'none',
-              zIndex: 1,
-            }}
+            className={`${icon} password-input-icon ${
+              iconPosition === 'left'
+                ? 'password-icon-left'
+                : 'password-icon-right'
+            }`}
           />
         )}
         <Password

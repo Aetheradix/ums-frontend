@@ -48,6 +48,10 @@ export default function Breadcrumb({ items }: BreadcrumbProps) {
         label = 'Faculty Admin';
       } else if (path.toLowerCase() === 'course') {
         label = 'Course Management';
+      } else if (path.toLowerCase() === 'grant') {
+        label = 'Grants';
+      } else if (path.toLowerCase() === 'schemes') {
+        label = 'Schemes';
       }
 
       let toPath = currentPath;
@@ -65,6 +69,10 @@ export default function Breadcrumb({ items }: BreadcrumbProps) {
         toPath = '/home/sub-menu/other';
       } else if (path.toLowerCase() === 'college') {
         toPath = '/home/sub-menu/college';
+      } else if (path.toLowerCase() === 'grant') {
+        toPath = '/home/sub-menu/grant';
+      } else if (path.toLowerCase() === 'schemes') {
+        toPath = '/home/sub-menu/schemes';
       }
 
       generatedItems.push({

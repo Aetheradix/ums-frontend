@@ -13,9 +13,9 @@
   @apply flex flex-col gap-1 mb-8;
 }
 
-.submenu-category {
+/* .submenu-category {
   @apply text-blue-500 text-xs font-bold uppercase tracking-wider;
-}
+} */
 
 .submenu-title {
   @apply text-3xl font-bold text-slate-900;
@@ -27,6 +27,6 @@
 }
 
 /* ── Dark Theme Support ── */
-.dark-theme .submenu-title {
+.dark .submenu-title {
   color: var(--dark-text);
 }

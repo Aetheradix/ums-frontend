@@ -33,15 +33,16 @@
 }
 
 .label-required {
-  @apply text-red-500 ml-0.5;
+  @apply ml-0.5;
+  color: var(--color-danger);
 }
 
 /* ── Dark Theme Overrides ── */
-.dark-theme .label-main {
+.dark .label-main {
   @apply text-white;
 }
 
-.dark-theme .label-sub {
+.dark .label-sub {
   @apply text-[var(--dark-text-secondary)];
 }
 
@@ -69,7 +70,7 @@
   @apply text-slate-400;
 }
 
-.dark-theme .input-field-wrapper input::placeholder {
+.dark .input-field-wrapper input::placeholder {
   color: var(--dark-placeholder);
 }
 
@@ -96,6 +97,14 @@
 .input-icon {
   @apply absolute top-1/2 -translate-y-1/2
   pointer-events-none text-gray-400;
+}
+
+.input-icon-left {
+  left: 1rem;
+}
+
+.input-icon-right {
+  right: 1rem;
 }
 
 /* ── Animation ── */

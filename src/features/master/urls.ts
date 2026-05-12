@@ -7,6 +7,8 @@ import { departmentUrls } from './faculty/department/urls';
 import { designationUrls } from './faculty/designation/urls';
 import { facultyUrls } from './faculty/faculty/urls';
 import { officeTypeUrls } from './faculty/office-type/urls';
+import { grantCategoryUrls } from './grant/grant-category/urls';
+import { grantTypeUrls } from './grant/grant-type/urls';
 import { casteUrls } from './hr/caste/urls';
 import { qualificationUrls } from './hr/qualification/urls';
 import { religionUrls } from './hr/religion/urls';
@@ -20,6 +22,9 @@ import { degreeLevelUrls } from './other/degree-level/urls';
 import { nationalityUrls } from './other/nationality/urls';
 import { programmeUrls } from './other/programme/urls';
 import { specialisationUrls } from './other/specialisation/urls';
+import { schemeCategoryUrls } from './schemes/scheme-category/urls';
+import { schemeTypeUrls } from './schemes/scheme-type/urls';
+import { schemeUrls } from './schemes/scheme/urls';
 
 const baseUrl = '/master';
 export const masterUrls = {
@@ -43,6 +48,11 @@ export const masterUrls = {
   degreeLevel: degreeLevelUrls(`${baseUrl}/other`),
   academicYear: academicYearUrls(`${baseUrl}/other`),
   programme: programmeUrls(`${baseUrl}/other`),
+  scheme: schemeUrls(`${baseUrl}/scheme`),
+  schemeType: schemeTypeUrls(`${baseUrl}/scheme`),
+  schemeCategory: schemeCategoryUrls(`${baseUrl}/scheme`),
   specialisation: specialisationUrls(`${baseUrl}/other`),
   Nationality: nationalityUrls(`${baseUrl}/other`),
+  grantType: grantTypeUrls(`${baseUrl}/grant`),
+  grantCategory: grantCategoryUrls(`${baseUrl}/grant`),
 };

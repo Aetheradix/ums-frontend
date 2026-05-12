@@ -47,13 +47,13 @@
 }
 
 /* Dark Theme Overrides */
-.dark-theme .submenu-welcome h1,
-.dark-theme .submenu-breadcrumb-current,
-.dark-theme .submenu-breadcrumb-sep {
+.dark .submenu-welcome h1,
+.dark .submenu-breadcrumb-current,
+.dark .submenu-breadcrumb-sep {
   color: var(--dark-text);
 }
 
-.dark-theme .submenu-welcome p,
-.dark-theme .submenu-breadcrumb {
+.dark .submenu-welcome p,
+.dark .submenu-breadcrumb {
   color: var(--dark-text-secondary);
 }

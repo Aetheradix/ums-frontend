@@ -21,13 +21,12 @@
   border: none !important;
 }
 
-/* Smooth hover */
 .db-service-card:hover {
   box-shadow: 0 14px 32px rgba(15, 23, 42, 0.08);
 }
 
 /* ─────────────────────────────
-   Top Right Cutout Area (The Magic Happens Here)
+   Top Right Cutout Area
 ───────────────────────────── */
 .db-card-corner-action {
   position: absolute;
@@ -40,7 +39,6 @@
   z-index: 5;
 }
 
-/* 1st Smooth Curve (Top edge connection) */
 .db-card-corner-action::before {
   content: '';
   position: absolute;
@@ -53,7 +51,6 @@
   box-shadow: 10px -10px 0 10px #f5f7ff;
 }
 
-/* 2nd Smooth Curve (Right edge connection) */
 .db-card-corner-action::after {
   content: '';
   position: absolute;
@@ -71,7 +68,7 @@
 ───────────────────────────── */
 .db-card-arrow {
   position: absolute;
-  top: 14px; /* Adjusted to center in the 68px cutout */
+  top: 14px;
   right: 14px;
 
   @apply w-10 h-10 rounded-full bg-white flex items-center justify-center text-slate-900 transition-all duration-200;
@@ -85,7 +82,7 @@
 }
 
 .db-card-arrow:hover {
-  @apply bg-[#2264dc] text-white;
+  @apply text-white;
   transform: scale(1.05);
 }
 
@@ -93,10 +90,13 @@
    Card Content
 ───────────────────────────── */
 .db-card-content {
-  @apply flex flex-col justify-between relative z-[2];
+  @apply flex flex-col justify-between relative z-2;
   flex: 1;
 }
 
+/* ─────────────────────────────
+   Icon Box
+───────────────────────────── */
 .db-card-icon-box {
   @apply w-15 h-15 rounded-2xl flex items-center justify-center;
   border: none;
@@ -106,18 +106,24 @@
   font-size: 30px;
 }
 
-/* Title */
+/* ─────────────────────────────
+   Title
+───────────────────────────── */
 .db-card-title {
   @apply text-[16px] font-bold leading-[1.4] text-slate-900 mt-4;
   white-space: pre-line;
 }
 
-/* Description */
+/* ─────────────────────────────
+   Description
+───────────────────────────── */
 .db-card-description {
   @apply text-[13px] leading-relaxed text-slate-500 mt-2;
 }
 
-/* Badge */
+/* ─────────────────────────────
+   Badge
+───────────────────────────── */
 .db-card-badge {
   @apply inline-flex items-center gap-1.5 text-xs font-semibold text-slate-700 mt-3 px-2.5 py-1 bg-slate-50 rounded-full w-fit;
 }
@@ -127,94 +133,150 @@
 }
 
 /* ─────────────────────────────
-   Color Schemes
+   Icon Color Schemes
 ───────────────────────────── */
 .db-card-icon-box.bg-blue {
   @apply bg-blue-50 text-blue-600;
 }
+
 .db-card-icon-box.bg-purple {
   @apply bg-violet-50 text-violet-600;
 }
+
 .db-card-icon-box.bg-gray {
   @apply bg-slate-100 text-slate-600;
 }
+
 .db-card-icon-box.bg-green {
   @apply bg-green-50 text-green-600;
 }
+
 .db-card-icon-box.bg-orange {
   @apply bg-orange-50 text-orange-600;
 }
+
 .db-card-icon-box.bg-red {
-  @apply bg-red-50 text-red-500;
+  @apply bg-red-50;
+  color: var(--color-danger);
 }
+
 .db-card-icon-box.bg-pink {
   @apply bg-rose-50 text-rose-500;
 }
+
 .db-card-icon-box.bg-teal {
   @apply bg-teal-50 text-teal-600;
 }
+
 .db-card-icon-box.bg-indigo {
   @apply bg-indigo-50 text-indigo-600;
 }
+
 .db-card-icon-box.bg-amber {
   @apply bg-amber-50 text-amber-600;
 }
 
 /* ─────────────────────────────
+   Badge Colors
+───────────────────────────── */
+.db-card-badge-dot.badge-blue {
+  @apply bg-blue-500;
+}
+
+.db-card-badge-dot.badge-purple {
+  @apply bg-violet-500;
+}
+
+.db-card-badge-dot.badge-gray {
+  @apply bg-slate-500;
+}
+
+.db-card-badge-dot.badge-green {
+  @apply bg-green-500;
+}
+
+.db-card-badge-dot.badge-orange {
+  @apply bg-orange-500;
+}
+
+.db-card-badge-dot.badge-red {
+  background-color: var(--color-danger);
+}
+
+.db-card-badge-dot.badge-pink {
+  @apply bg-rose-500;
+}
+
+.db-card-badge-dot.badge-teal {
+  @apply bg-teal-500;
+}
+
+.db-card-badge-dot.badge-indigo {
+  @apply bg-indigo-500;
+}
+
+.db-card-badge-dot.badge-amber {
+  @apply bg-amber-500;
+}
+
+/* ─────────────────────────────
    Dark Theme
 ───────────────────────────── */
-.dark-theme .db-service-card {
+.dark .db-service-card {
   background-color: #121214;
   border: none !important;
+
   box-shadow:
     inset 0 0 0 1px var(--dark-border),
     0 10px 30px rgba(0, 0, 0, 0.4);
+
   overflow: hidden;
 }
 
-.dark-theme .db-service-card:hover {
+.dark .db-service-card:hover {
   background-color: #18181b;
+
   box-shadow:
     inset 0 0 0 1px #3f3f46,
     0 15px 40px rgba(0, 0, 0, 0.6);
 }
 
-/* Update Cutout curves for Dark Theme */
-.dark-theme .db-card-corner-action {
+.dark .db-card-corner-action {
   background-color: var(--dark-bg);
   top: 0;
   right: 0;
   width: 68px;
   height: 68px;
 }
-.dark-theme .db-card-corner-action::before,
-.dark-theme .db-card-corner-action::after {
+
+.dark .db-card-corner-action::before,
+.dark .db-card-corner-action::after {
   box-shadow: 10px -10px 0 10px var(--dark-bg);
 }
 
-.dark-theme .db-card-arrow {
+.dark .db-card-arrow {
   background-color: var(--dark-card-bg);
   color: var(--dark-text);
 }
 
-.dark-theme .db-card-arrow:hover {
+.dark .db-card-arrow:hover {
   background-color: var(--primary-color);
   color: white;
 }
 
-.dark-theme .db-card-title {
+.dark .db-card-title {
   color: var(--dark-text);
 }
 
-.dark-theme .db-card-description {
+.dark .db-card-description {
   color: var(--dark-text-secondary);
 }
 
-.dark-theme .db-card-badge {
+.dark .db-card-badge {
   background-color: rgba(255, 255, 255, 0.05);
   color: var(--dark-text);
 }
 
-.dark-theme .db-card-icon-box {
+.dark .db-card-icon-box {
   background-color: rgba(255, 255, 255, 0.05) !important;
 }

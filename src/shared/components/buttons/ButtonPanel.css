@@ -21,7 +21,7 @@
   border: 1px solid var(--primary-color) !important;
 }
 
-.dark-theme .custom-submit {
+.dark .custom-submit {
   background-color: var(--primary-color) !important;
   @apply !text-white;
   border: 1px solid white !important;
@@ -41,7 +41,7 @@
   width: 6rem;
 }
 
-.dark-theme .p-button.p-button-outlined {
+.dark .p-button.p-button-outlined {
   @apply bg-transparent;
   @apply !text-white;
   border: 1px solid;
