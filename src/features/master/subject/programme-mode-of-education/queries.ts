@@ -1,34 +1,32 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import {
-  createCourseExamType,
-  getCourseExamType,
-  getCourseExamTypes,
-  patchCourseExamTypeStatus,
-  updateCourseExamType,
+  createProgrammeModeOfEducation,
+  getProgrammeModeOfEducation,
+  getProgrammeModeOfEducations,
+  patchProgrammeModeOfEducationStatus,
+  updateProgrammeModeOfEducation,
 } from './api';
 
-const QUERY_KEY = ['@master/course-exam-types'];
+const QUERY_KEY = ['@master/programme-mode-of-educations'];
 
-export function useCourseExamTypesQuery() {
+export function useProgrammeModeOfEducationsQuery() {
   const { data = [], isLoading } = useQuery({
     queryKey: QUERY_KEY,
-    queryFn: getCourseExamTypes,
+    queryFn: getProgrammeModeOfEducations,
   });
   return { data, isLoading };
 }
 
-export function useCreateCourseExamTypeMutation() {
+export function useCreateProgrammeModeOfEducationMutation() {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: async (data: CourseMaster.CourseExamTypeForm) =>
-      await createCourseExamType(data),
+    mutationFn: async (data: CourseMaster.ProgrammeModeOfEducationForm) =>
+      await createProgrammeModeOfEducation(data),
 
     onSuccess(data) {
-      if (!data) {
-        return;
-      }
+      if (!data) return;
       const result =
-        queryClient.getQueryData<CourseMaster.CourseExamTypeItem[]>(
+        queryClient.getQueryData<CourseMaster.ProgrammeModeOfEducationItem[]>(
           QUERY_KEY
         ) ?? [];
       queryClient.setQueryData(QUERY_KEY, [...result, data]);
@@ -36,11 +34,11 @@ export function useCreateCourseExamTypeMutation() {
   });
 }
 
-export function useCourseExamTypeQuery(id: number) {
+export function useProgrammeModeOfEducationQuery(id: number) {
   return useQuery({
     queryKey: [...QUERY_KEY, id],
     queryFn: async () => {
-      const data = await getCourseExamType(id);
+      const data = await getProgrammeModeOfEducation(id);
       if (!data) return undefined;
       return {
         name: data.name,
@@ -51,25 +49,25 @@ export function useCourseExamTypeQuery(id: number) {
   });
 }
 
-export function useUpdateCourseExamTypeMutation(id: number) {
+export function useUpdateProgrammeModeOfEducationMutation(id: number) {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async (data: CourseMaster.CourseExamTypeForm) =>
-      await updateCourseExamType(id, data),
+    mutationFn: async (data: CourseMaster.ProgrammeModeOfEducationForm) =>
+      await updateProgrammeModeOfEducation(id, data),
 
     onSuccess(success, formData) {
       if (!success) return;
 
       const result =
-        queryClient.getQueryData<CourseMaster.CourseExamTypeItem[]>(
+        queryClient.getQueryData<CourseMaster.ProgrammeModeOfEducationItem[]>(
           QUERY_KEY
         ) ?? [];
       const index = result.findIndex(item => item.id === id);
       if (index === -1) return;
 
       const existing = result[index];
-      const itemToReplace: CourseMaster.CourseExamTypeItem = {
+      const itemToReplace: CourseMaster.ProgrammeModeOfEducationItem = {
         id,
         name: formData.name,
         code: formData.code,
@@ -86,18 +84,18 @@ export function useUpdateCourseExamTypeMutation(id: number) {
   });
 }
 
-export function useCourseExamTypeItemActiveStatusMutation() {
+export function useProgrammeModeOfEducationActiveStatusMutation() {
   const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: async (data: { id: number; isActive: boolean }) =>
-      await patchCourseExamTypeStatus(data.id),
+      await patchProgrammeModeOfEducationStatus(data.id),
 
     onSuccess(success, variables) {
       if (!success) return;
 
       const result =
-        queryClient.getQueryData<CourseMaster.CourseExamTypeItem[]>(
+        queryClient.getQueryData<CourseMaster.ProgrammeModeOfEducationItem[]>(
           QUERY_KEY
         ) ?? [];
 

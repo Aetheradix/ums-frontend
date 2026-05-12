@@ -1,7 +1,6 @@
 import { Route, Routes } from 'react-router';
 import CollegeCategory from './college/college-category';
 import CollegeType from './college/college-type';
-import Course from './course';
 import Department from './faculty/department';
 import Designation from './faculty/designation';
 import Faculty from './faculty/faculty';
@@ -20,12 +19,13 @@ import SchemeType from './schemes/scheme-type';
 
 import GrantCategory from './grant/grant-category';
 import GrantType from './grant/grant-type';
+import Subject from './subject';
 
 export default function Master() {
   return (
     <Routes>
       <Route path="location/*" element={<Location />} />
-      <Route path="course/*" element={<Course />} />
+      <Route path="subject/*" element={<Subject />} />
 
       <Route path="faculty-management/*">
         <Route path="office-type/*" element={<OfficeType />} />

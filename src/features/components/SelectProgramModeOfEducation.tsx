@@ -1,21 +1,21 @@
+import { useProgrammeModeOfEducationsQuery } from 'features/master/subject/programme-mode-of-education/queries';
 import type { FieldValues } from 'react-hook-form';
 import { DropDownList } from 'shared/components/forms';
-import { useCourseExamTypesQuery } from '../master/course/course-exam-type/queries';
 
-interface SelectCourseExamTypeProps<
+interface SelectCourseModeProps<
   T extends FieldValues,
 > extends Controls.FormProps<T> {
   label?: string;
   disabled?: boolean;
 }
 
-export default function SelectCourseExamType<T extends FieldValues>({
+export default function SelectCourseMode<T extends FieldValues>({
   defaultOptionText,
-  label = 'Exam Type',
+  label = 'Mode',
   ...props
-}: SelectCourseExamTypeProps<T> &
+}: SelectCourseModeProps<T> &
   Controls.InputBlockProps & { defaultOptionText?: string }) {
-  const { data, isLoading } = useCourseExamTypesQuery();
+  const { data, isLoading } = useProgrammeModeOfEducationsQuery();
   const activeData = data.filter(item => item.isActive);
 
   return (
