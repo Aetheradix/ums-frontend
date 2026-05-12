@@ -1,6 +1,6 @@
 import SelectGrantType from 'features/components/SelectGrantType';
 import SelectGrantCategory from 'features/components/SelectGrantCategory';
-import { TextArea } from 'shared/components/forms';
+import { TextBox } from 'shared/components/forms';
 import { FormActions, FormGrid } from 'shared/new-components';
 import { useEligibilityApplicationProcessForm } from './form.hook';
 
@@ -12,20 +12,22 @@ interface EligibilityApplicationProcessFormProps {
 }
 
 export default function EligibilityApplicationProcessForm(props: EligibilityApplicationProcessFormProps) {
-  const { register, handleSubmit, reset } = useEligibilityApplicationProcessForm(
+  const { register, handleSubmit, reset, watch } = useEligibilityApplicationProcessForm(
     props.onSubmit,
     props.fetchData
   );
+
+  const grantTypeId = watch('grantTypeId');
 
   return (
     <form onSubmit={handleSubmit}>
       <FormGrid columns={2}>
         <SelectGrantType {...register('grantTypeId')} />
-        <SelectGrantCategory {...register('grantCategoryId')} />
+        <SelectGrantCategory {...register('grantCategoryId')} grantTypeId={grantTypeId} />
       </FormGrid>
 
       <FormGrid columns={1}>
-        <TextArea
+        <TextBox
           label="Eligibility Text"
           placeholder="Enter eligibility criteria"
           {...register('eligibilityText')}
@@ -34,7 +36,7 @@ export default function EligibilityApplicationProcessForm(props: EligibilityAppl
       </FormGrid>
 
       <FormGrid columns={1}>
-        <TextArea
+        <TextBox
           label="Application Process Text"
           placeholder="Enter application process steps"
           {...register('applicationProcessText')}
@@ -43,7 +45,7 @@ export default function EligibilityApplicationProcessForm(props: EligibilityAppl
       </FormGrid>
 
       <FormGrid columns={1}>
-        <TextArea
+        <TextBox
           label="Approval Process Text"
           placeholder="Enter approval process workflow"
           {...register('approvalProcessText')}

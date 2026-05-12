@@ -7,17 +7,22 @@ interface SelectGrantCategoryProps<
 > extends Controls.FormProps<T> {
   label?: string;
   disabled?: boolean;
+  grantTypeId?: number | null;
 }
 
 export default function SelectGrantCategory<T extends FieldValues>({
   defaultOptionText,
   label = 'Grant Category',
+  grantTypeId,
   ...props
 }: SelectGrantCategoryProps<T> &
   Controls.InputBlockProps & { defaultOptionText?: string }) {
   const { data, isLoading } = useGrantCategoriesQuery();
   const activeData =
-    data?.filter((item: Master.Grant.GrantCategoryItem) => item.isActive === true) || [];
+    data?.filter((item: Master.Grant.GrantCategoryItem) => 
+      item.isActive === true && 
+      (grantTypeId ? item.grantTypeId === grantTypeId : true)
+    ) || [];
 
   return (
     <DropDownList

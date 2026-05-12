@@ -67,22 +67,27 @@ export default function List() {
               width: '30px',
             },
             {
+              field: 'grantTypeId',
               header: 'Grant Type',
               cell: (item: Master.Grant.EligibilityApplicationProcessItem) => (
                 <span>{getGrantTypeName(item.grantTypeId)}</span>
               ),
             },
             {
+              field: 'grantCategoryId',
               header: 'Grant Category',
               cell: (item: Master.Grant.EligibilityApplicationProcessItem) => (
                 <span>{getGrantCategoryName(item.grantCategoryId)}</span>
               ),
             },
             {
+              field: 'eligibilityText',
               header: 'Eligibility',
               cell: (item: Master.Grant.EligibilityApplicationProcessItem) => (
-                <span title={item.eligibilityText}>
-                  {item.eligibilityText.substring(0, 50)}...
+                <span title={item.eligibilityText || ''}>
+                  {item.eligibilityText && item.eligibilityText.length > 50 
+                    ? item.eligibilityText.substring(0, 50) + '...' 
+                    : item.eligibilityText || '-'}
                 </span>
               ),
             },
@@ -138,7 +143,7 @@ function CreateContent({ onClose }: { onClose: () => void }) {
 
   async function handleSubmit(data: Master.Grant.EligibilityApplicationProcessForm) {
     try {
-      const result = await mutateAsync(data);
+      const result = await mutateAsync({ ...data, isActive: true });
       if (result) {
         ToastService.success('Eligibility Application Process created successfully.');
         onClose();

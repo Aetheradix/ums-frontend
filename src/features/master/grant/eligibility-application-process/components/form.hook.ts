@@ -22,7 +22,7 @@ export function useEligibilityApplicationProcessForm(
   submitCallback: Forms.SubmitFunc<Master.Grant.EligibilityApplicationProcessForm>,
   defaultValues?: Forms.FetchDataFunc<Master.Grant.EligibilityApplicationProcessForm>
 ) {
-  const { register, handleSubmit, reset } =
+  const { register, handleSubmit, reset, watch } =
     useAppForm<Master.Grant.EligibilityApplicationProcessForm>({
       defaultValues: defaultValues,
       resolver: validation.resolver(schema),
@@ -32,5 +32,6 @@ export function useEligibilityApplicationProcessForm(
     register,
     handleSubmit: handleSubmit(submitCallback),
     reset,
+    watch,
   };
 }
