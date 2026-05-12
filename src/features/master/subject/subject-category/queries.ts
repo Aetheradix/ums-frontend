@@ -1,8 +1,8 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import {
   createSubjectCategory,
-  getSubjectCategory,
   getSubjectCategories,
+  getSubjectCategory,
   patchSubjectCategoryStatus,
   updateSubjectCategory,
 } from './api';
@@ -20,13 +20,13 @@ export function useSubjectCategoriesQuery() {
 export function useCreateSubjectCategoryMutation() {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: async (data: SubjectMaster.SubjectCategoryForm) =>
+    mutationFn: async (data: Master.SubjectMaster.SubjectCategoryForm) =>
       await createSubjectCategory(data),
 
     onSuccess(data) {
       if (!data) return;
       const result =
-        queryClient.getQueryData<SubjectMaster.SubjectCategoryItem[]>(
+        queryClient.getQueryData<Master.SubjectMaster.SubjectCategoryItem[]>(
           QUERY_KEY
         ) ?? [];
       queryClient.setQueryData(QUERY_KEY, [...result, data]);
@@ -53,21 +53,21 @@ export function useUpdateSubjectCategoryMutation(id: number) {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async (data: SubjectMaster.SubjectCategoryForm) =>
+    mutationFn: async (data: Master.SubjectMaster.SubjectCategoryForm) =>
       await updateSubjectCategory(id, data),
 
     onSuccess(success, formData) {
       if (!success) return;
 
       const result =
-        queryClient.getQueryData<SubjectMaster.SubjectCategoryItem[]>(
+        queryClient.getQueryData<Master.SubjectMaster.SubjectCategoryItem[]>(
           QUERY_KEY
         ) ?? [];
       const index = result.findIndex(item => item.id === id);
       if (index === -1) return;
 
       const existing = result[index];
-      const itemToReplace: SubjectMaster.SubjectCategoryItem = {
+      const itemToReplace: Master.SubjectMaster.SubjectCategoryItem = {
         id,
         name: formData.name,
         code: formData.code,
@@ -84,6 +84,15 @@ export function useUpdateSubjectCategoryMutation(id: number) {
   });
 }
 
+export function useActiveSubjectCategoriesQuery() {
+  const { data = [], isLoading } = useSubjectCategoriesQuery();
+
+  return {
+    data: data.filter(x => x.isActive),
+    isLoading,
+  };
+}
+
 export function useSubjectCategoryActiveStatusMutation() {
   const queryClient = useQueryClient();
 
@@ -95,7 +104,7 @@ export function useSubjectCategoryActiveStatusMutation() {
       if (!success) return;
 
       const result =
-        queryClient.getQueryData<SubjectMaster.SubjectCategoryItem[]>(
+        queryClient.getQueryData<Master.SubjectMaster.SubjectCategoryItem[]>(
           QUERY_KEY
         ) ?? [];
 

@@ -28,7 +28,7 @@ import { subjectCategoryUrls } from './subject/subject-category/urls';
 
 const baseUrl = '/master';
 export const masterUrls = {
-  ProgrammeModeOfEducation: ProgrammeModeOfEducationUrls(baseUrl),
+  programmeModeOfEducation: ProgrammeModeOfEducationUrls(baseUrl),
   subjectCategory: subjectCategoryUrls(baseUrl),
   officeType: officeTypeUrls(`${baseUrl}/faculty-management`),
   department: departmentUrls(`${baseUrl}/faculty-management`),

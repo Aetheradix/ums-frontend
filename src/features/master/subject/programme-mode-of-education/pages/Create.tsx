@@ -12,11 +12,11 @@ export default function Create() {
     useCreateProgrammeModeOfEducationMutation();
 
   const handleBack = useCallback(() => {
-    navigate(masterUrls.ProgrammeModeOfEducation.root);
+    navigate(masterUrls.programmeModeOfEducation.root);
   }, [navigate]);
 
   async function handleSubmit(
-    data: SubjectMaster.ProgrammeModeOfEducationForm
+    data: Master.SubjectMaster.ProgrammeModeOfEducationForm
   ) {
     try {
       const result = await mutateAsync(data);

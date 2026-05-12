@@ -1,6 +1,6 @@
 import type { FieldValues } from 'react-hook-form';
 import { DropDownList } from 'shared/components/forms';
-import { useSubjectCategoriesQuery } from '../master/subject/subject-category/queries';
+import { useActiveSubjectCategoriesQuery } from '../master/subject/subject-category/queries';
 
 interface SelectSubjectCategoryProps<
   T extends FieldValues,
@@ -14,20 +14,19 @@ export default function SelectSubjectCategory<T extends FieldValues>({
   ...props
 }: SelectSubjectCategoryProps<T> &
   Controls.InputBlockProps & { defaultOptionText?: string }) {
-  const { data, isLoading } = useSubjectCategoriesQuery();
-  const activeData = data.filter(item => item.isActive);
+  const { data, isLoading } = useActiveSubjectCategoriesQuery();
 
   return (
     <DropDownList
-      data={activeData}
+      data={data}
       loading={isLoading}
       textField="name"
       valueField="id"
       optionValue="id"
       label={label}
-      required={true}
       placeholder={`Select ${label}`}
       {...props}
+      required
     />
   );
 }

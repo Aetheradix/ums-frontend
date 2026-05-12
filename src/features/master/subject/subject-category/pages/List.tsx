@@ -1,4 +1,5 @@
 import { useCallback, useState } from 'react';
+import { ToastService } from 'services';
 import { Button } from 'shared/components/buttons';
 import StatusButton from 'shared/components/buttons/StatusButton';
 import { Loader } from 'shared/components/progress';
@@ -8,13 +9,12 @@ import {
   FormPopup,
   GridPanel,
 } from 'shared/new-components';
-import { ToastService } from 'services';
 import SubjectCategoryForm from '../components/SubjectCategoryForm';
 import {
+  useCreateSubjectCategoryMutation,
+  useSubjectCategoriesQuery,
   useSubjectCategoryActiveStatusMutation,
   useSubjectCategoryQuery,
-  useSubjectCategoriesQuery,
-  useCreateSubjectCategoryMutation,
   useUpdateSubjectCategoryMutation,
 } from '../queries';
 
@@ -30,7 +30,7 @@ export default function List() {
   const [popup, setPopup] = useState<PopupState>({ mode: 'closed' });
 
   const handleToggleStatus = async (
-    item: SubjectMaster.SubjectCategoryItem
+    item: Master.SubjectMaster.SubjectCategoryItem
   ) => {
     await toggleStatus({ id: item.id, isActive: !item.isActive });
   };
@@ -58,7 +58,7 @@ export default function List() {
               field: 'isActive',
               header: 'Status',
               sortable: false,
-              cell: (item: SubjectMaster.SubjectCategoryItem) => (
+              cell: (item: Master.SubjectMaster.SubjectCategoryItem) => (
                 <StatusButton
                   value={item.isActive}
                   onClick={() => handleToggleStatus(item)}
@@ -104,7 +104,7 @@ export default function List() {
 function CreateContent({ onClose }: { onClose: () => void }) {
   const { mutateAsync, isPending } = useCreateSubjectCategoryMutation();
 
-  async function handleSubmit(data: SubjectMaster.SubjectCategoryForm) {
+  async function handleSubmit(data: Master.SubjectMaster.SubjectCategoryForm) {
     try {
       const result = await mutateAsync(data);
       if (result) {
@@ -122,13 +122,15 @@ function CreateContent({ onClose }: { onClose: () => void }) {
 function EditContent({ id, onClose }: { id: number; onClose: () => void }) {
   const { mutateAsync, isPending } = useUpdateSubjectCategoryMutation(id);
   const { data, isLoading } = useSubjectCategoryQuery(id);
-  const DEFAULT: SubjectMaster.SubjectCategoryForm = {
+  const DEFAULT: Master.SubjectMaster.SubjectCategoryForm = {
     code: '',
     name: '',
     isActive: true,
   };
 
-  async function handleSubmit(formData: SubjectMaster.SubjectCategoryForm) {
+  async function handleSubmit(
+    formData: Master.SubjectMaster.SubjectCategoryForm
+  ) {
     try {
       const result = await mutateAsync(formData);
       if (result) {

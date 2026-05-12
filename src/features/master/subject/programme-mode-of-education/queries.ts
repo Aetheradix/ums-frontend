@@ -20,15 +20,16 @@ export function useProgrammeModeOfEducationsQuery() {
 export function useCreateProgrammeModeOfEducationMutation() {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: async (data: SubjectMaster.ProgrammeModeOfEducationForm) =>
-      await createProgrammeModeOfEducation(data),
+    mutationFn: async (
+      data: Master.SubjectMaster.ProgrammeModeOfEducationForm
+    ) => await createProgrammeModeOfEducation(data),
 
     onSuccess(data) {
       if (!data) return;
       const result =
-        queryClient.getQueryData<SubjectMaster.ProgrammeModeOfEducationItem[]>(
-          QUERY_KEY
-        ) ?? [];
+        queryClient.getQueryData<
+          Master.SubjectMaster.ProgrammeModeOfEducationItem[]
+        >(QUERY_KEY) ?? [];
       queryClient.setQueryData(QUERY_KEY, [...result, data]);
     },
   });
@@ -53,21 +54,22 @@ export function useUpdateProgrammeModeOfEducationMutation(id: number) {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async (data: SubjectMaster.ProgrammeModeOfEducationForm) =>
-      await updateProgrammeModeOfEducation(id, data),
+    mutationFn: async (
+      data: Master.SubjectMaster.ProgrammeModeOfEducationForm
+    ) => await updateProgrammeModeOfEducation(id, data),
 
     onSuccess(success, formData) {
       if (!success) return;
 
       const result =
-        queryClient.getQueryData<SubjectMaster.ProgrammeModeOfEducationItem[]>(
-          QUERY_KEY
-        ) ?? [];
+        queryClient.getQueryData<
+          Master.SubjectMaster.ProgrammeModeOfEducationItem[]
+        >(QUERY_KEY) ?? [];
       const index = result.findIndex(item => item.id === id);
       if (index === -1) return;
 
       const existing = result[index];
-      const itemToReplace: SubjectMaster.ProgrammeModeOfEducationItem = {
+      const itemToReplace: Master.SubjectMaster.ProgrammeModeOfEducationItem = {
         id,
         name: formData.name,
         code: formData.code,
@@ -95,9 +97,9 @@ export function useProgrammeModeOfEducationActiveStatusMutation() {
       if (!success) return;
 
       const result =
-        queryClient.getQueryData<SubjectMaster.ProgrammeModeOfEducationItem[]>(
-          QUERY_KEY
-        ) ?? [];
+        queryClient.getQueryData<
+          Master.SubjectMaster.ProgrammeModeOfEducationItem[]
+        >(QUERY_KEY) ?? [];
 
       const index = result.findIndex(item => item.id === variables.id);
       if (index === -1) return;

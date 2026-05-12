@@ -11,7 +11,7 @@ import {
   useUpdateProgrammeModeOfEducationMutation,
 } from '../queries';
 
-const DEFAULT: SubjectMaster.ProgrammeModeOfEducationForm = {
+const DEFAULT: Master.SubjectMaster.ProgrammeModeOfEducationForm = {
   code: '',
   name: '',
   isActive: true,
@@ -25,11 +25,11 @@ export default function Edit() {
   const { data = DEFAULT, isLoading } = useProgrammeModeOfEducationQuery(id);
 
   const handleBack = useCallback(() => {
-    navigate(masterUrls.ProgrammeModeOfEducation.root);
+    navigate(masterUrls.programmeModeOfEducation.root);
   }, [navigate]);
 
   async function handleSubmit(
-    formData: SubjectMaster.ProgrammeModeOfEducationForm
+    formData: Master.SubjectMaster.ProgrammeModeOfEducationForm
   ) {
     try {
       const result = await mutateAsync(formData);

@@ -3,27 +3,31 @@ import { ApiService } from 'services';
 const BASE_URL = `master/subject-categories`;
 
 export function getSubjectCategories() {
-  return ApiService.getList<SubjectMaster.SubjectCategoryItem>(BASE_URL);
+  return ApiService.getList<Master.SubjectMaster.SubjectCategoryItem>(BASE_URL);
 }
 
 export async function getSubjectCategory(id: number) {
-  const { data } = await ApiService.get<SubjectMaster.SubjectCategoryItem>(
-    `${BASE_URL}/${id}`
-  );
+  const { data } =
+    await ApiService.get<Master.SubjectMaster.SubjectCategoryItem>(
+      `${BASE_URL}/${id}`
+    );
   return data;
 }
 
 export async function createSubjectCategory(
-  form: SubjectMaster.SubjectCategoryForm
+  form: Master.SubjectMaster.SubjectCategoryForm
 ) {
   const { error, data } =
-    await ApiService.post<SubjectMaster.SubjectCategoryItem>(BASE_URL, form);
+    await ApiService.post<Master.SubjectMaster.SubjectCategoryItem>(
+      BASE_URL,
+      form
+    );
   return !error ? data : undefined;
 }
 
 export async function updateSubjectCategory(
   id: number,
-  form: SubjectMaster.SubjectCategoryForm
+  form: Master.SubjectMaster.SubjectCategoryForm
 ): Promise<boolean> {
   const result = await ApiService.put(`${BASE_URL}/${id}`, form);
   return !result.error;

@@ -30,7 +30,7 @@ export default function List() {
   const [popup, setPopup] = useState<PopupState>({ mode: 'closed' });
 
   const handleToggleStatus = async (
-    item: SubjectMaster.ProgrammeModeOfEducationItem
+    item: Master.SubjectMaster.ProgrammeModeOfEducationItem
   ) => {
     await toggleStatus({ id: item.id, isActive: !item.isActive });
   };
@@ -58,7 +58,9 @@ export default function List() {
               field: 'isActive',
               header: 'Status',
               sortable: false,
-              cell: (item: SubjectMaster.ProgrammeModeOfEducationItem) => (
+              cell: (
+                item: Master.SubjectMaster.ProgrammeModeOfEducationItem
+              ) => (
                 <StatusButton
                   value={item.isActive}
                   onClick={() => handleToggleStatus(item)}
@@ -106,7 +108,7 @@ function CreateContent({ onClose }: { onClose: () => void }) {
     useCreateProgrammeModeOfEducationMutation();
 
   async function handleSubmit(
-    data: SubjectMaster.ProgrammeModeOfEducationForm
+    data: Master.SubjectMaster.ProgrammeModeOfEducationForm
   ) {
     try {
       const result = await mutateAsync(data);
@@ -133,14 +135,14 @@ function EditContent({ id, onClose }: { id: number; onClose: () => void }) {
   const { mutateAsync, isPending } =
     useUpdateProgrammeModeOfEducationMutation(id);
   const { data, isLoading } = useProgrammeModeOfEducationQuery(id);
-  const DEFAULT: SubjectMaster.ProgrammeModeOfEducationForm = {
+  const DEFAULT: Master.SubjectMaster.ProgrammeModeOfEducationForm = {
     code: '',
     name: '',
     isActive: true,
   };
 
   async function handleSubmit(
-    formData: SubjectMaster.ProgrammeModeOfEducationForm
+    formData: Master.SubjectMaster.ProgrammeModeOfEducationForm
   ) {
     try {
       const result = await mutateAsync(formData);

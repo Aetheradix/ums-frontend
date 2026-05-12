@@ -3,8 +3,10 @@ import { FormActions, FormGrid } from 'shared/new-components';
 import { useProgrammeModeOfEducationForm } from './form.hook';
 
 interface ProgrammeModeOfEducationFormProps {
-  onSubmit: (data: SubjectMaster.ProgrammeModeOfEducationForm) => Promise<void>;
-  fetchData?: Forms.FetchDataFunc<SubjectMaster.ProgrammeModeOfEducationForm>;
+  onSubmit: (
+    data: Master.SubjectMaster.ProgrammeModeOfEducationForm
+  ) => Promise<void>;
+  fetchData?: Forms.FetchDataFunc<Master.SubjectMaster.ProgrammeModeOfEducationForm>;
   isSaving?: boolean;
   isEditMode?: boolean;
 }

@@ -1,10 +1,10 @@
-import { FormActions, FormGrid } from 'shared/new-components';
 import { TextBox } from 'shared/components/forms';
+import { FormActions, FormGrid } from 'shared/new-components';
 import { useSubjectCategoryForm } from './form.hook';
 
 interface SubjectCategoryFormProps {
-  onSubmit: (data: SubjectMaster.SubjectCategoryForm) => Promise<void>;
-  fetchData?: Forms.FetchDataFunc<SubjectMaster.SubjectCategoryForm>;
+  onSubmit: (data: Master.SubjectMaster.SubjectCategoryForm) => Promise<void>;
+  fetchData?: Forms.FetchDataFunc<Master.SubjectMaster.SubjectCategoryForm>;
   isSaving?: boolean;
   isEditMode?: boolean;
 }
