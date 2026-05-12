@@ -19,6 +19,7 @@ import SchemeCategory from './schemes/scheme-category';
 import SchemeType from './schemes/scheme-type';
 import GrantCategory from './grant/grant-category';
 import GrantType from './grant/grant-type';
+import EligibilityApplicationProcess from './grant/eligibility-application-process';
 import Subject from './subject';
 
 export default function Master() {
@@ -56,6 +57,7 @@ export default function Master() {
       <Route path="grant/*">
         <Route path="grant-type/*" element={<GrantType />} />
         <Route path="grant-category/*" element={<GrantCategory />} />
+        <Route path="eligibility-application-process/*" element={<EligibilityApplicationProcess />} />
       </Route>
 
       <Route path="scheme/*">
