@@ -72,5 +72,9 @@ declare namespace Master {
       id: string;
       text: string;
     }
+    interface BloodGroupItem {
+      id: string;
+      text: string;
+    }
   }
 }
