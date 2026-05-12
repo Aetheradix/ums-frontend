@@ -1,5 +1,6 @@
 import SelectGrantType from 'features/components/SelectGrantType';
-import { TextBox, TextArea } from 'shared/components/forms';
+import SelectGrantCategory from 'features/components/SelectGrantCategory';
+import { TextArea } from 'shared/components/forms';
 import { FormActions, FormGrid } from 'shared/new-components';
 import { useEligibilityApplicationProcessForm } from './form.hook';
 
@@ -20,13 +21,7 @@ export default function EligibilityApplicationProcessForm(props: EligibilityAppl
     <form onSubmit={handleSubmit}>
       <FormGrid columns={2}>
         <SelectGrantType {...register('grantTypeId')} />
-        <TextBox
-          label="Grant Category ID"
-          placeholder="Enter Grant Category ID"
-          {...register('grantCategoryId')}
-          maxLength={10}
-          required
-        />
+        <SelectGrantCategory {...register('grantCategoryId')} />
       </FormGrid>
 
       <FormGrid columns={1}>
