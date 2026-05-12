@@ -9,6 +9,7 @@ import { facultyUrls } from './faculty/faculty/urls';
 import { officeTypeUrls } from './faculty/office-type/urls';
 import { grantCategoryUrls } from './grant/grant-category/urls';
 import { grantTypeUrls } from './grant/grant-type/urls';
+import { eligibilityApplicationProcessUrls } from './grant/eligibility-application-process/urls';
 import { casteUrls } from './hr/caste/urls';
 import { qualificationUrls } from './hr/qualification/urls';
 import { religionUrls } from './hr/religion/urls';
@@ -53,4 +54,5 @@ export const masterUrls = {
   specialisation: specialisationUrls(`${baseUrl}/other`),
   grantType: grantTypeUrls(`${baseUrl}/grant`),
   grantCategory: grantCategoryUrls(`${baseUrl}/grant`),
+  eligibilityApplicationProcess: eligibilityApplicationProcessUrls(`${baseUrl}/grant`),
 };

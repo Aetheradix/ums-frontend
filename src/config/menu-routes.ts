@@ -335,6 +335,13 @@ export const menuConfig: Menu.MenuItem[] = [
             icon: 'category',
             colorScheme: 'purple',
           },
+          {
+            label: 'Eligibility Application Process',
+            description: 'Manage eligibility criteria and application process',
+            path: '/master/grant/eligibility-application-process',
+            icon: 'assignment_turned_in',
+            colorScheme: 'purple',
+          },
         ],
       },
       {
