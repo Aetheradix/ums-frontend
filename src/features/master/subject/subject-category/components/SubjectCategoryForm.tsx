@@ -1,20 +1,16 @@
 import { TextBox } from 'shared/components/forms';
 import { FormActions, FormGrid } from 'shared/new-components';
-import { useProgrammeModeOfEducationForm } from './form.hook';
+import { useSubjectCategoryForm } from './form.hook';
 
-interface ProgrammeModeOfEducationFormProps {
-  onSubmit: (
-    data: Master.SubjectMaster.ProgrammeModeOfEducationForm
-  ) => Promise<void>;
-  fetchData?: Forms.FetchDataFunc<Master.SubjectMaster.ProgrammeModeOfEducationForm>;
+interface SubjectCategoryFormProps {
+  onSubmit: (data: Master.SubjectMaster.SubjectCategoryForm) => Promise<void>;
+  fetchData?: Forms.FetchDataFunc<Master.SubjectMaster.SubjectCategoryForm>;
   isSaving?: boolean;
   isEditMode?: boolean;
 }
 
-export default function ProgrammeModeOfEducationForm(
-  props: ProgrammeModeOfEducationFormProps
-) {
-  const { register, handleSubmit, reset } = useProgrammeModeOfEducationForm(
+export default function SubjectCategoryForm(props: SubjectCategoryFormProps) {
+  const { register, handleSubmit, reset } = useSubjectCategoryForm(
     props.onSubmit,
     props.fetchData
   );
@@ -24,7 +20,7 @@ export default function ProgrammeModeOfEducationForm(
       <FormGrid columns={2}>
         <TextBox
           label="Code"
-          placeholder="Enter Mode of Education Code"
+          placeholder="Enter Subject Category Code"
           {...register('code')}
           maxLength={10}
           required
@@ -32,7 +28,7 @@ export default function ProgrammeModeOfEducationForm(
         <TextBox
           label="Name"
           subLabel="(In English)"
-          placeholder="Enter Mode of Education Name"
+          placeholder="Enter Subject Category Name"
           {...register('name')}
           maxLength={100}
           required

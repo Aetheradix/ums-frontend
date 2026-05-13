@@ -8,11 +8,11 @@ import {
   FormPopup,
   GridPanel,
 } from 'shared/new-components';
-import CreateProgrammeModeOfEducation from '../components/CreateProgrammeModeOfEducation';
-import EditProgrammeModeOfEducation from '../components/EditProgrammeModeOfEducation';
+import CreateCategory from '../components/CreateCategory';
+import EditCategory from '../components/EditCategory';
 import {
-  useProgrammeModeOfEducationActiveStatusMutation,
-  useProgrammeModeOfEducationsQuery,
+  useSubjectCategoriesQuery,
+  useSubjectCategoryActiveStatusMutation,
 } from '../queries';
 
 type PopupState =
@@ -21,13 +21,13 @@ type PopupState =
   | { mode: 'edit'; id: number };
 
 export default function List() {
-  const { data, isLoading } = useProgrammeModeOfEducationsQuery();
+  const { data, isLoading } = useSubjectCategoriesQuery();
   const { mutateAsync: toggleStatus } =
-    useProgrammeModeOfEducationActiveStatusMutation();
+    useSubjectCategoryActiveStatusMutation();
   const [popup, setPopup] = useState<PopupState>({ mode: 'closed' });
 
   const handleToggleStatus = async (
-    item: Master.SubjectMaster.ProgrammeModeOfEducationItem
+    item: Master.SubjectMaster.SubjectCategoryItem
   ) => {
     await toggleStatus({ id: item.id, isActive: !item.isActive });
   };
@@ -36,14 +36,14 @@ export default function List() {
 
   return (
     <FormPage
-      title="Programme Mode of Education"
-      description="Manage the list of all Programme Mode of Educations in the system."
+      title="Subject Category"
+      description="Manage the list of all subject categories in the system."
     >
       <FormCard>
         {isLoading ? <Loader /> : undefined}
         <GridPanel
           data={data}
-          onEdit={department => setPopup({ mode: 'edit', id: department.id })}
+          onEdit={item => setPopup({ mode: 'edit', id: item.id })}
           columns={[
             {
               cell: (_, option) => <span>{option.rowIndex + 1}</span>,
@@ -55,9 +55,7 @@ export default function List() {
               field: 'isActive',
               header: 'Status',
               sortable: false,
-              cell: (
-                item: Master.SubjectMaster.ProgrammeModeOfEducationItem
-              ) => (
+              cell: (item: Master.SubjectMaster.SubjectCategoryItem) => (
                 <StatusButton
                   value={item.isActive}
                   onClick={() => handleToggleStatus(item)}
@@ -81,22 +79,21 @@ export default function List() {
         <FormPopup
           visible
           onHide={closePopup}
-          title="Create Programme Mode of Education"
-          subtitle="Fill in the details to add a new Programme Mode of Education."
+          title="Create Subject Category"
+          subtitle="Fill in the details to add a new subject category."
         >
-          <CreateProgrammeModeOfEducation onClose={closePopup} />
+          <CreateCategory onClose={closePopup} />
         </FormPopup>
       ) : null}
+
       {popup.mode === 'edit' ? (
         <FormPopup
           visible
           onHide={closePopup}
-          title="Edit Programme Mode of Education"
-          subtitle="Update the details of the Programme Mode of Education."
+          title="Edit Subject Category"
+          subtitle="Update the details of the subject category."
         >
-          {popup.mode === 'edit' && (
-            <EditProgrammeModeOfEducation id={popup.id} onClose={closePopup} />
-          )}
+          <EditCategory id={popup.id} onClose={closePopup} />
         </FormPopup>
       ) : null}
     </FormPage>
