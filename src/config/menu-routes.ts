@@ -92,6 +92,13 @@ export const menuConfig: Menu.MenuItem[] = [
             icon: 'apartment',
             colorScheme: 'purple',
           },
+          {
+            label: 'Programme Specialization Structure',
+            description: 'Programme Specialization Structure',
+            path: '/master/subject/programme-specialization-structure',
+            icon: 'apartment',
+            colorScheme: 'purple',
+          },
         ],
       },
 
