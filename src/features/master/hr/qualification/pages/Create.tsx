@@ -14,7 +14,7 @@ export default function Create() {
     navigate(masterUrls.qualification.root);
   }, [navigate]);
 
-  async function handleSubmit(data: Master.QualificationForm) {
+  async function handleSubmit(data: Master.HR.QualificationForm) {
     try {
       const result = await mutateAsync(data);
       if (result) {

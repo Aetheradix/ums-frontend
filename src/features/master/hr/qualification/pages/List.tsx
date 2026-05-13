@@ -1,4 +1,5 @@
 import { useCallback, useState } from 'react';
+import { ToastService } from 'services';
 import { Button } from 'shared/components/buttons';
 import StatusButton from 'shared/components/buttons/StatusButton';
 import { Loader } from 'shared/components/progress';
@@ -8,7 +9,6 @@ import {
   FormPopup,
   GridPanel,
 } from 'shared/new-components';
-import { ToastService } from 'services';
 import QualificationForm from '../components/QualificationForm';
 import {
   useCreateQualificationMutation,
@@ -28,7 +28,7 @@ export default function List() {
   const { mutateAsync: toggleStatus } = useQualificationActiveStatusMutation();
   const [popup, setPopup] = useState<PopupState>({ mode: 'closed' });
 
-  const handleToggleStatus = async (item: Master.QualificationItem) => {
+  const handleToggleStatus = async (item: Master.HR.QualificationItem) => {
     await toggleStatus({ id: item.id, isActive: !item.isActive });
   };
 
@@ -58,7 +58,7 @@ export default function List() {
               field: 'isActive',
               header: 'Status',
               sortable: false,
-              cell: (item: Master.QualificationItem) => (
+              cell: (item: Master.HR.QualificationItem) => (
                 <StatusButton
                   value={item.isActive}
                   onClick={() => handleToggleStatus(item)}
@@ -104,7 +104,7 @@ export default function List() {
 function CreateContent({ onClose }: { onClose: () => void }) {
   const { mutateAsync, isPending } = useCreateQualificationMutation();
 
-  async function handleSubmit(data: Master.QualificationForm) {
+  async function handleSubmit(data: Master.HR.QualificationForm) {
     try {
       const result = await mutateAsync(data);
       if (result) {
@@ -122,14 +122,14 @@ function CreateContent({ onClose }: { onClose: () => void }) {
 function EditContent({ id, onClose }: { id: number; onClose: () => void }) {
   const { mutateAsync, isPending } = useUpdateQualificationMutation(id);
   const { data, isLoading } = useQualificationQuery(id);
-  const DEFAULT: Master.QualificationForm = {
+  const DEFAULT: Master.HR.QualificationForm = {
     name: '',
     subject: '',
     code: '',
     isActive: true,
   };
 
-  async function handleSubmit(formData: Master.QualificationForm) {
+  async function handleSubmit(formData: Master.HR.QualificationForm) {
     try {
       const result = await mutateAsync(formData);
       if (result) {

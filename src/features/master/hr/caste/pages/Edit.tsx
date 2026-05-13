@@ -8,7 +8,7 @@ import { masterUrls } from '../../../urls';
 import CasteForm from '../components/CasteForm';
 import { useCasteQuery, useUpdateCasteMutation } from '../queries';
 
-const DEFAULT: Master.CasteForm = {
+const DEFAULT: Master.HR.CasteForm = {
   name: '',
   isActive: true,
 };
@@ -23,7 +23,7 @@ export default function Edit() {
     navigate(masterUrls.caste.root);
   }, [navigate]);
 
-  async function handleSubmit(formData: Master.CasteForm) {
+  async function handleSubmit(formData: Master.HR.CasteForm) {
     try {
       const result = await mutateAsync(formData);
       if (result) {

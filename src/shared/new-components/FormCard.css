@@ -1,20 +1,24 @@
 @reference "tailwindcss";
 
 .form-card {
-  @apply bg-white rounded-2xl border border-slate-200 shadow-[0_1px_3px_rgba(0,0,0,0.04)] transition-all duration-300;
+  @apply rounded-2xl border border-slate-200
+         shadow-[0_1px_3px_rgba(0,0,0,0.04)]
+         transition-all duration-300
+         bg-[var(--bg-white)];
 }
 
-.dark-theme .form-card {
+.dark .form-card {
   background-color: var(--dark-card-bg);
   border-color: var(--dark-border);
 }
 
 /* HEADER */
 .form-card-header {
-  @apply flex items-start justify-between px-6 py-4 border-b border-zinc-100;
+  @apply flex items-start justify-between px-6 py-4;
+  border-bottom: 1px solid var(--color-gray-100);
 }
 
-.dark-theme .form-card-header {
+.dark .form-card-header {
   @apply border-zinc-800;
 }
 
@@ -26,18 +30,22 @@
 /* ICON */
 .form-card-icon {
   @apply w-13 h-13 rounded-full flex items-center justify-center flex-shrink-0;
-  background: linear-gradient(135deg, #f4f4f5, #e4e4e7);
+  background: linear-gradient(
+    135deg,
+    var(--color-gray-100),
+    var(--color-gray-200)
+  );
 }
 
-.dark-theme .form-card-icon {
-  background: #18181b;
+.dark .form-card-icon {
+  background: var(--color-gray-900);
 }
 
 .form-card-icon i {
   @apply text-zinc-600 text-lg;
 }
 
-.dark-theme .form-card-icon i {
+.dark .form-card-icon i {
   @apply text-zinc-400;
 }
 
@@ -46,7 +54,7 @@
   @apply text-lg font-semibold text-zinc-800 m-0;
 }
 
-.dark-theme .form-card-title {
+.dark .form-card-title {
   @apply text-white;
 }
 
@@ -54,7 +62,7 @@
   @apply text-sm text-zinc-500 mt-0.5 m-0;
 }
 
-.dark-theme .form-card-subtitle {
+.dark .form-card-subtitle {
   @apply text-[var(--dark-text-secondary)];
 }
 

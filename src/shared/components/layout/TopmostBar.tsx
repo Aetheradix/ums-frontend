@@ -1,9 +1,6 @@
 export default function TopmostBar() {
   return (
-    <div
-      className="bg-900 text-white px-4 py-2 flex align-items-center justify-content-between text-xs font-bold"
-      style={{ backgroundColor: 'var(--dark-header-bg, #09090b)' }}
-    >
+    <div className="topmost-bar bg-900 text-white px-4 py-2 flex align-items-center justify-content-between text-xs font-bold">
       <div className="flex gap-4 align-items-center">
         <span className="cursor-pointer hover:text-blue-400 transition-colors">
           UMS Enterprises

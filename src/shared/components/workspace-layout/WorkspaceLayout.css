@@ -1,9 +1,12 @@
 @reference "tailwindcss";
 /* WorkspaceTopBar */
 .ws-topbar {
-  @apply bg-[#09090b] text-white text-[13px] py-2.5 max-sm:hidden;
+  @apply bg-(--primary-color) text-white text-[13px] py-2.5 max-sm:hidden;
 }
 
+.dark .ws-topbar {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
 .ws-topbar-inner {
   @apply max-w-[1320px] mx-auto px-6 flex justify-between items-center opacity-90;
 }
@@ -14,7 +17,7 @@
 
 /* WorkspaceHeader */
 .ws-header {
-  @apply bg-white border-b border-slate-200 py-3;
+  @apply border-b border-slate-200 py-3 bg-[var(--bg-white)];
 }
 
 .ws-header-inner {
@@ -91,9 +94,8 @@
 
 /* WorkspaceFooterNav */
 .ws-footer-nav {
-  @apply bg-white py-5 border-t border-slate-200;
+  @apply py-5 border-t border-slate-200 bg-[var(--bg-white)];
 }
-
 .ws-footer-nav-inner {
   @apply max-w-[1320px] mx-auto px-6 flex items-center flex-wrap gap-4 max-md:gap-3 max-md:justify-center;
 }
@@ -108,7 +110,7 @@
 
 /* WorkspaceFooterBar */
 .ws-footer-bar {
-  @apply bg-[#09090b] text-white py-3 text-[13px];
+  @apply bg-(--primary-color) text-white py-3 text-[13px];
 }
 
 .ws-footer-bar-inner {
@@ -129,36 +131,36 @@
 }
 
 /* Dark Theme Overrides for Workspace Layout */
-.dark-theme .ws-root {
+.dark .ws-root {
   background-color: var(--dark-bg);
   color: var(--dark-text);
 }
 
-.dark-theme .ws-header {
+.dark .ws-header {
   background-color: var(--dark-card-bg);
   border-bottom-color: var(--dark-border);
 }
 
-.dark-theme .ws-logo-title,
-.dark-theme .ws-username {
+.dark .ws-logo-title,
+.dark .ws-username {
   color: var(--dark-text);
 }
 
-.dark-theme .ws-search-input {
+.dark .ws-search-input {
   background-color: var(--dark-input-bg);
   color: var(--dark-text);
 }
 
-.dark-theme .ws-footer-nav {
+.dark .ws-footer-nav {
   background-color: var(--dark-card-bg);
   border-top-color: var(--dark-border);
 }
 
-.dark-theme .ws-footer-link {
+.dark .ws-footer-link {
   color: var(--dark-text);
 }
 
-.dark-theme .ws-action-icons,
-.dark-theme .ws-search-icon {
+.dark .ws-action-icons,
+.dark .ws-search-icon {
   color: var(--dark-text-secondary);
 }

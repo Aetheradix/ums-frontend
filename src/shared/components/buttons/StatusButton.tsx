@@ -15,7 +15,7 @@ export default function StatusButton({
       className={`
         inline-flex items-center px-3 py-1 rounded-full text-xs font-bold border transition-all duration-200
         bg-black text-white border-black
-        [.dark-theme_&]:bg-white [.dark-theme_&]:text-black [.dark-theme_&]:border-white
+        [.dark_&]:bg-white [.dark_&]:text-black [.dark_&]:border-white
         ${className ?? ''}
       `}
     >

@@ -20,12 +20,13 @@ export function useReligionsQuery() {
 export function useCreateReligionMutation() {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: async (data: Master.ReligionForm) => await createReligion(data),
+    mutationFn: async (data: Master.HR.ReligionForm) =>
+      await createReligion(data),
 
     onSuccess(data) {
       if (!data) return;
       const result =
-        queryClient.getQueryData<Master.ReligionItem[]>(QUERY_KEY) ?? [];
+        queryClient.getQueryData<Master.HR.ReligionItem[]>(QUERY_KEY) ?? [];
       queryClient.setQueryData(QUERY_KEY, [...result, data]);
     },
   });
@@ -50,19 +51,19 @@ export function useUpdateReligionMutation(id: number) {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async (data: Master.ReligionForm) =>
+    mutationFn: async (data: Master.HR.ReligionForm) =>
       await updateReligion(id, data),
 
     onSuccess(success, formData) {
       if (!success) return;
 
       const result =
-        queryClient.getQueryData<Master.ReligionItem[]>(QUERY_KEY) ?? [];
+        queryClient.getQueryData<Master.HR.ReligionItem[]>(QUERY_KEY) ?? [];
       const index = result.findIndex(item => item.id === id);
       if (index === -1) return;
 
       const existing = result[index];
-      const itemToReplace: Master.ReligionItem = {
+      const itemToReplace: Master.HR.ReligionItem = {
         id,
         name: formData.name,
         isActive: existing?.isActive || formData.isActive,
@@ -89,7 +90,7 @@ export function useReligionActiveStatusMutation() {
       if (!success) return;
 
       const result =
-        queryClient.getQueryData<Master.ReligionItem[]>(QUERY_KEY) ?? [];
+        queryClient.getQueryData<Master.HR.ReligionItem[]>(QUERY_KEY) ?? [];
 
       const index = result.findIndex(item => item.id === variables.id);
       if (index === -1) return;

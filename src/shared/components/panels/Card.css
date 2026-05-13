@@ -70,22 +70,22 @@
 }
 
 /* Dark Theme Support */
-.dark-theme .card {
+.dark .card {
   background-color: var(--dark-card-bg);
   border-color: var(--dark-border);
   box-shadow: 0 8px 20px var(--dark-shadow);
 }
 
-.dark-theme .card-close-btn {
+.dark .card-close-btn {
   background: var(--dark-card-bg);
   color: var(--dark-text);
   border-color: var(--dark-border);
 }
 
-.dark-theme .card-close-btn:hover {
+.dark .card-close-btn:hover {
   background-color: var(--dark-card-hover);
 }
 
-.dark-theme .card-content {
+.dark .card-content {
   color: var(--dark-text);
 }

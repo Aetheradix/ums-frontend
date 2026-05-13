@@ -11,6 +11,7 @@ type ButtonVariant =
   | 'info'
   | 'outlined'
   | 'text';
+
 type ButtonSize = 'small' | 'medium' | 'large';
 
 interface ButtonProps {
@@ -51,7 +52,7 @@ export default function Button({
           ? 'primary'
           : (variant ?? 'outlined');
 
-  // 🔹 Determine size
+  /* ui changes update starts - 11/05/2026 */
   const computedSize: ButtonSize =
     type === 'reset'
       ? 'medium'
@@ -60,22 +61,25 @@ export default function Button({
           cssVariant === 'danger'
         ? 'small'
         : size;
+  /* ui changes update ends - 11/05/2026 */
 
-  // 🔹 Compose class name
+  /* ui changes update starts - 11/05/2026 */
+  const outlinedAutoWidth =
+    cssVariant === 'outlined' && (type === 'button' || type === 'reset')
+      ? 'button-auto-width'
+      : '';
+  /* ui changes update ends - 11/05/2026 */
+
   const classNameFull = [
     CLASS_BASE,
     `button-variant-${cssVariant}`,
     `button-size-${computedSize}`,
+    outlinedAutoWidth,
     disabled ? 'button-disabled' : '',
     className ?? '',
   ]
     .join(' ')
     .trim();
-
-  const style: React.CSSProperties =
-    cssVariant === 'outlined' && (type === 'button' || type === 'reset')
-      ? { width: 'auto' }
-      : {};
 
   const handleMouseDown = (e: React.MouseEvent<HTMLButtonElement>) => {
     if (disabled || isLoading) return;
@@ -103,7 +107,6 @@ export default function Button({
     <PrimeButton
       type={type}
       className={classNameFull}
-      style={style}
       onClick={onClick}
       onMouseDown={handleMouseDown}
       icon={icon ? `pi pi-${icon}` : undefined}

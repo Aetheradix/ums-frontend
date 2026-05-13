@@ -31,7 +31,7 @@ export interface RadioButtonListProps<
   disabled?: boolean;
   required?: boolean;
   variant?: 'horizontal' | 'vertical';
-  labelWidth?: string;
+  labelWidth?: 'sm' | 'md' | 'lg';
   optionLayout?: 'horizontal' | 'vertical';
 }
 
@@ -49,7 +49,7 @@ export default function RadioButtonList<TForm extends FieldValues>({
   disabled = false,
   required = false,
   variant = 'horizontal',
-  labelWidth = '240px',
+  labelWidth = 'md',
   optionLayout = 'horizontal',
 }: RadioButtonListProps<TForm>) {
   const renderContent = (
@@ -61,7 +61,7 @@ export default function RadioButtonList<TForm extends FieldValues>({
     const error = curError || errorMessage;
 
     return (
-      <div className={`radio-button-container ${className} w-full mb-1`}>
+      <div className={`form-field-wrapper radio-button-container ${className}`}>
         <div
           className={
             variant === 'vertical'
@@ -71,10 +71,14 @@ export default function RadioButtonList<TForm extends FieldValues>({
         >
           {label && (
             <label
-              className="flex-shrink-0 font-semibold text-sm text-gray-700 dark:text-gray-300 pt-1"
-              style={variant === 'horizontal' ? { width: labelWidth } : {}}
+              className={`
+                form-field-label
+                ${variant === 'horizontal' ? `radio-label-${labelWidth}` : ''}
+              `}
             >
-              {label} {required && <span className="text-red-500">*</span>}
+              {label}
+
+              {required && <span className="form-required">*</span>}
             </label>
           )}
 
@@ -111,10 +115,8 @@ export default function RadioButtonList<TForm extends FieldValues>({
                         onChange?.({ target: { name, value: e.value } });
                       }}
                     />
-                    <label
-                      htmlFor={optId}
-                      className="cursor-pointer text-sm text-gray-700 dark:text-gray-300"
-                    >
+
+                    <label htmlFor={optId} className="form-option-label">
                       {opt.label}
                     </label>
                   </div>
@@ -122,11 +124,7 @@ export default function RadioButtonList<TForm extends FieldValues>({
               })}
             </div>
 
-            {error && (
-              <small className="p-error block mt-1 text-sm text-red-500">
-                {error}
-              </small>
-            )}
+            {error && <small className="form-error-message">{error}</small>}
           </div>
         </div>
       </div>

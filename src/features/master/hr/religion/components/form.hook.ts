@@ -2,7 +2,7 @@ import { errors } from 'config/errors';
 import { useAppForm } from 'shared/hooks/form';
 import validation, { expressions, keys } from 'shared/utils/validation';
 
-const schema = validation.create<Master.ReligionForm>(o => ({
+const schema = validation.create<Master.HR.ReligionForm>(o => ({
   name: o
     .string()
     .required()
@@ -13,11 +13,11 @@ const schema = validation.create<Master.ReligionForm>(o => ({
 }));
 
 export function useReligionForm(
-  submitCallback: Forms.SubmitFunc<Master.ReligionForm>,
-  defaultValues?: Master.ReligionForm
+  submitCallback: Forms.SubmitFunc<Master.HR.ReligionForm>,
+  defaultValues?: Master.HR.ReligionForm
 ) {
   const { register, control, handleSubmit, reset } =
-    useAppForm<Master.ReligionForm>({
+    useAppForm<Master.HR.ReligionForm>({
       defaultValues: defaultValues,
       resolver: validation.resolver(schema),
     });

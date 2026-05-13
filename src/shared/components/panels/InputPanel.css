@@ -12,7 +12,7 @@
   gap: 1.5rem;
 }
 
-.dark-theme .input-panel {
+.dark .input-panel {
   background-color: var(--dark-bg);
 }
 

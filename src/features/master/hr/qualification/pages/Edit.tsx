@@ -11,7 +11,7 @@ import {
   useUpdateQualificationMutation,
 } from '../queries';
 
-const DEFAULT: Master.QualificationForm = {
+const DEFAULT: Master.HR.QualificationForm = {
   name: '',
   subject: '',
   code: '',
@@ -28,7 +28,7 @@ export default function Edit() {
     navigate(masterUrls.qualification.root);
   }, [navigate]);
 
-  async function handleSubmit(formData: Master.QualificationForm) {
+  async function handleSubmit(formData: Master.HR.QualificationForm) {
     try {
       const result = await mutateAsync(formData);
       if (result) {

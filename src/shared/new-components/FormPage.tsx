@@ -33,17 +33,22 @@ export default function FormPage({
     <div className={`form-page-wrapper ${className}`.trim()}>
       <div className="form-page-container">
         <div className="form-page-header">
-          <div className="form-page-header-left">
-            <h1 className="form-page-title">{title}</h1>
-            {description && (
-              <p className="form-page-description">{description}</p>
-            )}
+          <div className="form-page-breadcrumb-container">
+            <Breadcrumb items={breadcrumbs} />
           </div>
 
-          <div className="form-page-header-right">
-            <Breadcrumb items={breadcrumbs} />
+          <div className="form-page-header-content">
+            <div className="form-page-header-left">
+              <h1 className="form-page-title">{title}</h1>
+              {description && (
+                <p className="form-page-description">{description}</p>
+              )}
+            </div>
+
             {headerAction && (
-              <div className="form-page-action">{headerAction}</div>
+              <div className="form-page-header-right">
+                <div className="form-page-action">{headerAction}</div>
+              </div>
             )}
           </div>
         </div>

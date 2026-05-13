@@ -46,8 +46,12 @@ export default function Breadcrumb({ items }: BreadcrumbProps) {
         label = 'Location Management';
       } else if (path.toLowerCase() === 'faculty-management') {
         label = 'Faculty Admin';
-      } else if (path.toLowerCase() === 'course') {
-        label = 'Course Management';
+      } else if (path.toLowerCase() === 'subject') {
+        label = 'Subject Management';
+      } else if (path.toLowerCase() === 'grant') {
+        label = 'Grants';
+      } else if (path.toLowerCase() === 'schemes') {
+        label = 'Schemes';
       } else if (path.toLowerCase() === 'user-management') {
         label = 'User Management';
       }
@@ -61,14 +65,18 @@ export default function Breadcrumb({ items }: BreadcrumbProps) {
         toPath = '/home/sub-menu/faculty-management';
       } else if (path.toLowerCase() === 'hr') {
         toPath = '/home/sub-menu/hr';
-      } else if (path.toLowerCase() === 'course') {
-        toPath = '/home/sub-menu/course';
-      } else if (path.toLowerCase() === 'user-management') {
-        toPath = '/home/sub-menu/user-management';
+      } else if (path.toLowerCase() === 'subject') {
+        toPath = '/home/sub-menu/subject';
       } else if (path.toLowerCase() === 'other') {
         toPath = '/home/sub-menu/other';
       } else if (path.toLowerCase() === 'college') {
         toPath = '/home/sub-menu/college';
+      } else if (path.toLowerCase() === 'grant') {
+        toPath = '/home/sub-menu/grant';
+      } else if (path.toLowerCase() === 'schemes') {
+        toPath = '/home/sub-menu/schemes';
+      } else if (path.toLowerCase() === 'user-management') {
+        toPath = '/home/sub-menu/user-management';
       }
 
       generatedItems.push({

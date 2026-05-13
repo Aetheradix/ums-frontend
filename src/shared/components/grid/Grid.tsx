@@ -82,7 +82,7 @@ function Grid<T>({
       }
       scrollable
       scrollHeight={rest.scrollHeight ?? '500px'}
-      style={{ width: '100%' }}
+      className="w-full"
       globalFilterFields={searchFields as string[]}
       emptyMessage="No Records Found"
       loadingIcon={<Loader type="inline" />}
@@ -105,7 +105,7 @@ function Grid<T>({
       {onEdit ? (
         <Column
           header="Action"
-          style={{ width: 110 }}
+          className="grid-action-col-sm"
           body={item => (
             <ButtonColumn
               caption={editCaption ?? 'Edit'}
@@ -119,7 +119,7 @@ function Grid<T>({
       {onRemove ? (
         <Column
           header="Action"
-          style={{ width: 130 }}
+          className="grid-action-col-md"
           body={item => (
             <ButtonColumn
               caption={removeCaption ?? 'Remove'}
