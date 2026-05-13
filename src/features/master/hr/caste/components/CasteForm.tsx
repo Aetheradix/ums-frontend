@@ -1,10 +1,10 @@
-import { FormActions, FormGrid } from 'shared/new-components';
 import { TextBox } from 'shared/components/forms';
+import { FormActions, FormGrid } from 'shared/new-components';
 import { useCasteForm } from './form.hook';
 
 interface CasteFormProps {
-  onSubmit: (data: Master.CasteForm) => Promise<void>;
-  fetchData?: Master.CasteForm;
+  onSubmit: (data: Master.HR.CasteForm) => Promise<void>;
+  fetchData?: Master.HR.CasteForm;
   isSaving?: boolean;
   isEditMode?: boolean;
 }

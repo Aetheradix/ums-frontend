@@ -1,10 +1,10 @@
-import { FormActions, FormGrid } from 'shared/new-components';
 import { TextBox } from 'shared/components/forms';
+import { FormActions, FormGrid } from 'shared/new-components';
 import { useQualificationForm } from './form.hook';
 
 interface QualificationFormProps {
-  onSubmit: (data: Master.QualificationForm) => Promise<void>;
-  fetchData?: Master.QualificationForm;
+  onSubmit: (data: Master.HR.QualificationForm) => Promise<void>;
+  fetchData?: Master.HR.QualificationForm;
   isSaving?: boolean;
   isEditMode?: boolean;
 }

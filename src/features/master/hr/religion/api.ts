@@ -3,18 +3,18 @@ import { ApiService } from 'services';
 const RELIGION_URL = `master/religions`;
 
 export function getReligions() {
-  return ApiService.getList<Master.ReligionItem>(RELIGION_URL);
+  return ApiService.getList<Master.HR.ReligionItem>(RELIGION_URL);
 }
 
 export async function getReligion(id: number) {
-  const { data } = await ApiService.get<Master.ReligionItem>(
+  const { data } = await ApiService.get<Master.HR.ReligionItem>(
     `${RELIGION_URL}/${id}`
   );
   return data;
 }
 
-export async function createReligion(form: Master.ReligionForm) {
-  const { error, data } = await ApiService.post<Master.ReligionItem>(
+export async function createReligion(form: Master.HR.ReligionForm) {
+  const { error, data } = await ApiService.post<Master.HR.ReligionItem>(
     RELIGION_URL,
     form
   );
@@ -23,7 +23,7 @@ export async function createReligion(form: Master.ReligionForm) {
 
 export async function updateReligion(
   id: number,
-  form: Master.ReligionForm
+  form: Master.HR.ReligionForm
 ): Promise<boolean> {
   const result = await ApiService.put(`${RELIGION_URL}/${id}`, form);
   return !result.error;

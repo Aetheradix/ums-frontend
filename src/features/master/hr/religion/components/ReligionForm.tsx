@@ -1,10 +1,10 @@
-import { FormActions, FormGrid } from 'shared/new-components';
 import { TextBox } from 'shared/components/forms';
+import { FormActions, FormGrid } from 'shared/new-components';
 import { useReligionForm } from './form.hook';
 
 interface ReligionFormProps {
-  onSubmit: (data: Master.ReligionForm) => Promise<void>;
-  fetchData?: Master.ReligionForm;
+  onSubmit: (data: Master.HR.ReligionForm) => Promise<void>;
+  fetchData?: Master.HR.ReligionForm;
   isSaving?: boolean;
   isEditMode?: boolean;
 }

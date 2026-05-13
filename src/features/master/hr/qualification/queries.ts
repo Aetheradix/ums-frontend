@@ -20,13 +20,14 @@ export function useQualificationsQuery() {
 export function useCreateQualificationMutation() {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: async (data: Master.QualificationForm) =>
+    mutationFn: async (data: Master.HR.QualificationForm) =>
       await createQualification(data),
 
     onSuccess(data) {
       if (!data) return;
       const result =
-        queryClient.getQueryData<Master.QualificationItem[]>(QUERY_KEY) ?? [];
+        queryClient.getQueryData<Master.HR.QualificationItem[]>(QUERY_KEY) ??
+        [];
       queryClient.setQueryData(QUERY_KEY, [...result, data]);
     },
   });
@@ -53,19 +54,20 @@ export function useUpdateQualificationMutation(id: number) {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async (data: Master.QualificationForm) =>
+    mutationFn: async (data: Master.HR.QualificationForm) =>
       await updateQualification(id, data),
 
     onSuccess(success, formData) {
       if (!success) return;
 
       const result =
-        queryClient.getQueryData<Master.QualificationItem[]>(QUERY_KEY) ?? [];
+        queryClient.getQueryData<Master.HR.QualificationItem[]>(QUERY_KEY) ??
+        [];
       const index = result.findIndex(item => item.id === id);
       if (index === -1) return;
 
       const existing = result[index];
-      const itemToReplace: Master.QualificationItem = {
+      const itemToReplace: Master.HR.QualificationItem = {
         id,
         name: formData.name,
         subject: formData.subject,
@@ -94,7 +96,8 @@ export function useQualificationActiveStatusMutation() {
       if (!success) return;
 
       const result =
-        queryClient.getQueryData<Master.QualificationItem[]>(QUERY_KEY) ?? [];
+        queryClient.getQueryData<Master.HR.QualificationItem[]>(QUERY_KEY) ??
+        [];
 
       const index = result.findIndex(item => item.id === variables.id);
       if (index === -1) return;

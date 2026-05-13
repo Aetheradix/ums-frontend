@@ -14,7 +14,7 @@ export default function Create() {
     navigate(masterUrls.religion.root);
   }, [navigate]);
 
-  async function handleSubmit(data: Master.ReligionForm) {
+  async function handleSubmit(data: Master.HR.ReligionForm) {
     try {
       const result = await mutateAsync(data);
       if (result) {

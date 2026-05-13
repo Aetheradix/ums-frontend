@@ -1,14 +1,14 @@
 import { useCallback } from 'react';
 import { useNavigate } from 'react-router';
 import { ToastService } from 'services';
-import { FormCard, FormPage } from 'shared/new-components';
 import { Loader } from 'shared/components/progress';
 import { useParamsId } from 'shared/hooks/params';
+import { FormCard, FormPage } from 'shared/new-components';
 import { masterUrls } from '../../../urls';
 import ReligionForm from '../components/ReligionForm';
 import { useReligionQuery, useUpdateReligionMutation } from '../queries';
 
-const DEFAULT: Master.ReligionForm = {
+const DEFAULT: Master.HR.ReligionForm = {
   name: '',
   isActive: true,
 };
@@ -23,7 +23,7 @@ export default function Edit() {
     navigate(masterUrls.religion.root);
   }, [navigate]);
 
-  async function handleSubmit(formData: Master.ReligionForm) {
+  async function handleSubmit(formData: Master.HR.ReligionForm) {
     try {
       const result = await mutateAsync(formData);
       if (result) {

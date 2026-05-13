@@ -1,9 +1,9 @@
 import { useCallback } from 'react';
 import { useNavigate } from 'react-router';
 import { ToastService } from 'services';
-import { FormCard, FormPage } from 'shared/new-components';
 import { Loader } from 'shared/components/progress';
 import { useParamsId } from 'shared/hooks/params';
+import { FormCard, FormPage } from 'shared/new-components';
 import { masterUrls } from '../../../urls';
 import QualificationForm from '../components/QualificationForm';
 import {
@@ -11,7 +11,7 @@ import {
   useUpdateQualificationMutation,
 } from '../queries';
 
-const DEFAULT: Master.QualificationForm = {
+const DEFAULT: Master.HR.QualificationForm = {
   name: '',
   subject: '',
   code: '',
@@ -28,7 +28,7 @@ export default function Edit() {
     navigate(masterUrls.qualification.root);
   }, [navigate]);
 
-  async function handleSubmit(formData: Master.QualificationForm) {
+  async function handleSubmit(formData: Master.HR.QualificationForm) {
     try {
       const result = await mutateAsync(formData);
       if (result) {
