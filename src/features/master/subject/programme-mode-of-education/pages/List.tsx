@@ -1,5 +1,4 @@
 import { useCallback, useState } from 'react';
-import { ToastService } from 'services';
 import { Button } from 'shared/components/buttons';
 import StatusButton from 'shared/components/buttons/StatusButton';
 import { Loader } from 'shared/components/progress';
@@ -9,13 +8,11 @@ import {
   FormPopup,
   GridPanel,
 } from 'shared/new-components';
-import ProgrammeModeOfEducationForm from '../components/ProgrammeModeOfEducationForm';
+import CreateProgrammeModeOfEducation from '../components/CreateProgrammeModeOfEducation';
+import EditProgrammeModeOfEducation from '../components/EditProgrammeModeOfEducation';
 import {
-  useCreateProgrammeModeOfEducationMutation,
   useProgrammeModeOfEducationActiveStatusMutation,
-  useProgrammeModeOfEducationQuery,
   useProgrammeModeOfEducationsQuery,
-  useUpdateProgrammeModeOfEducationMutation,
 } from '../queries';
 
 type PopupState =
@@ -80,91 +77,28 @@ export default function List() {
         />
       </FormCard>
 
-      <FormPopup
-        visible={popup.mode === 'create'}
-        onHide={closePopup}
-        title="Create Programme Mode of Education"
-        subtitle="Fill in the details to add a new Programme Mode of Education."
-      >
-        <CreateContent onClose={closePopup} />
-      </FormPopup>
-
-      <FormPopup
-        visible={popup.mode === 'edit'}
-        onHide={closePopup}
-        title="Edit Programme Mode of Education"
-        subtitle="Update the details of the Programme Mode of Education."
-      >
-        {popup.mode === 'edit' && (
-          <EditContent id={popup.id} onClose={closePopup} />
-        )}
-      </FormPopup>
+      {popup.mode === 'create' ? (
+        <FormPopup
+          visible
+          onHide={closePopup}
+          title="Create Programme Mode of Education"
+          subtitle="Fill in the details to add a new Programme Mode of Education."
+        >
+          <CreateProgrammeModeOfEducation onClose={closePopup} />
+        </FormPopup>
+      ) : null}
+      {popup.mode === 'edit' ? (
+        <FormPopup
+          visible
+          onHide={closePopup}
+          title="Edit Programme Mode of Education"
+          subtitle="Update the details of the Programme Mode of Education."
+        >
+          {popup.mode === 'edit' && (
+            <EditProgrammeModeOfEducation id={popup.id} onClose={closePopup} />
+          )}
+        </FormPopup>
+      ) : null}
     </FormPage>
-  );
-}
-
-function CreateContent({ onClose }: { onClose: () => void }) {
-  const { mutateAsync, isPending } =
-    useCreateProgrammeModeOfEducationMutation();
-
-  async function handleSubmit(
-    data: Master.SubjectMaster.ProgrammeModeOfEducationForm
-  ) {
-    try {
-      const result = await mutateAsync(data);
-      if (result) {
-        ToastService.success(
-          'Programme Mode of Education created successfully.'
-        );
-        onClose();
-      }
-    } catch {
-      ToastService.error('Failed to create Programme Mode of Education');
-    }
-  }
-
-  return (
-    <ProgrammeModeOfEducationForm
-      onSubmit={handleSubmit}
-      isSaving={isPending}
-    />
-  );
-}
-
-function EditContent({ id, onClose }: { id: number; onClose: () => void }) {
-  const { mutateAsync, isPending } =
-    useUpdateProgrammeModeOfEducationMutation(id);
-  const { data, isLoading } = useProgrammeModeOfEducationQuery(id);
-  const DEFAULT: Master.SubjectMaster.ProgrammeModeOfEducationForm = {
-    code: '',
-    name: '',
-    isActive: true,
-  };
-
-  async function handleSubmit(
-    formData: Master.SubjectMaster.ProgrammeModeOfEducationForm
-  ) {
-    try {
-      const result = await mutateAsync(formData);
-      if (result) {
-        ToastService.success(
-          'Programme Mode of Education updated successfully.'
-        );
-        onClose();
-      }
-    } catch {
-      ToastService.error('Failed to update Programme Mode of Education');
-    }
-  }
-
-  if (isLoading) return <Loader />;
-
-  return (
-    <ProgrammeModeOfEducationForm
-      fetchData={data ?? DEFAULT}
-      isSaving={isPending}
-      isEditMode
-      onSubmit={handleSubmit}
-    />
   );
 }

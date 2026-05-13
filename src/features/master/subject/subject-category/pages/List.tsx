@@ -1,5 +1,4 @@
 import { useCallback, useState } from 'react';
-import { ToastService } from 'services';
 import { Button } from 'shared/components/buttons';
 import StatusButton from 'shared/components/buttons/StatusButton';
 import { Loader } from 'shared/components/progress';
@@ -9,13 +8,11 @@ import {
   FormPopup,
   GridPanel,
 } from 'shared/new-components';
-import SubjectCategoryForm from '../components/SubjectCategoryForm';
+import CreateCategory from '../components/CreateCategory';
+import EditCategory from '../components/EditCategory';
 import {
-  useCreateSubjectCategoryMutation,
   useSubjectCategoriesQuery,
   useSubjectCategoryActiveStatusMutation,
-  useSubjectCategoryQuery,
-  useUpdateSubjectCategoryMutation,
 } from '../queries';
 
 type PopupState =
@@ -78,78 +75,27 @@ export default function List() {
         />
       </FormCard>
 
-      <FormPopup
-        visible={popup.mode === 'create'}
-        onHide={closePopup}
-        title="Create Subject Category"
-        subtitle="Fill in the details to add a new subject category."
-      >
-        <CreateContent onClose={closePopup} />
-      </FormPopup>
+      {popup.mode === 'create' ? (
+        <FormPopup
+          visible
+          onHide={closePopup}
+          title="Create Subject Category"
+          subtitle="Fill in the details to add a new subject category."
+        >
+          <CreateCategory onClose={closePopup} />
+        </FormPopup>
+      ) : null}
 
-      <FormPopup
-        visible={popup.mode === 'edit'}
-        onHide={closePopup}
-        title="Edit Subject Category"
-        subtitle="Update the details of the subject category."
-      >
-        {popup.mode === 'edit' && (
-          <EditContent id={popup.id} onClose={closePopup} />
-        )}
-      </FormPopup>
+      {popup.mode === 'edit' ? (
+        <FormPopup
+          visible
+          onHide={closePopup}
+          title="Edit Subject Category"
+          subtitle="Update the details of the subject category."
+        >
+          <EditCategory id={popup.id} onClose={closePopup} />
+        </FormPopup>
+      ) : null}
     </FormPage>
-  );
-}
-
-function CreateContent({ onClose }: { onClose: () => void }) {
-  const { mutateAsync, isPending } = useCreateSubjectCategoryMutation();
-
-  async function handleSubmit(data: Master.SubjectMaster.SubjectCategoryForm) {
-    try {
-      const result = await mutateAsync(data);
-      if (result) {
-        ToastService.success('Subject Category created successfully.');
-        onClose();
-      }
-    } catch {
-      ToastService.error('Failed to create subject category.');
-    }
-  }
-
-  return <SubjectCategoryForm onSubmit={handleSubmit} isSaving={isPending} />;
-}
-
-function EditContent({ id, onClose }: { id: number; onClose: () => void }) {
-  const { mutateAsync, isPending } = useUpdateSubjectCategoryMutation(id);
-  const { data, isLoading } = useSubjectCategoryQuery(id);
-  const DEFAULT: Master.SubjectMaster.SubjectCategoryForm = {
-    code: '',
-    name: '',
-    isActive: true,
-  };
-
-  async function handleSubmit(
-    formData: Master.SubjectMaster.SubjectCategoryForm
-  ) {
-    try {
-      const result = await mutateAsync(formData);
-      if (result) {
-        ToastService.success('Subject Category updated successfully.');
-        onClose();
-      }
-    } catch {
-      ToastService.error('Failed to update subject category.');
-    }
-  }
-
-  if (isLoading) return <Loader />;
-
-  return (
-    <SubjectCategoryForm
-      fetchData={data ?? DEFAULT}
-      isSaving={isPending}
-      isEditMode
-      onSubmit={handleSubmit}
-    />
   );
 }
