@@ -2,7 +2,7 @@ import { errors } from 'config/errors';
 import { useAppForm } from 'shared/hooks/form';
 import validation, { expressions, keys } from 'shared/utils/validation';
 
-const schema = validation.create<Master.QualificationForm>(o => ({
+const schema = validation.create<Master.HR.QualificationForm>(o => ({
   name: o
     .string()
     .required()
@@ -27,11 +27,11 @@ const schema = validation.create<Master.QualificationForm>(o => ({
 }));
 
 export function useQualificationForm(
-  submitCallback: Forms.SubmitFunc<Master.QualificationForm>,
-  defaultValues?: Master.QualificationForm
+  submitCallback: Forms.SubmitFunc<Master.HR.QualificationForm>,
+  defaultValues?: Master.HR.QualificationForm
 ) {
   const { register, control, handleSubmit, reset } =
-    useAppForm<Master.QualificationForm>({
+    useAppForm<Master.HR.QualificationForm>({
       defaultValues: defaultValues,
       resolver: validation.resolver(schema),
     });

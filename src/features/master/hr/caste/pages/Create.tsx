@@ -14,7 +14,7 @@ export default function Create() {
     navigate(masterUrls.caste.root);
   }, [navigate]);
 
-  async function handleSubmit(data: Master.CasteForm) {
+  async function handleSubmit(data: Master.HR.CasteForm) {
     try {
       const result = await mutateAsync(data);
       if (result) {

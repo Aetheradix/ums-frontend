@@ -3,18 +3,18 @@ import { ApiService } from 'services';
 const QUALIFICATION_URL = `master/qualifications`;
 
 export function getQualifications() {
-  return ApiService.getList<Master.QualificationItem>(QUALIFICATION_URL);
+  return ApiService.getList<Master.HR.QualificationItem>(QUALIFICATION_URL);
 }
 
 export async function getQualification(id: number) {
-  const { data } = await ApiService.get<Master.QualificationItem>(
+  const { data } = await ApiService.get<Master.HR.QualificationItem>(
     `${QUALIFICATION_URL}/${id}`
   );
   return data;
 }
 
-export async function createQualification(form: Master.QualificationForm) {
-  const { error, data } = await ApiService.post<Master.QualificationItem>(
+export async function createQualification(form: Master.HR.QualificationForm) {
+  const { error, data } = await ApiService.post<Master.HR.QualificationItem>(
     QUALIFICATION_URL,
     form
   );
@@ -23,7 +23,7 @@ export async function createQualification(form: Master.QualificationForm) {
 
 export async function updateQualification(
   id: number,
-  form: Master.QualificationForm
+  form: Master.HR.QualificationForm
 ): Promise<boolean> {
   const result = await ApiService.put(`${QUALIFICATION_URL}/${id}`, form);
   return !result.error;

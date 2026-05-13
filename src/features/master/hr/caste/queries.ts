@@ -20,12 +20,12 @@ export function useCastesQuery() {
 export function useCreateCasteMutation() {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: async (data: Master.CasteForm) => await createCaste(data),
+    mutationFn: async (data: Master.HR.CasteForm) => await createCaste(data),
 
     onSuccess(data) {
       if (!data) return;
       const result =
-        queryClient.getQueryData<Master.CasteItem[]>(QUERY_KEY) ?? [];
+        queryClient.getQueryData<Master.HR.CasteItem[]>(QUERY_KEY) ?? [];
       queryClient.setQueryData(QUERY_KEY, [...result, data]);
     },
   });
@@ -50,18 +50,19 @@ export function useUpdateCasteMutation(id: number) {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async (data: Master.CasteForm) => await updateCaste(id, data),
+    mutationFn: async (data: Master.HR.CasteForm) =>
+      await updateCaste(id, data),
 
     onSuccess(success, formData) {
       if (!success) return;
 
       const result =
-        queryClient.getQueryData<Master.CasteItem[]>(QUERY_KEY) ?? [];
+        queryClient.getQueryData<Master.HR.CasteItem[]>(QUERY_KEY) ?? [];
       const index = result.findIndex(item => item.id === id);
       if (index === -1) return;
 
       const existing = result[index];
-      const itemToReplace: Master.CasteItem = {
+      const itemToReplace: Master.HR.CasteItem = {
         id,
         name: formData.name,
         isActive: existing?.isActive || formData.isActive,
@@ -88,7 +89,7 @@ export function useCasteActiveStatusMutation() {
       if (!success) return;
 
       const result =
-        queryClient.getQueryData<Master.CasteItem[]>(QUERY_KEY) ?? [];
+        queryClient.getQueryData<Master.HR.CasteItem[]>(QUERY_KEY) ?? [];
 
       const index = result.findIndex(item => item.id === variables.id);
       if (index === -1) return;

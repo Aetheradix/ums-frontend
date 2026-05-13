@@ -1,4 +1,5 @@
 import { useCallback, useState } from 'react';
+import { ToastService } from 'services';
 import { Button } from 'shared/components/buttons';
 import StatusButton from 'shared/components/buttons/StatusButton';
 import { Loader } from 'shared/components/progress';
@@ -8,7 +9,6 @@ import {
   FormPopup,
   GridPanel,
 } from 'shared/new-components';
-import { ToastService } from 'services';
 import ReligionForm from '../components/ReligionForm';
 import {
   useCreateReligionMutation,
@@ -28,7 +28,7 @@ export default function List() {
   const { mutateAsync: toggleStatus } = useReligionActiveStatusMutation();
   const [popup, setPopup] = useState<PopupState>({ mode: 'closed' });
 
-  const handleToggleStatus = async (item: Master.ReligionItem) => {
+  const handleToggleStatus = async (item: Master.HR.ReligionItem) => {
     await toggleStatus({ id: item.id, isActive: !item.isActive });
   };
 
@@ -54,7 +54,7 @@ export default function List() {
               field: 'isActive',
               header: 'Status',
               sortable: false,
-              cell: (item: Master.ReligionItem) => (
+              cell: (item: Master.HR.ReligionItem) => (
                 <StatusButton
                   value={item.isActive}
                   onClick={() => handleToggleStatus(item)}
@@ -100,7 +100,7 @@ export default function List() {
 function CreateContent({ onClose }: { onClose: () => void }) {
   const { mutateAsync, isPending } = useCreateReligionMutation();
 
-  async function handleSubmit(data: Master.ReligionForm) {
+  async function handleSubmit(data: Master.HR.ReligionForm) {
     try {
       const result = await mutateAsync(data);
       if (result) {
@@ -118,9 +118,9 @@ function CreateContent({ onClose }: { onClose: () => void }) {
 function EditContent({ id, onClose }: { id: number; onClose: () => void }) {
   const { mutateAsync, isPending } = useUpdateReligionMutation(id);
   const { data, isLoading } = useReligionQuery(id);
-  const DEFAULT: Master.ReligionForm = { name: '', isActive: true };
+  const DEFAULT: Master.HR.ReligionForm = { name: '', isActive: true };
 
-  async function handleSubmit(formData: Master.ReligionForm) {
+  async function handleSubmit(formData: Master.HR.ReligionForm) {
     try {
       const result = await mutateAsync(formData);
       if (result) {
