@@ -379,7 +379,7 @@ export const menuConfig: Menu.MenuItem[] = [
         children: [],
       },
       {
-        label: 'Examination Management',
+        label: 'Exam Management',
         slug: 'examination-management',
         description:
           'Manage countries, states, divisions, districts, tehsils, and blocks.',
@@ -397,7 +397,7 @@ export const menuConfig: Menu.MenuItem[] = [
         children: [],
       },
       {
-        label: 'Student Feedback Management',
+        label: 'Feedback Management',
         slug: 'student-feedback-management',
         description:
           'Manage countries, states, divisions, districts, tehsils, and blocks.',
@@ -444,7 +444,7 @@ export const menuConfig: Menu.MenuItem[] = [
         children: [],
       },
       {
-        label: 'Core Communication System',
+        label: 'Communication System',
         slug: 'core-communication-system',
         description:
           'Manage countries, states, divisions, districts, tehsils, and blocks.',
@@ -462,7 +462,7 @@ export const menuConfig: Menu.MenuItem[] = [
         children: [],
       },
       {
-        label: 'Residential Allocation Management',
+        label: 'Residential Allocation',
         slug: 'residential-allocation-management',
         description:
           'Manage countries, states, divisions, districts, tehsils, and blocks.',
