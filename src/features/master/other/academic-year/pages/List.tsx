@@ -1,22 +1,18 @@
 import { useCallback, useState } from 'react';
-import { ToastService } from 'services';
 import { Button } from 'shared/components/buttons';
 import StatusButton from 'shared/components/buttons/StatusButton';
-import { Loader } from 'shared/components/progress';
 import {
   FormCard,
   FormPage,
   FormPopup,
   GridPanel,
 } from 'shared/new-components';
-import AcademicYearForm from '../components/AcademicYearForm';
+import CreateAcademicYear from '../components/CreateAcademicYear';
 import {
   useAcademicYearsQuery,
   useAcademicYearStatusMutation,
-  useCreateAcademicYearMutation,
-  useGetAcademicYearByIdQuery,
-  useUpdateAcademicYearMutation,
 } from '../queries';
+import EditAcademicYear from '../components/EditAcademicYear';
 
 type PopupState =
   | { mode: 'closed' }
@@ -80,80 +76,29 @@ export default function List() {
         />
       </FormCard>
 
-      <FormPopup
-        visible={popup.mode === 'create'}
-        onHide={closePopup}
-        title="Create Academic Year"
-        subtitle="Fill in the details to add a new academic year."
-      >
-        <CreateContent onClose={closePopup} />
-      </FormPopup>
+      {popup.mode === 'create' ? (
+        <FormPopup
+          visible
+          onHide={closePopup}
+          title="Create Academic Year"
+          subtitle="Fill in the details to add a new academic year."
+        >
+          <CreateAcademicYear onClose={closePopup} />
+        </FormPopup>
+      ) : null}
 
-      <FormPopup
-        visible={popup.mode === 'edit'}
-        onHide={closePopup}
-        title="Edit Academic Year"
-        subtitle="Update the details of the academic year."
-      >
-        {popup.mode === 'edit' && (
-          <EditContent id={popup.id} onClose={closePopup} />
-        )}
-      </FormPopup>
+      {popup.mode === 'edit' ? (
+        <FormPopup
+          visible
+          onHide={closePopup}
+          title="Edit Academic Year"
+          subtitle="Update the details of the academic year."
+        >
+          {popup.mode === 'edit' && (
+            <EditAcademicYear id={popup.id} onClose={closePopup} />
+          )}
+        </FormPopup>
+      ) : null}
     </FormPage>
-  );
-}
-
-function CreateContent({ onClose }: { onClose: () => void }) {
-  const { mutateAsync, isPending } = useCreateAcademicYearMutation();
-
-  async function handleSubmit(data: Master.Other.AcademicYearForm) {
-    try {
-      const result = await mutateAsync(data);
-
-      if (result) {
-        ToastService.success('Academic year created successfully.');
-        onClose();
-      }
-    } catch {
-      ToastService.error('Failed to create academic year.');
-    }
-  }
-
-  return <AcademicYearForm onSubmit={handleSubmit} isSaving={isPending} />;
-}
-
-function EditContent({ id, onClose }: { id: number; onClose: () => void }) {
-  const { mutateAsync, isPending } = useUpdateAcademicYearMutation(id);
-
-  const { data, isLoading } = useGetAcademicYearByIdQuery(id);
-
-  const DEFAULT: Master.Other.AcademicYearForm = {
-    name: '',
-    session: '',
-    isActive: true,
-  };
-
-  async function handleSubmit(formData: Master.Other.AcademicYearForm) {
-    try {
-      const result = await mutateAsync(formData);
-
-      if (result) {
-        ToastService.success('Academic year updated successfully.');
-        onClose();
-      }
-    } catch {
-      ToastService.error('Failed to update academic year.');
-    }
-  }
-
-  if (isLoading) return <Loader />;
-
-  return (
-    <AcademicYearForm
-      fetchData={data ?? DEFAULT}
-      isSaving={isPending}
-      isEditMode
-      onSubmit={handleSubmit}
-    />
   );
 }
