@@ -1,6 +1,5 @@
 import { Route, Routes } from 'react-router';
 import List from './pages/List';
-
 export default function SubjectCategory() {
   return (
     <Routes>
