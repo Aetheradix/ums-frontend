@@ -57,8 +57,8 @@ declare namespace Master {
       name: string;
     }
     interface AddressTypeItem {
-      id: number;
-      name: string;
+      id: string;
+      text: string;
     }
     interface SemesterItem {
       id: number;
