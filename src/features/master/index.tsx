@@ -15,6 +15,8 @@ import DegreeLevel from './other/degree-level';
 import Nationality from './other/nationality';
 import Programme from './other/programme';
 import Specialisation from './other/specialisation';
+import UserManagement from './user-management';
+import Role from './user-management/role';
 import Scheme from './schemes/scheme';
 import SchemeCategory from './schemes/scheme-category';
 import SchemeType from './schemes/scheme-type';
@@ -27,6 +29,8 @@ export default function Master() {
   return (
     <Routes>
       <Route path="location/*" element={<Location />} />
+      <Route path="role/*" element={<Role />} />
+      <Route path="user-management/*" element={<UserManagement />} />
       <Route path="subject/*" element={<Subject />} />
 
       <Route path="faculty-management/*">
@@ -59,7 +63,10 @@ export default function Master() {
       <Route path="grant/*">
         <Route path="grant-type/*" element={<GrantType />} />
         <Route path="grant-category/*" element={<GrantCategory />} />
-        <Route path="eligibility-application-process/*" element={<EligibilityApplicationProcess />} />
+        <Route
+          path="eligibility-application-process/*"
+          element={<EligibilityApplicationProcess />}
+        />
       </Route>
 
       <Route path="scheme/*">

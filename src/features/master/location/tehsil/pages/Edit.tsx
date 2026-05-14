@@ -1,9 +1,9 @@
 import { useCallback } from 'react';
 import { useNavigate } from 'react-router';
 import { ToastService } from 'services';
-import { FormCard, FormPage } from 'shared/new-components';
 import { Loader } from 'shared/components/progress';
 import { useParamsId } from 'shared/hooks/params';
+import { FormCard, FormPage } from 'shared/new-components';
 import { masterUrls } from '../../../urls';
 import TehsilForm from '../components/TehsilForm';
 import { useTehsilQuery, useUpdateTehsilMutation } from '../queries';
@@ -17,7 +17,7 @@ const DEFAULT: Master.TehsilForm = {
 
 export default function Edit() {
   const navigate = useNavigate();
-  const id = useParamsId();
+  const id = Number(useParamsId());
   const { mutateAsync, isPending } = useUpdateTehsilMutation(id);
   const { data = DEFAULT, isLoading } = useTehsilQuery(id);
 

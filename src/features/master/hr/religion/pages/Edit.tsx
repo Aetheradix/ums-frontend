@@ -15,7 +15,7 @@ const DEFAULT: Master.HR.ReligionForm = {
 
 export default function Edit() {
   const navigate = useNavigate();
-  const id = useParamsId();
+  const id = Number(useParamsId());
   const { mutateAsync, isPending } = useUpdateReligionMutation(id);
   const { data = DEFAULT, isLoading } = useReligionQuery(id);
 

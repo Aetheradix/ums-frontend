@@ -51,7 +51,6 @@ declare namespace Master {
       isActive: boolean;
     }
     type SpecialisationItem = Data.WithId<Specialisation>;
-
     interface ResidencyStatusItem {
       id: String;
       text: string;
@@ -59,6 +58,10 @@ declare namespace Master {
     interface AddressTypeItem {
       id: string;
       text: string;
+    }
+    interface PreviousInstituteTypeItem {
+      id: number;
+      name: string;
     }
     interface SemesterItem {
       id: String;

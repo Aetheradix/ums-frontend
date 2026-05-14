@@ -20,7 +20,7 @@ const DEFAULT: Master.HR.QualificationForm = {
 
 export default function Edit() {
   const navigate = useNavigate();
-  const id = useParamsId();
+  const id = Number(useParamsId());
   const { mutateAsync, isPending } = useUpdateQualificationMutation(id);
   const { data = DEFAULT, isLoading } = useQualificationQuery(id);
 

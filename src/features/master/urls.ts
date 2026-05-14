@@ -21,6 +21,7 @@ import { degreeLevelUrls } from './other/degree-level/urls';
 import { nationalityUrls } from './other/nationality/urls';
 import { programmeUrls } from './other/programme/urls';
 import { specialisationUrls } from './other/specialisation/urls';
+import { roleUrls } from './user-management/role/urls';
 import { schemeCategoryUrls } from './schemes/scheme-category/urls';
 import { schemeTypeUrls } from './schemes/scheme-type/urls';
 import { schemeUrls } from './schemes/scheme/urls';
@@ -44,6 +45,7 @@ export const masterUrls = {
   post: postUrls(`${baseUrl}/hr`),
   qualification: qualificationUrls(`${baseUrl}/hr`),
   religion: religionUrls(`${baseUrl}/hr`),
+  role: roleUrls(`${baseUrl}/user-management`),
   collegeType: collegeTypeUrls(`${baseUrl}/college`),
   collegeCategory: collegeCategoryUrls(`${baseUrl}/college`),
   faculty: facultyUrls(`${baseUrl}/faculty-management`),
@@ -57,5 +59,7 @@ export const masterUrls = {
   Nationality: nationalityUrls(`${baseUrl}/other`),
   grantType: grantTypeUrls(`${baseUrl}/grant`),
   grantCategory: grantCategoryUrls(`${baseUrl}/grant`),
-  eligibilityApplicationProcess: eligibilityApplicationProcessUrls(`${baseUrl}/grant`),
+  eligibilityApplicationProcess: eligibilityApplicationProcessUrls(
+    `${baseUrl}/grant`
+  ),
 };

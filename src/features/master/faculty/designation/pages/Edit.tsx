@@ -14,7 +14,7 @@ const DEFAULT: Master.DesignationForm = {
 
 export default function Edit() {
   const navigate = useNavigate();
-  const id = useParamsId();
+  const id = Number(useParamsId());
   const { mutateAsync, isPending } = useUpdateDesignationMutation(id);
   const { data = DEFAULT, isLoading } = useDesignationQuery(id);
 

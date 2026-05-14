@@ -52,6 +52,8 @@ export default function Breadcrumb({ items }: BreadcrumbProps) {
         label = 'Grants';
       } else if (path.toLowerCase() === 'schemes') {
         label = 'Schemes';
+      } else if (path.toLowerCase() === 'user-management') {
+        label = 'User Management';
       }
 
       let toPath = currentPath;
@@ -73,6 +75,8 @@ export default function Breadcrumb({ items }: BreadcrumbProps) {
         toPath = '/home/sub-menu/grant';
       } else if (path.toLowerCase() === 'schemes') {
         toPath = '/home/sub-menu/schemes';
+      } else if (path.toLowerCase() === 'user-management') {
+        toPath = '/home/sub-menu/user-management';
       }
 
       generatedItems.push({

@@ -15,7 +15,7 @@ const DEFAULT: Master.HR.CasteForm = {
 
 export default function Edit() {
   const navigate = useNavigate();
-  const id = useParamsId();
+  const id = Number(useParamsId());
   const { mutateAsync, isPending } = useUpdateCasteMutation(id);
   const { data = DEFAULT, isLoading } = useCasteQuery(id);
 

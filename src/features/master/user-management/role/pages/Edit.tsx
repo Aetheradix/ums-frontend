@@ -5,49 +5,42 @@ import { Loader } from 'shared/components/progress';
 import { useParamsId } from 'shared/hooks/params';
 import { FormCard, FormPage } from 'shared/new-components';
 import { masterUrls } from '../../../urls';
-import DepartmentForm from '../components/DepartmentForm';
-import { useDepartmentQuery, useUpdateDepartmentMutation } from '../queries';
+import RoleForm from '../components/RoleForm';
+import { useRoleQuery, useUpdateRoleMutation } from '../queries';
 
-const DEFAULT: Master.DepartmentForm = {
-  code: '',
+const DEFAULT: Master.UserManagement.RoleForm = {
   name: '',
-  officeTypeId: 0,
-  hodName: '',
-  contactNumber: '',
 };
 
 export default function Edit() {
   const navigate = useNavigate();
-  const id = Number(useParamsId());
-  const { mutateAsync, isPending } = useUpdateDepartmentMutation(id);
-  const { data = DEFAULT, isLoading } = useDepartmentQuery(id);
+  const id = useParamsId('id').toString();
+  const { mutateAsync, isPending } = useUpdateRoleMutation(id);
+  const { data = DEFAULT, isLoading } = useRoleQuery(id);
 
   const handleBack = useCallback(() => {
-    navigate(masterUrls.department.root);
+    navigate(masterUrls.role.root);
   }, [navigate]);
 
-  async function handleSubmit(formData: Master.DepartmentForm) {
+  async function handleSubmit(formData: Master.UserManagement.RoleForm) {
     try {
       const result = await mutateAsync(formData);
       if (result) {
-        ToastService.success('Department updated successfully.');
+        ToastService.success('Role updated successfully.');
         handleBack();
       }
     } catch {
-      ToastService.error('Failed to update department');
+      ToastService.error('Failed to update role');
     }
   }
 
   return (
-    <FormPage
-      title="Edit Department"
-      description="Update the details of the department."
-    >
-      <FormCard title="Department Details">
+    <FormPage title="Edit Role" description="Update the details of the role.">
+      <FormCard title="Role Details">
         {isLoading ? (
           <Loader />
         ) : (
-          <DepartmentForm
+          <RoleForm
             fetchData={data}
             isSaving={isPending}
             isEditMode

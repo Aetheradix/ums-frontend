@@ -1,9 +1,9 @@
 import { useCallback } from 'react';
 import { useNavigate } from 'react-router';
 import { ToastService } from 'services';
-import { FormCard, FormPage } from 'shared/new-components';
 import { Loader } from 'shared/components/progress';
 import { useParamsId } from 'shared/hooks/params';
+import { FormCard, FormPage } from 'shared/new-components';
 import { masterUrls } from '../../../urls';
 import StateForm from '../components/StateForm';
 import { useStateQuery, useUpdateStateMutation } from '../queries';
@@ -16,7 +16,7 @@ const DEFAULT: Master.StateForm = {
 
 export default function Edit() {
   const navigate = useNavigate();
-  const id = useParamsId();
+  const id = Number(useParamsId());
   const { mutateAsync, isPending } = useUpdateStateMutation(id);
   const { data = DEFAULT, isLoading } = useStateQuery(id);
 
