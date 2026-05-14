@@ -29,4 +29,40 @@ declare namespace Master.HR {
     isActive: boolean;
   }
   type ReligionItem = Data.WithId<ReligionForm>;
+
+  // DesignationType
+  interface DesignationTypeForm {
+    name: string;
+    code: string;
+    isActive: boolean;
+  }
+  type DesignationTypeItem = Data.WithId<DesignationTypeForm>;
+
+  // Designation
+  interface DesignationForm {
+    classId: string | number;
+    postId: string | number;
+    designationTypeId: string | number;
+    name: string;
+    code: string;
+    sequenceNumber: number;
+    isActive: boolean;
+  }
+  type DesignationItem = Data.WithId<DesignationForm>;
+
+  // Section
+  interface SectionForm {
+    name: string;
+    code: string;
+    isActive: boolean;
+  }
+  type SectionItem = Data.WithId<SectionForm>;
+
+  // Class
+  interface ClassForm {
+    name: string;
+    code: string;
+    isActive: boolean;
+  }
+  type ClassItem = Data.WithId<ClassForm>;
 }
