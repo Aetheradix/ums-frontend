@@ -1,27 +1,30 @@
-import { useResidencyStatusesQuery } from 'features/master/other/residency-status/queries';
 import type { FieldValues } from 'react-hook-form';
 import { DropDownList } from 'shared/components/forms';
+import { useSpecialisationsQuery } from '../master/other/specialisation/queries';
 
-interface SelectResidencyStatusProps<
+interface SelectSpecialisationProps<
   T extends FieldValues,
 > extends Controls.FormProps<T> {
   label?: string;
   disabled?: boolean;
 }
 
-export default function SelectResidencyStatus<T extends FieldValues>({
+export default function SelectSpecialisation<T extends FieldValues>({
   defaultOptionText,
-  label = 'Residency Status',
+  label = 'Specialization',
   ...props
-}: SelectResidencyStatusProps<T> &
+}: SelectSpecialisationProps<T> &
   Controls.InputBlockProps & { defaultOptionText?: string }) {
-  const { data, isLoading } = useResidencyStatusesQuery();
+  const { data, isLoading } = useSpecialisationsQuery();
+  const activeData = (data as Master.Other.SpecialisationItem[]).filter(
+    item => item.isActive
+  );
 
   return (
     <DropDownList
-      data={data}
+      data={activeData}
       loading={isLoading}
-      textField="text"
+      textField="name"
       valueField="id"
       optionValue="id"
       label={label}

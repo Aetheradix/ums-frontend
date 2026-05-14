@@ -1,21 +1,21 @@
-import { useResidencyStatusesQuery } from 'features/master/other/residency-status/queries';
+import { useDocumentTypeQuery } from 'features/master/other/document-type/queries';
 import type { FieldValues } from 'react-hook-form';
 import { DropDownList } from 'shared/components/forms';
 
-interface SelectResidencyStatusProps<
+interface SelectDocumetTypeProps<
   T extends FieldValues,
 > extends Controls.FormProps<T> {
   label?: string;
   disabled?: boolean;
 }
 
-export default function SelectResidencyStatus<T extends FieldValues>({
+export default function SelectDocumentType<T extends FieldValues>({
   defaultOptionText,
-  label = 'Residency Status',
+  label = 'Document Type',
   ...props
-}: SelectResidencyStatusProps<T> &
+}: SelectDocumetTypeProps<T> &
   Controls.InputBlockProps & { defaultOptionText?: string }) {
-  const { data, isLoading } = useResidencyStatusesQuery();
+  const { data, isLoading } = useDocumentTypeQuery();
 
   return (
     <DropDownList
