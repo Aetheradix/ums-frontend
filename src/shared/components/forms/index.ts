@@ -10,6 +10,7 @@ import MultiSelectList from './MultiSelectList';
 import NumberBox from './NumberBox';
 import PasswordBox from './PasswordBox';
 import RadioButtonList from './RadioList';
+import Switch from './Switch';
 import TextArea from './TextArea';
 import TextBox from './TextBox';
 
@@ -26,6 +27,7 @@ export {
   NumberBox,
   PasswordBox,
   RadioButtonList,
+  Switch,
   TextArea,
   TextBox,
 };
