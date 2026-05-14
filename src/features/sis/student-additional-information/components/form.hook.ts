@@ -21,7 +21,11 @@ export function useStudentAdditionalInformationForm(
 ) {
   const { register, control, handleSubmit, reset, setValue } =
     useAppForm<SIS.StudentAdditionalInformationForm>({
-      defaultValues: fetchData,
+      defaultValues: fetchData || {
+        emailNotification: false,
+        smsNotification: false,
+        pushNotification: false,
+      },
       resolver: validation.resolver(schema),
     });
 

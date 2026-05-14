@@ -3,7 +3,7 @@ import SelectLanguagePreference from 'features/components/SelectLanguagePreferen
 import SelectRelationshipTypes from 'features/components/SelectRelationshipTypes';
 import { useEffect, useState } from 'react';
 import { useWatch } from 'react-hook-form';
-import { Checkbox, FileUpload, TextBox } from 'shared/components/forms';
+import { FileUpload, Switch, TextBox } from 'shared/components/forms';
 import { InputPanel } from 'shared/components/panels';
 import { getPhotoUrl } from 'shared/utils/photoUrl';
 import { useStudentAdditionalInformationForm } from './form.hook';
@@ -89,15 +89,21 @@ export default function StudentAdditionalInformationForm(props: Props) {
           required={!props.isEditMode}
         />
 
-        <div className="flex gap-4 col-span-1 md:col-span-2 mt-2">
-          <Checkbox
+        <div className="flex gap-8 col-span-1 md:col-span-2 mt-4">
+          <Switch
             label="Email Notification"
-            {...register('emailNotification')}
+            name="emailNotification"
+            control={control}
           />
-          <Checkbox label="SMS Notification" {...register('smsNotification')} />
-          <Checkbox
+          <Switch
+            label="SMS Notification"
+            name="smsNotification"
+            control={control}
+          />
+          <Switch
             label="Push Notification"
-            {...register('pushNotification')}
+            name="pushNotification"
+            control={control}
           />
         </div>
       </InputPanel>

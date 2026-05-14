@@ -23,15 +23,9 @@ export function useCreateStudentAdditionalInformationMutation() {
     mutationFn: async (data: SIS.StudentAdditionalInformationForm) =>
       await createStudentAdditionalInformation(data),
 
-    onSuccess(data) {
-      if (!data) return;
-
-      const result =
-        queryClient.getQueryData<SIS.StudentAdditionalInformationItem[]>(
-          QUERY_KEY
-        ) ?? [];
-
-      queryClient.setQueryData(QUERY_KEY, [...result, data]);
+    onSuccess() {
+      // Invalidate the list query to fetch fresh data from server
+      queryClient.invalidateQueries({ queryKey: QUERY_KEY });
     },
   });
 }
@@ -68,41 +62,12 @@ export function useUpdateStudentAdditionalInformationMutation(id: number) {
     mutationFn: async (data: SIS.StudentAdditionalInformationForm) =>
       await updateStudentAdditionalInformation(id, data),
 
-    onSuccess(success, formData) {
+    onSuccess(success) {
       if (!success) return;
 
-      const result =
-        queryClient.getQueryData<SIS.StudentAdditionalInformationItem[]>(
-          QUERY_KEY
-        ) ?? [];
-
-      const index = result.findIndex(item => item.id === id);
-      if (index === -1) return;
-
-      const existing = result[index];
-
-      const itemToReplace: SIS.StudentAdditionalInformationItem = {
-        id,
-        studentId: formData.studentId,
-        studentAcademicId: formData.studentAcademicId,
-        emergencyContactName: formData.emergencyContactName,
-        emergencyContact: formData.emergencyContact,
-        emergencyRelation: formData.emergencyRelation,
-        emailNotification: formData.emailNotification,
-        smsNotification: formData.smsNotification,
-        pushNotification: formData.pushNotification,
-        languagePreferance: formData.languagePreferance,
-        profilePhotoUrl: existing?.profilePhotoUrl, // Keep existing URL if any
-      };
-
-      const updatedItems = [
-        ...result.slice(0, index),
-        itemToReplace,
-        ...result.slice(index + 1),
-      ];
-
-      queryClient.setQueryData(QUERY_KEY, updatedItems);
-      queryClient.setQueryData([...QUERY_KEY, id], formData);
+      // Invalidate both list and individual query
+      queryClient.invalidateQueries({ queryKey: QUERY_KEY });
+      queryClient.invalidateQueries({ queryKey: [...QUERY_KEY, id] });
     },
   });
 }
