@@ -16,7 +16,7 @@ interface Props {
 }
 
 export default function StudentAdditionalInformationForm(props: Props) {
-  const { register, control, handleSubmit, reset, setValue } =
+  const { register, control, handleSubmit, reset } =
     useStudentAdditionalInformationForm(props.onSubmit, props.fetchData);
 
   const profilePhoto = useWatch({ control, name: 'profilePhoto' });
