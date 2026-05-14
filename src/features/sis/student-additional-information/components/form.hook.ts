@@ -11,7 +11,11 @@ const schema = validation.create<SIS.StudentAdditionalInformationForm>(o => ({
   smsNotification: o.boolean().optional(),
   pushNotification: o.boolean().optional(),
   languagePreferance: o.string().allow('', null).optional(),
-  profilePhoto: o.object().allow(null).optional(),
+  profilePhoto: o.any().allow(null).when('profilePhotoUrl', {
+    is: o.string().exist(),
+    then: o.optional(),
+    otherwise: o.required(),
+  }),
   profilePhotoUrl: o.string().allow('', null).optional(),
 }));
 

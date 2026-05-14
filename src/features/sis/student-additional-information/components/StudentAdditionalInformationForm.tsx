@@ -75,16 +75,16 @@ export default function StudentAdditionalInformationForm(props: Props) {
         <SelectLanguagePreference
           label="Language Preference"
           {...register('languagePreferance')}
+          required={false}
         />
 
         <FileUpload
           label="Profile Photo"
+          name="profilePhoto"
+          control={control}
           preview={preview}
           maxSizeKB={100}
           accept=".jpg,.jpeg,.png"
-          onChange={file => {
-            setValue('profilePhoto', file);
-          }}
           uploadNote="*Only .jpg,.png files allowed, max 100KB"
           required={!props.isEditMode}
         />
