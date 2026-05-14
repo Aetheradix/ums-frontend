@@ -4,7 +4,6 @@ import validation from 'shared/utils/validation';
 const schema = validation.create<SIS.StudentAdditionalInformationForm>(o => ({
   studentId: o.number().required(),
   studentAcademicId: o.number().required(),
-  documentType: o.string().required(),
   emergencyContactName: o.string().required(),
   emergencyContact: o.string().required(),
   emergencyRelation: o.string().required(),

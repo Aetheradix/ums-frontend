@@ -3,7 +3,6 @@ declare namespace SIS {
     id: number;
     studentId: number;
     studentAcademicId: number;
-    documentType: string;
     emergencyContactName: string;
     emergencyContact: string;
     emergencyRelation: string;
@@ -17,7 +16,6 @@ declare namespace SIS {
   interface StudentAdditionalInformationForm {
     studentId: number;
     studentAcademicId: number;
-    documentType: string;
     emergencyContactName: string;
     emergencyContact: string;
     emergencyRelation: string;

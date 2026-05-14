@@ -1,8 +1,8 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import {
   createStudentAdditionalInformation,
-  getStudentAdditionalInformations,
   getStudentAdditionalInformation,
+  getStudentAdditionalInformations,
   updateStudentAdditionalInformation,
 } from './api';
 
@@ -46,7 +46,6 @@ export function useStudentAdditionalInformationQuery(id: number) {
       return {
         studentId: data.studentId,
         studentAcademicId: data.studentAcademicId,
-        documentType: data.documentType,
         emergencyContactName: data.emergencyContactName,
         emergencyContact: data.emergencyContact,
         emergencyRelation: data.emergencyRelation,
@@ -54,7 +53,8 @@ export function useStudentAdditionalInformationQuery(id: number) {
         smsNotification: data.smsNotification,
         pushNotification: data.pushNotification,
         languagePreferance: data.languagePreferance,
-        profilePhoto: null, // Files cannot be fetched as File objects easily here
+        profilePhoto: null,
+        profilePhotoUrl: data.profilePhotoUrl,
       };
     },
     enabled: !!id,
@@ -85,7 +85,6 @@ export function useUpdateStudentAdditionalInformationMutation(id: number) {
         id,
         studentId: formData.studentId,
         studentAcademicId: formData.studentAcademicId,
-        documentType: formData.documentType,
         emergencyContactName: formData.emergencyContactName,
         emergencyContact: formData.emergencyContact,
         emergencyRelation: formData.emergencyRelation,
