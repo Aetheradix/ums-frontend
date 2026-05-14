@@ -86,5 +86,9 @@ declare namespace Master {
       id: string;
       text: string;
     }
+    interface DocumentTypeItem {
+      id: string;
+      text: string;
+    }
   }
 }
