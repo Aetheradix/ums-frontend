@@ -27,7 +27,7 @@ export function useDesignationForm(
   submitCallback: Forms.SubmitFunc<Master.HR.DesignationForm>,
   defaultValues?: Forms.FetchDataFunc<Master.HR.DesignationForm>
 ) {
-  const { register, handleSubmit, reset } =
+  const { register, handleSubmit, reset, control } =
     useAppForm<Master.HR.DesignationForm>({
       defaultValues: defaultValues,
       resolver: validation.resolver(schema),
@@ -37,5 +37,6 @@ export function useDesignationForm(
     register,
     handleSubmit: handleSubmit(submitCallback),
     reset,
+    control,
   };
 }

@@ -1,6 +1,9 @@
-import { TextBox, NumberBox, DropDownList } from 'shared/components/forms';
+import { TextBox, NumberBox } from 'shared/components/forms';
 import { FormActions, FormGrid } from 'shared/new-components';
 import { useDesignationForm } from './form.hook';
+import SelectClass from '../../../../components/SelectClass';
+import SelectPost from '../../../../components/SelectPost';
+import SelectDesignationType from '../../../../components/SelectDesignationType';
 
 interface DesignationFormProps {
   onSubmit: (data: Master.HR.DesignationForm) => Promise<void>;
@@ -10,7 +13,7 @@ interface DesignationFormProps {
 }
 
 export default function DesignationForm(props: DesignationFormProps) {
-  const { register, handleSubmit, reset } = useDesignationForm(
+  const { register, handleSubmit, reset, control } = useDesignationForm(
     props.onSubmit,
     props.fetchData
   );
@@ -18,23 +21,20 @@ export default function DesignationForm(props: DesignationFormProps) {
   return (
     <form onSubmit={handleSubmit}>
       <FormGrid columns={2}>
-        <DropDownList
-          label="Class"
-          placeholder="Select Class"
-          {...register('classId')}
-          required
+        <SelectClass
+          name="classId"
+          control={control}
+          defaultOptionText="Select Class"
         />
-        <DropDownList
-          label="Post"
-          placeholder="Select Post"
-          {...register('postId')}
-          required
+        <SelectPost
+          name="postId"
+          control={control}
+          defaultOptionText="Select Post"
         />
-        <DropDownList
-          label="Designation Type"
-          placeholder="Select Designation Type"
-          {...register('designationTypeId')}
-          required
+        <SelectDesignationType
+          name="designationTypeId"
+          control={control}
+          defaultOptionText="Select Designation Type"
         />
         <TextBox
           label="Name"
