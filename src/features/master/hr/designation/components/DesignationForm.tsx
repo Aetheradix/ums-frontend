@@ -1,9 +1,9 @@
-import { TextBox, NumberBox } from 'shared/components/forms';
-import { FormActions, FormGrid } from 'shared/new-components';
-import { useDesignationForm } from './form.hook';
 import SelectClass from '../../../../components/SelectClass';
 import SelectPost from '../../../../components/SelectPost';
 import SelectDesignationType from '../../../../components/SelectDesignationType';
+import { TextBox, NumberBox } from 'shared/components/forms';
+import { FormActions, FormGrid } from 'shared/new-components';
+import { useDesignationForm } from './form.hook';
 
 interface DesignationFormProps {
   onSubmit: (data: Master.HR.DesignationForm) => Promise<void>;

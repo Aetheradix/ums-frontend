@@ -8,14 +8,11 @@ import {
   FormPopup,
   GridPanel,
 } from 'shared/new-components';
-import { ToastService } from 'services';
-import DesignationForm from '../components/DesignationForm';
+import CreateDesignation from '../components/CreateDesignation';
+import EditDesignation from '../components/EditDesignation';
 import {
   useDesignationActiveStatusMutation,
-  useDesignationQuery,
   useDesignationsQuery,
-  useCreateDesignationMutation,
-  useUpdateDesignationMutation,
 } from '../queries';
 
 type PopupState =
@@ -76,85 +73,29 @@ export default function List() {
         />
       </FormCard>
 
-      <FormPopup
-        visible={popup.mode === 'create'}
-        onHide={closePopup}
-        title="Create Designation"
-        subtitle="Fill in the details to add a new designation."
-      >
-        <CreateContent onClose={closePopup} />
-      </FormPopup>
+      {popup.mode === 'create' ? (
+        <FormPopup
+          visible
+          onHide={closePopup}
+          title="Create Designation"
+          subtitle="Fill in the details to add a new designation."
+        >
+          <CreateDesignation onClose={closePopup} />
+        </FormPopup>
+      ) : null}
 
-      <FormPopup
-        visible={popup.mode === 'edit'}
-        onHide={closePopup}
-        title="Edit Designation"
-        subtitle="Update the designation details."
-      >
-        {popup.mode === 'edit' && (
-          <EditContent id={popup.id} onClose={closePopup} />
-        )}
-      </FormPopup>
+      {popup.mode === 'edit' ? (
+        <FormPopup
+          visible
+          onHide={closePopup}
+          title="Edit Designation"
+          subtitle="Update the designation details."
+        >
+          {popup.mode === 'edit' && (
+            <EditDesignation id={popup.id} onClose={closePopup} />
+          )}
+        </FormPopup>
+      ) : null}
     </FormPage>
-  );
-}
-
-function CreateContent({ onClose }: { onClose: () => void }) {
-  const { mutateAsync, isPending } = useCreateDesignationMutation();
-
-  async function handleSubmit(data: Master.HR.DesignationForm) {
-    try {
-      const result = await mutateAsync(data);
-      if (result) {
-        ToastService.success('Designation created successfully.');
-        onClose();
-      }
-    } catch {
-      ToastService.error('Failed to create designation');
-    }
-  }
-
-  return (
-    <DesignationForm
-      onSubmit={handleSubmit}
-      isSaving={isPending}
-      isEditMode={false}
-    />
-  );
-}
-
-function EditContent({ id, onClose }: { id: number; onClose: () => void }) {
-  const { mutateAsync, isPending } = useUpdateDesignationMutation(id);
-  const { data, isLoading } = useDesignationQuery(id);
-  const DEFAULT = {
-    classId: 0,
-    postId: 0,
-    designationTypeId: 0,
-    name: '',
-    code: '',
-    sequenceNumber: 0,
-  };
-
-  if (isLoading) return <Loader />;
-
-  async function handleSubmit(formData: Master.HR.DesignationForm) {
-    try {
-      const result = await mutateAsync(formData);
-      if (result) {
-        ToastService.success('Designation updated successfully.');
-        onClose();
-      }
-    } catch {
-      ToastService.error('Failed to update designation');
-    }
-  }
-
-  return (
-    <DesignationForm
-      fetchData={data ?? DEFAULT}
-      isSaving={isPending}
-      isEditMode
-      onSubmit={handleSubmit}
-    />
   );
 }
