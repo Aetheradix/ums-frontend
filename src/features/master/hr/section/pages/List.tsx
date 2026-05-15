@@ -8,15 +8,9 @@ import {
   FormPopup,
   GridPanel,
 } from 'shared/new-components';
-import { ToastService } from 'services';
-import SectionForm from '../components/SectionForm';
-import {
-  useSectionActiveStatusMutation,
-  useSectionQuery,
-  useSectionsQuery,
-  useCreateSectionMutation,
-  useUpdateSectionMutation,
-} from '../queries';
+import CreateSection from '../components/CreateSection';
+import EditSection from '../components/EditSection';
+import { useSectionActiveStatusMutation, useSectionsQuery } from '../queries';
 
 type PopupState =
   | { mode: 'closed' }
@@ -75,78 +69,29 @@ export default function List() {
         />
       </FormCard>
 
-      <FormPopup
-        visible={popup.mode === 'create'}
-        onHide={closePopup}
-        title="Create Section"
-        subtitle="Fill in the details to add a new section."
-      >
-        <CreateContent onClose={closePopup} />
-      </FormPopup>
+      {popup.mode === 'create' ? (
+        <FormPopup
+          visible
+          onHide={closePopup}
+          title="Create Section"
+          subtitle="Fill in the details to add a new section."
+        >
+          <CreateSection onClose={closePopup} />
+        </FormPopup>
+      ) : null}
 
-      <FormPopup
-        visible={popup.mode === 'edit'}
-        onHide={closePopup}
-        title="Edit Section"
-        subtitle="Update the section details."
-      >
-        {popup.mode === 'edit' && (
-          <EditContent id={popup.id} onClose={closePopup} />
-        )}
-      </FormPopup>
+      {popup.mode === 'edit' ? (
+        <FormPopup
+          visible
+          onHide={closePopup}
+          title="Edit Section"
+          subtitle="Update the section details."
+        >
+          {popup.mode === 'edit' && (
+            <EditSection id={popup.id} onClose={closePopup} />
+          )}
+        </FormPopup>
+      ) : null}
     </FormPage>
-  );
-}
-
-function CreateContent({ onClose }: { onClose: () => void }) {
-  const { mutateAsync, isPending } = useCreateSectionMutation();
-
-  async function handleSubmit(data: Master.HR.SectionForm) {
-    try {
-      const result = await mutateAsync(data);
-      if (result) {
-        ToastService.success('Section created successfully.');
-        onClose();
-      }
-    } catch {
-      ToastService.error('Failed to create section');
-    }
-  }
-
-  return (
-    <SectionForm
-      onSubmit={handleSubmit}
-      isSaving={isPending}
-      isEditMode={false}
-    />
-  );
-}
-
-function EditContent({ id, onClose }: { id: number; onClose: () => void }) {
-  const { mutateAsync, isPending } = useUpdateSectionMutation(id);
-  const { data, isLoading } = useSectionQuery(id);
-  const DEFAULT = { name: '', code: '' };
-
-  if (isLoading) return <Loader />;
-
-  async function handleSubmit(formData: Master.HR.SectionForm) {
-    try {
-      const result = await mutateAsync(formData);
-      if (result) {
-        ToastService.success('Section updated successfully.');
-        onClose();
-      }
-    } catch {
-      ToastService.error('Failed to update section');
-    }
-  }
-
-  return (
-    <SectionForm
-      fetchData={data ?? DEFAULT}
-      isSaving={isPending}
-      isEditMode
-      onSubmit={handleSubmit}
-    />
   );
 }

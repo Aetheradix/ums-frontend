@@ -8,15 +8,9 @@ import {
   FormPopup,
   GridPanel,
 } from 'shared/new-components';
-import { ToastService } from 'services';
-import ClassForm from '../components/ClassForm';
-import {
-  useClassActiveStatusMutation,
-  useClassQuery,
-  useClassesQuery,
-  useCreateClassMutation,
-  useUpdateClassMutation,
-} from '../queries';
+import CreateClass from '../components/CreateClass';
+import EditClass from '../components/EditClass';
+import { useClassActiveStatusMutation, useClassesQuery } from '../queries';
 
 type PopupState =
   | { mode: 'closed' }
@@ -43,7 +37,7 @@ export default function List() {
         {isLoading ? <Loader /> : undefined}
         <GridPanel
           data={data}
-          onEdit={classItem => setPopup({ mode: 'edit', id: classItem.id })}
+          onEdit={item => setPopup({ mode: 'edit', id: item.id })}
           columns={[
             {
               cell: (_, option) => <span>{option.rowIndex + 1}</span>,
@@ -75,78 +69,29 @@ export default function List() {
         />
       </FormCard>
 
-      <FormPopup
-        visible={popup.mode === 'create'}
-        onHide={closePopup}
-        title="Create Class"
-        subtitle="Fill in the details to add a new class."
-      >
-        <CreateContent onClose={closePopup} />
-      </FormPopup>
+      {popup.mode === 'create' ? (
+        <FormPopup
+          visible
+          onHide={closePopup}
+          title="Create Class"
+          subtitle="Fill in the details to add a new class."
+        >
+          <CreateClass onClose={closePopup} />
+        </FormPopup>
+      ) : null}
 
-      <FormPopup
-        visible={popup.mode === 'edit'}
-        onHide={closePopup}
-        title="Edit Class"
-        subtitle="Update the class details."
-      >
-        {popup.mode === 'edit' && (
-          <EditContent id={popup.id} onClose={closePopup} />
-        )}
-      </FormPopup>
+      {popup.mode === 'edit' ? (
+        <FormPopup
+          visible
+          onHide={closePopup}
+          title="Edit Class"
+          subtitle="Update the class details."
+        >
+          {popup.mode === 'edit' && (
+            <EditClass id={popup.id} onClose={closePopup} />
+          )}
+        </FormPopup>
+      ) : null}
     </FormPage>
-  );
-}
-
-function CreateContent({ onClose }: { onClose: () => void }) {
-  const { mutateAsync, isPending } = useCreateClassMutation();
-
-  async function handleSubmit(data: Master.HR.ClassForm) {
-    try {
-      const result = await mutateAsync(data);
-      if (result) {
-        ToastService.success('Class created successfully.');
-        onClose();
-      }
-    } catch {
-      ToastService.error('Failed to create class');
-    }
-  }
-
-  return (
-    <ClassForm
-      onSubmit={handleSubmit}
-      isSaving={isPending}
-      isEditMode={false}
-    />
-  );
-}
-
-function EditContent({ id, onClose }: { id: number; onClose: () => void }) {
-  const { mutateAsync, isPending } = useUpdateClassMutation(id);
-  const { data, isLoading } = useClassQuery(id);
-  const DEFAULT = { name: '', code: '' };
-
-  if (isLoading) return <Loader />;
-
-  async function handleSubmit(formData: Master.HR.ClassForm) {
-    try {
-      const result = await mutateAsync(formData);
-      if (result) {
-        ToastService.success('Class updated successfully.');
-        onClose();
-      }
-    } catch {
-      ToastService.error('Failed to update class');
-    }
-  }
-
-  return (
-    <ClassForm
-      fetchData={data ?? DEFAULT}
-      isSaving={isPending}
-      isEditMode
-      onSubmit={handleSubmit}
-    />
   );
 }

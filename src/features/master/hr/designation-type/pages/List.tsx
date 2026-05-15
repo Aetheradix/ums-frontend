@@ -8,14 +8,11 @@ import {
   FormPopup,
   GridPanel,
 } from 'shared/new-components';
-import { ToastService } from 'services';
-import DesignationTypeForm from '../components/DesignationTypeForm';
+import CreateDesignationType from '../components/CreateDesignationType';
+import EditDesignationType from '../components/EditDesignationType';
 import {
   useDesignationTypeActiveStatusMutation,
-  useDesignationTypeQuery,
   useDesignationTypesQuery,
-  useCreateDesignationTypeMutation,
-  useUpdateDesignationTypeMutation,
 } from '../queries';
 
 type PopupState =
@@ -76,78 +73,29 @@ export default function List() {
         />
       </FormCard>
 
-      <FormPopup
-        visible={popup.mode === 'create'}
-        onHide={closePopup}
-        title="Create Designation Type"
-        subtitle="Fill in the details to add a new designation type."
-      >
-        <CreateContent onClose={closePopup} />
-      </FormPopup>
+      {popup.mode === 'create' ? (
+        <FormPopup
+          visible
+          onHide={closePopup}
+          title="Create Designation Type"
+          subtitle="Fill in the details to add a new designation type."
+        >
+          <CreateDesignationType onClose={closePopup} />
+        </FormPopup>
+      ) : null}
 
-      <FormPopup
-        visible={popup.mode === 'edit'}
-        onHide={closePopup}
-        title="Edit Designation Type"
-        subtitle="Update the designation type details."
-      >
-        {popup.mode === 'edit' && (
-          <EditContent id={popup.id} onClose={closePopup} />
-        )}
-      </FormPopup>
+      {popup.mode === 'edit' ? (
+        <FormPopup
+          visible
+          onHide={closePopup}
+          title="Edit Designation Type"
+          subtitle="Update the designation type details."
+        >
+          {popup.mode === 'edit' && (
+            <EditDesignationType id={popup.id} onClose={closePopup} />
+          )}
+        </FormPopup>
+      ) : null}
     </FormPage>
-  );
-}
-
-function CreateContent({ onClose }: { onClose: () => void }) {
-  const { mutateAsync, isPending } = useCreateDesignationTypeMutation();
-
-  async function handleSubmit(data: Master.HR.DesignationTypeForm) {
-    try {
-      const result = await mutateAsync(data);
-      if (result) {
-        ToastService.success('Designation Type created successfully.');
-        onClose();
-      }
-    } catch {
-      ToastService.error('Failed to create designation type');
-    }
-  }
-
-  return (
-    <DesignationTypeForm
-      onSubmit={handleSubmit}
-      isSaving={isPending}
-      isEditMode={false}
-    />
-  );
-}
-
-function EditContent({ id, onClose }: { id: number; onClose: () => void }) {
-  const { mutateAsync, isPending } = useUpdateDesignationTypeMutation(id);
-  const { data, isLoading } = useDesignationTypeQuery(id);
-  const DEFAULT = { name: '', code: '' };
-
-  if (isLoading) return <Loader />;
-
-  async function handleSubmit(formData: Master.HR.DesignationTypeForm) {
-    try {
-      const result = await mutateAsync(formData);
-      if (result) {
-        ToastService.success('Designation Type updated successfully.');
-        onClose();
-      }
-    } catch {
-      ToastService.error('Failed to update designation type');
-    }
-  }
-
-  return (
-    <DesignationTypeForm
-      fetchData={data ?? DEFAULT}
-      isSaving={isPending}
-      isEditMode
-      onSubmit={handleSubmit}
-    />
   );
 }
