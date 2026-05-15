@@ -3,6 +3,7 @@ import { ToastService } from 'services';
 import { Modal } from 'shared/components/popups';
 import StudentAdditionalInformationForm from '../components/StudentAdditionalInformationForm';
 import { useCreateStudentAdditionalInformationMutation } from '../queries';
+import { sisUrls } from '../../urls';
 
 interface Props {
   onSave: () => void;
@@ -37,17 +38,23 @@ function CreateModalContent(props: Props) {
 export default function Create() {
   const navigate = useNavigate();
 
-  const handleBack = () => {
+  const handleCancel = () => {
     navigate(-1);
+  };
+
+  const handleSave = () => {
+    navigate(sisUrls.studentAdditionalInformation.root, {
+      state: { fromSave: true },
+    });
   };
 
   return (
     <Modal
       header="Add Student Additional Information"
-      onHide={handleBack}
+      onHide={handleCancel}
       visible
     >
-      <CreateModalContent onSave={handleBack} />
+      <CreateModalContent onSave={handleSave} />
     </Modal>
   );
 }

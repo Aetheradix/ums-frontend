@@ -32,6 +32,7 @@ function InnerFileUpload({
   previewHeight = 120,
   preview,
   uploadNote,
+  value,
 }: FileUploadProps<FieldValues>) {
   const inputId = id ?? name;
   const [localPreview, setLocalPreview] = useState<string | null>(
@@ -43,6 +44,14 @@ function InnerFileUpload({
     setLocalPreview(preview ?? null);
     if (!preview) setSelectedFileName(null);
   }, [preview]);
+
+  // Sync with form value (important for Reset)
+  useEffect(() => {
+    if (!value) {
+      setLocalPreview(preview ?? null);
+      setSelectedFileName(null);
+    }
+  }, [value, preview]);
 
   const fileInputRef = React.useRef<HTMLInputElement>(null);
 

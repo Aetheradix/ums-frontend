@@ -1,12 +1,21 @@
-import { Outlet, useNavigate } from 'react-router-dom';
-import { Button } from 'shared/components/buttons';
+import { Navigate, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { FormCard, FormPage, GridPanel } from 'shared/new-components';
 import { sisUrls } from '../../urls';
 import { useStudentAdditionalInformationsQuery } from '../queries';
 
 export default function List() {
   const navigate = useNavigate();
+  const location = useLocation();
   const { data, isLoading } = useStudentAdditionalInformationsQuery();
+
+  if (
+    !isLoading &&
+    data.length === 0 &&
+    location.pathname === sisUrls.studentAdditionalInformation.root &&
+    !location.state?.fromSave
+  ) {
+    return <Navigate to="create" replace />;
+  }
 
   return (
     <FormPage
@@ -48,15 +57,15 @@ export default function List() {
               sortable: true,
             },
           ]}
-          toolbar={
-            <Button
-              label="Create"
-              icon="plus"
-              variant="primary"
-              className="ml-auto"
-              onClick={() => navigate('create')}
-            />
-          }
+          // toolbar={
+          //   <Button
+          //     label="Create"
+          //     icon="plus"
+          //     variant="primary"
+          //     className="ml-auto"
+          //     onClick={() => navigate('create')}
+          //   />
+          // }
           searchBox={false}
         />
       </FormCard>

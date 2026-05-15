@@ -37,7 +37,7 @@ function EditModalContent(props: Props) {
   return (
     <StudentAdditionalInformationForm
       onSubmit={handleSubmit}
-      fetchData={data as any}
+      fetchData={data}
       isSaving={isPending}
       isEditMode
     />

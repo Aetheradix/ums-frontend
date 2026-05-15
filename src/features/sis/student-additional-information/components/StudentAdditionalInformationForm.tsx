@@ -1,7 +1,7 @@
 import { ActionButtons } from 'features/components';
 import SelectLanguagePreference from 'features/components/SelectLanguagePreference';
 import SelectRelationshipTypes from 'features/components/SelectRelationshipTypes';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useWatch } from 'react-hook-form';
 import { FileUpload, Switch, TextBox } from 'shared/components/forms';
 import { FormCard, FormGrid } from 'shared/new-components';
@@ -21,23 +21,7 @@ export default function StudentAdditionalInformationForm(props: Props) {
     props.fetchData
   );
 
-  const profilePhoto = useWatch({ control, name: 'profilePhoto' });
   const profilePhotoUrl = useWatch({ control, name: 'profilePhotoUrl' });
-  const [preview, setPreview] = useState<string | undefined>();
-
-  useEffect(() => {
-    if (profilePhoto instanceof File) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setPreview(reader.result as string);
-      };
-      reader.readAsDataURL(profilePhoto);
-    } else if (profilePhotoUrl) {
-      setPreview(getPhotoUrl(profilePhotoUrl));
-    } else {
-      setPreview(undefined);
-    }
-  }, [profilePhoto, profilePhotoUrl]);
 
   useEffect(() => {
     if (props.fetchData && typeof props.fetchData !== 'function') {
@@ -49,7 +33,6 @@ export default function StudentAdditionalInformationForm(props: Props) {
     <form onSubmit={handleSubmit}>
       <FormCard>
         <div className="grid grid-cols-12 gap-8">
-          {/* Main Content Area */}
           <div className="col-span-12 lg:col-span-9">
             <FormGrid>
               <TextBox
@@ -139,7 +122,7 @@ export default function StudentAdditionalInformationForm(props: Props) {
               label="Student Profile Photo"
               name="profilePhoto"
               control={control}
-              preview={preview}
+              preview={getPhotoUrl(profilePhotoUrl)}
               accept=".jpg,.jpeg,.png"
               uploadNote="*Only .jpg, .png (Max 100KB)"
               required={!props.isEditMode}
