@@ -1,7 +1,6 @@
-import { FileUpload as PrimeFileUpload } from 'primereact/fileupload';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Controller, type FieldValues } from 'react-hook-form';
-import { ToastService } from 'services';
+import { Button } from 'shared/components/buttons';
 import { getPhotoUrl } from 'shared/utils/photoUrl';
 import InputBlock from './InputBlock';
 
@@ -13,9 +12,7 @@ interface FileUploadProps<TForm extends FieldValues>
   value?: File | null;
   preview?: string | null;
   onChange?: (file: File | null) => void;
-  maxSizeKB?: number;
   accept?: string;
-  mode?: 'basic' | 'advanced';
   showPreview?: boolean;
   previewWidth?: number;
   previewHeight?: number;
@@ -29,87 +26,45 @@ function InnerFileUpload({
   label,
   onChange,
   required,
-  maxSizeKB = 500,
   accept = 'image/*',
-  mode = 'basic',
   showPreview = true,
   previewWidth = 100,
   previewHeight = 120,
   preview,
   uploadNote,
-  ...rest
 }: FileUploadProps<FieldValues>) {
   const inputId = id ?? name;
-  const [uploadKey, setUploadKey] = useState(0);
   const [localPreview, setLocalPreview] = useState<string | null>(
     preview ?? null
   );
+  const [selectedFileName, setSelectedFileName] = useState<string | null>(null);
 
   useEffect(() => {
-    if (preview) {
-      setLocalPreview(preview);
-    }
+    setLocalPreview(preview ?? null);
+    if (!preview) setSelectedFileName(null);
   }, [preview]);
 
-  const handleSelect = (e: { files: File[] }) => {
-    const file = e.files[0];
+  const fileInputRef = React.useRef<HTMLInputElement>(null);
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
     if (!file) return;
 
-    const isImageExpected =
-      accept.includes('image') ||
-      accept.includes('.jpg') ||
-      accept.includes('.png');
-    if (isImageExpected && !file.type.startsWith('image/')) {
-      ToastService.error('Please select a valid image');
-      setUploadKey(prev => prev + 1);
-      return;
-    }
-
-    if (file.size > maxSizeKB * 1024) {
-      ToastService.error(`File size must be less than ${maxSizeKB} KB`);
-      setUploadKey(prev => prev + 1);
-      return;
-    }
-
+    setSelectedFileName(file.name);
     if (file.type.startsWith('image/')) {
       const reader = new FileReader();
       reader.onloadend = () => {
         setLocalPreview(reader.result as string);
         onChange?.(file);
-        setUploadKey(prev => prev + 1);
       };
       reader.readAsDataURL(file);
     } else {
+      setLocalPreview(null);
       onChange?.(file);
-      setUploadKey(prev => prev + 1);
     }
-  };
-
-  const handleClear = () => {
-    setLocalPreview(null);
-    onChange?.(null);
-    setUploadKey(prev => prev + 1);
-  };
-
-  const handleValidationFail = (file: File) => {
-    if (file.size > maxSizeKB * 1024) {
-      ToastService.error(`File size must be less than ${maxSizeKB} KB`);
-    } else {
-      const isImageExpected =
-        accept.includes('image') ||
-        accept.includes('.jpg') ||
-        accept.includes('.png');
-      ToastService.error(
-        isImageExpected
-          ? 'Please select a valid image'
-          : 'Invalid file selected'
-      );
-    }
-    setUploadKey(prev => prev + 1);
   };
 
   const displayUrl = getPhotoUrl(localPreview);
-  const iconSize = Math.min(previewWidth, previewHeight) * 0.5;
 
   return (
     <InputBlock
@@ -118,47 +73,48 @@ function InnerFileUpload({
       errorMessage={errorMessage}
       required={required}
     >
-      <div className="flex flex-column align-items-center gap-3">
-        <div className="flex flex-column align-items-center mb-2">
-          {showPreview && (
-            <div
-              className="file-upload-preview flex align-items-center justify-content-center surface-0"
-              style={
-                {
-                  '--preview-width': `${previewWidth}px`,
-                  '--preview-height': `${previewHeight}px`,
-                  '--preview-icon-size': `${iconSize}px`,
-                } as React.CSSProperties
-              }
-            >
-              {displayUrl ? (
-                <img
-                  src={displayUrl}
-                  alt="Preview"
-                  onError={() => setLocalPreview(null)}
-                />
-              ) : (
-                <i className="pi pi-user file-upload-icon" />
-              )}
-            </div>
-          )}
+      <div className="flex flex-col items-center justify-center">
+        {showPreview && (displayUrl || selectedFileName) && (
+          <div
+            className="file-upload-preview flex items-center justify-center surface-0"
+            style={
+              {
+                '--preview-width': `${previewWidth}px`,
+                '--preview-height': `${previewHeight}px`,
+              } as React.CSSProperties
+            }
+          >
+            {displayUrl ? (
+              <img
+                src={displayUrl}
+                alt="Preview"
+                className="w-full h-full"
+                style={{ objectFit: 'cover' } as React.CSSProperties}
+                onError={() => setLocalPreview(null)}
+              />
+            ) : (
+              <div className="flex flex-col items-center justify-center">
+                <i className="pi pi-file file-upload-icon" />
+                <span className="file-upload-filename">{selectedFileName}</span>
+              </div>
+            )}
+          </div>
+        )}
 
-          <PrimeFileUpload
-            key={uploadKey}
-            id={inputId}
-            name={name}
-            mode={mode}
+        <div className="flex flex-col items-center">
+          <input
+            type="file"
+            ref={fileInputRef}
+            className="hidden"
             accept={accept}
-            maxFileSize={maxSizeKB * 1024}
-            onSelect={handleSelect}
-            onClear={handleClear}
-            onValidationFail={handleValidationFail}
-            chooseLabel="Choose"
-            uploadLabel="Upload"
-            cancelLabel="Cancel"
-            auto={false}
-            customUpload
-            {...rest}
+            onChange={handleFileChange}
+          />
+
+          <Button
+            label="Choose"
+            icon="plus"
+            variant="primary"
+            onClick={() => fileInputRef.current?.click()}
           />
 
           {uploadNote && (
@@ -170,22 +126,15 @@ function InnerFileUpload({
   );
 }
 
-export default function FileUpload<TForm extends FieldValues>({
-  name,
-  control,
-  errorMessage,
-  onChange,
-  uploadNote,
-  ...rest
-}: FileUploadProps<TForm>) {
+export default function FileUpload<TForm extends FieldValues>(
+  props: FileUploadProps<TForm>
+) {
+  const { name, control } = props;
+
   if (!control || !name) {
     return (
       <InnerFileUpload
-        name={name}
-        errorMessage={errorMessage}
-        onChange={onChange}
-        uploadNote={uploadNote}
-        {...rest}
+        {...(props as unknown as FileUploadProps<FieldValues>)}
       />
     );
   }
@@ -196,9 +145,8 @@ export default function FileUpload<TForm extends FieldValues>({
       name={name}
       render={({ field, formState }) => (
         <InnerFileUpload
-          {...rest}
+          {...(props as unknown as FileUploadProps<FieldValues>)}
           {...field}
-          uploadNote={uploadNote}
           errorMessage={formState.errors[name]?.message?.toString()}
         />
       )}

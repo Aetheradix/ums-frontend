@@ -91,25 +91,43 @@ export default function StudentAdditionalInformationForm(props: Props) {
                 required={false}
               />
 
-              <div className="col-span-full mt-4">
-                <div className="flex flex-row flex-wrap items-center gap-12 bg-gray-50 p-4 rounded-md">
-                  <div className="flex items-center gap-3">
-                    <label className="text-sm font-medium text-gray-700">
+              <div className="col-span-full mt-6">
+                <div className="flex flex-row flex-wrap items-center gap-x-12 gap-y-4 bg-slate-50/80 p-5 rounded-2xl border border-slate-100">
+                  <div className="flex items-center gap-4">
+                    <label className="text-sm font-bold text-slate-600">
                       Email Notification
                     </label>
-                    <Switch name="emailNotification" control={control} />
+                    <Switch
+                      name="emailNotification"
+                      control={control}
+                      className="mb-0"
+                    />
                   </div>
-                  <div className="flex items-center gap-3 border-l pl-10">
-                    <label className="text-sm font-medium text-gray-700">
+
+                  <div className="hidden md:block h-6 w-px bg-slate-200"></div>
+
+                  <div className="flex items-center gap-4">
+                    <label className="text-sm font-bold text-slate-600">
                       SMS Notification
                     </label>
-                    <Switch name="smsNotification" control={control} />
+                    <Switch
+                      name="smsNotification"
+                      control={control}
+                      className="mb-0"
+                    />
                   </div>
-                  <div className="flex items-center gap-3 border-l pl-10">
-                    <label className="text-sm font-medium text-gray-700">
+
+                  <div className="hidden md:block h-6 w-px bg-slate-200"></div>
+
+                  <div className="flex items-center gap-4">
+                    <label className="text-sm font-bold text-slate-600">
                       Push Notification
                     </label>
-                    <Switch name="pushNotification" control={control} />
+                    <Switch
+                      name="pushNotification"
+                      control={control}
+                      className="mb-0"
+                    />
                   </div>
                 </div>
               </div>
@@ -118,10 +136,10 @@ export default function StudentAdditionalInformationForm(props: Props) {
 
           <div className="col-span-12 lg:col-span-3 flex flex-col items-center justify-center border-l-0 lg:border-l pl-0 lg:pl-8 py-4">
             <FileUpload
+              label="Student Profile Photo"
               name="profilePhoto"
               control={control}
               preview={preview}
-              maxSizeKB={100}
               accept=".jpg,.jpeg,.png"
               uploadNote="*Only .jpg, .png (Max 100KB)"
               required={!props.isEditMode}

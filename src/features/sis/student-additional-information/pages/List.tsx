@@ -17,6 +17,7 @@ export default function List() {
         <GridPanel
           data={data}
           loading={isLoading}
+          pagination={false}
           onEdit={(item: SIS.StudentAdditionalInformationItem) =>
             navigate(sisUrls.studentAdditionalInformation.edit(item.id))
           }
@@ -52,10 +53,11 @@ export default function List() {
               label="Create"
               icon="plus"
               variant="primary"
+              className="ml-auto"
               onClick={() => navigate('create')}
             />
           }
-          searchBox
+          searchBox={false}
         />
       </FormCard>
       <Outlet />
