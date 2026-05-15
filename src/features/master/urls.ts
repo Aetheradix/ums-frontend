@@ -8,9 +8,13 @@ import { grantCategoryUrls } from './grant/grant-category/urls';
 import { grantTypeUrls } from './grant/grant-type/urls';
 import { eligibilityApplicationProcessUrls } from './grant/eligibility-application-process/urls';
 import { casteUrls } from './hr/caste/urls';
+import { classUrls } from './hr/class/urls';
+import { designationTypeUrls } from './hr/designation-type/urls';
+import { designationUrls as designationHrUrls } from './hr/designation/urls';
 import { postUrls } from './hr/post/urls';
 import { qualificationUrls } from './hr/qualification/urls';
 import { religionUrls } from './hr/religion/urls';
+import { sectionUrls } from './hr/section/urls';
 import { blockUrls } from './location/block/urls';
 import { districtUrls } from './location/district/urls';
 import { divisionUrls } from './location/division/urls';
@@ -41,9 +45,13 @@ export const masterUrls = {
   block: blockUrls(`${baseUrl}/location`),
   designation: designationUrls(`${baseUrl}/faculty-management`),
   caste: casteUrls(`${baseUrl}/hr`),
+  class: classUrls(`${baseUrl}/hr`),
+  designationType: designationTypeUrls(`${baseUrl}/hr`),
+  designationHr: designationHrUrls(`${baseUrl}/hr`),
   post: postUrls(`${baseUrl}/hr`),
   qualification: qualificationUrls(`${baseUrl}/hr`),
   religion: religionUrls(`${baseUrl}/hr`),
+  section: sectionUrls(`${baseUrl}/hr`),
   collegeType: collegeTypeUrls(`${baseUrl}/college`),
   collegeCategory: collegeCategoryUrls(`${baseUrl}/college`),
   faculty: facultyUrls(`${baseUrl}/faculty-management`),
@@ -57,5 +65,7 @@ export const masterUrls = {
   Nationality: nationalityUrls(`${baseUrl}/other`),
   grantType: grantTypeUrls(`${baseUrl}/grant`),
   grantCategory: grantCategoryUrls(`${baseUrl}/grant`),
-  eligibilityApplicationProcess: eligibilityApplicationProcessUrls(`${baseUrl}/grant`),
+  eligibilityApplicationProcess: eligibilityApplicationProcessUrls(
+    `${baseUrl}/grant`
+  ),
 };
