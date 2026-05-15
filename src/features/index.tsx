@@ -2,6 +2,7 @@ import { Navigate, Route, Routes } from 'react-router-dom';
 import MainLayout from 'shared/components/layout/MainLayout';
 import Home from './home';
 import Master from './master';
+import Sis from './sis';
 
 export default function Features() {
   return (
@@ -15,6 +16,7 @@ export default function Features() {
             <Routes>
               <Route index element={<Navigate to={'/home'} />} />
               <Route path="master/*" element={<Master />} />
+              <Route path="sis/*" element={<Sis />} />
             </Routes>
           </MainLayout>
         }

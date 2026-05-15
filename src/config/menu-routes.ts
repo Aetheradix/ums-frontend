@@ -6,6 +6,7 @@ export const menuConfig: Menu.MenuItem[] = [
     icon: 'school',
     colorScheme: 'red',
     description: 'Dashboard • Courses • Progress • Finance • Profile',
+
     children: [
       {
         label: 'User Management',
@@ -16,7 +17,6 @@ export const menuConfig: Menu.MenuItem[] = [
         colorScheme: 'blue',
         children: [],
       },
-
       {
         label: 'Location Management',
         slug: 'location',
@@ -439,6 +439,14 @@ export const menuConfig: Menu.MenuItem[] = [
         icon: 'edit_location',
         colorScheme: 'red',
         children: [],
+      },
+      {
+        label: 'Student Additional Information',
+        slug: 'student-additional-information',
+        description: 'Manage student additional details.',
+        path: '/sis/student-additional-information',
+        icon: 'person_add',
+        colorScheme: 'red',
       },
     ],
   },
