@@ -4,15 +4,16 @@ import './CheckBoxList.css';
 import InputBlock from './InputBlock';
 
 interface CheckBoxListProps<TForm extends FieldValues, TData>
-  extends Controls.FormProps<TForm>,
+  extends
+    Controls.FormProps<TForm>,
     Controls.InputBlockProps,
     Controls.InputProps {
   options: TData[];
-  selectedValues?: Record<number, boolean>;
-  onChange?: (values: Record<number, boolean>) => void;
+  selectedValues?: Record<string | number, boolean>;
+  onChange?: (values: Record<string | number, boolean>) => void;
   columns?: number;
   getLabel: (option: TData) => string;
-  getValue: (option: TData) => number;
+  getValue: (option: TData) => string | number;
   getDisabled?: (option: TData) => boolean;
   orientation?: 'horizontal' | 'vertical';
   className?: string;
@@ -38,7 +39,7 @@ function InnerCheckboxList<TData>({
   const inputId = id ?? name;
   const labelId = `${inputId}-label`;
 
-  const handleChange = (value: number, checked: boolean) => {
+  const handleChange = (value: string | number, checked: boolean) => {
     onChange?.({ ...selectedValues, [value]: checked });
   };
 

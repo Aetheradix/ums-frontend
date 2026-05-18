@@ -22,8 +22,8 @@ async function put<T>(url: string, body: unknown) {
   return await request<T>('put', url, body);
 }
 
-async function del<T>(url: string) {
-  return await request<T>('delete', url);
+async function del<T>(url: string, body?: unknown) {
+  return await request<T>('delete', url, body);
 }
 async function patch<T>(url: string, body: unknown) {
   return await request<T>('patch', url, body);

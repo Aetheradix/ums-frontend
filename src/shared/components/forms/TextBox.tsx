@@ -21,6 +21,8 @@ interface TextBoxProps<TForm extends FieldValues>
   showCheckbox?: boolean;
   checkboxChecked?: boolean;
   onCheckboxChange?: (checked: boolean) => void;
+  allowAt?: boolean;
+  validRegex?: RegExp;
 }
 
 function InnerTextBox({
@@ -39,6 +41,8 @@ function InnerTextBox({
   showCheckbox,
   checkboxChecked,
   onCheckboxChange,
+  allowAt,
+  validRegex,
   ...rest
 }: TextBoxProps<FieldValues>) {
   const inputId = id ?? name;
@@ -70,7 +74,22 @@ function InnerTextBox({
           type="text"
           id={inputId}
           value={value || ''}
-          onChange={e => onChange?.(sanitizeInput(e.target.value))}
+          onChange={e => {
+            let raw = e.target.value;
+            if (validRegex) {
+              raw = raw
+                .split('')
+                .filter(char => validRegex.test(char))
+                .join('');
+            }
+            const sanitized = sanitizeInput(raw);
+            // Re-allow @ if allowAt is true and user typed it
+            const final =
+              allowAt && raw.startsWith('@') && !sanitized.startsWith('@')
+                ? '@' + sanitized
+                : sanitized;
+            onChange?.(final);
+          }}
           invalid={!!errorMessage}
           className={`${className ? className + ' ' : ''}w-full ${showCheckbox ? 'pl-11' : ''}`}
           autoComplete={autocomplete}
@@ -125,9 +144,22 @@ export default function TextBox<TForm extends FieldValues>({
             errorMessage={shouldShowError ? finalErrorMessage : undefined}
             value={field.value}
             onChange={value => {
-              const sanitizedValue = sanitizeInput(value);
-              field.onChange(sanitizedValue);
-              onChange?.(sanitizedValue);
+              let raw = value;
+              if (rest.validRegex) {
+                raw = raw
+                  .split('')
+                  .filter(char => rest.validRegex!.test(char))
+                  .join('');
+              }
+              const sanitized = sanitizeInput(raw);
+              const final =
+                rest.allowAt &&
+                raw.startsWith('@') &&
+                !sanitized.startsWith('@')
+                  ? '@' + sanitized
+                  : sanitized;
+              field.onChange(final);
+              onChange?.(final);
             }}
             {...rest}
           />
