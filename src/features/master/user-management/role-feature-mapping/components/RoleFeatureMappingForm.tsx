@@ -47,7 +47,9 @@ export default function RoleFeatureMappingForm() {
                 label="Feature Name"
                 value={newFeature.name}
                 onChange={val => setNewFeature({ ...newFeature, name: val })}
-                placeholder="e.g. StudentManagement"
+                placeholder="e.g. @master/StudentManagement"
+                allowAt
+                validRegex={/[A-Za-z0-9@/]/}
               />
             </div>
             <div className="w-48">
@@ -56,8 +58,6 @@ export default function RoleFeatureMappingForm() {
                 data={[
                   { label: 'Read', value: 'read' },
                   { label: 'Write', value: 'write' },
-                  { label: 'Delete', value: 'delete' },
-                  { label: 'All', value: '*' },
                 ]}
                 textField="label"
                 valueField="value"
@@ -68,6 +68,7 @@ export default function RoleFeatureMappingForm() {
               />
             </div>
             <Button
+              className="mb-4"
               label="Add Mapping"
               icon="plus"
               variant="primary"

@@ -10,12 +10,41 @@ export const menuConfig: Menu.MenuItem[] = [
     children: [
       {
         label: 'User Management',
-        slug: 'user-managemnt',
-        description:
-          'Manage countries, states, divisions, districts, tehsils, and blocks.',
-        icon: 'edit_location',
+        slug: 'user-management',
+        description: 'Manage user roles and permissions.',
+        path: '/home/sub-menu/user-management',
+        icon: 'people',
         colorScheme: 'blue',
-        children: [],
+        children: [
+          {
+            label: 'User',
+            description: 'Manage system users',
+            path: '/master/user-management/users',
+            icon: 'person',
+            colorScheme: 'blue',
+          },
+          {
+            label: 'Role',
+            description: 'Manage user roles',
+            path: '/master/user-management/roles',
+            icon: 'people',
+            colorScheme: 'blue',
+          },
+          {
+            label: 'User Role Mapping',
+            description: 'Assign roles to users',
+            path: '/master/user-management/user-role-mappings',
+            icon: 'group_add',
+            colorScheme: 'blue',
+          },
+          {
+            label: 'Role Feature Mapping',
+            description: 'Manage role permissions',
+            path: '/master/user-management/role-feature-mappings',
+            icon: 'admin_panel_settings',
+            colorScheme: 'blue',
+          },
+        ],
       },
       {
         label: 'Location Management',

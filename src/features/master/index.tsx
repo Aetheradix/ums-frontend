@@ -5,6 +5,9 @@ import Department from './faculty/department';
 import Designation from './faculty/designation';
 import Faculty from './faculty/faculty';
 import OfficeType from './faculty/office-type';
+import EligibilityApplicationProcess from './grant/eligibility-application-process';
+import GrantCategory from './grant/grant-category';
+import GrantType from './grant/grant-type';
 import Caste from './hr/caste';
 import Post from './hr/post';
 import Qualification from './hr/qualification';
@@ -22,16 +25,15 @@ import Specialisation from './other/specialisation';
 import Scheme from './schemes/scheme';
 import SchemeCategory from './schemes/scheme-category';
 import SchemeType from './schemes/scheme-type';
-import GrantCategory from './grant/grant-category';
-import GrantType from './grant/grant-type';
-import EligibilityApplicationProcess from './grant/eligibility-application-process';
 import Subject from './subject';
+import UserManagement from './user-management';
 
 export default function Master() {
   return (
     <Routes>
       <Route path="location/*" element={<Location />} />
       <Route path="subject/*" element={<Subject />} />
+      <Route path="user-management/*" element={<UserManagement />} />
 
       <Route path="faculty-management/*">
         <Route path="office-type/*" element={<OfficeType />} />

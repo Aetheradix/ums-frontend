@@ -4,9 +4,9 @@ import { departmentUrls } from './faculty/department/urls';
 import { designationUrls } from './faculty/designation/urls';
 import { facultyUrls } from './faculty/faculty/urls';
 import { officeTypeUrls } from './faculty/office-type/urls';
+import { eligibilityApplicationProcessUrls } from './grant/eligibility-application-process/urls';
 import { grantCategoryUrls } from './grant/grant-category/urls';
 import { grantTypeUrls } from './grant/grant-type/urls';
-import { eligibilityApplicationProcessUrls } from './grant/eligibility-application-process/urls';
 import { casteUrls } from './hr/caste/urls';
 import { classUrls } from './hr/class/urls';
 import { designationTypeUrls } from './hr/designation-type/urls';
@@ -29,6 +29,10 @@ import { schemeCategoryUrls } from './schemes/scheme-category/urls';
 import { schemeTypeUrls } from './schemes/scheme-type/urls';
 import { schemeUrls } from './schemes/scheme/urls';
 import { ProgrammeModeOfEducationUrls } from './subject/programme-mode-of-education/urls';
+import { roleFeatureMappingUrls } from './user-management/role-feature-mapping/urls';
+import { roleUrls } from './user-management/role/urls';
+import { userRoleMappingUrls } from './user-management/user-role-mapping/urls';
+import { userUrls } from './user-management/user/urls';
 
 import { subjectCategoryUrls } from './subject/subject-category/urls';
 
@@ -52,6 +56,10 @@ export const masterUrls = {
   qualification: qualificationUrls(`${baseUrl}/hr`),
   religion: religionUrls(`${baseUrl}/hr`),
   section: sectionUrls(`${baseUrl}/hr`),
+  role: roleUrls(`${baseUrl}/user-management`),
+  user: userUrls(`${baseUrl}/user-management`),
+  userRoleMapping: userRoleMappingUrls(`${baseUrl}/user-management`),
+  roleFeatureMapping: roleFeatureMappingUrls(`${baseUrl}/user-management`),
   collegeType: collegeTypeUrls(`${baseUrl}/college`),
   collegeCategory: collegeCategoryUrls(`${baseUrl}/college`),
   faculty: facultyUrls(`${baseUrl}/faculty-management`),
