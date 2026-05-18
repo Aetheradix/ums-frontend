@@ -1,5 +1,4 @@
 import { useCallback, useState } from 'react';
-import { ToastService } from 'services';
 import { Button } from 'shared/components/buttons';
 import StatusButton from 'shared/components/buttons/StatusButton';
 import { Loader } from 'shared/components/progress';
@@ -9,13 +8,11 @@ import {
   FormPopup,
   GridPanel,
 } from 'shared/new-components';
-import NationalityForm from '../components/NationalityForm';
+import CreateNationality from '../components/CreateNationality';
+import EditNationality from '../components/EditNationality';
 import {
-  useCreateNationalityMutation,
   useNationalitiesQuery,
   useNationalityActiveStatusMutation,
-  useNationalityQuery,
-  useUpdateNationalityMutation,
 } from '../queries';
 
 type PopupState =
@@ -43,9 +40,9 @@ export default function List() {
       description="Manage the list of all nationalities in the system."
     >
       <FormCard>
+        {isLoading ? <Loader /> : undefined}
         <GridPanel
           data={data as Master.Other.NationalityItem[]}
-          loading={isLoading}
           onEdit={nationality => setPopup({ mode: 'edit', id: nationality.id })}
           columns={[
             {
@@ -77,72 +74,27 @@ export default function List() {
         />
       </FormCard>
 
-      <FormPopup
-        visible={popup.mode === 'create'}
-        onHide={closePopup}
-        title="Create Nationality"
-        subtitle="Fill in the details to add a new nationality."
-      >
-        <CreateContent onClose={closePopup} />
-      </FormPopup>
+      {popup.mode === 'create' ? (
+        <FormPopup
+          visible
+          onHide={closePopup}
+          title="Create Nationality"
+          subtitle="Fill in the details to add a new nationality."
+        >
+          <CreateNationality onClose={closePopup} />
+        </FormPopup>
+      ) : null}
 
-      <FormPopup
-        visible={popup.mode === 'edit'}
-        onHide={closePopup}
-        title="Edit Nationality"
-        subtitle="Update the details of the nationality."
-      >
-        {popup.mode === 'edit' && (
-          <EditContent id={popup.id} onClose={closePopup} />
-        )}
-      </FormPopup>
+      {popup.mode === 'edit' ? (
+        <FormPopup
+          visible
+          onHide={closePopup}
+          title="Edit Nationality"
+          subtitle="Update the details of the nationality."
+        >
+          <EditNationality id={popup.id} onClose={closePopup} />
+        </FormPopup>
+      ) : null}
     </FormPage>
-  );
-}
-
-function CreateContent({ onClose }: { onClose: () => void }) {
-  const { mutateAsync, isPending } = useCreateNationalityMutation();
-
-  async function handleSubmit(data: Master.Other.NationalityForm) {
-    try {
-      const result = await mutateAsync(data);
-      if (result) {
-        ToastService.success('Nationality created successfully.');
-        onClose();
-      }
-    } catch {
-      ToastService.error('Failed to create nationality.');
-    }
-  }
-
-  return <NationalityForm onSubmit={handleSubmit} isSaving={isPending} />;
-}
-
-function EditContent({ id, onClose }: { id: number; onClose: () => void }) {
-  const { mutateAsync, isPending } = useUpdateNationalityMutation(id);
-  const { data, isLoading } = useNationalityQuery(id);
-  const DEFAULT = { name: '' };
-
-  async function handleSubmit(formData: Master.Other.NationalityForm) {
-    try {
-      const result = await mutateAsync(formData);
-      if (result) {
-        ToastService.success('Nationality updated successfully.');
-        onClose();
-      }
-    } catch {
-      ToastService.error('Failed to update nationality');
-    }
-  }
-
-  if (isLoading) return <Loader />;
-
-  return (
-    <NationalityForm
-      fetchData={data ?? DEFAULT}
-      isSaving={isPending}
-      isEditMode
-      onSubmit={handleSubmit}
-    />
   );
 }

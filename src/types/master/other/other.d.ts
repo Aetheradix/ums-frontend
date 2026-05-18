@@ -53,16 +53,16 @@ declare namespace Master {
     type SpecialisationItem = Data.WithId<Specialisation>;
 
     interface ResidencyStatusItem {
-      id: number;
-      name: string;
+      id: String;
+      text: string;
     }
     interface AddressTypeItem {
-      id: number;
-      name: string;
+      id: string;
+      text: string;
     }
     interface SemesterItem {
-      id: number;
-      name: string;
+      id: String;
+      text: string;
     }
     interface OccupationItem {
       id: string;
@@ -83,6 +83,10 @@ declare namespace Master {
 
     // Language-Preferences
     interface LanguagePreferenceItem {
+      id: string;
+      text: string;
+    }
+    interface DocumentTypeItem {
       id: string;
       text: string;
     }

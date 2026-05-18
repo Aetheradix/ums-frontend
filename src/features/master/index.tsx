@@ -9,6 +9,10 @@ import Caste from './hr/caste';
 import Post from './hr/post';
 import Qualification from './hr/qualification';
 import Religion from './hr/religion';
+import Class from './hr/class';
+import Section from './hr/section';
+import DesignationHr from './hr/designation';
+import DesignationType from './hr/designation-type';
 import Location from './location';
 import AcademicYear from './other/academic-year';
 import DegreeLevel from './other/degree-level';
@@ -41,6 +45,10 @@ export default function Master() {
         <Route path="post/*" element={<Post />} />
         <Route path="religion/*" element={<Religion />} />
         <Route path="qualification/*" element={<Qualification />} />
+        <Route path="class/*" element={<Class />} />
+        <Route path="section/*" element={<Section />} />
+        <Route path="designation/*" element={<DesignationHr />} />
+        <Route path="designation-type/*" element={<DesignationType />} />
       </Route>
 
       <Route path="college/*">
@@ -59,7 +67,10 @@ export default function Master() {
       <Route path="grant/*">
         <Route path="grant-type/*" element={<GrantType />} />
         <Route path="grant-category/*" element={<GrantCategory />} />
-        <Route path="eligibility-application-process/*" element={<EligibilityApplicationProcess />} />
+        <Route
+          path="eligibility-application-process/*"
+          element={<EligibilityApplicationProcess />}
+        />
       </Route>
 
       <Route path="scheme/*">
