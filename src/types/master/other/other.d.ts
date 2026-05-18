@@ -90,5 +90,10 @@ declare namespace Master {
       id: string;
       text: string;
     }
+
+    interface ServiceCadreItem {
+      id: string;
+      text: string;
+    }
   }
 }
