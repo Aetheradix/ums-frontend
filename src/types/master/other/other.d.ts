@@ -90,12 +90,27 @@ declare namespace Master {
       id: string;
       text: string;
     }
+    interface ServiceCadreItem {
+      id: string;
+      text: string;
+    }
     interface AppraisalTypeItem {
       id: string;
       text: string;
     }
-
     interface PatentStatusItem {
+      id: string;
+      text: string;
+    }
+    interface PublicationTypeItem {
+      id: string;
+      text: string;
+    }
+    interface PhDStatusItem {
+      id: string;
+      text: string;
+    }
+    interface AppraisalApplicationStatusItem {
       id: string;
       text: string;
     }
