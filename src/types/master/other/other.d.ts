@@ -110,5 +110,9 @@ declare namespace Master {
       id: string;
       text: string;
     }
+    interface GroupGrade {
+      id: string;
+      text: string;
+    }
   }
 }
