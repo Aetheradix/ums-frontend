@@ -110,5 +110,9 @@ declare namespace Master {
       id: string;
       text: string;
     }
+    interface UgcStatusItem {
+      id: string;
+      text: string;
+    }
   }
 }
