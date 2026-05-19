@@ -98,5 +98,9 @@ declare namespace Master {
       id: string;
       text: string;
     }
+    interface AppraisalApplicationStatusItem {
+      id: string;
+      text: string;
+    }
   }
 }
