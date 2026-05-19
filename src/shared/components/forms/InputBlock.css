@@ -79,14 +79,10 @@
   @apply border-red-400 focus:border-red-500 focus:ring-red-100;
 }
 
-/* ── Modern Inline Error Badge ── */
-.input-error-badge {
-  @apply absolute right-3 top-1/2 -translate-y-1/2
-         text-[10px] font-semibold tracking-wide
-         bg-[var(--bg-white)]
-         text-[var(--color-danger)]
-         px-1.5 py-0.5 rounded-md
-         pointer-events-none z-10;
+/* ── Modern Error Message Underneath ── */
+.input-error-message {
+  @apply text-xs font-semibold text-[var(--color-danger)] mt-1.5 block;
+  animation: slideDown 0.15s ease-out forwards;
 }
 
 /* ── Checkbox overlay ── */

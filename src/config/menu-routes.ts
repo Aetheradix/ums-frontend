@@ -448,6 +448,14 @@ export const menuConfig: Menu.MenuItem[] = [
         icon: 'person_add',
         colorScheme: 'red',
       },
+      {
+        label: 'Student Application Form',
+        slug: 'student-application-form',
+        description: 'Create and submit student applications.',
+        path: '/sis/student-application-form',
+        icon: 'assignment',
+        colorScheme: 'red',
+      },
     ],
   },
   {

@@ -5,6 +5,7 @@ import FormGrid from './FormGrid';
 import FormPage from './FormPage';
 import FormPopup from './FormPopup';
 import GridPanel from './GridPanel';
+import Stepper from './Stepper';
 import Tabs from './Tabs';
 import SkeletonLoader from './skeleton/SkeletonLoader';
 import WaffleMenu from './WaffleMenu';
@@ -17,6 +18,7 @@ export {
   FormPage,
   FormPopup,
   GridPanel,
+  Stepper,
   Tabs,
   SkeletonLoader,
   WaffleMenu,
