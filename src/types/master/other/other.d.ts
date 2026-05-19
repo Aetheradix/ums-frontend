@@ -98,6 +98,10 @@ declare namespace Master {
       id: string;
       text: string;
     }
+    interface ExperienceTypeItem {
+      id: string;
+      text: string;
+    }
     interface PatentRecordTypeItem {
       id: string;
       text: string;
