@@ -9,6 +9,7 @@ import Stepper from './Stepper';
 import Tabs from './Tabs';
 import SkeletonLoader from './skeleton/SkeletonLoader';
 import WaffleMenu from './WaffleMenu';
+import Sidebar from './Sidebar';
 
 export {
   Breadcrumb,
@@ -22,4 +23,5 @@ export {
   Tabs,
   SkeletonLoader,
   WaffleMenu,
+  Sidebar,
 };

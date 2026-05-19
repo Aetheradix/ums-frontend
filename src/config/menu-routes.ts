@@ -376,6 +376,7 @@ export const menuConfig: Menu.MenuItem[] = [
     icon: 'grid_view',
     colorScheme: 'red',
     description: 'Manage registrar and admin functions',
+    navigationStyle: 'sidebar',
     children: [
       {
         label: 'Programme Management',
