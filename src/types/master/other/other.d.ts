@@ -114,5 +114,9 @@ declare namespace Master {
       id: string;
       text: string;
     }
+    interface EmployeeType {
+      id: string;
+      text: string;
+    }
   }
 }
