@@ -122,6 +122,14 @@ declare namespace Master {
       id: string;
       text: string;
     }
+    interface GroupGrade {
+      id: string;
+      text: string;
+    }
+    interface EmployeeType {
+      id: string;
+      text: string;
+    }
     interface MembershipActivityTypeItem {
       id: string;
       text: string;
