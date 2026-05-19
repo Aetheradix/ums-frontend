@@ -94,6 +94,10 @@ declare namespace Master {
       id: string;
       text: string;
     }
+    interface PhDStatusItem {
+      id: string;
+      text: string;
+    }
     interface AppraisalApplicationStatusItem {
       id: string;
       text: string;
