@@ -98,6 +98,18 @@ declare namespace Master {
       id: string;
       text: string;
     }
+    interface ExperienceTypeItem {
+      id: string;
+      text: string;
+    }
+    interface PatentRecordTypeItem {
+      id: string;
+      text: string;
+    }
+    interface PatentStatusItem {
+      id: string;
+      text: string;
+    }
     interface PublicationTypeItem {
       id: string;
       text: string;
@@ -111,6 +123,26 @@ declare namespace Master {
       text: string;
     }
     interface DayOfWeekItem {
+      id: string;
+      text: string;
+    }
+    interface UgcStatusItem {
+      id: string;
+      text: string;
+    }
+    interface GroupGrade {
+      id: string;
+      text: string;
+    }
+    interface EmployeeType {
+      id: string;
+      text: string;
+    }
+    interface MembershipActivityTypeItem {
+      id: string;
+      text: string;
+    }
+    interface FinancialSupportTypeItem {
       id: string;
       text: string;
     }
