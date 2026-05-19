@@ -122,5 +122,9 @@ declare namespace Master {
       id: string;
       text: string;
     }
+    interface FinancialSupportTypeItem {
+      id: string;
+      text: string;
+    }
   }
 }
