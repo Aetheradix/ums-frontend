@@ -104,7 +104,7 @@ export default function TextBox<TForm extends FieldValues>({
     <Controller
       control={control}
       name={name}
-      render={({ field, fieldState, formState }) => {
+      render={({ field, fieldState }) => {
         let finalErrorMessage: string | undefined = undefined;
 
         if (fieldState.error) {
@@ -115,9 +115,7 @@ export default function TextBox<TForm extends FieldValues>({
           }
         }
 
-        const shouldShowError =
-          (fieldState.isTouched || formState.submitCount > 0) &&
-          !!finalErrorMessage;
+        const shouldShowError = !!finalErrorMessage;
 
         return (
           <InnerTextBox

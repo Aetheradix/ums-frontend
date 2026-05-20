@@ -398,6 +398,7 @@ export const menuConfig: Menu.MenuItem[] = [
     icon: 'grid_view',
     colorScheme: 'red',
     description: 'Manage registrar and admin functions',
+    navigationStyle: 'sidebar',
     children: [
       {
         label: 'Programme Management',
@@ -468,6 +469,22 @@ export const menuConfig: Menu.MenuItem[] = [
         description: 'Manage student additional details.',
         path: '/sis/student-additional-information',
         icon: 'person_add',
+        colorScheme: 'red',
+      },
+      {
+        label: 'Student Application Form',
+        slug: 'student-application-form',
+        description: 'Create and submit student applications.',
+        path: '/sis/student-application-form',
+        icon: 'assignment',
+        colorScheme: 'red',
+      },
+      {
+        label: 'Fee Payment Approval (Temp)',
+        slug: 'student-fee-approval',
+        description: 'Approve student application fee payments.',
+        path: '/sis/student-fee-approval',
+        icon: 'check_circle',
         colorScheme: 'red',
       },
     ],

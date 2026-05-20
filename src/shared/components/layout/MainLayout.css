@@ -19,3 +19,9 @@
 .dark .main-layout-content {
   background-color: var(--dark-bg);
 }
+
+/* Main Content Area */
+.sis-main-content-area {
+  flex: 1;
+  min-width: 0;
+}
