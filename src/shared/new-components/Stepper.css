@@ -251,3 +251,68 @@
 .dark .step-item.pending:hover .step-node {
   border-color: var(--color-gray-600);
 }
+
+/* ============================================================
+   DARK THEME SPECIFIC OVERRIDES
+   ============================================================ */
+
+/* Active State */
+.dark .step-item.active .step-node {
+  background-color: var(--white, #ffffff) !important;
+  border-color: var(--white, #ffffff) !important;
+  box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.15) !important;
+}
+
+.dark .step-item.active .step-icon-container {
+  color: var(--black, #0a0a0a) !important;
+}
+
+.dark .step-item.active .step-label {
+  color: var(--white, #ffffff) !important;
+}
+
+.dark .step-pulse {
+  background-color: var(--white, #ffffff) !important;
+}
+
+/* Completed State */
+.dark .step-item.completed .step-node {
+  background-color: var(--color-success, #10b981) !important;
+  border-color: var(--color-success, #10b981) !important;
+}
+
+.dark .step-item.completed .step-icon-container {
+  color: var(--white, #ffffff) !important;
+}
+
+.dark .step-item.completed .step-label {
+  color: var(--white, #ffffff) !important;
+}
+
+/* Pending State */
+.dark .step-item.pending .step-node {
+  background-color: #1a1a1c !important;
+  border-color: #333336 !important;
+}
+
+.dark .step-item.pending .step-icon-container {
+  color: #a1a1aa !important;
+}
+
+.dark .step-item.pending .step-label {
+  color: #71717a !important;
+}
+
+/* Connector Lines */
+.dark .step-line {
+  background-color: #333336 !important;
+}
+
+.dark .step-item.completed .step-line,
+.dark .step-item.active .step-line.prev {
+  background-color: var(--color-success, #10b981) !important;
+}
+
+.dark .step-item.completed .step-line.next {
+  background-color: var(--color-success, #10b981) !important;
+}
