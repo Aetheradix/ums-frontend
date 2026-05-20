@@ -354,9 +354,31 @@ export const menuConfig: Menu.MenuItem[] = [
         slug: 'employee-management-system',
         description:
           'Manage countries, states, divisions, districts, tehsils, and blocks.',
+        path: '/home/sub-menu/employee-management-system',
         icon: 'edit_location',
         colorScheme: 'red',
-        children: [],
+        children: [
+          {
+            label: 'Settings',
+            slug: 'settings',
+            description:
+              'Manage employee management system settings and masters.',
+            path: '/home/sub-menu/settings',
+            icon: 'settings',
+            colorScheme: 'red',
+            children: [
+              {
+                label: 'Nature of Employment',
+                slug: 'nature-of-employment',
+                description: 'Manage nature of employment master data.',
+                path: '/master/employee/settings/nature-of-employment',
+                icon: 'work',
+                colorScheme: 'red',
+                children: [],
+              },
+            ],
+          },
+        ],
       },
       {
         label: 'Career Advancement Scheme',
