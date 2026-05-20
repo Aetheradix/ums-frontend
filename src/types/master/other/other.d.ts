@@ -146,5 +146,9 @@ declare namespace Master {
       id: string;
       text: string;
     }
+    interface ResearchProjectStatusItem {
+      id: string;
+      text: string;
+    }
   }
 }
