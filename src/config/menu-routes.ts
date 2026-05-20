@@ -457,6 +457,14 @@ export const menuConfig: Menu.MenuItem[] = [
         icon: 'assignment',
         colorScheme: 'red',
       },
+      {
+        label: 'Fee Payment Approval (Temp)',
+        slug: 'student-fee-approval',
+        description: 'Approve student application fee payments.',
+        path: '/sis/student-fee-approval',
+        icon: 'check_circle',
+        colorScheme: 'red',
+      },
     ],
   },
   {

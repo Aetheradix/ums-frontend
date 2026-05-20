@@ -1,4 +1,5 @@
 import { studentAdditionalInformationUrls } from './student-additional-information/urls';
+import { studentFeeApprovalUrls } from './student-fee-approval/urls';
 
 const baseUrl = '/sis';
 
@@ -13,4 +14,5 @@ export const sisUrls = {
   root: baseUrl,
   studentAdditionalInformation: studentAdditionalInformationUrls(baseUrl),
   studentApplicationForm: studentApplicationFormUrls(baseUrl),
+  studentFeeApproval: studentFeeApprovalUrls(baseUrl),
 };
