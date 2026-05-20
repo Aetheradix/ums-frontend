@@ -2,6 +2,7 @@ import { Route, Routes } from 'react-router';
 import CollegeCategory from './college/college-category';
 import CollegeType from './college/college-type';
 import NatureOfEmployment from './employee/settings/nature-of-employment';
+import OrganizationUnit from './employee/settings/organization-unit';
 import Department from './faculty/department';
 import Designation from './faculty/designation';
 import Faculty from './faculty/faculty';
@@ -86,6 +87,7 @@ export default function Master() {
             path="nature-of-employment/*"
             element={<NatureOfEmployment />}
           />
+          <Route path="organization-unit/*" element={<OrganizationUnit />} />
         </Route>
       </Route>
     </Routes>

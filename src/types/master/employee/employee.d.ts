@@ -6,5 +6,12 @@ declare namespace Master {
     }
 
     type EmploymentNatureItem = Data.WithId<EmploymentNatureForm>;
+
+    interface OrganizationUnitForm {
+      name: string;
+      code: string;
+      isActive: boolean;
+    }
+    type OrganizationUnitItem = Data.WithId<OrganizationUnitForm>;
   }
 }
