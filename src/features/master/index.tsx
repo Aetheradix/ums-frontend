@@ -1,18 +1,22 @@
 import { Route, Routes } from 'react-router';
 import CollegeCategory from './college/college-category';
 import CollegeType from './college/college-type';
+import NatureOfEmployment from './employee/settings/nature-of-employment';
 import Department from './faculty/department';
 import Designation from './faculty/designation';
 import Faculty from './faculty/faculty';
 import OfficeType from './faculty/office-type';
+import EligibilityApplicationProcess from './grant/eligibility-application-process';
+import GrantCategory from './grant/grant-category';
+import GrantType from './grant/grant-type';
 import Caste from './hr/caste';
+import Class from './hr/class';
+import DesignationHr from './hr/designation';
+import DesignationType from './hr/designation-type';
 import Post from './hr/post';
 import Qualification from './hr/qualification';
 import Religion from './hr/religion';
-import Class from './hr/class';
 import Section from './hr/section';
-import DesignationHr from './hr/designation';
-import DesignationType from './hr/designation-type';
 import Location from './location';
 import AcademicYear from './other/academic-year';
 import DegreeLevel from './other/degree-level';
@@ -22,9 +26,6 @@ import Specialisation from './other/specialisation';
 import Scheme from './schemes/scheme';
 import SchemeCategory from './schemes/scheme-category';
 import SchemeType from './schemes/scheme-type';
-import GrantCategory from './grant/grant-category';
-import GrantType from './grant/grant-type';
-import EligibilityApplicationProcess from './grant/eligibility-application-process';
 import Subject from './subject';
 
 export default function Master() {
@@ -77,6 +78,15 @@ export default function Master() {
         <Route path="schemes/*" element={<Scheme />} />
         <Route path="scheme-type/*" element={<SchemeType />} />
         <Route path="scheme-category/*" element={<SchemeCategory />} />
+      </Route>
+
+      <Route path="employee/*">
+        <Route path="settings/*">
+          <Route
+            path="nature-of-employment/*"
+            element={<NatureOfEmployment />}
+          />
+        </Route>
       </Route>
     </Routes>
   );

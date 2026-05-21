@@ -354,9 +354,31 @@ export const menuConfig: Menu.MenuItem[] = [
         slug: 'employee-management-system',
         description:
           'Manage countries, states, divisions, districts, tehsils, and blocks.',
+        path: '/home/sub-menu/employee-management-system',
         icon: 'edit_location',
         colorScheme: 'red',
-        children: [],
+        children: [
+          {
+            label: 'Settings',
+            slug: 'settings',
+            description:
+              'Manage employee management system settings and masters.',
+            path: '/home/sub-menu/settings',
+            icon: 'settings',
+            colorScheme: 'red',
+            children: [
+              {
+                label: 'Nature of Employment',
+                slug: 'nature-of-employment',
+                description: 'Manage nature of employment master data.',
+                path: '/master/employee/settings/nature-of-employment',
+                icon: 'work',
+                colorScheme: 'red',
+                children: [],
+              },
+            ],
+          },
+        ],
       },
       {
         label: 'Career Advancement Scheme',
@@ -376,6 +398,7 @@ export const menuConfig: Menu.MenuItem[] = [
     icon: 'grid_view',
     colorScheme: 'red',
     description: 'Manage registrar and admin functions',
+    navigationStyle: 'sidebar',
     children: [
       {
         label: 'Programme Management',
@@ -446,6 +469,22 @@ export const menuConfig: Menu.MenuItem[] = [
         description: 'Manage student additional details.',
         path: '/sis/student-additional-information',
         icon: 'person_add',
+        colorScheme: 'red',
+      },
+      {
+        label: 'Student Application Form',
+        slug: 'student-application-form',
+        description: 'Create and submit student applications.',
+        path: '/sis/student-application-form',
+        icon: 'assignment',
+        colorScheme: 'red',
+      },
+      {
+        label: 'Fee Payment Approval (Temp)',
+        slug: 'student-fee-approval',
+        description: 'Approve student application fee payments.',
+        path: '/sis/student-fee-approval',
+        icon: 'check_circle',
         colorScheme: 'red',
       },
     ],

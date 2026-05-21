@@ -4,9 +4,9 @@ import { departmentUrls } from './faculty/department/urls';
 import { designationUrls } from './faculty/designation/urls';
 import { facultyUrls } from './faculty/faculty/urls';
 import { officeTypeUrls } from './faculty/office-type/urls';
+import { eligibilityApplicationProcessUrls } from './grant/eligibility-application-process/urls';
 import { grantCategoryUrls } from './grant/grant-category/urls';
 import { grantTypeUrls } from './grant/grant-type/urls';
-import { eligibilityApplicationProcessUrls } from './grant/eligibility-application-process/urls';
 import { casteUrls } from './hr/caste/urls';
 import { classUrls } from './hr/class/urls';
 import { designationTypeUrls } from './hr/designation-type/urls';
@@ -30,6 +30,7 @@ import { schemeTypeUrls } from './schemes/scheme-type/urls';
 import { schemeUrls } from './schemes/scheme/urls';
 import { ProgrammeModeOfEducationUrls } from './subject/programme-mode-of-education/urls';
 
+import { employmentNatureUrls } from './employee/settings/nature-of-employment/urls';
 import { subjectCategoryUrls } from './subject/subject-category/urls';
 
 const baseUrl = '/master';
@@ -68,4 +69,5 @@ export const masterUrls = {
   eligibilityApplicationProcess: eligibilityApplicationProcessUrls(
     `${baseUrl}/grant`
   ),
+  natureOfEmployment: employmentNatureUrls(`${baseUrl}/employee/settings`),
 };

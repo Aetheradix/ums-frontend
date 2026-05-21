@@ -1,0 +1,164 @@
+/* Sidebar Container */
+.app-sidebar-container {
+  width: 280px;
+  flex-shrink: 0;
+  background: var(--white);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: var(--radius-xl, 1rem);
+  padding: 1.5rem 1rem;
+  height: auto;
+  min-height: 600px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* Sidebar Header */
+.app-sidebar-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  padding-bottom: 1.25rem;
+}
+
+.app-sidebar-header-icon {
+  font-size: 1.3rem;
+  color: var(--black);
+  background: rgba(0, 0, 0, 0.04);
+  padding: 0.5rem;
+  border-radius: var(--radius-md, 0.5rem);
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.app-sidebar-header-text h3 {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: var(--black);
+  margin: 0;
+  line-height: 1.2;
+}
+
+.app-sidebar-header-text p {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--color-gray-500);
+  margin: 2px 0 0 0;
+  line-height: 1;
+}
+
+/* Sidebar Menu */
+.app-sidebar-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+/* Sidebar Item */
+.app-sidebar-item {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-lg, 0.75rem);
+  background: transparent;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  color: var(--color-gray-600);
+  font-weight: 600;
+  font-size: 0.85rem;
+  position: relative;
+}
+
+.app-sidebar-item:hover {
+  background: rgba(0, 0, 0, 0.03);
+  color: var(--black);
+  transform: translateX(4px);
+}
+
+/* Active State */
+.app-sidebar-item.active {
+  background: var(--black) !important;
+  color: var(--white) !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.app-sidebar-item.active .app-sidebar-icon {
+  color: var(--white) !important;
+}
+
+.app-sidebar-icon {
+  font-size: 1.1rem;
+  color: var(--color-gray-400);
+  transition: color 0.2s ease;
+  width: 20px;
+  text-align: center;
+}
+
+.app-sidebar-item:hover .app-sidebar-icon {
+  color: var(--black);
+}
+
+.app-sidebar-arrow {
+  margin-left: auto;
+  font-size: 0.75rem;
+  opacity: 0.7;
+}
+
+/* ==========================================
+   Dark Mode Sidebar Overrides
+   ========================================== */
+.dark .app-sidebar-container {
+  background: #0d0d0f;
+  border-color: rgba(255, 255, 255, 0.06);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+}
+
+.dark .app-sidebar-header {
+  border-bottom-color: rgba(255, 255, 255, 0.06);
+}
+
+.dark .app-sidebar-header-icon {
+  color: var(--white);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.dark .app-sidebar-header-text h3 {
+  color: var(--white);
+}
+
+.dark .app-sidebar-header-text p {
+  color: var(--color-gray-400);
+}
+
+.dark .app-sidebar-item {
+  color: var(--color-gray-400);
+}
+
+.dark .app-sidebar-item:hover {
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--white);
+}
+
+.dark .app-sidebar-item:hover .app-sidebar-icon {
+  color: var(--white);
+}
+
+.dark .app-sidebar-item.active {
+  background: var(--white) !important;
+  color: var(--black) !important;
+  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.15);
+}
+
+.dark .app-sidebar-item.active .app-sidebar-icon {
+  color: var(--black) !important;
+}
