@@ -150,5 +150,10 @@ declare namespace Master {
       id: string;
       text: string;
     }
+
+    interface MaritalStatusItem {
+      id: string;
+      text: string;
+    }
   }
 }
