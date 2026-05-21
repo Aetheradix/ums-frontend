@@ -2,6 +2,7 @@ import { Route, Routes } from 'react-router';
 import CollegeCategory from './college/college-category';
 import CollegeType from './college/college-type';
 import ActionOption from './employee/settings/action-option';
+import ActionOptionReason from './employee/settings/action-option-reason';
 import NatureOfEmployment from './employee/settings/nature-of-employment';
 import Department from './faculty/department';
 import Designation from './faculty/designation';
@@ -87,7 +88,11 @@ export default function Master() {
             path="nature-of-employment/*"
             element={<NatureOfEmployment />}
           />
-          <Route path="action-option" element={<ActionOption />} />
+          <Route path="action-option/*" element={<ActionOption />} />
+          <Route
+            path="action-option-reason/*"
+            element={<ActionOptionReason />}
+          />
         </Route>
       </Route>
     </Routes>
