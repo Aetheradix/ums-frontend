@@ -32,6 +32,7 @@ import { ProgrammeModeOfEducationUrls } from './subject/programme-mode-of-educat
 
 import { actionOptionUrls } from './employee/settings/action-option/urls';
 import { employmentNatureUrls } from './employee/settings/nature-of-employment/urls';
+import { subjectSpecializationUrls } from './employee/settings/subject-specialization/urls';
 import { subjectCategoryUrls } from './subject/subject-category/urls';
 
 const baseUrl = '/master';
@@ -72,4 +73,7 @@ export const masterUrls = {
   ),
   natureOfEmployment: employmentNatureUrls(`${baseUrl}/employee/settings`),
   actionOption: actionOptionUrls(`${baseUrl}/employee/settings`),
+  subjectSpecialization: subjectSpecializationUrls(
+    `${baseUrl}/employee/settings`
+  ),
 };
