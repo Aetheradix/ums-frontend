@@ -26,15 +26,6 @@ export default function OrganizationUnitForm(props: OrganizationUnitFormProps) {
           maxLength={150}
           required
         />
-
-        <TextBox
-          label="Organization Unit Code"
-          subLabel="(In English)"
-          placeholder="Enter Organization Unit Code"
-          {...register('code')}
-          maxLength={30}
-          required
-        />
       </FormGrid>
 
       <FormActions

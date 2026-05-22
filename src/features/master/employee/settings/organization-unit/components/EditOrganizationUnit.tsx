@@ -18,7 +18,6 @@ export default function EditOrganizationUnit({ id, onClose }: EditProps) {
 
   const DEFAULT: Master.Employee.OrganizationUnitForm = {
     name: '',
-    code: '',
     isActive: true,
   };
 

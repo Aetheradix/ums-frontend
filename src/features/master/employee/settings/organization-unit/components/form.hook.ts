@@ -3,7 +3,6 @@ import validation from 'shared/utils/validation';
 
 const schema = validation.create<Master.Employee.OrganizationUnitForm>(o => ({
   name: o.string().required().max(150).label('Organization Unit Name'),
-  code: o.string().required().max(30).label('Organization Unit Code'),
 }));
 
 export function useOrganizationUnitForm(

@@ -9,7 +9,6 @@ declare namespace Master {
 
     interface OrganizationUnitForm {
       name: string;
-      code: string;
       isActive: boolean;
     }
     type OrganizationUnitItem = Data.WithId<OrganizationUnitForm>;

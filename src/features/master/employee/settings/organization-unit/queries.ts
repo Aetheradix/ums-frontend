@@ -28,7 +28,6 @@ export function useGetOrganizationUnitByIdQuery(id: number) {
 
       return {
         name: data.name,
-        code: data.code,
       };
     },
   });
@@ -78,7 +77,6 @@ export function useUpdateOrganizationUnitMutation(id: number) {
       const itemToReplace: Master.Employee.OrganizationUnitItem = {
         id: id,
         name: formData.name,
-        code: formData.code,
         isActive: existing?.isActive,
       };
 

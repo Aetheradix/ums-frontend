@@ -63,10 +63,6 @@ export default function List() {
               header: 'Organization Unit Name',
             },
             {
-              field: 'code',
-              header: 'Organization Unit Code',
-            },
-            {
               field: 'isActive',
               header: 'Status',
               sortable: false,
