@@ -13,5 +13,12 @@ declare namespace Master {
     }
 
     type ActionOptionItem = Data.WithId<ActionOptionForm>;
+
+    interface TravelPurposeForm {
+      name: string;
+      isActive: boolean;
+    }
+
+    type TravelPurposeItem = Data.WithId<TravelPurposeForm>;
   }
 }
