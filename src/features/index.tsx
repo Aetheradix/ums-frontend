@@ -3,6 +3,7 @@ import MainLayout from 'shared/components/layout/MainLayout';
 import Home from './home';
 import Master from './master';
 import Sis from './sis';
+import CareerAdvancement from './career-advancement';
 
 export default function Features() {
   return (
@@ -17,6 +18,10 @@ export default function Features() {
               <Route index element={<Navigate to={'/home'} />} />
               <Route path="master/*" element={<Master />} />
               <Route path="sis/*" element={<Sis />} />
+              <Route
+                path="career-advancement/*"
+                element={<CareerAdvancement />}
+              />
             </Routes>
           </MainLayout>
         }
