@@ -150,5 +150,9 @@ declare namespace Master {
       id: string;
       text: string;
     }
+    interface AppraisalApplicationForwardedToTypeItem {
+      id: string;
+      text: string;
+    }
   }
 }
