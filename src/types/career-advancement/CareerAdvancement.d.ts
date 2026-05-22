@@ -1,5 +1,6 @@
 declare namespace CareerAdvancement {
   export interface EmployeeSelfAssessmentForm {
+    selfAssessmentId?: number;
     employeeId: number;
     tasksProjects: string;
     workOutputScore: number | null;

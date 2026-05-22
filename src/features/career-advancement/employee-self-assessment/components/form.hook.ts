@@ -27,7 +27,7 @@ const schema = validation.create<CareerAdvancement.EmployeeSelfAssessmentForm>(
     additionalRemarks: o.string().allow('', null).optional(),
     supportingDocument: o
       .any()
-      .allow(null)
+      .allow(null, '')
       .custom((value, helpers) => {
         if (value instanceof File) {
           if (value.size > 5 * 1024 * 1024) {
@@ -39,9 +39,10 @@ const schema = validation.create<CareerAdvancement.EmployeeSelfAssessmentForm>(
       .messages({
         'any.invalid': 'Invalid file (Max 5MB)',
       })
-      .required(),
+      .optional(),
     status: o.string().required(),
-    isActive: o.boolean().required(),
+    isActive: o.boolean().optional(),
+    selfAssessmentId: o.number().optional(),
   })
 );
 

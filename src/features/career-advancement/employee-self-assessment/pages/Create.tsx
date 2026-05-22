@@ -1,13 +1,28 @@
 import { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ToastService } from 'services';
+import { Loader } from 'shared/components/progress';
 import { FormPage } from 'shared/new-components';
 import EmployeeSelfAssessmentForm from '../components/EmployeeSelfAssessmentForm';
-import { useCreateEmployeeSelfAssessmentMutation } from '../queries';
+import {
+  useCreateEmployeeSelfAssessmentMutation,
+  useEmployeeSelfAssessmentQuery,
+  useUpdateEmployeeSelfAssessmentMutation,
+} from '../queries';
 
 export default function Create() {
   const navigate = useNavigate();
-  const { mutateAsync, isPending } = useCreateEmployeeSelfAssessmentMutation();
+  // Temporary hardcoded employee ID for login simulation
+  const employeeId = 1;
+
+  const { data: existingData, isLoading } =
+    useEmployeeSelfAssessmentQuery(employeeId);
+  const { mutateAsync: createMutation, isPending: isCreating } =
+    useCreateEmployeeSelfAssessmentMutation();
+  const { mutateAsync: updateMutation, isPending: isUpdating } =
+    useUpdateEmployeeSelfAssessmentMutation();
+
+  const isPending = isCreating || isUpdating;
 
   const handleBack = useCallback(() => {
     navigate('/home');
@@ -17,10 +32,20 @@ export default function Create() {
     data: CareerAdvancement.EmployeeSelfAssessmentForm
   ) {
     try {
-      const result = await mutateAsync(data);
+      // Ensure the employee ID and selfAssessmentId are set
+      const payload = {
+        ...data,
+        employeeId,
+        selfAssessmentId: existingData?.selfAssessmentId,
+      };
+
+      const result = existingData?.selfAssessmentId
+        ? await updateMutation(payload)
+        : await createMutation(payload);
+
       if (result) {
         ToastService.success(
-          'Employee Self Assessment submitted successfully.'
+          `Employee Self Assessment ${existingData?.selfAssessmentId ? 'updated' : 'submitted'} successfully.`
         );
         handleBack();
       }
@@ -29,6 +54,10 @@ export default function Create() {
         err?.message || 'Failed to submit Employee Self Assessment.'
       );
     }
+  }
+
+  if (isLoading) {
+    return <Loader />;
   }
 
   return (
@@ -40,6 +69,8 @@ export default function Create() {
         onSubmit={handleSubmit}
         onCancel={handleBack}
         isSaving={isPending}
+        initialData={existingData}
+        isReadOnly={existingData?.status === 'Submitted'}
       />
     </FormPage>
   );
