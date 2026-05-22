@@ -27,15 +27,15 @@ export function useCreateGrievanceCategoryMutation() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async (data: GrievanceCategoryMaster.GrievanceCategoryForm) =>
+    mutationFn: async (data: Grievance.GrievanceCategoryForm) =>
       await createGrievanceCategory(data),
 
     onSuccess(data) {
       if (!data) return;
       const result =
-        queryClient.getQueryData<
-          GrievanceCategoryMaster.GrievanceCategoryItem[]
-        >(QUERY_KEY) ?? [];
+        queryClient.getQueryData<Grievance.GrievanceCategoryItem[]>(
+          QUERY_KEY
+        ) ?? [];
 
       queryClient.setQueryData(QUERY_KEY, [...result, data]);
     },
@@ -62,23 +62,23 @@ export function useUpdateGrievanceCategoryMutation(id: number) {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async (data: GrievanceCategoryMaster.GrievanceCategoryForm) =>
+    mutationFn: async (data: Grievance.GrievanceCategoryForm) =>
       await updateGrievanceCategory(id, data),
 
     onSuccess(success, formData) {
       if (!success) return;
 
       const result =
-        queryClient.getQueryData<
-          GrievanceCategoryMaster.GrievanceCategoryItem[]
-        >(QUERY_KEY) ?? [];
+        queryClient.getQueryData<Grievance.GrievanceCategoryItem[]>(
+          QUERY_KEY
+        ) ?? [];
 
       const index = result.findIndex(item => item.id === id);
       if (index === -1) return;
 
       const existing = result[index];
 
-      const itemToReplace: GrievanceCategoryMaster.GrievanceCategoryItem = {
+      const itemToReplace: Grievance.GrievanceCategoryItem = {
         id,
         name: formData.name,
         code: formData.code,
@@ -108,9 +108,9 @@ export function useDeleteGrievanceCategoryMutation() {
       if (!success) return;
 
       const result =
-        queryClient.getQueryData<
-          GrievanceCategoryMaster.GrievanceCategoryItem[]
-        >(QUERY_KEY) ?? [];
+        queryClient.getQueryData<Grievance.GrievanceCategoryItem[]>(
+          QUERY_KEY
+        ) ?? [];
 
       const updatedItems = result.filter(item => item.id !== id);
 
@@ -130,9 +130,9 @@ export function useGrievanceCategoryActiveStatusMutation() {
       if (!success) return;
 
       const result =
-        queryClient.getQueryData<
-          GrievanceCategoryMaster.GrievanceCategoryItem[]
-        >(QUERY_KEY) ?? [];
+        queryClient.getQueryData<Grievance.GrievanceCategoryItem[]>(
+          QUERY_KEY
+        ) ?? [];
 
       const index = result.findIndex(item => item.id === variables.id);
       if (index === -1) return;

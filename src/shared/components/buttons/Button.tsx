@@ -18,7 +18,7 @@ interface ButtonProps {
   type?: ButtonType;
   icon?: string;
   label?: string;
-  onClick?: () => void;
+  onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
   isLoading?: boolean;
   className?: string;
   variant?: ButtonVariant;

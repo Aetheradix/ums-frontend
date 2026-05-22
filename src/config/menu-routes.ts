@@ -549,6 +549,14 @@ export const menuConfig: Menu.MenuItem[] = [
             colorScheme: 'teal',
             children: [],
           },
+          {
+            label: 'Category to User Mapping',
+            slug: 'category-to-user-mapping',
+            path: '/grievance-management/master/category-to-user-mapping',
+            icon: 'people',
+            colorScheme: 'teal',
+            children: [],
+          },
         ],
       },
       {

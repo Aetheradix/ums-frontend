@@ -14,9 +14,7 @@ export default function Create() {
     navigate(masterUrls.grievanceCategory.root);
   }, [navigate]);
 
-  async function handleSubmit(
-    data: GrievanceCategoryMaster.GrievanceCategoryForm
-  ) {
+  async function handleSubmit(data: Grievance.GrievanceCategoryForm) {
     try {
       const result = await mutateAsync(data);
       if (result) {

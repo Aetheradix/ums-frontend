@@ -5,24 +5,23 @@ const MASTER_API_ROOT = `master/`;
 const GRIEVANCE_CATEGORY_URL = `${MASTER_API_ROOT}categories`;
 
 export function getGrievanceCategories() {
-  return ApiService.getList<GrievanceCategoryMaster.GrievanceCategoryItem>(
+  return ApiService.getList<Grievance.GrievanceCategoryItem>(
     GRIEVANCE_CATEGORY_URL
   );
 }
 
 export async function getGrievanceCategory(id: number) {
-  const { data } =
-    await ApiService.get<GrievanceCategoryMaster.GrievanceCategoryItem>(
-      `${GRIEVANCE_CATEGORY_URL}/${id}`
-    );
+  const { data } = await ApiService.get<Grievance.GrievanceCategoryItem>(
+    `${GRIEVANCE_CATEGORY_URL}/${id}`
+  );
   return data;
 }
 
 export async function createGrievanceCategory(
-  form: GrievanceCategoryMaster.GrievanceCategoryForm
+  form: Grievance.GrievanceCategoryForm
 ) {
   const { error, data } =
-    await ApiService.post<GrievanceCategoryMaster.GrievanceCategoryItem>(
+    await ApiService.post<Grievance.GrievanceCategoryItem>(
       GRIEVANCE_CATEGORY_URL,
       form
     );
@@ -32,7 +31,7 @@ export async function createGrievanceCategory(
 
 export async function updateGrievanceCategory(
   id: number,
-  form: GrievanceCategoryMaster.GrievanceCategoryForm
+  form: Grievance.GrievanceCategoryForm
 ): Promise<boolean> {
   const result = await ApiService.put(`${GRIEVANCE_CATEGORY_URL}/${id}`, form);
   return !result.error;

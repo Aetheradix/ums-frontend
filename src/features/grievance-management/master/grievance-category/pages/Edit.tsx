@@ -30,9 +30,7 @@ export default function Edit() {
     return <Loader />;
   }
 
-  async function handleSubmit(
-    data: GrievanceCategoryMaster.GrievanceCategoryForm
-  ) {
+  async function handleSubmit(data: Grievance.GrievanceCategoryForm) {
     try {
       const result = await mutateAsync(data);
       if (result) {

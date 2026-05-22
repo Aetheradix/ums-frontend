@@ -25,16 +25,14 @@ type PopupState =
   | { mode: 'create' }
   | { mode: 'edit'; id: number };
 
-export default function List() {
+export default function GrievanceCategoryList() {
   const { data, isLoading } = useGrievanceCategoriesQuery();
   const { data: grievanceCategoryTypes = [] } = useCategoryTypeQuery();
   const { mutateAsync: toggleStatus } =
     useGrievanceCategoryActiveStatusMutation();
   const [popup, setPopup] = useState<PopupState>({ mode: 'closed' });
 
-  const handleToggleStatus = async (
-    item: GrievanceCategoryMaster.GrievanceCategoryItem
-  ) => {
+  const handleToggleStatus = async (item: Grievance.GrievanceCategoryItem) => {
     await toggleStatus({
       id: item.id,
       isActive: !item.isActive,
@@ -54,8 +52,8 @@ export default function List() {
 
   return (
     <FormPage
-      title="Grievance Category"
-      description="Manage the list of all grievance categories in the system."
+      title="Categories List"
+      //description="Manage the list of all grievance categories in the system."
     >
       <FormCard>
         {isLoading ? <Loader /> : undefined}
@@ -72,7 +70,7 @@ export default function List() {
             { field: 'name', header: 'Name' },
             {
               header: 'Grievance Type',
-              cell: (item: GrievanceCategoryMaster.GrievanceCategoryItem) => (
+              cell: (item: Grievance.GrievanceCategoryItem) => (
                 <span>{getGrievanceTypeName(item.categoryType)}</span>
               ),
             },
@@ -80,7 +78,7 @@ export default function List() {
               field: 'isActive',
               header: 'Status',
               sortable: false,
-              cell: (item: GrievanceCategoryMaster.GrievanceCategoryItem) => (
+              cell: (item: Grievance.GrievanceCategoryItem) => (
                 <StatusButton
                   value={item.isActive}
                   onClick={() => handleToggleStatus(item)}
@@ -126,9 +124,7 @@ export default function List() {
 function CreateContent({ onClose }: { onClose: () => void }) {
   const { mutateAsync, isPending } = useCreateGrievanceCategoryMutation();
 
-  async function handleSubmit(
-    data: GrievanceCategoryMaster.GrievanceCategoryForm
-  ) {
+  async function handleSubmit(data: Grievance.GrievanceCategoryForm) {
     try {
       const result = await mutateAsync(data);
       if (result) {
@@ -156,9 +152,7 @@ function EditContent({ id, onClose }: { id: number; onClose: () => void }) {
 
   if (isLoading) return <Loader />;
 
-  async function handleSubmit(
-    formData: GrievanceCategoryMaster.GrievanceCategoryForm
-  ) {
+  async function handleSubmit(formData: Grievance.GrievanceCategoryForm) {
     try {
       const result = await mutateAsync(formData);
       if (result) {

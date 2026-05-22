@@ -4,10 +4,8 @@ import SelectCategoryType from '../../components/SelectCategoryType';
 import { useGrievanceCategoryForm } from './form.hook';
 
 interface GrievanceCategoryFormProps {
-  onSubmit: (
-    data: GrievanceCategoryMaster.GrievanceCategoryForm
-  ) => Promise<void>;
-  fetchData?: Forms.FetchDataFunc<GrievanceCategoryMaster.GrievanceCategoryForm>;
+  onSubmit: (data: Grievance.GrievanceCategoryForm) => Promise<void>;
+  fetchData?: Forms.FetchDataFunc<Grievance.GrievanceCategoryForm>;
   isSaving?: boolean;
   isEditMode?: boolean;
 }
