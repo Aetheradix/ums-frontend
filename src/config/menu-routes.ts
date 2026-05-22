@@ -390,13 +390,23 @@ export const menuConfig: Menu.MenuItem[] = [
         ],
       },
       {
-        label: 'Career Advancement Scheme',
-        slug: 'career-advancement-acheme',
-        description:
-          'Manage countries, states, divisions, districts, tehsils, and blocks.',
-        icon: 'edit_location',
-        colorScheme: 'red',
-        children: [],
+        label: 'Career Advancement',
+        slug: 'career-advancement',
+        description: 'Manage career advancement sessions and assessments.',
+        path: '/career-advancement/sessions-management',
+        icon: 'trending_up',
+        colorScheme: 'orange',
+        children: [
+          {
+            label: 'Sessions Management',
+            slug: 'sessions-management',
+            description:
+              'Manage assessment sessions for career advancement programs.',
+            path: '/career-advancement/sessions-management',
+            icon: 'event',
+            colorScheme: 'orange',
+          },
+        ],
       },
     ],
   },
