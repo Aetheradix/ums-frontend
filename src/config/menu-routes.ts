@@ -377,6 +377,15 @@ export const menuConfig: Menu.MenuItem[] = [
                 children: [],
               },
               {
+                label: 'Document Option',
+                slug: 'document-option',
+                description: 'Manage document option master data.',
+                path: '/master/employee/settings/document-option',
+                icon: 'description',
+                colorScheme: 'red',
+                children: [],
+              },
+              {
                 label: 'Action Options',
                 slug: 'action-options',
                 description: 'Manage action options master data.',

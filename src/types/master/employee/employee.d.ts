@@ -13,5 +13,11 @@ declare namespace Master {
     }
 
     type ActionOptionItem = Data.WithId<ActionOptionForm>;
+
+    interface DocumentOptionsForm {
+      name: string;
+      isActive: boolean;
+    }
+    type DocumentOptionsItem = Data.WithId<DocumentOptionsForm>;
   }
 }
