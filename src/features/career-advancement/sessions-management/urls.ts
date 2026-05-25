@@ -4,10 +4,7 @@ export const sessionsManagementUrls = (base: string) => {
   const prefix = `${base}/sessions-management`;
   return {
     root: prefix,
-    list: prefix,
-    create: prefix,
-    getById: (id: number) => `${prefix}/${id}`,
-    update: (id: number) => `${prefix}/${id}`,
-    delete: (id: number) => `${prefix}/${id}`,
+    create: `${prefix}/create`,
+    edit: (id: string | number) => `${prefix}/edit/${id}`,
   };
 };

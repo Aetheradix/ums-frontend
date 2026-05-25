@@ -1,4 +1,5 @@
 import { useCallback, useState } from 'react';
+import { ToastService } from 'services';
 import { Button } from 'shared/components/buttons';
 import StatusButton from 'shared/components/buttons/StatusButton';
 import { Loader } from 'shared/components/progress';
@@ -8,29 +9,29 @@ import {
   FormPopup,
   GridPanel,
 } from 'shared/new-components';
-import { ToastService } from 'services';
 import SessionForm from '../components/SessionForm';
 import {
-  useSessionsQuery,
-  useSessionQuery,
   useCreateSessionMutation,
-  useUpdateSessionMutation,
   useSessionActiveStatusMutation,
+  useSessionQuery,
+  useSessionsQuery,
+  useUpdateSessionMutation,
 } from '../queries';
-import type { SessionFormData, SessionResponseDto } from '../types';
 
 type PopupState =
   | { mode: 'closed' }
   | { mode: 'create' }
   | { mode: 'edit'; id: number };
 
-export default function SessionsManagementPage() {
+export default function List() {
   const { data, isLoading } = useSessionsQuery();
-  const { mutateAsync: toggleStatus } = useSessionActiveStatusMutation();
+  const { mutateAsync } = useSessionActiveStatusMutation();
   const [popup, setPopup] = useState<PopupState>({ mode: 'closed' });
 
-  const handleToggleStatus = async (item: SessionResponseDto) => {
-    await toggleStatus({ id: item.id, isActive: !item.isActive });
+  const handleToggleStatus = async (
+    item: CareerAdvancement.Session.SessionItem
+  ) => {
+    await mutateAsync({ id: item.id, isActive: !item.isActive });
   };
 
   const closePopup = useCallback(() => setPopup({ mode: 'closed' }), []);
@@ -44,14 +45,10 @@ export default function SessionsManagementPage() {
         {isLoading ? <Loader /> : undefined}
         <GridPanel
           data={data}
-          onEdit={(session: SessionResponseDto) =>
-            setPopup({ mode: 'edit', id: session.id })
-          }
+          onEdit={session => setPopup({ mode: 'edit', id: session.id })}
           columns={[
             {
-              cell: (_: SessionResponseDto, option: { rowIndex: number }) => (
-                <span>{option.rowIndex + 1}</span>
-              ),
+              cell: (_, option) => <span>{option.rowIndex + 1}</span>,
               width: '30px',
             },
             { field: 'sessionName', header: 'Session Name' },
@@ -59,9 +56,9 @@ export default function SessionsManagementPage() {
             { field: 'appStatus', header: 'App Status' },
             {
               field: 'isActive',
-              header: 'Active',
+              header: 'Status',
               sortable: false,
-              cell: (item: SessionResponseDto) => (
+              cell: (item: CareerAdvancement.Session.SessionItem) => (
                 <StatusButton
                   value={item.isActive}
                   onClick={() => handleToggleStatus(item)}
@@ -107,22 +104,21 @@ export default function SessionsManagementPage() {
 function CreateContent({ onClose }: { onClose: () => void }) {
   const { mutateAsync, isPending } = useCreateSessionMutation();
 
-  async function handleSubmit(data: SessionFormData) {
+  async function handleSubmit(data: CareerAdvancement.Session.SessionForm) {
     try {
-      const payload = {
+      const result = await mutateAsync({
         ...data,
         startDateTime: data.startDateTime?.toISOString() ?? '',
         endDateTime: data.endDateTime?.toISOString() ?? '',
         sessionFrom: data.sessionFrom?.toISOString() ?? '',
         sessionTo: data.sessionTo?.toISOString() ?? '',
-      };
-      const result = await mutateAsync(payload);
+      });
       if (result) {
         ToastService.success('Session created successfully.');
         onClose();
       }
     } catch {
-      ToastService.error('Failed to create session');
+      ToastService.error('Failed to create session.');
     }
   }
 
@@ -139,7 +135,7 @@ function EditContent({ id, onClose }: { id: number; onClose: () => void }) {
   const { mutateAsync, isPending } = useUpdateSessionMutation(id);
   const { data, isLoading } = useSessionQuery(id);
 
-  const DEFAULT: SessionFormData = {
+  const DEFAULT: CareerAdvancement.Session.SessionForm = {
     sessionName: '',
     sessionType: '',
     startDateTime: null,
@@ -151,22 +147,21 @@ function EditContent({ id, onClose }: { id: number; onClose: () => void }) {
 
   if (isLoading) return <Loader />;
 
-  async function handleSubmit(data: SessionFormData) {
+  async function handleSubmit(data: CareerAdvancement.Session.SessionForm) {
     try {
-      const payload = {
+      const result = await mutateAsync({
         ...data,
         startDateTime: data.startDateTime?.toISOString() ?? '',
         endDateTime: data.endDateTime?.toISOString() ?? '',
         sessionFrom: data.sessionFrom?.toISOString() ?? '',
         sessionTo: data.sessionTo?.toISOString() ?? '',
-      };
-      const result = await mutateAsync(payload);
+      });
       if (result) {
         ToastService.success('Session updated successfully.');
         onClose();
       }
     } catch {
-      ToastService.error('Failed to update session');
+      ToastService.error('Failed to update session.');
     }
   }
 

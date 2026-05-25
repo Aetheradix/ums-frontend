@@ -1,8 +1,7 @@
 import { useAppForm } from 'shared/hooks/form';
 import validation from 'shared/utils/validation';
-import type { SessionFormData } from '../types';
 
-const schema = validation.create<SessionFormData>(o => ({
+const schema = validation.create<CareerAdvancement.Session.SessionForm>(o => ({
   sessionName: o.string().required().max(100),
   sessionType: o.string().required(),
   startDateTime: o.date().required(),
@@ -13,11 +12,11 @@ const schema = validation.create<SessionFormData>(o => ({
 }));
 
 export function useSessionForm(
-  submitCallback: Forms.SubmitFunc<SessionFormData>,
-  defaultValues?: Forms.FetchDataFunc<SessionFormData>
+  submitCallback: Forms.SubmitFunc<CareerAdvancement.Session.SessionForm>,
+  defaultValues?: Forms.FetchDataFunc<CareerAdvancement.Session.SessionForm>
 ) {
   const { register, handleSubmit, reset, control } =
-    useAppForm<SessionFormData>({
+    useAppForm<CareerAdvancement.Session.SessionForm>({
       defaultValues: defaultValues,
       resolver: validation.resolver(schema),
     });

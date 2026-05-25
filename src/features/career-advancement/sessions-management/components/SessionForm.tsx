@@ -1,12 +1,11 @@
-import { TextBox, DropDownList, DatePicker } from 'shared/components/forms';
+import { DatePicker, DropDownList, TextBox } from 'shared/components/forms';
 import { FormActions, FormGrid } from 'shared/new-components';
+import { APP_STATUS_OPTIONS, SESSION_TYPES } from '../constants';
 import { useSessionForm } from './form.hook';
-import { SESSION_TYPES, APP_STATUS_OPTIONS } from '../types';
-import type { SessionFormData } from '../types';
 
 interface SessionFormProps {
-  onSubmit: Forms.SubmitFunc<SessionFormData>;
-  fetchData?: Forms.FetchDataFunc<SessionFormData>;
+  onSubmit: (data: CareerAdvancement.Session.SessionForm) => Promise<void>;
+  fetchData?: Forms.FetchDataFunc<CareerAdvancement.Session.SessionForm>;
   isSaving?: boolean;
   isEditMode?: boolean;
 }

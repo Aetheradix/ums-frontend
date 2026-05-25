@@ -2,16 +2,11 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import {
   createSession,
   deleteSession,
-  getSessionById,
+  getSession,
   getSessions,
   patchSessionStatus,
   updateSession,
 } from './api';
-import type {
-  CreateSessionCommand,
-  SessionResponseDto,
-  UpdateSessionCommand,
-} from './types';
 
 const QUERY_KEY = ['@career-advancement/sessions'];
 
@@ -31,32 +26,26 @@ export function useSessionsQuery() {
 export function useCreateSessionMutation() {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: async (data: CreateSessionCommand) => await createSession(data),
+    mutationFn: async (data: CareerAdvancement.Session.SessionCommand) =>
+      await createSession(data),
 
     onSuccess(data, variables) {
       if (!data) return;
 
       const result =
-        queryClient.getQueryData<SessionResponseDto[]>(QUERY_KEY) ?? [];
+        queryClient.getQueryData<CareerAdvancement.Session.SessionItem[]>(
+          QUERY_KEY
+        ) ?? [];
 
       const newId =
         (data as any).value ??
         (data as any).id ??
         Math.max(0, ...result.map(x => x.id)) + 1;
 
-      const newItem: SessionResponseDto = {
+      const newItem: CareerAdvancement.Session.SessionItem = {
         id: newId,
-        sessionName: variables.sessionName,
-        sessionType: variables.sessionType,
-        startDateTime: variables.startDateTime,
-        endDateTime: variables.endDateTime,
-        appStatus: variables.appStatus,
-        sessionFrom: variables.sessionFrom,
-        sessionTo: variables.sessionTo,
+        ...variables,
         isActive: true,
-        createdOn: new Date().toISOString(),
-        createdBy: '',
-        ipAddress: '',
         ...(typeof data === 'object' ? data : {}),
       };
 
@@ -69,7 +58,7 @@ export function useSessionQuery(id: number) {
   return useQuery({
     queryKey: [...QUERY_KEY, id],
     queryFn: async () => {
-      const data = await getSessionById(id);
+      const data = await getSession(id);
       if (!data) return undefined;
 
       return {
@@ -80,7 +69,7 @@ export function useSessionQuery(id: number) {
         appStatus: data.appStatus,
         sessionFrom: data.sessionFrom ? new Date(data.sessionFrom) : null,
         sessionTo: data.sessionTo ? new Date(data.sessionTo) : null,
-      };
+      } satisfies CareerAdvancement.Session.SessionForm;
     },
   });
 }
@@ -89,33 +78,26 @@ export function useUpdateSessionMutation(id: number) {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async (data: UpdateSessionCommand) =>
+    mutationFn: async (data: CareerAdvancement.Session.SessionCommand) =>
       await updateSession(id, data),
 
     onSuccess(success, formData) {
       if (!success) return;
 
       const result =
-        queryClient.getQueryData<SessionResponseDto[]>(QUERY_KEY) ?? [];
+        queryClient.getQueryData<CareerAdvancement.Session.SessionItem[]>(
+          QUERY_KEY
+        ) ?? [];
 
       const index = result.findIndex(item => item.id === id);
       if (index === -1) return;
 
       const existing = result[index];
 
-      const itemToReplace: SessionResponseDto = {
+      const itemToReplace: CareerAdvancement.Session.SessionItem = {
         id,
-        sessionName: formData.sessionName,
-        sessionType: formData.sessionType,
-        startDateTime: formData.startDateTime,
-        endDateTime: formData.endDateTime,
-        appStatus: formData.appStatus,
-        sessionFrom: formData.sessionFrom,
-        sessionTo: formData.sessionTo,
+        ...formData,
         isActive: existing?.isActive ?? true,
-        createdOn: existing?.createdOn ?? new Date().toISOString(),
-        createdBy: existing?.createdBy ?? '',
-        ipAddress: existing?.ipAddress ?? '',
       };
 
       const updatedItems = [
@@ -140,11 +122,14 @@ export function useDeleteSessionMutation() {
       if (!success) return;
 
       const result =
-        queryClient.getQueryData<SessionResponseDto[]>(QUERY_KEY) ?? [];
+        queryClient.getQueryData<CareerAdvancement.Session.SessionItem[]>(
+          QUERY_KEY
+        ) ?? [];
 
-      const updatedItems = result.filter(item => item.id !== id);
-
-      queryClient.setQueryData(QUERY_KEY, updatedItems);
+      queryClient.setQueryData(
+        QUERY_KEY,
+        result.filter(item => item.id !== id)
+      );
     },
   });
 }
@@ -160,15 +145,14 @@ export function useSessionActiveStatusMutation() {
       if (!success) return;
 
       const result =
-        queryClient.getQueryData<SessionResponseDto[]>(QUERY_KEY) ?? [];
+        queryClient.getQueryData<CareerAdvancement.Session.SessionItem[]>(
+          QUERY_KEY
+        ) ?? [];
 
       const index = result.findIndex(item => item.id === variables.id);
       if (index === -1) return;
 
-      const updatedItem = {
-        ...result[index],
-        isActive: variables.isActive,
-      };
+      const updatedItem = { ...result[index], isActive: variables.isActive };
 
       queryClient.setQueryData(QUERY_KEY, [
         ...result.slice(0, index),
