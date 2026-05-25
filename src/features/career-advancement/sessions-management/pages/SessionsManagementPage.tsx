@@ -109,7 +109,14 @@ function CreateContent({ onClose }: { onClose: () => void }) {
 
   async function handleSubmit(data: SessionFormData) {
     try {
-      const result = await mutateAsync(data);
+      const payload = {
+        ...data,
+        startDateTime: data.startDateTime?.toISOString() ?? '',
+        endDateTime: data.endDateTime?.toISOString() ?? '',
+        sessionFrom: data.sessionFrom?.toISOString() ?? '',
+        sessionTo: data.sessionTo?.toISOString() ?? '',
+      };
+      const result = await mutateAsync(payload);
       if (result) {
         ToastService.success('Session created successfully.');
         onClose();
@@ -135,18 +142,25 @@ function EditContent({ id, onClose }: { id: number; onClose: () => void }) {
   const DEFAULT: SessionFormData = {
     sessionName: '',
     sessionType: '',
-    startDateTime: '',
-    endDateTime: '',
+    startDateTime: null,
+    endDateTime: null,
     appStatus: '',
-    sessionFrom: '',
-    sessionTo: '',
+    sessionFrom: null,
+    sessionTo: null,
   };
 
   if (isLoading) return <Loader />;
 
-  async function handleSubmit(formData: SessionFormData) {
+  async function handleSubmit(data: SessionFormData) {
     try {
-      const result = await mutateAsync(formData);
+      const payload = {
+        ...data,
+        startDateTime: data.startDateTime?.toISOString() ?? '',
+        endDateTime: data.endDateTime?.toISOString() ?? '',
+        sessionFrom: data.sessionFrom?.toISOString() ?? '',
+        sessionTo: data.sessionTo?.toISOString() ?? '',
+      };
+      const result = await mutateAsync(payload);
       if (result) {
         ToastService.success('Session updated successfully.');
         onClose();

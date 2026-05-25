@@ -48,11 +48,11 @@ export interface UpdateSessionCommand {
 export interface SessionFormData {
   sessionName: string;
   sessionType: string;
-  startDateTime: string;
-  endDateTime: string;
+  startDateTime: Date | null;
+  endDateTime: Date | null;
   appStatus: string;
-  sessionFrom: string;
-  sessionTo: string;
+  sessionFrom: Date | null;
+  sessionTo: Date | null;
   isActive?: boolean;
 }
 

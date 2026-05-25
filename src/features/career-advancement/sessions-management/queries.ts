@@ -54,11 +54,11 @@ export function useSessionQuery(id: number) {
       return {
         sessionName: data.sessionName,
         sessionType: data.sessionType,
-        startDateTime: data.startDateTime,
-        endDateTime: data.endDateTime,
+        startDateTime: data.startDateTime ? new Date(data.startDateTime) : null,
+        endDateTime: data.endDateTime ? new Date(data.endDateTime) : null,
         appStatus: data.appStatus,
-        sessionFrom: data.sessionFrom,
-        sessionTo: data.sessionTo,
+        sessionFrom: data.sessionFrom ? new Date(data.sessionFrom) : null,
+        sessionTo: data.sessionTo ? new Date(data.sessionTo) : null,
       };
     },
   });

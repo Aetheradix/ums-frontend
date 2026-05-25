@@ -12,7 +12,7 @@ interface SessionFormProps {
 }
 
 export default function SessionForm(props: SessionFormProps) {
-  const { register, handleSubmit, reset } = useSessionForm(
+  const { register, handleSubmit, reset, control } = useSessionForm(
     props.onSubmit,
     props.fetchData
   );
@@ -39,7 +39,8 @@ export default function SessionForm(props: SessionFormProps) {
 
         <DatePicker
           label="Start Date & Time"
-          {...register('startDateTime')}
+          control={control}
+          name="startDateTime"
           showTime
           hourFormat="24"
           required
@@ -47,7 +48,8 @@ export default function SessionForm(props: SessionFormProps) {
 
         <DatePicker
           label="End Date & Time"
-          {...register('endDateTime')}
+          control={control}
+          name="endDateTime"
           showTime
           hourFormat="24"
           required
@@ -64,11 +66,17 @@ export default function SessionForm(props: SessionFormProps) {
 
         <DatePicker
           label="Session From"
-          {...register('sessionFrom')}
+          control={control}
+          name="sessionFrom"
           required
         />
 
-        <DatePicker label="Session To" {...register('sessionTo')} required />
+        <DatePicker
+          label="Session To"
+          control={control}
+          name="sessionTo"
+          required
+        />
       </FormGrid>
 
       <FormActions
