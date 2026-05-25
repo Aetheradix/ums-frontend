@@ -33,13 +33,34 @@ export function useCreateSessionMutation() {
   return useMutation({
     mutationFn: async (data: CreateSessionCommand) => await createSession(data),
 
-    onSuccess(data) {
+    onSuccess(data, variables) {
       if (!data) return;
 
       const result =
         queryClient.getQueryData<SessionResponseDto[]>(QUERY_KEY) ?? [];
 
-      queryClient.setQueryData(QUERY_KEY, [...result, data]);
+      const newId =
+        (data as any).value ??
+        (data as any).id ??
+        Math.max(0, ...result.map(x => x.id)) + 1;
+
+      const newItem: SessionResponseDto = {
+        id: newId,
+        sessionName: variables.sessionName,
+        sessionType: variables.sessionType,
+        startDateTime: variables.startDateTime,
+        endDateTime: variables.endDateTime,
+        appStatus: variables.appStatus,
+        sessionFrom: variables.sessionFrom,
+        sessionTo: variables.sessionTo,
+        isActive: true,
+        createdOn: new Date().toISOString(),
+        createdBy: '',
+        ipAddress: '',
+        ...(typeof data === 'object' ? data : {}),
+      };
+
+      queryClient.setQueryData(QUERY_KEY, [...result, newItem]);
     },
   });
 }
