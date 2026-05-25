@@ -1,18 +1,17 @@
-import { TextBox, DropDownList, DatePicker } from 'shared/components/forms';
+import { DatePicker, DropDownList, TextBox } from 'shared/components/forms';
 import { FormActions, FormGrid } from 'shared/new-components';
+import { APP_STATUS_OPTIONS, SESSION_TYPES } from '../constants';
 import { useSessionForm } from './form.hook';
-import { SESSION_TYPES, APP_STATUS_OPTIONS } from '../types';
-import type { SessionFormData } from '../types';
 
 interface SessionFormProps {
-  onSubmit: Forms.SubmitFunc<SessionFormData>;
-  fetchData?: Forms.FetchDataFunc<SessionFormData>;
+  onSubmit: (data: CareerAdvancement.Session.SessionForm) => Promise<void>;
+  fetchData?: Forms.FetchDataFunc<CareerAdvancement.Session.SessionForm>;
   isSaving?: boolean;
   isEditMode?: boolean;
 }
 
 export default function SessionForm(props: SessionFormProps) {
-  const { register, handleSubmit, reset } = useSessionForm(
+  const { register, handleSubmit, reset, control } = useSessionForm(
     props.onSubmit,
     props.fetchData
   );
@@ -39,7 +38,8 @@ export default function SessionForm(props: SessionFormProps) {
 
         <DatePicker
           label="Start Date & Time"
-          {...register('startDateTime')}
+          control={control}
+          name="startDateTime"
           showTime
           hourFormat="24"
           required
@@ -47,7 +47,8 @@ export default function SessionForm(props: SessionFormProps) {
 
         <DatePicker
           label="End Date & Time"
-          {...register('endDateTime')}
+          control={control}
+          name="endDateTime"
           showTime
           hourFormat="24"
           required
@@ -64,11 +65,17 @@ export default function SessionForm(props: SessionFormProps) {
 
         <DatePicker
           label="Session From"
-          {...register('sessionFrom')}
+          control={control}
+          name="sessionFrom"
           required
         />
 
-        <DatePicker label="Session To" {...register('sessionTo')} required />
+        <DatePicker
+          label="Session To"
+          control={control}
+          name="sessionTo"
+          required
+        />
       </FormGrid>
 
       <FormActions
