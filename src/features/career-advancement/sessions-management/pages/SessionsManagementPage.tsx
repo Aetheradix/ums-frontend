@@ -15,7 +15,6 @@ import {
   useSessionQuery,
   useCreateSessionMutation,
   useUpdateSessionMutation,
-  useDeleteSessionMutation,
   useSessionActiveStatusMutation,
 } from '../queries';
 import type { SessionFormData, SessionResponseDto } from '../types';
@@ -27,18 +26,8 @@ type PopupState =
 
 export default function SessionsManagementPage() {
   const { data, isLoading } = useSessionsQuery();
-  const { mutateAsync: deleteSession } = useDeleteSessionMutation();
   const { mutateAsync: toggleStatus } = useSessionActiveStatusMutation();
   const [popup, setPopup] = useState<PopupState>({ mode: 'closed' });
-
-  const handleDelete = async (id: number) => {
-    try {
-      await deleteSession(id);
-      ToastService.success('Session deleted successfully.');
-    } catch {
-      ToastService.error('Failed to delete session');
-    }
-  };
 
   const handleToggleStatus = async (item: SessionResponseDto) => {
     await toggleStatus({ id: item.id, isActive: !item.isActive });
@@ -58,7 +47,6 @@ export default function SessionsManagementPage() {
           onEdit={(session: SessionResponseDto) =>
             setPopup({ mode: 'edit', id: session.id })
           }
-          onRemove={(session: SessionResponseDto) => handleDelete(session.id)}
           columns={[
             {
               cell: (_: SessionResponseDto, option: { rowIndex: number }) => (
