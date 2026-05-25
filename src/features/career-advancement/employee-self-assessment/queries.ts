@@ -38,7 +38,7 @@ export function useEmployeeSelfAssessmentQuery(employeeId: number) {
       }
       return data;
     },
-    enabled: !!employeeId, // Only run if employeeId is provided
+    enabled: !!employeeId,
   });
 }
 

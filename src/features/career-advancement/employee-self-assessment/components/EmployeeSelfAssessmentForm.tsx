@@ -46,18 +46,12 @@ export default function EmployeeSelfAssessmentForm({
       >
         <FormCard title="General Assessment Information" icon="calendar">
           <FormGrid columns={4}>
-            {/* <DatePicker
-            control={control}
-            name="assessmentYear"
-            label="Assessment Year"
-            view="year"
-            dateFormat="yy"
-            required
-          /> */}
             <DatePicker
               control={control}
               name="assessmentYear"
               label="Assessment Year"
+              view="year"
+              dateFormat="yy"
               required
             />
             <DatePicker

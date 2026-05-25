@@ -10,7 +10,13 @@ const schema = validation.create<CareerAdvancement.EmployeeSelfAssessmentForm>(
     }),
     assessmentYear: o.date().required(),
     assessmentPeriodFrom: o.date().required(),
-    assessmentPeriodTo: o.date().required(),
+    assessmentPeriodTo: o
+      .date()
+      .min(o.ref('assessmentPeriodFrom'))
+      .required()
+      .messages({
+        'date.min': 'Assessment Period To must be after Assessment Period From',
+      }),
     tasksProjects: o.string().required(),
     workOutputScore: o.number().min(0).max(40).required(),
     workOutputRemarks: o.string().allow('', null).optional(),
@@ -26,7 +32,7 @@ const schema = validation.create<CareerAdvancement.EmployeeSelfAssessmentForm>(
     functionalRemarks: o.string().allow('', null).optional(),
     additionalRemarks: o.string().allow('', null).optional(),
     supportingDocument: o
-      .any()
+      .object()
       .allow(null, '')
       .custom((value, helpers) => {
         if (value instanceof File) {

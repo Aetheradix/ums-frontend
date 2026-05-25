@@ -12,7 +12,7 @@ import {
 
 export default function Create() {
   const navigate = useNavigate();
-  // Temporary hardcoded employee ID for login simulation
+  // Temporary hardcoded employee ID for login.
   const employeeId = 1;
 
   const { data: existingData, isLoading } =
@@ -32,7 +32,6 @@ export default function Create() {
     data: CareerAdvancement.EmployeeSelfAssessmentForm
   ) {
     try {
-      // Ensure the employee ID and selfAssessmentId are set
       const payload = {
         ...data,
         employeeId,
@@ -49,9 +48,10 @@ export default function Create() {
         );
         handleBack();
       }
-    } catch (err: any) {
+    } catch (err: unknown) {
+      const errorMessage = err instanceof Error ? err.message : String(err);
       ToastService.error(
-        err?.message || 'Failed to submit Employee Self Assessment.'
+        errorMessage || 'Failed to submit Employee Self Assessment.'
       );
     }
   }
