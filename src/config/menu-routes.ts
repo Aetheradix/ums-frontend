@@ -393,7 +393,7 @@ export const menuConfig: Menu.MenuItem[] = [
         label: 'Career Advancement',
         slug: 'career-advancement',
         description: 'Manage career advancement sessions and assessments.',
-        path: '/career-advancement/sessions-management',
+        path: '/home/sub-menu/career-advancement',
         icon: 'trending_up',
         colorScheme: 'orange',
         children: [
@@ -405,6 +405,15 @@ export const menuConfig: Menu.MenuItem[] = [
             path: '/career-advancement/sessions-management',
             icon: 'event',
             colorScheme: 'orange',
+          },
+          {
+            label: 'Career Advancement Scheme',
+            slug: 'career-advancement-acheme',
+            description:
+              'APAR Employee Self Assessment and performance reviews.',
+            path: '/career-advancement/employee-self-assessment',
+            icon: 'assignment',
+            colorScheme: 'red',
           },
         ],
       },

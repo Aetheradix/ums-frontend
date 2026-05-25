@@ -1,9 +1,9 @@
 import { Navigate, Route, Routes } from 'react-router-dom';
 import MainLayout from 'shared/components/layout/MainLayout';
+import CareerAdvancement from './career-advancement';
 import Home from './home';
 import Master from './master';
 import Sis from './sis';
-import CareerAdvancement from './career-advancement';
 
 export default function Features() {
   return (

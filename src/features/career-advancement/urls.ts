@@ -1,7 +1,13 @@
+const baseUrl = '/career-advancement';
 import { sessionsManagementUrls } from './sessions-management/urls';
 
-const baseUrl = '/career-advancement';
-
+export const employeeSelfAssessmentUrls = (base: string) => {
+  const prefix = `${base}/employee-self-assessment`;
+  return {
+    root: prefix,
+    create: `${prefix}/create`,
+  };
+};
 export const careerAdvancementUrls = {
   root: baseUrl,
   sessionsManagement: sessionsManagementUrls(baseUrl),
