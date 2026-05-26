@@ -1,9 +1,11 @@
 import { useCallback, useState } from 'react';
+import SelectCaSession from 'features/components/SelectCaSession';
+import SelectDepartment from 'features/components/SelectDepartment';
+import SelectSessionAppStatus from 'features/components/SelectSessionAppStatus';
 import { Button } from 'shared/components/buttons';
-import { DropDownList, TextBox } from 'shared/components/forms';
+import { TextBox } from 'shared/components/forms';
 import { FormCard, FormGrid, FormPage, GridPanel } from 'shared/new-components';
 import AparStatusBadge from '../components/AparStatusBadge';
-import { DUMMY_DEPARTMENTS, DUMMY_SESSIONS, DUMMY_STATUSES } from '../data';
 import { useAparApplicationsQuery } from '../queries';
 import './List.css';
 
@@ -58,12 +60,9 @@ export default function List() {
               setFilter(prev => ({ ...prev, employeeSearch: val }))
             }
           />
-          <DropDownList
+          <SelectDepartment
             label="Department"
             defaultOptionText="— Select —"
-            data={DUMMY_DEPARTMENTS}
-            textField="text"
-            valueField="id"
             value={filter.departmentId}
             onChange={val =>
               setFilter(prev => ({
@@ -72,23 +71,17 @@ export default function List() {
               }))
             }
           />
-          <DropDownList
+          <SelectCaSession
             label="Session"
             defaultOptionText="— Select —"
-            data={DUMMY_SESSIONS}
-            textField="text"
-            valueField="id"
             value={filter.sessionId}
             onChange={val =>
               setFilter(prev => ({ ...prev, sessionId: val as string | null }))
             }
           />
-          <DropDownList
+          <SelectSessionAppStatus
             label="Status"
             defaultOptionText="— Select —"
-            data={DUMMY_STATUSES}
-            textField="text"
-            valueField="id"
             value={filter.statusId}
             onChange={val =>
               setFilter(prev => ({ ...prev, statusId: val as string | null }))
