@@ -1,13 +1,12 @@
 import { useEmployeeSelfAssessmentForm } from './form.hook';
 
-import { SelectFaculty, SelectPerformanceRating } from 'features/components';
-import { Button } from 'shared/components/buttons';
 import {
-  DatePicker,
-  FileUpload,
-  NumberBox,
-  TextArea,
-} from 'shared/components/forms';
+  SelectAcademicYearSession,
+  SelectFaculty,
+  SelectPerformanceRating,
+} from 'features/components';
+import { Button } from 'shared/components/buttons';
+import { FileUpload, NumberBox, TextArea } from 'shared/components/forms';
 import { FormCard, FormGrid } from 'shared/new-components';
 
 interface EmployeeSelfAssessmentFormProps {
@@ -46,24 +45,10 @@ export default function EmployeeSelfAssessmentForm({
       >
         <FormCard title="General Assessment Information" icon="calendar">
           <FormGrid columns={4}>
-            <DatePicker
+            <SelectAcademicYearSession
               control={control}
-              name="assessmentYear"
-              label="Assessment Year"
-              view="year"
-              dateFormat="yy"
-              required
-            />
-            <DatePicker
-              control={control}
-              name="assessmentPeriodFrom"
-              label="Assessment Period From"
-              required
-            />
-            <DatePicker
-              control={control}
-              name="assessmentPeriodTo"
-              label="Assessment Period To"
+              name="sessionId"
+              label="Session"
               required
             />
             <SelectFaculty
@@ -80,7 +65,7 @@ export default function EmployeeSelfAssessmentForm({
           <FormGrid columns={1}>
             <TextArea
               control={control}
-              name="tasksProjects"
+              name="tasksProject"
               label="Tasks / Projects Assigned"
               placeholder="Describe the tasks and projects assigned during the assessment period"
               rows={4}
@@ -99,7 +84,7 @@ export default function EmployeeSelfAssessmentForm({
               />
               <TextArea
                 control={control}
-                name="workOutputRemarks"
+                name="workOutputRemark"
                 label="Remarks"
                 placeholder="Enter remarks for Section A"
                 rows={2}
@@ -122,7 +107,7 @@ export default function EmployeeSelfAssessmentForm({
             />
             <SelectPerformanceRating
               control={control}
-              name="communicationSkills"
+              name="communicationSkill"
               label="Communication Skills"
               required
             />
@@ -173,7 +158,7 @@ export default function EmployeeSelfAssessmentForm({
             />
             <SelectPerformanceRating
               control={control}
-              name="analyticalSkills"
+              name="analyticalSkill"
               label="Analytical Skills"
               required
             />
@@ -181,7 +166,7 @@ export default function EmployeeSelfAssessmentForm({
           <div className="mt-4">
             <TextArea
               control={control}
-              name="functionalRemarks"
+              name="functionalRemark"
               label="Remarks (Functional Competency)"
               placeholder="Enter remarks for functional competencies"
               rows={3}

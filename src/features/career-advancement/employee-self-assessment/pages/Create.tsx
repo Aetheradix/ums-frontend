@@ -69,7 +69,7 @@ export default function Create() {
         onSubmit={handleSubmit}
         onCancel={handleBack}
         isSaving={isPending}
-        initialData={existingData}
+        initialData={existingData ?? undefined}
         isReadOnly={existingData?.status === 'Submitted'}
       />
     </FormPage>
