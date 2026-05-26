@@ -3,6 +3,7 @@ import CollegeCategory from './college/college-category';
 import CollegeType from './college/college-type';
 import ActionOption from './employee/settings/action-option';
 import NatureOfEmployment from './employee/settings/nature-of-employment';
+import SeparationReasonType from './employee/settings/separation-reason-type';
 import Department from './faculty/department';
 import Designation from './faculty/designation';
 import Faculty from './faculty/faculty';
@@ -88,6 +89,10 @@ export default function Master() {
             element={<NatureOfEmployment />}
           />
           <Route path="action-option" element={<ActionOption />} />
+          <Route
+            path="separation-reason-type/*"
+            element={<SeparationReasonType />}
+          />
         </Route>
       </Route>
     </Routes>
