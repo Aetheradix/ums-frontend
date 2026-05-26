@@ -1,6 +1,7 @@
-import { DatePicker, DropDownList, TextBox } from 'shared/components/forms';
+import SelectSessionAppStatus from 'features/components/SelectSessionAppStatus';
+import SelectSessionType from 'features/components/SelectSessionType';
+import { DatePicker, TextBox } from 'shared/components/forms';
 import { FormActions, FormGrid } from 'shared/new-components';
-import { APP_STATUS_OPTIONS, SESSION_TYPES } from '../constants';
 import { useSessionForm } from './form.hook';
 
 interface SessionFormProps {
@@ -27,14 +28,7 @@ export default function SessionForm(props: SessionFormProps) {
           required
         />
 
-        <DropDownList
-          label="Session Type"
-          data={SESSION_TYPES}
-          textField="label"
-          valueField="value"
-          {...register('sessionType')}
-          required
-        />
+        <SelectSessionType {...register('sessionType')} control={control} />
 
         <DatePicker
           label="Start Date & Time"
@@ -54,14 +48,7 @@ export default function SessionForm(props: SessionFormProps) {
           required
         />
 
-        <DropDownList
-          label="Application Status"
-          data={APP_STATUS_OPTIONS}
-          textField="label"
-          valueField="value"
-          {...register('appStatus')}
-          required
-        />
+        <SelectSessionAppStatus {...register('appStatus')} control={control} />
 
         <DatePicker
           label="Session From"
