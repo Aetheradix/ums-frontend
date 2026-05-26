@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { ToastService } from 'services';
 import { Loader } from 'shared/components/progress';
 import {
@@ -13,12 +12,8 @@ interface EditProps {
 }
 
 export default function EditDocumentOption({ id, onClose }: EditProps) {
-  const { data, isLoading, refetch } = useGetDocumentOptionByIdQuery(id);
+  const { data, isLoading } = useGetDocumentOptionByIdQuery(id);
   const { mutateAsync, isPending } = useUpdateDocumentOptionMutation(id);
-
-  useEffect(() => {
-    refetch();
-  }, [id, refetch]);
 
   async function handleSubmit(dataForm: Master.Employee.DocumentOptionsForm) {
     try {
