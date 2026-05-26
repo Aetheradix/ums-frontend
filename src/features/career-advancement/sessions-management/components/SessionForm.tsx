@@ -35,7 +35,7 @@ export default function SessionForm(props: SessionFormProps) {
           control={control}
           name="startDateTime"
           showTime
-          hourFormat="24"
+          hourFormat="12"
           required
         />
 
@@ -44,7 +44,7 @@ export default function SessionForm(props: SessionFormProps) {
           control={control}
           name="endDateTime"
           showTime
-          hourFormat="24"
+          hourFormat="12"
           required
         />
 
