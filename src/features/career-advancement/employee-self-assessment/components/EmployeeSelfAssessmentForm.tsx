@@ -1,7 +1,7 @@
 import { useEmployeeSelfAssessmentForm } from './form.hook';
 
 import {
-  SelectAcademicYearSession,
+  SelectAssessmentSession,
   SelectFaculty,
   SelectPerformanceRating,
 } from 'features/components';
@@ -45,7 +45,7 @@ export default function EmployeeSelfAssessmentForm({
       >
         <FormCard title="General Assessment Information" icon="calendar">
           <FormGrid columns={4}>
-            <SelectAcademicYearSession
+            <SelectAssessmentSession
               control={control}
               name="sessionId"
               label="Session"

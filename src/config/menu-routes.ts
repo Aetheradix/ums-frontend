@@ -407,11 +407,20 @@ export const menuConfig: Menu.MenuItem[] = [
             colorScheme: 'orange',
           },
           {
-            label: 'Career Advancement Scheme',
-            slug: 'career-advancement-acheme',
+            label: 'Employee Self Assessment',
+            slug: 'employee-self-assessment',
             description:
               'APAR Employee Self Assessment and performance reviews.',
             path: '/career-advancement/employee-self-assessment',
+            icon: 'assignment',
+            colorScheme: 'red',
+          },
+          {
+            label: 'Performance Appraisal System',
+            slug: 'performance-appraisal-system',
+            description:
+              'APAR Employee Self Assessment and performance reviews.',
+            path: '/career-advancement/performance-appraisal-system',
             icon: 'assignment',
             colorScheme: 'red',
           },

@@ -22,4 +22,32 @@ declare namespace CareerAdvancement {
     status: string;
     isActive: boolean;
   }
+
+  export interface PerformanceAppraisalApplicationForm {
+    employeeName: string;
+    employeeId: string;
+    designationId: number | null;
+    casteId: number | null;
+    departmentId: number | null;
+    dateOfBirth: Date | null;
+    dateOfJoining: Date | null;
+    stageApplyingFor: string;
+    applicationSubmissionDate: Date | null;
+    lastPromotionDate: Date | null;
+  }
+
+  export interface CreatePerformanceAppraisalApplicationPayload {
+    employeeId: number;
+    employeeName: string;
+    designationId: number;
+    casteId: number;
+    departmentId: number;
+    dateOfBirth: Date;
+    dateOfJoining: Date;
+    stageApplyingFor: string;
+    applicationSubmissionDate: Date;
+    lastPromotionDate: Date;
+    status: string;
+    isActive: boolean;
+  }
 }
