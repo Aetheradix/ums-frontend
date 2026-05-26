@@ -1,4 +1,5 @@
 const baseUrl = '/career-advancement';
+import { aparApplicationUrls } from './apar-application/urls';
 import { sessionsManagementUrls } from './sessions-management/urls';
 
 export const employeeSelfAssessmentUrls = (base: string) => {
@@ -11,4 +12,5 @@ export const employeeSelfAssessmentUrls = (base: string) => {
 export const careerAdvancementUrls = {
   root: baseUrl,
   sessionsManagement: sessionsManagementUrls(baseUrl),
+  aparApplication: aparApplicationUrls(baseUrl),
 };
