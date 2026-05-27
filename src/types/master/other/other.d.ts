@@ -154,5 +154,9 @@ declare namespace Master {
       id: string;
       text: string;
     }
+    interface StageApplyingItem {
+      id: string;
+      text: string;
+    }
   }
 }

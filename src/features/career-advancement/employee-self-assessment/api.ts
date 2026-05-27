@@ -2,38 +2,24 @@ import { ApiService } from 'services';
 
 import { CAREER_ADVANCEMENT_URL } from './urls';
 
-function formatDate(date: Date | null): string {
-  if (!date) return '';
-  const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, '0');
-  const day = String(date.getDate()).padStart(2, '0');
-  return `${year}-${month}-${day}`;
-}
-
 export async function createEmployeeSelfAssessment(
   form: CareerAdvancement.EmployeeSelfAssessmentForm
 ) {
-  debugger;
   const formData = new FormData();
 
   formData.append('EmployeeId', form.employeeId.toString());
-  formData.append('TasksProjects', form.tasksProjects);
+  formData.append('TasksProject', form.tasksProject);
   formData.append('WorkOutputScore', (form.workOutputScore ?? 0).toString());
 
-  if (form.workOutputRemarks) {
-    formData.append('WorkOutputRemarks', form.workOutputRemarks);
+  if (form.workOutputRemark) {
+    formData.append('WorkOutputRemark', form.workOutputRemark);
   }
 
-  formData.append('AssessmentYear', formatDate(form.assessmentYear));
-  formData.append(
-    'AssessmentPeriodFrom',
-    formatDate(form.assessmentPeriodFrom)
-  );
-  formData.append('AssessmentPeriodTo', formatDate(form.assessmentPeriodTo));
+  formData.append('SessionId', (form.sessionId ?? 0).toString());
   formData.append('ReviewingHeadId', (form.reviewingHeadId ?? 0).toString());
 
   formData.append('LeadershipQuality', form.leadershipQuality);
-  formData.append('CommunicationSkills', form.communicationSkills);
+  formData.append('CommunicationSkill', form.communicationSkill);
   formData.append('Integrity', form.integrity);
   formData.append('Adaptability', form.adaptability);
   formData.append('TeamWork', form.teamWork);
@@ -41,10 +27,10 @@ export async function createEmployeeSelfAssessment(
   formData.append('DomainKnowledge', form.domainKnowledge);
   formData.append('ProblemSolvingAbility', form.problemSolvingAbility);
   formData.append('DecisionMaking', form.decisionMaking);
-  formData.append('AnalyticalSkills', form.analyticalSkills);
+  formData.append('AnalyticalSkill', form.analyticalSkill);
 
-  if (form.functionalRemarks) {
-    formData.append('FunctionalRemarks', form.functionalRemarks);
+  if (form.functionalRemark) {
+    formData.append('FunctionalRemark', form.functionalRemark);
   }
 
   if (form.additionalRemarks) {
@@ -73,7 +59,7 @@ export async function getEmployeeSelfAssessmentById(employeeId: number) {
       `${CAREER_ADVANCEMENT_URL}/${employeeId}`
     );
 
-  return !error ? data : undefined;
+  return !error && data ? data : null;
 }
 
 export async function updateEmployeeSelfAssessment(
@@ -85,23 +71,18 @@ export async function updateEmployeeSelfAssessment(
     formData.append('SelfAssessmentId', form.selfAssessmentId.toString());
   }
   formData.append('EmployeeId', form.employeeId.toString());
-  formData.append('TasksProjects', form.tasksProjects);
+  formData.append('TasksProject', form.tasksProject);
   formData.append('WorkOutputScore', (form.workOutputScore ?? 0).toString());
 
-  if (form.workOutputRemarks) {
-    formData.append('WorkOutputRemarks', form.workOutputRemarks);
+  if (form.workOutputRemark) {
+    formData.append('WorkOutputRemark', form.workOutputRemark);
   }
 
-  formData.append('AssessmentYear', formatDate(form.assessmentYear));
-  formData.append(
-    'AssessmentPeriodFrom',
-    formatDate(form.assessmentPeriodFrom)
-  );
-  formData.append('AssessmentPeriodTo', formatDate(form.assessmentPeriodTo));
+  formData.append('SessionId', (form.sessionId ?? 0).toString());
   formData.append('ReviewingHeadId', (form.reviewingHeadId ?? 0).toString());
 
   formData.append('LeadershipQuality', form.leadershipQuality);
-  formData.append('CommunicationSkills', form.communicationSkills);
+  formData.append('CommunicationSkill', form.communicationSkill);
   formData.append('Integrity', form.integrity);
   formData.append('Adaptability', form.adaptability);
   formData.append('TeamWork', form.teamWork);
@@ -109,10 +90,10 @@ export async function updateEmployeeSelfAssessment(
   formData.append('DomainKnowledge', form.domainKnowledge);
   formData.append('ProblemSolvingAbility', form.problemSolvingAbility);
   formData.append('DecisionMaking', form.decisionMaking);
-  formData.append('AnalyticalSkills', form.analyticalSkills);
+  formData.append('AnalyticalSkill', form.analyticalSkill);
 
-  if (form.functionalRemarks) {
-    formData.append('FunctionalRemarks', form.functionalRemarks);
+  if (form.functionalRemark) {
+    formData.append('FunctionalRemark', form.functionalRemark);
   }
 
   if (form.additionalRemarks) {

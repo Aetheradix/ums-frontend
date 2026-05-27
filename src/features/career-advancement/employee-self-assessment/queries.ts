@@ -24,19 +24,8 @@ export function useEmployeeSelfAssessmentQuery(employeeId: number) {
     queryKey: [...QUERY_KEY, employeeId],
     queryFn: async () => {
       const data = await getEmployeeSelfAssessmentById(employeeId);
-      if (data) {
-        // The API returns strings for dates, but our form uses Date objects
-        data.assessmentYear = data.assessmentYear
-          ? new Date(data.assessmentYear)
-          : null;
-        data.assessmentPeriodFrom = data.assessmentPeriodFrom
-          ? new Date(data.assessmentPeriodFrom)
-          : null;
-        data.assessmentPeriodTo = data.assessmentPeriodTo
-          ? new Date(data.assessmentPeriodTo)
-          : null;
-      }
-      return data;
+
+      return data ?? null;
     },
     enabled: !!employeeId,
   });

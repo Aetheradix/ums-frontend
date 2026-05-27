@@ -8,28 +8,23 @@ const schema = validation.create<CareerAdvancement.EmployeeSelfAssessmentForm>(
       'any.required': 'Reporting Officer is required',
       'number.base': 'Reporting Officer is required',
     }),
-    assessmentYear: o.date().required(),
-    assessmentPeriodFrom: o.date().required(),
-    assessmentPeriodTo: o
-      .date()
-      .min(o.ref('assessmentPeriodFrom'))
-      .required()
-      .messages({
-        'date.min': 'Assessment Period To must be after Assessment Period From',
-      }),
-    tasksProjects: o.string().required(),
+    sessionId: o.number().required().messages({
+      'any.required': 'Session is required',
+      'number.base': 'Session is required',
+    }),
+    tasksProject: o.string().required(),
     workOutputScore: o.number().min(0).max(40).required(),
-    workOutputRemarks: o.string().allow('', null).optional(),
+    workOutputRemark: o.string().allow('', null).optional(),
     leadershipQuality: o.string().required(),
-    communicationSkills: o.string().required(),
+    communicationSkill: o.string().required(),
     integrity: o.string().required(),
     adaptability: o.string().required(),
     teamWork: o.string().required(),
     domainKnowledge: o.string().required(),
     problemSolvingAbility: o.string().required(),
     decisionMaking: o.string().required(),
-    analyticalSkills: o.string().required(),
-    functionalRemarks: o.string().allow('', null).optional(),
+    analyticalSkill: o.string().required(),
+    functionalRemark: o.string().allow('', null).optional(),
     additionalRemarks: o.string().allow('', null).optional(),
     supportingDocument: o
       .object()
@@ -61,22 +56,20 @@ export function useEmployeeSelfAssessmentForm(
       defaultValues: fetchData || {
         employeeId: 1, // Default fallback
         reviewingHeadId: null,
-        assessmentYear: new Date(),
-        assessmentPeriodFrom: new Date(new Date().getFullYear(), 3, 1), // April 1st
-        assessmentPeriodTo: new Date(new Date().getFullYear() + 1, 2, 31), // March 31st
-        tasksProjects: '',
+        sessionId: null,
+        tasksProject: '',
         workOutputScore: null,
-        workOutputRemarks: '',
+        workOutputRemark: '',
         leadershipQuality: '',
-        communicationSkills: '',
+        communicationSkill: '',
         integrity: '',
         adaptability: '',
         teamWork: '',
         domainKnowledge: '',
         problemSolvingAbility: '',
         decisionMaking: '',
-        analyticalSkills: '',
-        functionalRemarks: '',
+        analyticalSkill: '',
+        functionalRemark: '',
         additionalRemarks: '',
         supportingDocument: null,
         status: 'Draft',
