@@ -154,6 +154,10 @@ declare namespace Master {
       id: string;
       text: string;
     }
+    interface MaritalStatusItem {
+      id: string;
+      text: string;
+    }
     interface TravelReasonItem {
       id: string;
       text: string;
