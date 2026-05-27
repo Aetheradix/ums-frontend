@@ -5,11 +5,15 @@ import { sanitizeInput } from '../../utils/validation/config';
 import InputBlock from './InputBlock';
 
 interface TextAreaProps<TForm extends FieldValues>
-  extends Controls.FormProps<TForm>,
+  extends
+    Controls.FormProps<TForm>,
     Controls.InputBlockProps,
     Controls.InputProps {
   value?: string;
   onChange?: (value: string) => void;
+  rows?: number;
+  cols?: number;
+  autoResize?: boolean;
 }
 
 function InnerTextArea({
@@ -21,7 +25,7 @@ function InnerTextArea({
   onChange,
   required,
   subLabel,
-
+  className,
   ...rest
 }: TextAreaProps<FieldValues>) {
   const inputId = id ?? name;
@@ -39,6 +43,7 @@ function InnerTextArea({
         value={value || ''}
         onChange={e => onChange?.(sanitizeInput(e.target.value))}
         invalid={!!errorMessage}
+        className={`w-full ${className ?? ''}`}
         {...rest}
       />
     </InputBlock>
