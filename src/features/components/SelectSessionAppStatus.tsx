@@ -1,8 +1,8 @@
+import { useAppraisalApplicationStatusQuery } from 'features/master/other/appraisal-application-status/queries';
 import type { FieldValues } from 'react-hook-form';
 import { DropDownList } from 'shared/components/forms';
-import { useDepartmentsQuery } from '../master/faculty/department/queries';
 
-interface SelectDepartmentProps<
+interface SelectSessionAppStatusProps<
   T extends FieldValues,
 > extends Controls.FormProps<T> {
   label?: string;
@@ -11,20 +11,19 @@ interface SelectDepartmentProps<
   onChange?: (value: unknown) => void;
 }
 
-export default function SelectDepartment<T extends FieldValues>({
+export default function SelectSessionAppStatus<T extends FieldValues>({
   defaultOptionText,
-  label = 'Department',
+  label = 'Application Status',
   ...props
-}: SelectDepartmentProps<T> &
+}: SelectSessionAppStatusProps<T> &
   Controls.InputBlockProps & { defaultOptionText?: string }) {
-  const { data, isLoading } = useDepartmentsQuery();
-  const activeData = data.filter(item => item.isActive);
+  const { data, isLoading } = useAppraisalApplicationStatusQuery();
 
   return (
     <DropDownList
-      data={activeData}
+      data={data}
       loading={isLoading}
-      textField="name"
+      textField="text"
       valueField="id"
       optionValue="id"
       label={label}

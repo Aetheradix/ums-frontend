@@ -1,8 +1,8 @@
+import { useCastesQuery } from 'features/master/hr/caste/queries';
 import type { FieldValues } from 'react-hook-form';
 import { DropDownList } from 'shared/components/forms';
-import { useDepartmentsQuery } from '../master/faculty/department/queries';
 
-interface SelectDepartmentProps<
+interface SelectCasteProps<
   T extends FieldValues,
 > extends Controls.FormProps<T> {
   label?: string;
@@ -11,13 +11,13 @@ interface SelectDepartmentProps<
   onChange?: (value: unknown) => void;
 }
 
-export default function SelectDepartment<T extends FieldValues>({
+export default function SelectCaste<T extends FieldValues>({
   defaultOptionText,
-  label = 'Department',
+  label = 'Category',
   ...props
-}: SelectDepartmentProps<T> &
+}: SelectCasteProps<T> &
   Controls.InputBlockProps & { defaultOptionText?: string }) {
-  const { data, isLoading } = useDepartmentsQuery();
+  const { data, isLoading } = useCastesQuery();
   const activeData = data.filter(item => item.isActive);
 
   return (

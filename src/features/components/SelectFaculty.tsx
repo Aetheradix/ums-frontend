@@ -1,23 +1,21 @@
 import type { FieldValues } from 'react-hook-form';
 import { DropDownList } from 'shared/components/forms';
-import { useDepartmentsQuery } from '../master/faculty/department/queries';
+import { useFacultiesQuery } from '../master/faculty/faculty/queries';
 
-interface SelectDepartmentProps<
+interface SelectFacultyProps<
   T extends FieldValues,
 > extends Controls.FormProps<T> {
   label?: string;
   disabled?: boolean;
-  value?: string | number | null;
-  onChange?: (value: unknown) => void;
 }
 
-export default function SelectDepartment<T extends FieldValues>({
+export default function SelectFaculty<T extends FieldValues>({
   defaultOptionText,
-  label = 'Department',
+  label = 'Reporting Officer',
   ...props
-}: SelectDepartmentProps<T> &
+}: SelectFacultyProps<T> &
   Controls.InputBlockProps & { defaultOptionText?: string }) {
-  const { data, isLoading } = useDepartmentsQuery();
+  const { data, isLoading } = useFacultiesQuery();
   const activeData = data.filter(item => item.isActive);
 
   return (

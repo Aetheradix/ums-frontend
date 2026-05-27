@@ -88,6 +88,7 @@ export default function Master() {
             path="nature-of-employment/*"
             element={<NatureOfEmployment />}
           />
+          <Route path="document-option/*" element={<DocumentOption />} />
           <Route path="action-option" element={<ActionOption />} />
           <Route path="travel-purpose/*" element={<TravelPurpose />} />
         </Route>

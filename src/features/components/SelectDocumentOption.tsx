@@ -1,28 +1,25 @@
+import { useDocumentOptionsQuery } from 'features/master/employee/settings/document-option/queries';
 import type { FieldValues } from 'react-hook-form';
 import { DropDownList } from 'shared/components/forms';
-import { useDepartmentsQuery } from '../master/faculty/department/queries';
 
-interface SelectDepartmentProps<
+interface SelectDocumentOptionProps<
   T extends FieldValues,
 > extends Controls.FormProps<T> {
   label?: string;
   disabled?: boolean;
-  value?: string | number | null;
-  onChange?: (value: unknown) => void;
 }
 
-export default function SelectDepartment<T extends FieldValues>({
+export default function SelectDocumentOption<T extends FieldValues>({
   defaultOptionText,
-  label = 'Department',
+  label = 'Document Option',
   ...props
-}: SelectDepartmentProps<T> &
+}: SelectDocumentOptionProps<T> &
   Controls.InputBlockProps & { defaultOptionText?: string }) {
-  const { data, isLoading } = useDepartmentsQuery();
-  const activeData = data.filter(item => item.isActive);
+  const { data, isLoading } = useDocumentOptionsQuery();
 
   return (
     <DropDownList
-      data={activeData}
+      data={data}
       loading={isLoading}
       textField="name"
       valueField="id"
