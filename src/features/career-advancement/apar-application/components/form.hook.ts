@@ -20,19 +20,16 @@ const schema = validation.create<InitiateAparForm>(o => ({
 }));
 
 export function useInitiateAparForm(
-  submitCallback: Forms.SubmitFunc<InitiateAparForm>,
   defaultValues?: Forms.FetchDataFunc<InitiateAparForm>
 ) {
-  const { register, handleSubmit, reset, control } =
-    useAppForm<InitiateAparForm>({
-      defaultValues: defaultValues,
-      resolver: validation.resolver(schema),
-    });
+  const { register, handleSubmit, control } = useAppForm<InitiateAparForm>({
+    defaultValues: defaultValues,
+    resolver: validation.resolver(schema),
+  });
 
   return {
     register,
-    handleSubmit: handleSubmit(submitCallback),
-    reset,
+    handleSubmit,
     control,
   };
 }

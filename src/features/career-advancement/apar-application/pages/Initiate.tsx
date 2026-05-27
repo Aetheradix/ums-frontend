@@ -13,9 +13,10 @@ interface LocationState {
 }
 
 export default function Initiate() {
-  const { id: _id } = useParams<{ id: string }>();
+  const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const location = useLocation();
+  const employeeId = id ? Number(id) : 0;
 
   const locationState = (location.state ?? {}) as LocationState;
 
@@ -40,10 +41,12 @@ export default function Initiate() {
     reviewingOfficerValidityDate: null,
   };
 
-  async function handleSubmit(data: InitiateAparForm) {
+  async function handleSubmit(data: InitiateAparForm, isDraft: boolean) {
     try {
       const result = await mutateAsync({
         ...data,
+        employeeId: employeeId,
+        status: isDraft ? 'Draft' : 'Pending',
         dateOfBirth: data.dateOfBirth?.toISOString() ?? '',
         dateOfContinuousAppointment:
           data.dateOfContinuousAppointment?.toISOString() ?? '',
@@ -55,11 +58,19 @@ export default function Initiate() {
         belongToScSt: data.belongToScSt ?? null,
       });
       if (result) {
-        ToastService.success('APAR application initiated successfully.');
+        ToastService.success(
+          isDraft
+            ? 'APAR application saved as draft successfully.'
+            : 'APAR application initiated successfully.'
+        );
         navigate(allApplicationsUrl);
       }
     } catch {
-      ToastService.error('Failed to initiate APAR application.');
+      ToastService.error(
+        isDraft
+          ? 'Failed to save APAR application draft.'
+          : 'Failed to initiate APAR application.'
+      );
     }
   }
 
@@ -96,7 +107,6 @@ export default function Initiate() {
       <InitiateAparForm
         onSubmit={handleSubmit}
         fetchData={defaultValues as InitiateAparForm}
-        onSaveDraft={() => ToastService.success('Draft saved successfully.')}
         onCancel={handleCancel}
         isSaving={isPending}
       />

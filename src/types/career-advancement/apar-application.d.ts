@@ -39,8 +39,9 @@ declare namespace CareerAdvancement {
       reviewingOfficerValidityDate: Date | null;
     }
 
-    // Command sent to the API
     interface InitiateAparCommand {
+      employeeId: number;
+      status: string;
       employeeName: string;
       designation: string;
       dateOfBirth: string;

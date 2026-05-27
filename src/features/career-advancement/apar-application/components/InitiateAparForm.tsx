@@ -10,8 +10,7 @@ import { useInitiateAparForm } from './form.hook';
 type InitiateAparForm = CareerAdvancement.AparApplication.InitiateAparForm;
 
 interface InitiateAparFormProps {
-  onSubmit: (data: InitiateAparForm) => Promise<void>;
-  onSaveDraft?: () => void;
+  onSubmit: (data: InitiateAparForm, isDraft: boolean) => Promise<void>;
   onCancel?: () => void;
   fetchData?: Forms.FetchDataFunc<InitiateAparForm>;
   isSaving?: boolean;
@@ -24,12 +23,19 @@ const SC_ST_OPTIONS = [
 
 export default function InitiateAparForm(props: InitiateAparFormProps) {
   const { register, handleSubmit, control } = useInitiateAparForm(
-    props.onSubmit,
     props.fetchData
   );
 
+  const onSubmitForm = (data: InitiateAparForm) => {
+    props.onSubmit(data, false);
+  };
+
+  const onSaveDraftForm = () => {
+    handleSubmit(data => props.onSubmit(data, true))();
+  };
+
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit(onSubmitForm)}>
       {/* Employee Information */}
       <FormCard title="Employee Information" icon="user">
         <FormGrid columns={2}>
@@ -152,7 +158,7 @@ export default function InitiateAparForm(props: InitiateAparFormProps) {
           type="button"
           variant="outlined"
           icon="save"
-          onClick={props.onSaveDraft}
+          onClick={onSaveDraftForm}
         />
         <Button
           label="Cancel"
