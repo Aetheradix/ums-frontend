@@ -1,14 +1,11 @@
-import { useRef } from 'react';
-import { usePerformanceAppraisalForm } from './form.hook';
-
-import SelectCaste from 'features/components/SelectCaste';
-import SelectDepartment from 'features/components/SelectDepartment';
-import SelectDesignation from 'features/components/SelectDesignation';
+import SelectAssessmentSession from 'features/components/SelectAssessmentSession';
 import SelectStageApplying from 'features/components/SelectStageApplying';
+import { useRef } from 'react';
 import { Button } from 'shared/components/buttons';
 import { DatePicker, TextBox } from 'shared/components/forms';
 import { FormCard, FormGrid } from 'shared/new-components';
 import Stepper, { type Step } from 'shared/new-components/Stepper';
+import { usePerformanceAppraisalForm } from './form.hook';
 
 const STEPS: Step[] = [
   { label: 'Basic Details' },
@@ -26,7 +23,7 @@ interface PerformanceAppraisalApplicationProps {
   ) => Promise<void>;
   onCancel: () => void;
   isSaving?: boolean;
-  initialData?: CareerAdvancement.PerformanceAppraisalApplicationForm;
+  initialData?: Partial<CareerAdvancement.PerformanceAppraisalApplicationForm>;
   isReadOnly?: boolean;
 }
 
@@ -39,7 +36,7 @@ export default function PerformanceAppraisalApplication({
 }: PerformanceAppraisalApplicationProps) {
   const submitStatusRef = useRef<'Draft' | 'Submitted'>('Submitted');
 
-  const { control, handleSubmit, reset } = usePerformanceAppraisalForm(
+  const { register, handleSubmit } = usePerformanceAppraisalForm(
     data => onSubmit(data, submitStatusRef.current),
     initialData
   );
@@ -56,66 +53,73 @@ export default function PerformanceAppraisalApplication({
       >
         <FormCard title="Basic Details" icon="user">
           <FormGrid columns={2}>
+            {/* --- Dummy Fields (will be made dynamic later) --- */}
             <TextBox
-              control={control}
-              name="employeeName"
               label="Employee Name"
-              placeholder="e.g. Dr. Ramesh Kumar"
-              required
+              name="dummy_employeeName"
+              value="Dr. Ramesh Kumar"
+              disabled
             />
             <TextBox
-              control={control}
-              name="employeeId"
               label="Employee ID"
-              placeholder="e.g. EMP001"
-              required
+              name="dummy_employeeId"
+              value="EMP001"
+              disabled
             />
-            <SelectDesignation
-              control={control}
-              name="designationId"
+            <TextBox
               label="Designation"
+              name="dummy_designation"
+              value="Assistant Professor"
               required
+              disabled
             />
-            <DatePicker
-              control={control}
-              name="dateOfBirth"
+            <TextBox
               label="Date of Birth"
+              name="dummy_dob"
+              value="15-05-1980"
               required
+              disabled
+              icon="calendar"
+              iconPosition="right"
             />
-            <SelectCaste
-              control={control}
-              name="casteId"
+            <TextBox
               label="Category"
+              name="dummy_category"
+              value="General"
               required
+              disabled
             />
-            <SelectDepartment
-              control={control}
-              name="departmentId"
+            <TextBox
               label="Department"
+              name="dummy_department"
+              value="Computer Science"
               required
+              disabled
             />
-            <DatePicker
-              control={control}
-              name="dateOfJoining"
+            <TextBox
               label="Date of Joining"
+              name="dummy_doj"
+              value="01-08-2010"
               required
+              disabled
+              icon="calendar"
+              iconPosition="right"
             />
-            <DatePicker
-              control={control}
-              name="lastPromotionDate"
-              label="Last Promotion Date"
-              required
-            />
-            <DatePicker
-              control={control}
-              name="applicationSubmissionDate"
-              label="Application Submission Date"
-              required
-            />
+            {/* ------------------------------------------------ */}
+
             <SelectStageApplying
-              control={control}
-              name="stageApplyingFor"
+              {...register('stageApplyingFor')}
               label="Stage Applying For"
+              required
+            />
+            <SelectAssessmentSession
+              {...register('assessmentSessionId')}
+              label="Assessment Session"
+            />
+
+            <DatePicker
+              {...register('applicationSubmissionDate')}
+              label="Application Submission Date"
               required
             />
           </FormGrid>
@@ -125,7 +129,7 @@ export default function PerformanceAppraisalApplication({
       {/* Actions */}
       <div className="form-actions-container form-actions-right">
         <Button
-          label={isReadOnly ? 'Back' : 'Cancel'}
+          label={isReadOnly ? 'Back' : 'Cancel Application'}
           type="button"
           onClick={onCancel}
           icon="times"
@@ -134,14 +138,6 @@ export default function PerformanceAppraisalApplication({
         />
         {!isReadOnly && (
           <>
-            <Button
-              label="Reset"
-              type="button"
-              onClick={() => reset()}
-              icon="refresh"
-              variant="outlined"
-              disabled={isSaving}
-            />
             <Button
               label="Save as Draft"
               type="submit"
@@ -154,7 +150,7 @@ export default function PerformanceAppraisalApplication({
               }}
             />
             <Button
-              label="Proceed to Next Step"
+              label="Proceed to Next Step →"
               type="submit"
               icon="arrow-right"
               variant="success"

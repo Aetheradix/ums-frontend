@@ -1,5 +1,3 @@
-import moment from 'moment';
-
 /**
  * Formats a date string into a specified format.
  * Defaults to 'DD-MM-YYYY'.
@@ -10,8 +8,14 @@ export const formatDate = (
   format: string = 'DD-MM-YYYY'
 ): string => {
   if (!date) return '-';
-  const m = moment(date);
-  return m.isValid() ? m.format(format) : '-';
+  const d = new Date(date);
+  if (isNaN(d.getTime())) return '-';
+
+  const day = String(d.getDate()).padStart(2, '0');
+  const month = String(d.getMonth() + 1).padStart(2, '0');
+  const year = String(d.getFullYear());
+
+  return format.replace('DD', day).replace('MM', month).replace('YYYY', year);
 };
 
 /**
@@ -22,15 +26,17 @@ export const formatDate = (
  * @returns Formatted string disguised as a Date object for TS
  */
 export function toDateOnly(date: Date | string | null | undefined): Date {
-  if (!date) return date as any;
-  const m = moment(date);
-  return (m.isValid() ? m.format('YYYY-MM-DD') : date) as unknown as Date;
+  if (!date) return date as unknown as Date;
+  const d = new Date(date);
+  if (isNaN(d.getTime())) return date as unknown as Date;
+
+  const day = String(d.getDate()).padStart(2, '0');
+  const month = String(d.getMonth() + 1).padStart(2, '0');
+  const year = String(d.getFullYear());
+
+  return `${year}-${month}-${day}` as unknown as Date;
 }
 
-/**
- * Recursively formats all Date objects in a payload to 'YYYY-MM-DD' strings
- * using `toDateOnly`, keeping the TypeScript types intact.
- */
 export function formatDatesInPayload<T>(payload: T): T {
   if (!payload || typeof payload !== 'object') return payload;
 
@@ -42,19 +48,17 @@ export function formatDatesInPayload<T>(payload: T): T {
     return payload.map(item => formatDatesInPayload(item)) as unknown as T;
   }
 
-  const newPayload = { ...payload } as any;
+  const newPayload = { ...payload } as Record<string, unknown>;
   for (const key in newPayload) {
     if (Object.prototype.hasOwnProperty.call(newPayload, key)) {
-      if (newPayload[key] instanceof Date) {
-        newPayload[key] = toDateOnly(newPayload[key]);
-      } else if (
-        typeof newPayload[key] === 'object' &&
-        newPayload[key] !== null
-      ) {
-        newPayload[key] = formatDatesInPayload(newPayload[key]);
+      const value = newPayload[key];
+      if (value instanceof Date) {
+        newPayload[key] = toDateOnly(value);
+      } else if (typeof value === 'object' && value !== null) {
+        newPayload[key] = formatDatesInPayload(value);
       }
     }
   }
 
-  return newPayload;
+  return newPayload as unknown as T;
 }

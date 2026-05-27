@@ -4,16 +4,10 @@ import validation from 'shared/utils/validation';
 const schema =
   validation.create<CareerAdvancement.PerformanceAppraisalApplicationForm>(
     o => ({
-      employeeName: o.string().required(),
-      employeeId: o.string().required(),
-      designationId: o.number().required(),
-      dateOfBirth: o.date().required(),
-      casteId: o.number().required(),
-      departmentId: o.number().required(),
-      dateOfJoining: o.date().required(),
       stageApplyingFor: o.string().required(),
       applicationSubmissionDate: o.date().required(),
-      lastPromotionDate: o.date().required(),
+      status: o.string().required(),
+      assessmentSessionId: o.number().required(),
     })
   );
 
