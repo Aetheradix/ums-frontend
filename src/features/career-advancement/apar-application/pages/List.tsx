@@ -1,10 +1,12 @@
 import { useCallback, useState } from 'react';
+import { useNavigate } from 'react-router';
 import SelectCaSession from 'features/components/SelectCaSession';
 import SelectDepartment from 'features/components/SelectDepartment';
 import SelectSessionAppStatus from 'features/components/SelectSessionAppStatus';
 import { Button } from 'shared/components/buttons';
 import { TextBox } from 'shared/components/forms';
 import { FormCard, FormGrid, FormPage, GridPanel } from 'shared/new-components';
+import { careerAdvancementUrls } from '../../urls';
 import AparStatusBadge from '../components/AparStatusBadge';
 import { useAparApplicationsQuery } from '../queries';
 import './List.css';
@@ -20,11 +22,21 @@ const DEFAULT_FILTER: SearchFilter = {
 };
 
 export default function List() {
+  const navigate = useNavigate();
   const [filter, setFilter] = useState<SearchFilter>(DEFAULT_FILTER);
   const [activeFilter, setActiveFilter] =
     useState<Partial<SearchFilter>>(DEFAULT_FILTER);
 
   const { data, isLoading } = useAparApplicationsQuery(activeFilter);
+
+  const handleProcess = (item: AparItem) => {
+    navigate(careerAdvancementUrls.aparApplication.initiate(item.id), {
+      state: {
+        employeeName: item.employeeName,
+        designation: item.designation,
+      },
+    });
+  };
 
   const handleSearch = useCallback(() => {
     setActiveFilter({ ...filter });
@@ -125,9 +137,14 @@ export default function List() {
             {
               header: 'Action',
               sortable: false,
-              cell: () => (
+              cell: (item: AparItem) => (
                 <div className="apar-action-buttons">
-                  <Button label="Process" icon="play" variant="primary" />
+                  <Button
+                    label="Process"
+                    icon="play"
+                    variant="primary"
+                    onClick={() => handleProcess(item)}
+                  />
                   <Button label="Track" icon="map-marker" variant="outlined" />
                 </div>
               ),

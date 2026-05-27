@@ -1,5 +1,6 @@
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { DUMMY_EMPLOYEES } from './data';
+import { initiateAparApplication } from './api';
 
 const QUERY_KEY = ['@career-advancement/apar-applications'];
 
@@ -42,4 +43,25 @@ export function useAparApplicationsQuery(
   });
 
   return { data, isLoading, refetch };
+}
+
+export function useInitiateAparMutation() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (
+      data: CareerAdvancement.AparApplication.InitiateAparCommand
+    ) => await initiateAparApplication(data),
+
+    onSuccess(data) {
+      if (!data) return;
+
+      const result =
+        queryClient.getQueryData<
+          CareerAdvancement.AparApplication.AparApplicationItem[]
+        >(QUERY_KEY) ?? [];
+
+      queryClient.setQueryData(QUERY_KEY, [...result, data]);
+    },
+  });
 }

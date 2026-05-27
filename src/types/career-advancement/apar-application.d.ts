@@ -18,5 +18,42 @@ declare namespace CareerAdvancement {
       session: string;
       status: 'Pending' | 'Forwarded' | 'Completed';
     }
+
+    // Initiate APAR Application Form
+    interface InitiateAparForm {
+      // Employee Information
+      employeeName: string;
+      designation: string;
+      dateOfBirth: Date | null;
+      categoryId: number | null;
+      groupId: string | null;
+      belongToScSt: 'Yes' | 'No' | null;
+      employmentTypeId: string | null;
+      sectionsServed: string;
+
+      // Validity Dates
+      lengthOfServiceUnderReviewingOfficer: string;
+      dateOfContinuousAppointment: Date | null;
+      employeeValidityDate: Date | null;
+      reportingOfficerValidityDate: Date | null;
+      reviewingOfficerValidityDate: Date | null;
+    }
+
+    // Command sent to the API
+    interface InitiateAparCommand {
+      employeeName: string;
+      designation: string;
+      dateOfBirth: string;
+      categoryId: number | null;
+      groupId: string | null;
+      belongToScSt: string | null;
+      employmentTypeId: string | null;
+      sectionsServed: string;
+      lengthOfServiceUnderReviewingOfficer: string;
+      dateOfContinuousAppointment: string;
+      employeeValidityDate: string;
+      reportingOfficerValidityDate: string;
+      reviewingOfficerValidityDate: string;
+    }
   }
 }

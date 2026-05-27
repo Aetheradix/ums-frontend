@@ -14,3 +14,14 @@ export async function getAparApplication(id: number) {
     );
   return data;
 }
+
+export async function initiateAparApplication(
+  command: CareerAdvancement.AparApplication.InitiateAparCommand
+) {
+  const { error, data } =
+    await ApiService.post<CareerAdvancement.AparApplication.AparApplicationItem>(
+      `${APAR_APPLICATION_BASE_URL}/initiate`,
+      command
+    );
+  return !error ? data : undefined;
+}

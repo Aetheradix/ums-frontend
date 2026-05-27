@@ -5,5 +5,7 @@ export const aparApplicationUrls = (base: string) => {
   return {
     root: prefix,
     all: `${prefix}/all`,
+    initiate: (id?: string | number) =>
+      id ? `${prefix}/initiate/${id}` : `${prefix}/initiate`,
   };
 };
