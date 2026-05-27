@@ -1,16 +1,13 @@
 const baseUrl = '/career-advancement';
 import { aparApplicationUrls } from './apar-application/urls';
+import { employeeSelfAssessmentUrls } from './employee-self-assessment/urls';
 import { sessionsManagementUrls } from './sessions-management/urls';
 
-export const employeeSelfAssessmentUrls = (base: string) => {
-  const prefix = `${base}/employee-self-assessment`;
-  return {
-    root: prefix,
-    create: `${prefix}/create`,
-  };
-};
+const baseUrl = '/career-advancement';
+
 export const careerAdvancementUrls = {
   root: baseUrl,
   sessionsManagement: sessionsManagementUrls(baseUrl),
   aparApplication: aparApplicationUrls(baseUrl),
+  employeeSelfAssessment: employeeSelfAssessmentUrls(baseUrl)
 };
