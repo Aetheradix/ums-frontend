@@ -407,6 +407,14 @@ export const menuConfig: Menu.MenuItem[] = [
         colorScheme: 'orange',
         children: [
           {
+            label: 'APAR — All Applications',
+            slug: 'apar-application',
+            description: 'Initiate and manage APAR for all employees',
+            path: '/career-advancement/apar-application/all',
+            icon: 'assignment',
+            colorScheme: 'orange',
+          },
+          {
             label: 'Sessions Management',
             slug: 'sessions-management',
             description:

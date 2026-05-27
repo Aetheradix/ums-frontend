@@ -40,6 +40,16 @@ export default function List() {
     <FormPage
       title="Sessions Management"
       description="Manage assessment sessions for career advancement programs."
+      breadcrumbs={[
+        {
+          label: 'Career Advancement',
+          to: '/home/sub-menu/career-advancement',
+        },
+        {
+          label: 'Session Management',
+          to: '/career-advancement/sessions-management',
+        },
+      ]}
     >
       <FormCard>
         {isLoading ? <Loader /> : undefined}
