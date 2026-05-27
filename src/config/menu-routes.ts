@@ -390,13 +390,41 @@ export const menuConfig: Menu.MenuItem[] = [
         ],
       },
       {
-        label: 'Career Advancement Scheme',
-        slug: 'career-advancement-acheme',
-        description:
-          'Manage countries, states, divisions, districts, tehsils, and blocks.',
-        icon: 'edit_location',
-        colorScheme: 'red',
-        children: [],
+        label: 'Career Advancement',
+        slug: 'career-advancement',
+        description: 'Manage career advancement sessions and assessments.',
+        path: '/home/sub-menu/career-advancement',
+        icon: 'trending_up',
+        colorScheme: 'orange',
+        children: [
+          {
+            label: 'Sessions Management',
+            slug: 'sessions-management',
+            description:
+              'Manage assessment sessions for career advancement programs.',
+            path: '/career-advancement/sessions-management',
+            icon: 'event',
+            colorScheme: 'orange',
+          },
+          {
+            label: 'Employee Self Assessment',
+            slug: 'employee-self-assessment',
+            description:
+              'APAR Employee Self Assessment and performance reviews.',
+            path: '/career-advancement/employee-self-assessment',
+            icon: 'assignment',
+            colorScheme: 'red',
+          },
+          {
+            label: 'Performance Appraisal System',
+            slug: 'performance-appraisal-system',
+            description:
+              'APAR Employee Self Assessment and performance reviews.',
+            path: '/career-advancement/performance-appraisal-system',
+            icon: 'assignment',
+            colorScheme: 'red',
+          },
+        ],
       },
     ],
   },

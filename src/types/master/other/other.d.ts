@@ -151,6 +151,11 @@ declare namespace Master {
       text: string;
     }
     interface AppraisalApplicationForwardedToTypeItem {
+    interface PerformanceRatingItem {
+      id: string;
+      text: string;
+    }
+    interface StageApplyingItem {
       id: string;
       text: string;
     }
