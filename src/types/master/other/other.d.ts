@@ -166,4 +166,5 @@ declare namespace Master {
       id: string;
       text: string;
     }
+  }
 }
