@@ -5,7 +5,6 @@ import { CAREER_ADVANCEMENT_URL } from './urls';
 export async function createEmployeeSelfAssessment(
   form: CareerAdvancement.EmployeeSelfAssessmentForm
 ) {
-  debugger;
   const formData = new FormData();
 
   formData.append('EmployeeId', form.employeeId.toString());
