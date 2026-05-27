@@ -59,4 +59,32 @@ declare namespace CareerAdvancement {
     status: string;
     isActive: boolean;
   }
+
+  export interface PerformanceAcademicForm {
+    academicId?: number;
+    qualificationId: number;
+    universityInstitution: string;
+    yearOfPassing: string;
+    netsetQualified: 'Yes' | 'No';
+    document: File;
+    otherDocument?: File;
+  }
+
+  export interface CreateAcademicDetailPayload {
+    applicationId: number;
+    qualificationId: number;
+    universityInstitution: string;
+    yearOfPassing: number;
+    netsetQualified: boolean | null;
+    status: string;
+    isActive: boolean;
+    employeeId: number;
+    assessmentSessionId: number;
+    documentType: string;
+    document: File | null;
+  }
+
+  export interface UpdateAcademicDetailPayload extends CreateAcademicDetailPayload {
+    academicId: number;
+  }
 }

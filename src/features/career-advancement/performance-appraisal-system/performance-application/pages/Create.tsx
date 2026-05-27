@@ -40,34 +40,32 @@ export default function Create() {
       ? (toDateOnly(data.applicationSubmissionDate) as unknown as string)
       : '';
 
+    const payloadBase = {
+      assessmentSessionId: data.assessmentSessionId,
+      stageApplyingFor: data.stageApplyingFor,
+      applicationSubmissionDate: applicationDate,
+      status: status,
+      isActive: true,
+    };
+
     if (existingApplication?.applicationId) {
-      const payload: CareerAdvancement.UpdatePerformanceAppraisalApplicationPayload =
-        {
-          applicationId: existingApplication.applicationId,
-          assessmentSessionId: data.assessmentSessionId,
-          stageApplyingFor: data.stageApplyingFor,
-          applicationSubmissionDate: applicationDate,
-          status: status,
-          isActive: true,
-        };
-
-      await updateMutation(payload);
+      await updateMutation({
+        ...payloadBase,
+        applicationId: existingApplication.applicationId,
+      });
       ToastService.success('Application updated successfully.');
-      handleBack();
     } else {
-      const payload: CareerAdvancement.CreatePerformanceAppraisalApplicationPayload =
-        {
-          employeeId: CURRENT_EMPLOYEE_ID,
-          assessmentSessionId: data.assessmentSessionId,
-          stageApplyingFor: data.stageApplyingFor,
-          applicationSubmissionDate: applicationDate,
-          status: status,
-          isActive: true,
-        };
-
-      await createMutation(payload);
+      await createMutation({
+        ...payloadBase,
+        employeeId: CURRENT_EMPLOYEE_ID,
+      });
       ToastService.success('Application submitted successfully.');
-      handleBack();
+    }
+
+    if (status === 'Submitted') {
+      navigate('/career-advancement/performance-appraisal-system/academic');
+    } else {
+      navigate('/home');
     }
   }
 
