@@ -19,5 +19,12 @@ declare namespace Master {
       isActive: boolean;
     }
     type DocumentOptionsItem = Data.WithId<DocumentOptionsForm>;
+
+    interface SubjectSpecializationForm {
+      name: string;
+      isActive: boolean;
+    }
+
+    type SubjectSpecializationItem = Data.WithId<SubjectSpecializationForm>;
   }
 }
