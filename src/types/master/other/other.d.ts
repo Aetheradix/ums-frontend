@@ -166,5 +166,9 @@ declare namespace Master {
       id: string;
       text: string;
     }
+    interface GradingSystemItem {
+      id: string;
+      text: string;
+    }
   }
 }
