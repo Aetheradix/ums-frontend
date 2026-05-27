@@ -21,6 +21,8 @@ interface DatePickerProps<TForm extends FieldValues>
   panelClassName?: string;
   showTime?: boolean;
   hourFormat?: '12' | '24';
+  view?: 'date' | 'month' | 'year';
+  dateFormat?: string;
 }
 
 function InnerDatePicker({
