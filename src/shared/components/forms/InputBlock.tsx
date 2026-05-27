@@ -37,12 +37,12 @@ export default function InputBlock(
       {/* Input */}
       <div className={`input-wrapper ${errorMessage ? 'has-error' : ''}`}>
         {children}
-
-        {/* Inline Error Badge */}
-        {errorMessage && (
-          <span className="input-error-badge">{errorMessage}</span>
-        )}
       </div>
+
+      {/* Error Message Underneath */}
+      {errorMessage && (
+        <span className="input-error-message">{errorMessage}</span>
+      )}
     </div>
   );
 }

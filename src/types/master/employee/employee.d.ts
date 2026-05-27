@@ -12,5 +12,18 @@ declare namespace Master {
       isActive: boolean;
     }
     type OrganizationUnitItem = Data.WithId<OrganizationUnitForm>;
+    interface ActionOptionForm {
+      name: string;
+      description: string;
+      isActive: boolean;
+    }
+
+    type ActionOptionItem = Data.WithId<ActionOptionForm>;
+
+    interface DocumentOptionsForm {
+      name: string;
+      isActive: boolean;
+    }
+    type DocumentOptionsItem = Data.WithId<DocumentOptionsForm>;
   }
 }

@@ -30,6 +30,7 @@ import { schemeTypeUrls } from './schemes/scheme-type/urls';
 import { schemeUrls } from './schemes/scheme/urls';
 import { ProgrammeModeOfEducationUrls } from './subject/programme-mode-of-education/urls';
 
+import { actionOptionUrls } from './employee/settings/action-option/urls';
 import { employmentNatureUrls } from './employee/settings/nature-of-employment/urls';
 import { organizationUnitUrls } from './employee/settings/organization-unit/urls';
 import { subjectCategoryUrls } from './subject/subject-category/urls';
@@ -72,4 +73,5 @@ export const masterUrls = {
   ),
   natureOfEmployment: employmentNatureUrls(`${baseUrl}/employee/settings`),
   organizationUnit: organizationUnitUrls(`${baseUrl}/employee/settings`),
+  actionOption: actionOptionUrls(`${baseUrl}/employee/settings`),
 };
