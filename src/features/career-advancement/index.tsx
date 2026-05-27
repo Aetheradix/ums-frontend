@@ -1,6 +1,6 @@
 import { Route, Routes } from 'react-router-dom';
 import EmployeeSelfAssessment from './employee-self-assessment';
-import PerformanceAppraisalSystem from './performance-appraisal-system';
+import PerformanceAppraisalSystem from './performance-appraisal-system/performance-application';
 import SessionsManagement from './sessions-management';
 
 export default function CareerAdvancement() {

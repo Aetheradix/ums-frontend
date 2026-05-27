@@ -1,5 +1,5 @@
 import { employeeSelfAssessmentUrls } from './employee-self-assessment/urls';
-import { performanceAppraisalUrls } from './performance-appraisal-system/urls';
+import { performanceAppraisalUrls } from './performance-appraisal-system/performance-application/urls';
 import { sessionsManagementUrls } from './sessions-management/urls';
 
 const baseUrl = '/career-advancement';
