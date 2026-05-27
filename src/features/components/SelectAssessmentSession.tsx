@@ -1,30 +1,32 @@
+import { useSessionsQuery } from 'features/career-advancement/sessions-management/queries';
 import type { FieldValues } from 'react-hook-form';
 import { DropDownList } from 'shared/components/forms';
-import { useDepartmentsQuery } from '../master/faculty/department/queries';
 
-interface SelectDepartmentProps<
+interface SelectAssessmentSessionProps<
   T extends FieldValues,
 > extends Controls.FormProps<T> {
   label?: string;
   disabled?: boolean;
-  value?: string | number | null;
-  onChange?: (value: unknown) => void;
 }
 
-export default function SelectDepartment<T extends FieldValues>({
+export default function SelectAssessmentSession<T extends FieldValues>({
   defaultOptionText,
-  label = 'Department',
+  label = 'Session',
   ...props
-}: SelectDepartmentProps<T> &
+}: SelectAssessmentSessionProps<T> &
   Controls.InputBlockProps & { defaultOptionText?: string }) {
-  const { data, isLoading } = useDepartmentsQuery();
-  const activeData = data.filter(item => item.isActive);
+  const { data, isLoading } = useSessionsQuery();
+
+  const activeData =
+    data?.filter(
+      (item: CareerAdvancement.Session.SessionItem) => item.isActive === true
+    ) || [];
 
   return (
     <DropDownList
       data={activeData}
       loading={isLoading}
-      textField="name"
+      textField="sessionName"
       valueField="id"
       optionValue="id"
       label={label}

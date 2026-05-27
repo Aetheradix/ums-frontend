@@ -1,30 +1,27 @@
+import { useTravelReasonQuery } from 'features/master/other/travel-reason/queries';
 import type { FieldValues } from 'react-hook-form';
 import { DropDownList } from 'shared/components/forms';
-import { useDepartmentsQuery } from '../master/faculty/department/queries';
 
-interface SelectDepartmentProps<
+interface SelectTravelReasonProps<
   T extends FieldValues,
 > extends Controls.FormProps<T> {
   label?: string;
   disabled?: boolean;
-  value?: string | number | null;
-  onChange?: (value: unknown) => void;
 }
 
-export default function SelectDepartment<T extends FieldValues>({
+export default function SelectTravelReason<T extends FieldValues>({
   defaultOptionText,
-  label = 'Department',
+  label = 'Travel Reason',
   ...props
-}: SelectDepartmentProps<T> &
+}: SelectTravelReasonProps<T> &
   Controls.InputBlockProps & { defaultOptionText?: string }) {
-  const { data, isLoading } = useDepartmentsQuery();
-  const activeData = data.filter(item => item.isActive);
+  const { data, isLoading } = useTravelReasonQuery();
 
   return (
     <DropDownList
-      data={activeData}
+      data={data}
       loading={isLoading}
-      textField="name"
+      textField="text"
       valueField="id"
       optionValue="id"
       label={label}
