@@ -1,18 +1,18 @@
-import { TextBox, DropDownList, DatePicker } from 'shared/components/forms';
+import SelectSessionAppStatus from 'features/components/SelectSessionAppStatus';
+import SelectSessionType from 'features/components/SelectSessionType';
+import { DatePicker, TextBox } from 'shared/components/forms';
 import { FormActions, FormGrid } from 'shared/new-components';
 import { useSessionForm } from './form.hook';
-import { SESSION_TYPES, APP_STATUS_OPTIONS } from '../types';
-import type { SessionFormData } from '../types';
 
 interface SessionFormProps {
-  onSubmit: Forms.SubmitFunc<SessionFormData>;
-  fetchData?: Forms.FetchDataFunc<SessionFormData>;
+  onSubmit: (data: CareerAdvancement.Session.SessionForm) => Promise<void>;
+  fetchData?: Forms.FetchDataFunc<CareerAdvancement.Session.SessionForm>;
   isSaving?: boolean;
   isEditMode?: boolean;
 }
 
 export default function SessionForm(props: SessionFormProps) {
-  const { register, handleSubmit, reset } = useSessionForm(
+  const { register, handleSubmit, reset, control } = useSessionForm(
     props.onSubmit,
     props.fetchData
   );
@@ -28,47 +28,41 @@ export default function SessionForm(props: SessionFormProps) {
           required
         />
 
-        <DropDownList
-          label="Session Type"
-          data={SESSION_TYPES}
-          textField="label"
-          valueField="value"
-          {...register('sessionType')}
-          required
-        />
+        <SelectSessionType {...register('sessionType')} control={control} />
 
         <DatePicker
           label="Start Date & Time"
-          {...register('startDateTime')}
+          control={control}
+          name="startDateTime"
           showTime
-          hourFormat="24"
+          hourFormat="12"
           required
         />
 
         <DatePicker
           label="End Date & Time"
-          {...register('endDateTime')}
+          control={control}
+          name="endDateTime"
           showTime
-          hourFormat="24"
+          hourFormat="12"
           required
         />
 
-        <DropDownList
-          label="Application Status"
-          data={APP_STATUS_OPTIONS}
-          textField="label"
-          valueField="value"
-          {...register('appStatus')}
+        <SelectSessionAppStatus {...register('appStatus')} control={control} />
+
+        <DatePicker
+          label="Session From"
+          control={control}
+          name="sessionFrom"
           required
         />
 
         <DatePicker
-          label="Session From"
-          {...register('sessionFrom')}
+          label="Session To"
+          control={control}
+          name="sessionTo"
           required
         />
-
-        <DatePicker label="Session To" {...register('sessionTo')} required />
       </FormGrid>
 
       <FormActions

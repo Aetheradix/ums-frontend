@@ -146,7 +146,31 @@ declare namespace Master {
       id: string;
       text: string;
     }
+    interface AppraisalApplicationForwardedToTypeItem {
+      id: string;
+      text: string;
+    }
     interface ResearchProjectStatusItem {
+      id: string;
+      text: string;
+    }
+    interface MaritalStatusItem {
+      id: string;
+      text: string;
+    }
+    interface TravelReasonItem {
+      id: string;
+      text: string;
+    }
+    interface StageApplyingItem {
+      id: string;
+      text: string;
+    }
+    interface PerformanceRatingItem {
+      id: string;
+      text: string;
+    }
+    interface GradingSystemItem {
       id: string;
       text: string;
     }

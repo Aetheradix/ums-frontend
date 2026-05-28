@@ -1,4 +1,5 @@
 import { useCallback, useState } from 'react';
+import { ToastService } from 'services';
 import { Button } from 'shared/components/buttons';
 import StatusButton from 'shared/components/buttons/StatusButton';
 import { Loader } from 'shared/components/progress';
@@ -8,40 +9,29 @@ import {
   FormPopup,
   GridPanel,
 } from 'shared/new-components';
-import { ToastService } from 'services';
 import SessionForm from '../components/SessionForm';
 import {
-  useSessionsQuery,
-  useSessionQuery,
   useCreateSessionMutation,
-  useUpdateSessionMutation,
-  useDeleteSessionMutation,
   useSessionActiveStatusMutation,
+  useSessionQuery,
+  useSessionsQuery,
+  useUpdateSessionMutation,
 } from '../queries';
-import type { SessionFormData, SessionResponseDto } from '../types';
 
 type PopupState =
   | { mode: 'closed' }
   | { mode: 'create' }
   | { mode: 'edit'; id: number };
 
-export default function SessionsManagementPage() {
+export default function List() {
   const { data, isLoading } = useSessionsQuery();
-  const { mutateAsync: deleteSession } = useDeleteSessionMutation();
-  const { mutateAsync: toggleStatus } = useSessionActiveStatusMutation();
+  const { mutateAsync } = useSessionActiveStatusMutation();
   const [popup, setPopup] = useState<PopupState>({ mode: 'closed' });
 
-  const handleDelete = async (id: number) => {
-    try {
-      await deleteSession(id);
-      ToastService.success('Session deleted successfully.');
-    } catch {
-      ToastService.error('Failed to delete session');
-    }
-  };
-
-  const handleToggleStatus = async (item: SessionResponseDto) => {
-    await toggleStatus({ id: item.id, isActive: !item.isActive });
+  const handleToggleStatus = async (
+    item: CareerAdvancement.Session.SessionItem
+  ) => {
+    await mutateAsync({ id: item.id, isActive: !item.isActive });
   };
 
   const closePopup = useCallback(() => setPopup({ mode: 'closed' }), []);
@@ -50,20 +40,25 @@ export default function SessionsManagementPage() {
     <FormPage
       title="Sessions Management"
       description="Manage assessment sessions for career advancement programs."
+      breadcrumbs={[
+        {
+          label: 'Career Advancement',
+          to: '/home/sub-menu/career-advancement',
+        },
+        {
+          label: 'Session Management',
+          to: '/career-advancement/sessions-management',
+        },
+      ]}
     >
       <FormCard>
         {isLoading ? <Loader /> : undefined}
         <GridPanel
           data={data}
-          onEdit={(session: SessionResponseDto) =>
-            setPopup({ mode: 'edit', id: session.id })
-          }
-          onRemove={(session: SessionResponseDto) => handleDelete(session.id)}
+          onEdit={session => setPopup({ mode: 'edit', id: session.id })}
           columns={[
             {
-              cell: (_: SessionResponseDto, option: { rowIndex: number }) => (
-                <span>{option.rowIndex + 1}</span>
-              ),
+              cell: (_, option) => <span>{option.rowIndex + 1}</span>,
               width: '30px',
             },
             { field: 'sessionName', header: 'Session Name' },
@@ -71,9 +66,9 @@ export default function SessionsManagementPage() {
             { field: 'appStatus', header: 'App Status' },
             {
               field: 'isActive',
-              header: 'Active',
+              header: 'Status',
               sortable: false,
-              cell: (item: SessionResponseDto) => (
+              cell: (item: CareerAdvancement.Session.SessionItem) => (
                 <StatusButton
                   value={item.isActive}
                   onClick={() => handleToggleStatus(item)}
@@ -119,15 +114,21 @@ export default function SessionsManagementPage() {
 function CreateContent({ onClose }: { onClose: () => void }) {
   const { mutateAsync, isPending } = useCreateSessionMutation();
 
-  async function handleSubmit(data: SessionFormData) {
+  async function handleSubmit(data: CareerAdvancement.Session.SessionForm) {
     try {
-      const result = await mutateAsync(data);
+      const result = await mutateAsync({
+        ...data,
+        startDateTime: data.startDateTime?.toISOString() ?? '',
+        endDateTime: data.endDateTime?.toISOString() ?? '',
+        sessionFrom: data.sessionFrom?.toISOString() ?? '',
+        sessionTo: data.sessionTo?.toISOString() ?? '',
+      });
       if (result) {
         ToastService.success('Session created successfully.');
         onClose();
       }
     } catch {
-      ToastService.error('Failed to create session');
+      ToastService.error('Failed to create session.');
     }
   }
 
@@ -144,27 +145,33 @@ function EditContent({ id, onClose }: { id: number; onClose: () => void }) {
   const { mutateAsync, isPending } = useUpdateSessionMutation(id);
   const { data, isLoading } = useSessionQuery(id);
 
-  const DEFAULT: SessionFormData = {
+  const DEFAULT: CareerAdvancement.Session.SessionForm = {
     sessionName: '',
     sessionType: '',
-    startDateTime: '',
-    endDateTime: '',
+    startDateTime: null,
+    endDateTime: null,
     appStatus: '',
-    sessionFrom: '',
-    sessionTo: '',
+    sessionFrom: null,
+    sessionTo: null,
   };
 
   if (isLoading) return <Loader />;
 
-  async function handleSubmit(formData: SessionFormData) {
+  async function handleSubmit(data: CareerAdvancement.Session.SessionForm) {
     try {
-      const result = await mutateAsync(formData);
+      const result = await mutateAsync({
+        ...data,
+        startDateTime: data.startDateTime?.toISOString() ?? '',
+        endDateTime: data.endDateTime?.toISOString() ?? '',
+        sessionFrom: data.sessionFrom?.toISOString() ?? '',
+        sessionTo: data.sessionTo?.toISOString() ?? '',
+      });
       if (result) {
         ToastService.success('Session updated successfully.');
         onClose();
       }
     } catch {
-      ToastService.error('Failed to update session');
+      ToastService.error('Failed to update session.');
     }
   }
 

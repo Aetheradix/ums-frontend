@@ -7,6 +7,8 @@ interface SelectDepartmentProps<
 > extends Controls.FormProps<T> {
   label?: string;
   disabled?: boolean;
+  value?: string | number | null;
+  onChange?: (value: unknown) => void;
 }
 
 export default function SelectDepartment<T extends FieldValues>({

@@ -1,11 +1,11 @@
 import { Route, Routes } from 'react-router';
-import SessionsManagementPage from './pages/SessionsManagementPage';
+import List from './pages/List';
 
 export default function SessionsManagement() {
   return (
     <Routes>
-      <Route index element={<SessionsManagementPage />} />
-      <Route path="*" element={<SessionsManagementPage />} />
+      <Route index element={<List />} />
+      <Route path="*" element={<List />} />
     </Routes>
   );
 }
