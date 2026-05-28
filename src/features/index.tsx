@@ -1,7 +1,7 @@
 import { Navigate, Route, Routes } from 'react-router-dom';
 import MainLayout from 'shared/components/layout/MainLayout';
-import GrievanceManagement from './grievance-management';
 import CareerAdvancement from './career-advancement';
+import GrievanceManagement from './grievance-management';
 import Home from './home';
 import Master from './master';
 import Sis from './sis';
@@ -22,6 +22,8 @@ export default function Features() {
               <Route
                 path="grievance-management/*"
                 element={<GrievanceManagement />}
+              />
+              <Route
                 path="career-advancement/*"
                 element={<CareerAdvancement />}
               />
