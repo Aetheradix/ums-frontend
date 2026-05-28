@@ -1,6 +1,7 @@
 import { Route, Routes } from 'react-router';
 import CollegeCategory from './college/college-category';
 import CollegeType from './college/college-type';
+import ActionOption from './employee/settings/action-option';
 import NatureOfEmployment from './employee/settings/nature-of-employment';
 import Department from './faculty/department';
 import Designation from './faculty/designation';
@@ -86,6 +87,7 @@ export default function Master() {
             path="nature-of-employment/*"
             element={<NatureOfEmployment />}
           />
+          <Route path="action-option" element={<ActionOption />} />
         </Route>
       </Route>
     </Routes>
