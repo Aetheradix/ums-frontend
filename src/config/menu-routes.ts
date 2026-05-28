@@ -400,6 +400,10 @@ export const menuConfig: Menu.MenuItem[] = [
                 description: 'Manage separation reasons master data.',
                 path: '/master/employee/settings/separation-reason-type',
                 icon: 'article',
+                colorScheme: 'red',
+                children: [],
+              },
+              {
                 label: 'Travel Purpose',
                 slug: 'travel-purpose',
                 description: 'Manage travel purpose master data.',
