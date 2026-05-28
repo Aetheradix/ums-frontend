@@ -30,7 +30,9 @@ import { schemeTypeUrls } from './schemes/scheme-type/urls';
 import { schemeUrls } from './schemes/scheme/urls';
 import { ProgrammeModeOfEducationUrls } from './subject/programme-mode-of-education/urls';
 
+import { actionOptionUrls } from './employee/settings/action-option/urls';
 import { employmentNatureUrls } from './employee/settings/nature-of-employment/urls';
+import { travelPurposeUrls } from './employee/settings/travel-purpose/urls';
 import { subjectCategoryUrls } from './subject/subject-category/urls';
 
 const baseUrl = '/master';
@@ -70,4 +72,6 @@ export const masterUrls = {
     `${baseUrl}/grant`
   ),
   natureOfEmployment: employmentNatureUrls(`${baseUrl}/employee/settings`),
+  actionOption: actionOptionUrls(`${baseUrl}/employee/settings`),
+  travelPurpose: travelPurposeUrls(`${baseUrl}/employee/settings`),
 };
