@@ -3,7 +3,8 @@ import { Controller, type FieldValues } from 'react-hook-form';
 import InputBlock from './InputBlock';
 
 interface NumberBoxProps<TForm extends FieldValues>
-  extends Controls.FormProps<TForm>,
+  extends
+    Controls.FormProps<TForm>,
     Controls.InputBlockProps,
     Controls.InputProps {
   value?: number;
@@ -45,7 +46,7 @@ function InnerNumberBox({
         inputId={inputId}
         value={value}
         mode={mode}
-        onChange={e => {
+        onValueChange={e => {
           if (maxLength && e.value && e.value.toString().length > maxLength) {
             return;
           }
