@@ -600,11 +600,27 @@ export const menuConfig: Menu.MenuItem[] = [
       {
         label: 'Grievance Management',
         slug: 'grievance-management',
-        description:
-          'Manage countries, states, divisions, districts, tehsils, and blocks.',
-        icon: 'edit_location',
-        colorScheme: 'red',
-        children: [],
+        path: '/home/sub-menu/grievance-management',
+        icon: 'assignment',
+        colorScheme: 'teal',
+        children: [
+          {
+            label: 'Grievance Category',
+            slug: 'grievance-category',
+            path: '/grievance-management/master/grievance-category',
+            icon: 'category',
+            colorScheme: 'teal',
+            children: [],
+          },
+          {
+            label: 'Category to User Mapping',
+            slug: 'category-to-user-mapping',
+            path: '/grievance-management/master/category-to-user-mapping',
+            icon: 'people',
+            colorScheme: 'teal',
+            children: [],
+          },
+        ],
       },
       {
         label: 'Residential Allocation',

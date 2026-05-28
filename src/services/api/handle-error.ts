@@ -36,7 +36,7 @@ function getValidationErrors(errors: Api.TypedValidationError[]) {
 function getUnknowError(status: number): Api.EventMessage {
   const message = titles[status];
 
-  return message ?? { title: 'Unknow error', messages: [] };
+  return message ?? { title: 'Unknown error', messages: [] };
 }
 
 export async function handleNotOkResponse(response: Response) {
@@ -83,8 +83,8 @@ export async function handleNotOkResponse(response: Response) {
 }
 
 export async function handleError(error: string) {
-  PubSubService.publish('@event/api-error', {
-    title: 'Unknow error',
+  PubSubService.publish('@event/api-not-ok', {
+    title: 'Unknown error',
     messages: [error],
   });
 }
