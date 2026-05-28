@@ -5,6 +5,7 @@ import ActionOption from './employee/settings/action-option';
 import NatureOfEmployment from './employee/settings/nature-of-employment';
 import OrganizationUnit from './employee/settings/organization-unit';
 import DocumentOption from './employee/settings/document-option';
+import TravelPurpose from './employee/settings/travel-purpose';
 import Department from './faculty/department';
 import Designation from './faculty/designation';
 import Faculty from './faculty/faculty';
@@ -92,6 +93,7 @@ export default function Master() {
           <Route path="organization-unit/*" element={<OrganizationUnit />} />
           <Route path="document-option/*" element={<DocumentOption />} />
           <Route path="action-option" element={<ActionOption />} />
+          <Route path="travel-purpose/*" element={<TravelPurpose />} />
         </Route>
       </Route>
     </Routes>
