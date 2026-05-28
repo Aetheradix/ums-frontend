@@ -11,13 +11,10 @@ export default function CreateSeparationReasonType({ onClose }: CreateProps) {
 
   async function handleSubmit(data: Master.Employee.SeparationReasonTypeForm) {
     try {
-      const result = await mutateAsync(data);
+      await mutateAsync(data);
 
-      if (result) {
-        ToastService.success('Separation reason created successfully.');
-
-        onClose();
-      }
+      ToastService.success('Separation reason created successfully.');
+      onClose();
     } catch {
       ToastService.error('Failed to create separation reason.');
     }
