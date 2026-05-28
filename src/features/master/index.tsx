@@ -5,6 +5,7 @@ import ActionOption from './employee/settings/action-option';
 import DocumentOption from './employee/settings/document-option';
 import NatureOfEmployment from './employee/settings/nature-of-employment';
 import SubjectSpecialization from './employee/settings/subject-specialization';
+import TravelPurpose from './employee/settings/travel-purpose';
 import Department from './faculty/department';
 import Designation from './faculty/designation';
 import Faculty from './faculty/faculty';
@@ -95,6 +96,7 @@ export default function Master() {
             path="subject-specialization"
             element={<SubjectSpecialization />}
           />
+          <Route path="travel-purpose/*" element={<TravelPurpose />} />
         </Route>
       </Route>
     </Routes>

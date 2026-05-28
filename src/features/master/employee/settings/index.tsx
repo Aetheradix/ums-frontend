@@ -3,6 +3,7 @@ import ActionOption from './action-option';
 import DocumentOption from './document-option';
 import NatureOfEmployment from './nature-of-employment';
 import SubjectSpecialization from './subject-specialization';
+import TravelPurpose from './travel-purpose';
 
 export default function Settings() {
   return (
@@ -14,6 +15,7 @@ export default function Settings() {
         path="subject-specialization"
         element={<SubjectSpecialization />}
       />
+      <Route path="travel-purpose" element={<TravelPurpose />} />
     </Routes>
   );
 }
