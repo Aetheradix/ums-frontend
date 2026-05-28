@@ -23,5 +23,18 @@ declare namespace Master {
     }
 
     type ActionOptionReasonItem = Data.WithId<ActionOptionReasonForm>;
+    
+    interface DocumentOptionsForm {
+      name: string;
+      isActive: boolean;
+    }
+    type DocumentOptionsItem = Data.WithId<DocumentOptionsForm>;
+
+    interface TravelPurposeForm {
+      name: string;
+      isActive: boolean;
+    }
+
+    type TravelPurposeItem = Data.WithId<TravelPurposeForm>;
   }
 }
