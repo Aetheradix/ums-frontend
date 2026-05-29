@@ -3,12 +3,14 @@ import ActionOption from './action-option';
 import ActionOptionReason from './action-option-reason';
 import DocumentOption from './document-option';
 import NatureOfEmployment from './nature-of-employment';
+import OrganizationUnit from './organization-unit';
 import TravelPurpose from './travel-purpose';
 
 export default function Settings() {
   return (
     <Routes>
       <Route path="nature-of-employment" element={<NatureOfEmployment />} />
+      <Route path="organization-unit" element={<OrganizationUnit />} />
       <Route path="document-option" element={<DocumentOption />} />
       <Route path="action-option" element={<ActionOption />} />
       <Route path="action-option-reason" element={<ActionOptionReason />} />
