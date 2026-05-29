@@ -24,7 +24,13 @@ declare namespace Master {
       name: string;
       isActive: boolean;
     }
-
     type SubjectSpecializationItem = Data.WithId<SubjectSpecializationForm>;
+
+    interface TravelPurposeForm {
+      name: string;
+      isActive: boolean;
+    }
+
+    type TravelPurposeItem = Data.WithId<TravelPurposeForm>;
   }
 }
