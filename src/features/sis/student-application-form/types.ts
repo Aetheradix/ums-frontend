@@ -1,15 +1,19 @@
 export interface CreateApplicationCommand {
   academicSession: string;
-  programme: string;
+  programmeId: number;
+  programmeName: string;
   academic: AcademicDto;
   basicInfo: BasicInfoDto;
   address: AddressDto;
 }
 
 export interface AcademicDto {
-  degreeLevel: string;
-  programOfStudy: string;
-  specialisation: string;
+  degreeLevelId: number;
+  degreeLevelName: string;
+  programmeId: number;
+  programmeName: string;
+  specialisationId: number;
+  specialisationName: string;
   previousInstitutionType: string;
   previousInstitutionCgpa: number;
 }
@@ -21,7 +25,8 @@ export interface BasicInfoDto {
   email: string;
   phone: string;
   gender: string;
-  caste: string;
+  casteId: number;
+  casteName: string;
   dateOfBirth: string;
   age: number;
   fatherName: string;
@@ -36,17 +41,23 @@ export interface BasicInfoDto {
   motherContactNumber: string;
   residencyStatus: string;
   ethnicity: string;
-  nationality: string;
+  nationalityId: number;
+  nationalityName: string;
 }
 
 export interface AddressDto {
   addressType: string;
   country: string;
-  state: string;
-  division: string;
-  district: string;
-  tehsil: string;
-  block: string;
+  stateId: number;
+  stateName: string;
+  divisionId: number;
+  divisionName: string;
+  districtId: number;
+  districtName: string;
+  tehsilId: number;
+  tehsilName: string;
+  blockId: number;
+  blockName: string;
   addressLine1: string;
   addressLine2: string;
   landmark: string;
@@ -55,7 +66,7 @@ export interface AddressDto {
 
 /**
  * Internal form shape used by react-hook-form.
- * Dropdown fields store the selected text value directly.
+ * Dropdown fields store the selected ID value.
  */
 export interface ApplicationFormData {
   // Top-level
@@ -69,7 +80,7 @@ export interface ApplicationFormData {
   email: string;
   phone: string;
   gender: string;
-  caste: string;
+  caste: any;
   dateOfBirth: Date | null;
   age: number | null;
   fatherName: string;
@@ -100,7 +111,7 @@ export interface ApplicationFormData {
   division: string;
   district: string;
   tehsil: string;
-  block: string;
+  block: any;
   addressLine1: string;
   addressLine2: string;
   landmark: string;
