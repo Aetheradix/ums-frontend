@@ -4,6 +4,7 @@ import CollegeType from './college/college-type';
 import ActionOption from './employee/settings/action-option';
 import DocumentOption from './employee/settings/document-option';
 import NatureOfEmployment from './employee/settings/nature-of-employment';
+import OrganizationUnit from './employee/settings/organization-unit';
 import SubjectSpecialization from './employee/settings/subject-specialization';
 import TravelPurpose from './employee/settings/travel-purpose';
 import Department from './faculty/department';
@@ -90,6 +91,7 @@ export default function Master() {
             path="nature-of-employment/*"
             element={<NatureOfEmployment />}
           />
+          <Route path="organization-unit/*" element={<OrganizationUnit />} />
           <Route path="document-option/*" element={<DocumentOption />} />
           <Route path="action-option" element={<ActionOption />} />
           <Route

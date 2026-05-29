@@ -6,6 +6,12 @@ declare namespace Master {
     }
 
     type EmploymentNatureItem = Data.WithId<EmploymentNatureForm>;
+
+    interface OrganizationUnitForm {
+      name: string;
+      isActive: boolean;
+    }
+    type OrganizationUnitItem = Data.WithId<OrganizationUnitForm>;
     interface ActionOptionForm {
       name: string;
       description: string;
@@ -19,6 +25,11 @@ declare namespace Master {
       isActive: boolean;
     }
     type DocumentOptionsItem = Data.WithId<DocumentOptionsForm>;
+
+    interface TravelPurposeForm {
+      name: string;
+      isActive: boolean;
+    }
 
     interface SubjectSpecializationForm {
       name: string;
