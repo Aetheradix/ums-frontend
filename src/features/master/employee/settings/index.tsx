@@ -1,5 +1,6 @@
 import { Route, Routes } from 'react-router-dom';
 import ActionOption from './action-option';
+import ActionOptionReason from './action-option-reason';
 import DocumentOption from './document-option';
 import NatureOfEmployment from './nature-of-employment';
 import OrganizationUnit from './organization-unit';
@@ -17,6 +18,8 @@ export default function Settings() {
         path="subject-specialization"
         element={<SubjectSpecialization />}
       />
+      <Route path="action-option-reason" element={<ActionOptionReason />} />
+
       <Route path="travel-purpose" element={<TravelPurpose />} />
     </Routes>
   );
