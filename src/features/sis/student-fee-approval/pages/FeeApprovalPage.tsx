@@ -174,7 +174,7 @@ export default function FeeApprovalPage() {
                 <div className="info-detail-item">
                   <span className="info-detail-label">Programme</span>
                   <span className="info-detail-value">
-                    {application.programme}
+                    {application.programmeName}
                   </span>
                 </div>
                 <div className="info-detail-item">
@@ -186,19 +186,19 @@ export default function FeeApprovalPage() {
                 <div className="info-detail-item">
                   <span className="info-detail-label">Degree Level</span>
                   <span className="info-detail-value">
-                    {application.payload.academic?.degreeLevel || 'N/A'}
+                    {application.payload.academic?.degreeLevelName || 'N/A'}
                   </span>
                 </div>
                 <div className="info-detail-item">
                   <span className="info-detail-label">Program of Study</span>
                   <span className="info-detail-value">
-                    {application.payload.academic?.programOfStudy || 'N/A'}
+                    {application.payload.academic?.programmeName || 'N/A'}
                   </span>
                 </div>
                 <div className="info-detail-item">
                   <span className="info-detail-label">Specialisation</span>
                   <span className="info-detail-value">
-                    {application.payload.academic?.specialisation || 'N/A'}
+                    {application.payload.academic?.specialisationName || 'N/A'}
                   </span>
                 </div>
               </div>
@@ -232,7 +232,7 @@ export default function FeeApprovalPage() {
                 <div className="info-detail-item">
                   <span className="info-detail-label">Caste</span>
                   <span className="info-detail-value">
-                    {application.payload.basicInfo.caste}
+                    {application.payload.basicInfo.casteName}
                   </span>
                 </div>
                 <div className="info-detail-item">
