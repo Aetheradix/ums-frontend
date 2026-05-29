@@ -404,6 +404,15 @@ export const menuConfig: Menu.MenuItem[] = [
                 children: [],
               },
               {
+                label: 'Action Option Reasons',
+                slug: 'action-option-reasons',
+                description: 'Manage action option reasons master data.',
+                path: '/master/employee/settings/action-option-reason',
+                icon: 'assignment_turned_in',
+                 colorScheme: 'red',
+                children: [],
+              },
+              {
                 label: 'Travel Purpose',
                 slug: 'travel-purpose',
                 description: 'Manage travel purpose master data.',
