@@ -377,6 +377,15 @@ export const menuConfig: Menu.MenuItem[] = [
                 children: [],
               },
               {
+                label: 'Organization Unit',
+                slug: 'organization-unit',
+                description: 'Manage organization unit master data.',
+                path: '/master/employee/settings/organization-unit',
+                icon: 'account_tree',
+                colorScheme: 'red',
+                children: [],
+              },
+              {
                 label: 'Document Option',
                 slug: 'document-option',
                 description: 'Manage document option master data.',
