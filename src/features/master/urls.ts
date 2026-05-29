@@ -33,6 +33,7 @@ import { ProgrammeModeOfEducationUrls } from './subject/programme-mode-of-educat
 import { actionOptionUrls } from './employee/settings/action-option/urls';
 import { employmentNatureUrls } from './employee/settings/nature-of-employment/urls';
 import { subjectSpecializationUrls } from './employee/settings/subject-specialization/urls';
+import { organizationUnitUrls } from './employee/settings/organization-unit/urls';
 import { travelPurposeUrls } from './employee/settings/travel-purpose/urls';
 import { subjectCategoryUrls } from './subject/subject-category/urls';
 
@@ -73,6 +74,7 @@ export const masterUrls = {
     `${baseUrl}/grant`
   ),
   natureOfEmployment: employmentNatureUrls(`${baseUrl}/employee/settings`),
+  organizationUnit: organizationUnitUrls(`${baseUrl}/employee/settings`),
   actionOption: actionOptionUrls(`${baseUrl}/employee/settings`),
   subjectSpecialization: subjectSpecializationUrls(
     `${baseUrl}/employee/settings`
