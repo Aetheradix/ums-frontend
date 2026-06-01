@@ -69,12 +69,32 @@
   @apply flex items-center gap-2.5 cursor-pointer;
 }
 
-/* .ws-avatar {
-  @apply bg-indigo-500 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold text-[13px];
-} */
+.ws-avatar {
+  @apply bg-indigo-600 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold text-[13px] uppercase;
+}
 
 .ws-username {
   @apply font-semibold text-sm max-md:hidden;
+}
+
+.ws-profile-dropdown {
+  @apply absolute right-0 mt-2.5 w-60 bg-white border border-slate-200 rounded-lg shadow-lg py-2 z-50;
+}
+
+.dark .ws-profile-dropdown {
+  @apply bg-zinc-900 border-zinc-800;
+}
+
+.ws-dropdown-header {
+  @apply px-4 py-3 border-b border-slate-100;
+}
+
+.dark .ws-dropdown-header {
+  @apply border-zinc-800;
+}
+
+.ws-dropdown-item-danger {
+  @apply w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 dark:hover:bg-red-950/20 flex items-center gap-2 font-semibold transition-colors cursor-pointer border-none outline-none;
 }
 
 /* Dark theme styles for header */

@@ -7,6 +7,7 @@ import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import ReactModal from 'react-modal';
 import { BrowserRouter } from 'react-router-dom';
+import { AuthProvider } from 'auth';
 import App from './App';
 
 import './index.css';
@@ -20,7 +21,9 @@ createRoot(appElement).render(
     <PrimeReactProvider value={{ ripple: true }}>
       <BrowserRouter>
         <QueryClientProvider client={config.queryClient}>
-          <App />
+          <AuthProvider>
+            <App />
+          </AuthProvider>
         </QueryClientProvider>
       </BrowserRouter>
     </PrimeReactProvider>

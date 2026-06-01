@@ -1,5 +1,6 @@
 import { Navigate, Route, Routes } from 'react-router-dom';
 import MainLayout from 'shared/components/layout/MainLayout';
+import { ProtectedRoute } from 'auth';
 import CareerAdvancement from './career-advancement';
 import Home from './home';
 import Master from './master';
@@ -9,21 +10,38 @@ export default function Features() {
   return (
     <Routes>
       <Route path="public/*" element={<div>Public Page Placeholder</div>} />
-      <Route path="home/*" element={<Home />} />
+      <Route
+        path="callback"
+        element={
+          <div className="flex items-center justify-center min-h-screen">
+            <p>Completing sign-in...</p>
+          </div>
+        }
+      />
       <Route
         path="/*"
         element={
-          <MainLayout>
+          <ProtectedRoute>
             <Routes>
-              <Route index element={<Navigate to={'/home'} />} />
-              <Route path="master/*" element={<Master />} />
-              <Route path="sis/*" element={<Sis />} />
+              <Route path="home/*" element={<Home />} />
               <Route
-                path="career-advancement/*"
-                element={<CareerAdvancement />}
+                path="/*"
+                element={
+                  <MainLayout>
+                    <Routes>
+                      <Route index element={<Navigate to={'/home'} />} />
+                      <Route path="master/*" element={<Master />} />
+                      <Route path="sis/*" element={<Sis />} />
+                      <Route
+                        path="career-advancement/*"
+                        element={<CareerAdvancement />}
+                      />
+                    </Routes>
+                  </MainLayout>
+                }
               />
             </Routes>
-          </MainLayout>
+          </ProtectedRoute>
         }
       />
     </Routes>

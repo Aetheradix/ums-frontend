@@ -19,5 +19,7 @@ declare namespace Menu {
     category?: string;
     navigationStyle?: 'sidebar' | 'tabs';
     children?: MenuItem[];
+    feature?: string;
+    action?: string;
   }
 }
