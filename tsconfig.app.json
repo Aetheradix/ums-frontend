@@ -24,6 +24,8 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true,
     "paths": {
+      "auth": ["./src/auth/index.ts"],
+      "auth/*": ["./src/auth/*"],
       "config/*": ["./src/config/*"],
       "features": ["./src/features/index.tsx"],
       "features/*": ["./src/features/*"],

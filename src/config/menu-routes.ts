@@ -1,3 +1,7 @@
+import { useMemo } from 'react';
+import { useAuth } from 'auth';
+import { hasPermission } from 'shared/utils/permissionCheck';
+
 export const menuConfig: Menu.MenuItem[] = [
   {
     label: 'Core Administrative Services',
@@ -32,6 +36,8 @@ export const menuConfig: Menu.MenuItem[] = [
             path: '/master/location/states',
             icon: 'globe',
             colorScheme: 'blue',
+            feature: '@master/State',
+            action: 'read',
           },
           {
             label: 'Division',
@@ -39,6 +45,8 @@ export const menuConfig: Menu.MenuItem[] = [
             path: '/master/location/divisions',
             icon: 'folder',
             colorScheme: 'blue',
+            feature: '@master/Division',
+            action: 'read',
           },
           {
             label: 'District',
@@ -46,6 +54,8 @@ export const menuConfig: Menu.MenuItem[] = [
             path: '/master/location/districts',
             icon: 'map',
             colorScheme: 'blue',
+            feature: '@master/District',
+            action: 'read',
           },
           {
             label: 'Tehsil',
@@ -124,6 +134,8 @@ export const menuConfig: Menu.MenuItem[] = [
             path: '/master/faculty-management/department',
             icon: 'domain',
             colorScheme: 'green',
+            feature: '@master/Department',
+            action: 'read',
           },
           {
             label: 'Designation',
@@ -409,7 +421,7 @@ export const menuConfig: Menu.MenuItem[] = [
                 description: 'Manage action option reasons master data.',
                 path: '/master/employee/settings/action-option-reason',
                 icon: 'assignment_turned_in',
-                 colorScheme: 'red',
+                colorScheme: 'red',
                 children: [],
               },
               {
@@ -701,3 +713,35 @@ export const menuConfig: Menu.MenuItem[] = [
   //   description: 'Manage scholarship and grant applications',
   // },
 ];
+
+export function useMenu() {
+  const { authenticated, permissions } = useAuth();
+
+  return useMemo(() => {
+    if (!authenticated) return [];
+
+    const filterMenu = (items: Menu.MenuItem[]): Menu.MenuItem[] => {
+      return items
+        .filter(item => {
+          if (item.feature && item.action) {
+            return hasPermission(permissions, item.feature, item.action);
+          }
+          return true;
+        })
+        .map(item => {
+          if (item.children) {
+            return { ...item, children: filterMenu(item.children) };
+          }
+          return item;
+        })
+        .filter(item => {
+          if (item.children) {
+            return item.children.length > 0 || !!item.path;
+          }
+          return true;
+        });
+    };
+
+    return filterMenu(menuConfig);
+  }, [authenticated, permissions]);
+}

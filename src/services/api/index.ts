@@ -1,3 +1,4 @@
+import { AuthService } from 'auth';
 import { handleError, handleNotOkResponse } from './handle-error';
 
 let apiRoot: string | undefined = undefined;
@@ -51,12 +52,15 @@ async function requestFormData<T>(
   }
 
   try {
+    const user = await AuthService.getUser();
+    const token = user?.access_token;
     const response = await fetch(`${apiRoot}${url}`, {
       method: method,
       body: formData,
       credentials: 'include',
       headers: {
         Origin: window.location.host,
+        ...(token ? { Authorization: `Bearer ${token}` } : {}),
       },
     });
 
@@ -87,6 +91,8 @@ async function request<T>(
   }
 
   try {
+    const user = await AuthService.getUser();
+    const token = user?.access_token;
     const response = await fetch(`${apiRoot}${url}`, {
       method: method,
       body: body ? JSON.stringify(body) : undefined,
@@ -94,6 +100,7 @@ async function request<T>(
       headers: {
         Origin: window.location.host,
         'Content-Type': 'application/json; charset=utf-8',
+        ...(token ? { Authorization: `Bearer ${token}` } : {}),
       },
     });
 
@@ -133,10 +140,13 @@ async function getFile(url: string, body?: unknown) {
   }
 
   try {
+    const user = await AuthService.getUser();
+    const token = user?.access_token;
     const method = body ? 'post' : 'get';
     const headers: HeadersInit = {
       Origin: window.location.host,
       ...(body ? { 'Content-Type': 'application/json; charset=utf-8' } : {}),
+      ...(token ? { Authorization: `Bearer ${token}` } : {}),
     };
 
     const response = await fetch(`${apiRoot}${url}`, {
