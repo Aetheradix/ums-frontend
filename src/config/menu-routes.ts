@@ -63,6 +63,8 @@ export const menuConfig: Menu.MenuItem[] = [
             path: '/master/location/tehsils',
             icon: 'location_city',
             colorScheme: 'blue',
+            feature: '@master/Tehsil',
+            action: 'read',
           },
           {
             label: 'Block',
@@ -70,6 +72,8 @@ export const menuConfig: Menu.MenuItem[] = [
             path: '/master/location/blocks',
             icon: 'grid_view',
             colorScheme: 'blue',
+            feature: '@master/Block',
+            action: 'read',
           },
         ],
       },
@@ -87,6 +91,8 @@ export const menuConfig: Menu.MenuItem[] = [
             path: '/master/subject/programme-mode-of-education',
             icon: 'apartment',
             colorScheme: 'purple',
+            feature: '@master/Subject/ModeOfEducation',
+            action: 'read',
           },
           {
             label: 'Subject Category',
@@ -94,6 +100,8 @@ export const menuConfig: Menu.MenuItem[] = [
             path: '/master/subject/subject-category',
             icon: 'apartment',
             colorScheme: 'purple',
+            feature: '@master/Subject/SubjectCategory',
+            action: 'read',
           },
           {
             label: 'Subject ',
@@ -101,6 +109,8 @@ export const menuConfig: Menu.MenuItem[] = [
             path: '/master/subject/subjects',
             icon: 'apartment',
             colorScheme: 'purple',
+            feature: '@master/Subject/Subjects',
+            action: 'read',
           },
           {
             label: 'Programme Specialization Structure',
@@ -108,6 +118,8 @@ export const menuConfig: Menu.MenuItem[] = [
             path: '/master/subject/programme-specialization-structure',
             icon: 'apartment',
             colorScheme: 'purple',
+            feature: '@master/Subject/ProgrammeSpecializationStructure',
+            action: 'read',
           },
         ],
       },
@@ -127,6 +139,8 @@ export const menuConfig: Menu.MenuItem[] = [
             path: '/master/faculty-management/office-type',
             icon: 'apartment',
             colorScheme: 'green',
+            feature: '@master/FacultyAdmin/OfficeType',
+            action: 'read',
           },
           {
             label: 'Department',
@@ -143,6 +157,8 @@ export const menuConfig: Menu.MenuItem[] = [
             path: '/master/faculty-management/designation',
             icon: 'badge',
             colorScheme: 'green',
+            feature: '@master/FacultyAdmin/Designation',
+            action: 'read',
           },
           {
             label: 'Faculty',
@@ -150,6 +166,8 @@ export const menuConfig: Menu.MenuItem[] = [
             path: '/master/faculty-management/faculty',
             icon: 'groups',
             colorScheme: 'green',
+            feature: '@master/FacultyAdmin/Faculty',
+            action: 'read',
           },
         ],
       },
@@ -168,6 +186,8 @@ export const menuConfig: Menu.MenuItem[] = [
             path: '/master/hr/caste',
             icon: 'apartment',
             colorScheme: 'red',
+            feature: '@master/HR/Caste',
+            action: 'read',
           },
           {
             label: 'Post',
@@ -175,6 +195,8 @@ export const menuConfig: Menu.MenuItem[] = [
             path: '/master/hr/post',
             icon: 'work',
             colorScheme: 'red',
+            feature: '@master/HR/Post',
+            action: 'read',
           },
           {
             label: 'Religion',
@@ -182,6 +204,8 @@ export const menuConfig: Menu.MenuItem[] = [
             path: '/master/hr/religion',
             icon: 'domain',
             colorScheme: 'red',
+            feature: '@master/HR/Religion',
+            action: 'read',
           },
           {
             label: 'Qualification',
@@ -189,6 +213,8 @@ export const menuConfig: Menu.MenuItem[] = [
             path: '/master/hr/qualification',
             icon: 'badge',
             colorScheme: 'red',
+            feature: '@master/HR/Qualification',
+            action: 'read',
           },
           {
             label: 'Class',
@@ -196,6 +222,8 @@ export const menuConfig: Menu.MenuItem[] = [
             path: '/master/hr/class',
             icon: 'class',
             colorScheme: 'red',
+            feature: '@master/HR/Class',
+            action: 'read',
           },
           {
             label: 'Section',
@@ -203,6 +231,8 @@ export const menuConfig: Menu.MenuItem[] = [
             path: '/master/hr/section',
             icon: 'segment',
             colorScheme: 'red',
+            feature: '@master/HR/Section',
+            action: 'read',
           },
           {
             label: 'Designation Type',
@@ -210,6 +240,8 @@ export const menuConfig: Menu.MenuItem[] = [
             path: '/master/hr/designation-type',
             icon: 'category',
             colorScheme: 'red',
+            feature: '@master/HR/DesignationType',
+            action: 'read',
           },
           {
             label: 'Designation',
@@ -217,6 +249,8 @@ export const menuConfig: Menu.MenuItem[] = [
             path: '/master/hr/designation',
             icon: 'badge',
             colorScheme: 'red',
+            feature: '@master/HR/Designation',
+            action: 'read',
           },
         ],
       },
@@ -234,6 +268,8 @@ export const menuConfig: Menu.MenuItem[] = [
             path: '/master/college/college-type',
             icon: 'school',
             colorScheme: 'indigo',
+            feature: '@master/College/CollegeType',
+            action: 'read',
           },
           {
             label: 'Category',
@@ -241,6 +277,8 @@ export const menuConfig: Menu.MenuItem[] = [
             path: '/master/college/college-category',
             icon: 'school',
             colorScheme: 'red',
+            feature: '@master/College/CollegeCategory',
+            action: 'read',
           },
         ],
       },
@@ -258,6 +296,8 @@ export const menuConfig: Menu.MenuItem[] = [
             path: '/master/other/degree-level',
             icon: 'school',
             colorScheme: 'indigo',
+            feature: '@master/Other/DegreeLevel',
+            action: 'read',
           },
           {
             label: 'Academic Year',
@@ -265,6 +305,8 @@ export const menuConfig: Menu.MenuItem[] = [
             path: '/master/other/academic-year',
             icon: 'school',
             colorScheme: 'indigo',
+            feature: '@master/Other/AcademicYear',
+            action: 'read',
           },
           {
             label: 'Programme',
@@ -272,6 +314,8 @@ export const menuConfig: Menu.MenuItem[] = [
             path: '/master/other/programme',
             icon: 'school',
             colorScheme: 'indigo',
+            feature: '@master/Other/Programme',
+            action: 'read',
           },
           {
             label: 'Specialisation',
@@ -279,6 +323,8 @@ export const menuConfig: Menu.MenuItem[] = [
             path: '/master/other/specialisation',
             icon: 'school',
             colorScheme: 'indigo',
+            feature: '@master/Other/Specialisation',
+            action: 'read',
           },
           {
             label: 'Nationality',
@@ -286,6 +332,8 @@ export const menuConfig: Menu.MenuItem[] = [
             path: '/master/other/nationality',
             icon: 'school',
             colorScheme: 'indigo',
+            feature: '@master/Other/Nationality',
+            action: 'read',
           },
         ],
       },
@@ -303,6 +351,8 @@ export const menuConfig: Menu.MenuItem[] = [
             path: '/master/grant/grant-type',
             icon: 'workspace_premium',
             colorScheme: 'purple',
+            feature: '@master/Grant/GrantType',
+            action: 'read',
           },
           {
             label: 'Grant Category',
@@ -310,6 +360,8 @@ export const menuConfig: Menu.MenuItem[] = [
             path: '/master/grant/grant-category',
             icon: 'category',
             colorScheme: 'purple',
+            feature: '@master/Grant/GrantCategory',
+            action: 'read',
           },
           {
             label: 'Eligibility Application Process',
@@ -317,6 +369,8 @@ export const menuConfig: Menu.MenuItem[] = [
             path: '/master/grant/eligibility-application-process',
             icon: 'assignment_turned_in',
             colorScheme: 'purple',
+            feature: '@master/Grant/EligibilityApplicationProcess',
+            action: 'read',
           },
         ],
       },
@@ -334,6 +388,8 @@ export const menuConfig: Menu.MenuItem[] = [
             path: '/master/scheme/scheme-type',
             icon: 'assignment',
             colorScheme: 'teal',
+            feature: '@master/Scheme/SchemeType',
+            action: 'read',
           },
           {
             label: 'Scheme Category',
@@ -341,6 +397,8 @@ export const menuConfig: Menu.MenuItem[] = [
             path: '/master/scheme/scheme-category',
             icon: 'category',
             colorScheme: 'teal',
+            feature: '@master/Scheme/SchemeCategory',
+            action: 'read',
           },
           {
             label: 'Schemes',
@@ -348,6 +406,8 @@ export const menuConfig: Menu.MenuItem[] = [
             path: '/master/scheme/schemes',
             icon: 'assignment',
             colorScheme: 'teal',
+            feature: '@master/Scheme/Schemes',
+            action: 'read',
           },
         ],
       },
@@ -387,6 +447,8 @@ export const menuConfig: Menu.MenuItem[] = [
                 icon: 'work',
                 colorScheme: 'red',
                 children: [],
+                feature: '@employee/Settings/NatureOfEmployment',
+                action: 'read',
               },
               {
                 label: 'Organization Unit',
@@ -396,6 +458,8 @@ export const menuConfig: Menu.MenuItem[] = [
                 icon: 'account_tree',
                 colorScheme: 'red',
                 children: [],
+                feature: '@employee/Settings/OrganizationUnit',
+                action: 'read',
               },
               {
                 label: 'Document Option',
@@ -405,6 +469,8 @@ export const menuConfig: Menu.MenuItem[] = [
                 icon: 'description',
                 colorScheme: 'red',
                 children: [],
+                feature: '@employee/Settings/DocumentOption',
+                action: 'read',
               },
               {
                 label: 'Action Options',
@@ -414,6 +480,8 @@ export const menuConfig: Menu.MenuItem[] = [
                 icon: 'settings_accessibility',
                 colorScheme: 'red',
                 children: [],
+                feature: '@employee/Settings/ActionOption',
+                action: 'read',
               },
               {
                 label: 'Action Option Reasons',
@@ -423,6 +491,8 @@ export const menuConfig: Menu.MenuItem[] = [
                 icon: 'assignment_turned_in',
                 colorScheme: 'red',
                 children: [],
+                feature: '@employee/Settings/ActionOptionReason',
+                action: 'read',
               },
               {
                 label: 'Travel Purpose',
@@ -432,6 +502,8 @@ export const menuConfig: Menu.MenuItem[] = [
                 icon: 'travel_explore',
                 colorScheme: 'red',
                 children: [],
+                feature: '@employee/Settings/TravelPurpose',
+                action: 'read',
               },
             ],
           },
@@ -452,6 +524,8 @@ export const menuConfig: Menu.MenuItem[] = [
             path: '/career-advancement/apar-application/all',
             icon: 'assignment',
             colorScheme: 'orange',
+            feature: '@employee/CareerAdvancement/AparApplication',
+            action: 'read',
           },
           {
             label: 'Sessions Management',
@@ -461,6 +535,8 @@ export const menuConfig: Menu.MenuItem[] = [
             path: '/career-advancement/sessions-management',
             icon: 'event',
             colorScheme: 'orange',
+            feature: '@employee/CareerAdvancement/SessionsManagement',
+            action: 'read',
           },
           {
             label: 'Employee Self Assessment',
@@ -470,6 +546,8 @@ export const menuConfig: Menu.MenuItem[] = [
             path: '/career-advancement/employee-self-assessment',
             icon: 'assignment',
             colorScheme: 'red',
+            feature: '@employee/CareerAdvancement/EmployeeSelfAssessment',
+            action: 'read',
           },
           {
             label: 'Performance Appraisal System',
@@ -479,6 +557,8 @@ export const menuConfig: Menu.MenuItem[] = [
             path: '/career-advancement/performance-appraisal-system',
             icon: 'assignment',
             colorScheme: 'red',
+            feature: '@employee/CareerAdvancement/PerformanceAppraisalSystem',
+            action: 'read',
           },
         ],
       },
@@ -563,6 +643,8 @@ export const menuConfig: Menu.MenuItem[] = [
         path: '/sis/student-additional-information',
         icon: 'person_add',
         colorScheme: 'red',
+        feature: '@sis/StudentAdditionalInformation',
+        action: 'read',
       },
       {
         label: 'Student Application Form',
@@ -571,6 +653,8 @@ export const menuConfig: Menu.MenuItem[] = [
         path: '/sis/student-application-form',
         icon: 'assignment',
         colorScheme: 'red',
+        feature: '@sis/StudentApplicationForm',
+        action: 'read',
       },
       {
         label: 'Fee Payment Approval (Temp)',
@@ -579,6 +663,8 @@ export const menuConfig: Menu.MenuItem[] = [
         path: '/sis/student-fee-approval',
         icon: 'check_circle',
         colorScheme: 'red',
+        feature: '@sis/StudentFeeApproval',
+        action: 'read',
       },
     ],
   },
@@ -736,7 +822,9 @@ export function useMenu() {
         })
         .filter(item => {
           if (item.children) {
-            return item.children.length > 0 || !!item.path;
+            // Parent menus/folders must have at least one visible child to be shown.
+            // If all of their children are filtered out, the parent menu is also hidden.
+            return item.children.length > 0;
           }
           return true;
         });
