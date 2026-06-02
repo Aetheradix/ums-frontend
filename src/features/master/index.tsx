@@ -33,9 +33,12 @@ import SchemeCategory from './schemes/scheme-category';
 import SchemeType from './schemes/scheme-type';
 import Subject from './subject';
 
+import UserManagement from './user-management';
+
 export default function Master() {
   return (
     <Routes>
+      <Route path="user-management/*" element={<UserManagement />} />
       <Route path="location/*" element={<Location />} />
       <Route path="subject/*" element={<Subject />} />
 

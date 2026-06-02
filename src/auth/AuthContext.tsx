@@ -36,9 +36,18 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   const loadPermissions = useCallback(async () => {
     try {
       const response = await ApiService.get<Record<string, string[]>>(
-        'userManagement/users/my-permissions'
+        'user-management/permissions/my-permissions'
       );
-      if (response && !response.error && response.data) {
+      // Guard: ensure data is a plain object whose values are arrays (not an error envelope)
+      if (
+        response &&
+        !response.error &&
+        response.data &&
+        typeof response.data === 'object' &&
+        !Array.isArray(response.data) &&
+        !('error' in response.data) &&
+        !('message' in response.data)
+      ) {
         setPermissions(response.data);
       } else {
         setPermissions({});
