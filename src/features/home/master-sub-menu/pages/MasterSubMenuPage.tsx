@@ -1,5 +1,5 @@
 import { Navigate, useParams } from 'react-router-dom';
-import { menuConfig } from '../../../../config/menu-routes';
+import { useMenu } from '../../../../config/menu-routes';
 import MasterSubMenuGrid from '../components/MasterSubMenuGrid';
 import MasterSubMenuHeader from '../components/MasterSubMenuHeader';
 import '../styles/masterSubMenu.css';
@@ -19,6 +19,7 @@ function findModuleBySlug(
 }
 
 const MasterSubMenuPage: React.FC = () => {
+  const menuConfig = useMenu();
   const { moduleId } = useParams<{ moduleId: string }>();
   const service = findModuleBySlug(menuConfig, moduleId || 'master-data');
 

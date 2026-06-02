@@ -14,6 +14,7 @@ import type { ApplicationFormData, CreateApplicationCommand } from '../types';
 // Import all required query hooks for dropdown mapping
 import { useAcademicYearsQuery } from 'features/master/other/academic-year/queries';
 import { useProgrammesQuery } from 'features/master/other/programme/queries';
+import { useCastesQuery } from 'features/master/hr/caste/queries';
 import { useDegreeLevelsQuery } from 'features/master/other/degree-level/queries';
 import { useSpecialisationsQuery } from 'features/master/other/specialisation/queries';
 import { useGenderQuery } from 'features/master/other/gender/queries';
@@ -24,6 +25,7 @@ import { useStatesQuery } from 'features/master/location/state/queries';
 import { useDivisionsQuery } from 'features/master/location/division/queries';
 import { useDistrictsQuery } from 'features/master/location/district/queries';
 import { useTehsilsQuery } from 'features/master/location/tehsil/queries';
+import { useBlocksQuery } from 'features/master/location/block/queries';
 import { useDesignationsQuery } from 'features/master/faculty/designation/queries';
 import { useOccupationTypeQuery } from 'features/master/other/occupation/queries';
 import { useProgrammeModeOfEducationsQuery } from 'features/master/subject/programme-mode-of-education/queries';
@@ -118,6 +120,7 @@ export default function ApplicationForm() {
   // Load all master lists for translation of selected IDs to text labels
   const { data: academicYears } = useAcademicYearsQuery();
   const { data: programmes } = useProgrammesQuery();
+  const { data: castes } = useCastesQuery();
   const { data: degreeLevels } = useDegreeLevelsQuery();
   const { data: specialisations } = useSpecialisationsQuery();
   const { data: genders } = useGenderQuery();
@@ -128,6 +131,7 @@ export default function ApplicationForm() {
   const { data: divisions } = useDivisionsQuery();
   const { data: districts } = useDistrictsQuery();
   const { data: tehsils } = useTehsilsQuery();
+  const { data: blocks } = useBlocksQuery();
   const { data: designations } = useDesignationsQuery();
   const { data: occupations } = useOccupationTypeQuery();
   const { data: programModes } = useProgrammeModeOfEducationsQuery();
@@ -136,137 +140,128 @@ export default function ApplicationForm() {
   const onFormSubmit = handleSubmit(
     async (data: ApplicationFormData) => {
       try {
-        // Translate all dropdown IDs to the expected display text representations
-        const resolvedSession = lookupText(
-          data.academicSession,
-          academicYears,
-          'id',
-          'session'
-        );
-        const resolvedProgramme = lookupText(
-          data.programme,
-          programmes,
-          'id',
-          'name'
-        );
-        const resolvedGender = lookupText(data.gender, genders, 'id', 'text');
-        const resolvedResidency = lookupText(
-          data.residencyStatus,
-          residencyStatuses,
-          'id',
-          'text'
-        );
-        const resolvedNationality = lookupText(
-          data.nationality,
-          nationalities,
-          'id',
-          'name'
-        );
-        const resolvedDegreeLevel = lookupText(
-          data.degreeLevel,
-          degreeLevels,
-          'id',
-          'name'
-        );
-        const resolvedSpecialisation = lookupText(
-          data.specialisation,
-          specialisations,
-          'id',
-          'name'
-        );
-        const resolvedAddressType = lookupText(
-          data.addressType,
-          addressTypes,
-          'id',
-          'text'
-        );
-        const resolvedState = lookupText(data.state, states, 'id', 'name');
-        const resolvedDivision = lookupText(
-          data.division,
-          divisions,
-          'id',
-          'name'
-        );
-        const resolvedDistrict = lookupText(
-          data.district,
-          districts,
-          'id',
-          'name'
-        );
-        const resolvedTehsil = lookupText(data.tehsil, tehsils, 'id', 'name');
-        const resolvedFatherOccupation = lookupText(
-          data.fatherOccupation,
-          occupations,
-          'id',
-          'text'
-        );
-        const resolvedFatherDesignation = lookupText(
-          data.fatherDesignation,
-          designations,
-          'id',
-          'name'
-        );
-        const resolvedMotherOccupation = lookupText(
-          data.motherOccupation,
-          occupations,
-          'id',
-          'text'
-        );
-        const resolvedMotherDesignation = lookupText(
-          data.motherDesignation,
-          designations,
-          'id',
-          'name'
-        );
-        const resolvedProgramOfStudy = lookupText(
-          data.programOfStudy,
-          programModes,
-          'id',
-          'name'
-        );
+        const programmeId = Number(data.programme);
+        const genderId = Number(data.gender);
+        const residencyId = Number(data.residencyStatus);
+        const nationalityId = Number(data.nationality);
+        const casteId = Number(data.caste);
+        const degreeLevelId = Number(data.degreeLevel);
+        const specialisationId = Number(data.specialisation);
+        const addressTypeId = Number(data.addressType);
+        const stateId = Number(data.state);
+        const divisionId = Number(data.division);
+        const districtId = Number(data.district);
+        const tehsilId = Number(data.tehsil);
+        const blockId = Number(data.block);
+        const fatherOccId = Number(data.fatherOccupation);
+        const fatherDesId = Number(data.fatherDesignation);
+        const motherOccId = Number(data.motherOccupation);
+        const motherDesId = Number(data.motherDesignation);
+        const programOfStudyId = Number(data.programOfStudy);
 
         const payload: CreateApplicationCommand = {
-          academicSession: resolvedSession,
-          programme: resolvedProgramme,
+          academicSession: lookupText(
+            data.academicSession,
+            academicYears,
+            'id',
+            'session'
+          ),
+          programmeId,
+          programmeName: lookupText(programmeId, programmes, 'id', 'name'),
           basicInfo: {
             firstName: data.firstName,
             middleName: data.middleName || '',
             lastName: data.lastName,
             email: data.email,
             phone: data.phone,
-            gender: resolvedGender,
-            caste: data.caste,
+            gender: lookupText(genderId, genders, 'id', 'text'),
+            casteId,
+            casteName: lookupText(casteId, castes, 'id', 'name'),
             dateOfBirth: data.dateOfBirth ? formatDate(data.dateOfBirth) : '',
             age: Number(data.age),
             fatherName: data.fatherName,
-            fatherOccupation: resolvedFatherOccupation,
-            fatherDesignation: resolvedFatherDesignation,
+            fatherOccupation: lookupText(
+              fatherOccId,
+              occupations,
+              'id',
+              'text'
+            ),
+            fatherDesignation: lookupText(
+              fatherDesId,
+              designations,
+              'id',
+              'name'
+            ),
             fatherAnnualIncome: Number(data.fatherAnnualIncome),
             fatherContactNumber: data.fatherContactNumber,
             motherName: data.motherName,
-            motherOccupation: resolvedMotherOccupation,
-            motherDesignation: resolvedMotherDesignation,
+            motherOccupation: lookupText(
+              motherOccId,
+              occupations,
+              'id',
+              'text'
+            ),
+            motherDesignation: lookupText(
+              motherDesId,
+              designations,
+              'id',
+              'name'
+            ),
             motherAnnualIncome: Number(data.motherAnnualIncome),
             motherContactNumber: data.motherContactNumber,
-            residencyStatus: resolvedResidency,
+            residencyStatus: lookupText(
+              residencyId,
+              residencyStatuses,
+              'id',
+              'text'
+            ),
             ethnicity: data.ethnicity,
-            nationality: resolvedNationality,
+            nationalityId,
+            nationalityName: lookupText(
+              nationalityId,
+              nationalities,
+              'id',
+              'name'
+            ),
           },
           academic: {
-            degreeLevel: resolvedDegreeLevel,
-            programOfStudy: resolvedProgramOfStudy,
-            specialisation: resolvedSpecialisation,
+            degreeLevelId,
+            degreeLevelName: lookupText(
+              degreeLevelId,
+              degreeLevels,
+              'id',
+              'name'
+            ),
+            programmeId: programOfStudyId,
+            programmeName: lookupText(
+              programOfStudyId,
+              programModes,
+              'id',
+              'name'
+            ),
+            specialisationId,
+            specialisationName: lookupText(
+              specialisationId,
+              specialisations,
+              'id',
+              'name'
+            ),
             previousInstitutionType: data.previousInstitutionType,
             previousInstitutionCgpa: Number(data.previousInstitutionCgpa),
           },
           address: {
-            addressType: resolvedAddressType,
+            addressType: lookupText(addressTypeId, addressTypes, 'id', 'text'),
             country: data.country,
-            state: resolvedState,
-            division: resolvedDivision,
-            district: resolvedDistrict,
-            tehsil: resolvedTehsil,
-            block: data.block,
+            stateId,
+            stateName: lookupText(stateId, states, 'id', 'name'),
+            divisionId,
+            divisionName: lookupText(divisionId, divisions, 'id', 'name'),
+            districtId,
+            districtName: lookupText(districtId, districts, 'id', 'name'),
+            tehsilId,
+            tehsilName: lookupText(tehsilId, tehsils, 'id', 'name'),
+            blockId,
+            blockName: lookupText(blockId, blocks, 'id', 'name'),
             addressLine1: data.addressLine1,
             addressLine2: data.addressLine2,
             landmark: data.landmark,

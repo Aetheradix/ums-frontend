@@ -1,11 +1,12 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { menuConfig } from '../../../../config/menu-routes';
+import { useMenu } from '../../../../config/menu-routes';
 import Tile from '../../../../shared/components/Tiles/Tile';
 import { homeUrls } from '../../urls';
 import '../styles/menu.css';
 
 const ServicesGrid: React.FC = () => {
+  const menuConfig = useMenu();
   const navigate = useNavigate();
 
   return (

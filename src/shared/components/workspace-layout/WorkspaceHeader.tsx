@@ -1,9 +1,29 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { WaffleMenu } from 'shared/new-components';
+import { useAuth } from 'auth';
 import './WorkspaceHeader.css';
 
 const Header: React.FC = () => {
   const [isDarkMode, setIsDarkMode] = useState(false);
+  const { user, logout } = useAuth();
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  // Close dropdown on click outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
+        setDropdownOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
 
   useEffect(() => {
     const savedTheme = localStorage.getItem('theme');
@@ -42,6 +62,17 @@ const Header: React.FC = () => {
       return newMode;
     });
   };
+
+  const username = user?.profile?.name || user?.profile?.sub || 'User';
+  const email = user?.profile?.email || 'No email provided';
+
+  const initials =
+    username
+      .split(' ')
+      .map((n: string) => n[0])
+      .join('')
+      .substring(0, 2)
+      .toUpperCase() || 'U';
 
   return (
     <header className="ws-header">
@@ -98,12 +129,41 @@ const Header: React.FC = () => {
           </div>
 
           {/* User Profile */}
-          <div className="ws-user-profile">
-            <div className="ws-avatar">AL</div>
+          <div className="relative" ref={dropdownRef}>
+            <div
+              className="ws-user-profile"
+              onClick={() => setDropdownOpen(!dropdownOpen)}
+            >
+              <div className="ws-avatar">{initials}</div>
 
-            <span className="ws-username">Alex Lin</span>
+              <span className="ws-username">{username}</span>
 
-            <i className="pi pi-chevron-down" />
+              <i
+                className={`pi pi-chevron-${dropdownOpen ? 'up' : 'down'} text-[10px] text-slate-500`}
+              />
+            </div>
+
+            {/* Dropdown Menu */}
+            {dropdownOpen && (
+              <div className="ws-profile-dropdown">
+                <div className="ws-dropdown-header">
+                  <p className="text-xs text-slate-400 dark:text-zinc-500 font-bold">
+                    Signed in as
+                  </p>
+                  <p className="text-sm font-semibold text-slate-800 dark:text-zinc-200 truncate">
+                    {username}
+                  </p>
+                  <p className="text-xs text-slate-500 dark:text-zinc-400 truncate mt-0.5">
+                    {email}
+                  </p>
+                </div>
+
+                <button onClick={logout} className="ws-dropdown-item-danger">
+                  <i className="pi pi-sign-out text-sm" />
+                  <span>Sign Out</span>
+                </button>
+              </div>
+            )}
           </div>
         </div>
       </div>
