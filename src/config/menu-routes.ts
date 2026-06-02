@@ -484,6 +484,16 @@ export const menuConfig: Menu.MenuItem[] = [
                 action: 'read',
               },
               {
+
+                label: 'Subject Specialization',
+                slug: 'subject-specialization',
+                description: 'Manage subject specialization master data.',
+                path: '/master/employee/settings/subject-specialization',
+                icon: 'menu_book',
+                colorScheme: 'red',
+                children: [],
+              },
+              {
                 label: 'Action Option Reasons',
                 slug: 'action-option-reasons',
                 description: 'Manage action option reasons master data.',

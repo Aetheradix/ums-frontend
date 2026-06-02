@@ -4,6 +4,7 @@ import ActionOptionReason from './action-option-reason';
 import DocumentOption from './document-option';
 import NatureOfEmployment from './nature-of-employment';
 import OrganizationUnit from './organization-unit';
+import SubjectSpecialization from './subject-specialization';
 import TravelPurpose from './travel-purpose';
 
 export default function Settings() {
@@ -13,7 +14,12 @@ export default function Settings() {
       <Route path="organization-unit" element={<OrganizationUnit />} />
       <Route path="document-option" element={<DocumentOption />} />
       <Route path="action-option" element={<ActionOption />} />
+      <Route
+        path="subject-specialization"
+        element={<SubjectSpecialization />}
+      />
       <Route path="action-option-reason" element={<ActionOptionReason />} />
+
       <Route path="travel-purpose" element={<TravelPurpose />} />
     </Routes>
   );
