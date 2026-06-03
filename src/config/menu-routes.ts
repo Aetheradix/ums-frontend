@@ -27,6 +27,8 @@ export const menuConfig: Menu.MenuItem[] = [
             path: '/master/user-management/users',
             icon: 'person',
             colorScheme: 'blue',
+            feature: '@user-management/users',
+            action: 'read',
           },
           {
             label: 'Role',
@@ -34,6 +36,8 @@ export const menuConfig: Menu.MenuItem[] = [
             path: '/master/user-management/roles',
             icon: 'badge',
             colorScheme: 'blue',
+            feature: '@user-management/roles',
+            action: 'read',
           },
           {
             label: 'Role Permissions',
@@ -41,6 +45,8 @@ export const menuConfig: Menu.MenuItem[] = [
             path: '/master/user-management/role-permissions',
             icon: 'vpn_key',
             colorScheme: 'blue',
+            feature: '@user-management/role-permissions',
+            action: 'read',
           },
           {
             label: 'User Assignment',
@@ -48,6 +54,8 @@ export const menuConfig: Menu.MenuItem[] = [
             path: '/master/user-management/user-assignments',
             icon: 'assignment_ind',
             colorScheme: 'blue',
+            feature: '@user-management/user-assignment',
+            action: 'read',
           },
         ],
       },

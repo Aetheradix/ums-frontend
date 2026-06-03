@@ -36,7 +36,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   const loadPermissions = useCallback(async () => {
     try {
       const response = await ApiService.get<Record<string, string[]>>(
-        'user-management/permissions/my-permissions'
+        'auth/my-permissions'
       );
       // Guard: ensure data is a plain object whose values are arrays (not an error envelope)
       if (
