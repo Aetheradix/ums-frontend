@@ -1,5 +1,6 @@
 import { NumberBox, TextBox } from 'shared/components/forms';
 import SelectAddressType from 'features/components/SelectAddressType';
+import SelectBlock from 'features/components/SelectBlock';
 import SelectDistrict from 'features/components/SelectDistrict';
 import SelectDivision from 'features/components/SelectDivision';
 import SelectState from 'features/components/SelectState';
@@ -27,13 +28,7 @@ export default function AddressInfoStep({ register }: AddressInfoStepProps) {
         <SelectDivision {...register('division')} required />
         <SelectDistrict {...register('district')} required />
         <SelectTehsil {...register('tehsil')} required />
-        <TextBox
-          label="Block"
-          placeholder="Enter Block"
-          {...register('block')}
-          maxLength={20}
-          required
-        />
+        <SelectBlock {...register('block')} required />
         <TextBox
           label="Address Line 1"
           placeholder="Enter Address Line 1"

@@ -1,5 +1,11 @@
 import { collegeCategoryUrls } from './college/college-category/urls';
 import { collegeTypeUrls } from './college/college-type/urls';
+import { actionOptionReasonUrls } from './employee/settings/action-option-reason/urls';
+import { actionOptionUrls } from './employee/settings/action-option/urls';
+import { employmentNatureUrls } from './employee/settings/nature-of-employment/urls';
+import { organizationUnitUrls } from './employee/settings/organization-unit/urls';
+import { subjectSpecializationUrls } from './employee/settings/subject-specialization/urls';
+import { travelPurposeUrls } from './employee/settings/travel-purpose/urls';
 import { departmentUrls } from './faculty/department/urls';
 import { designationUrls } from './faculty/designation/urls';
 import { facultyUrls } from './faculty/faculty/urls';
@@ -29,10 +35,6 @@ import { schemeCategoryUrls } from './schemes/scheme-category/urls';
 import { schemeTypeUrls } from './schemes/scheme-type/urls';
 import { schemeUrls } from './schemes/scheme/urls';
 import { ProgrammeModeOfEducationUrls } from './subject/programme-mode-of-education/urls';
-
-import { actionOptionUrls } from './employee/settings/action-option/urls';
-import { employmentNatureUrls } from './employee/settings/nature-of-employment/urls';
-import { travelPurposeUrls } from './employee/settings/travel-purpose/urls';
 import { subjectCategoryUrls } from './subject/subject-category/urls';
 
 const baseUrl = '/master';
@@ -72,6 +74,11 @@ export const masterUrls = {
     `${baseUrl}/grant`
   ),
   natureOfEmployment: employmentNatureUrls(`${baseUrl}/employee/settings`),
+  organizationUnit: organizationUnitUrls(`${baseUrl}/employee/settings`),
   actionOption: actionOptionUrls(`${baseUrl}/employee/settings`),
+  subjectSpecialization: subjectSpecializationUrls(
+    `${baseUrl}/employee/settings`
+  ),
+  actionOptionReason: actionOptionReasonUrls(`${baseUrl}/employee/settings`),
   travelPurpose: travelPurposeUrls(`${baseUrl}/employee/settings`),
 };

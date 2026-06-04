@@ -11,6 +11,23 @@ export default defineConfig(() => {
     server: {
       https: true,
       port: 5200,
+      proxy: {
+        '/api/career': {
+          target: 'https://localhost:5223',
+          changeOrigin: true,
+          secure: false,
+        },
+        '/api/student': {
+          target: 'https://localhost:5221',
+          changeOrigin: true,
+          secure: false,
+        },
+        '/api': {
+          target: 'https://localhost:7031',
+          changeOrigin: true,
+          secure: false,
+        },
+      },
     },
     plugins: [
       tailwindcss(),

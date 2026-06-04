@@ -1,6 +1,6 @@
 import React from 'react';
 import { Navigate, useParams } from 'react-router-dom';
-import { menuConfig } from '../../../../config/menu-routes';
+import { useMenu } from '../../../../config/menu-routes';
 import { homeUrls } from '../../urls';
 import SubMenuGrid from '../components/SubMenuGrid';
 import SubMenuHeader from '../components/SubMenuHeader';
@@ -21,6 +21,7 @@ function findModuleBySlug(
 }
 
 const SubMenuPage: React.FC = () => {
+  const menuConfig = useMenu();
   const { moduleId } = useParams<{ moduleId: string }>();
   const service = moduleId ? findModuleBySlug(menuConfig, moduleId) : undefined;
 

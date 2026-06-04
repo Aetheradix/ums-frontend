@@ -1,10 +1,14 @@
 export interface StudentApplicationPayload {
   academicSession: string;
-  programme: string;
+  programmeId: number;
+  programmeName: string;
   academic: {
-    degreeLevel: string;
-    programOfStudy: string;
-    specialisation: string;
+    degreeLevelId: number;
+    degreeLevelName: string;
+    programmeId: number;
+    programmeName: string;
+    specialisationId: number;
+    specialisationName: string;
     previousInstitutionType: string;
     previousInstitutionCgpa: number;
   };
@@ -15,9 +19,28 @@ export interface StudentApplicationPayload {
     email: string;
     phone: string;
     gender: string;
-    caste: string;
+    casteId: number;
+    casteName: string;
     dateOfBirth: string;
     age: number;
+  };
+  address: {
+    addressType: string;
+    country: string;
+    stateId: number;
+    stateName: string;
+    divisionId: number;
+    divisionName: string;
+    districtId: number;
+    districtName: string;
+    tehsilId: number;
+    tehsilName: string;
+    blockId: number;
+    blockName: string;
+    addressLine1: string;
+    addressLine2: string;
+    landmark: string;
+    zipcode: number;
   };
 }
 
@@ -25,7 +48,8 @@ export interface StudentApplication {
   studentApplicationId: number;
   academicSession: string;
   applicationDate: string;
-  programme: string;
+  programmeId: number;
+  programmeName: string;
   isFeePaid: boolean;
   isApproved: boolean;
   lastDateOfSubmission: string;

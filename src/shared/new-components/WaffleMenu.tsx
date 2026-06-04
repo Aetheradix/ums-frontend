@@ -1,4 +1,4 @@
-import { menuConfig } from 'config/menu-routes';
+import { useMenu } from 'config/menu-routes';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './WaffleMenu.css';
@@ -43,6 +43,7 @@ const mapColorScheme = (
 };
 
 export default function WaffleMenu({ isDarkMode = false }: WaffleMenuProps) {
+  const menuConfig = useMenu();
   const [isWaffleOpen, setIsWaffleOpen] = useState(false);
 
   const navigate = useNavigate();

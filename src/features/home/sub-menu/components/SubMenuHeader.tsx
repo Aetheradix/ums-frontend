@@ -1,7 +1,7 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import Breadcrumb from 'shared/new-components/Breadcrumb';
-import { menuConfig } from '../../../../config/menu-routes';
+import { useMenu } from '../../../../config/menu-routes';
 import { homeUrls } from '../../urls';
 import '../styles/subMenu.css';
 
@@ -31,6 +31,7 @@ const SubMenuHeader: React.FC<SubMenuHeaderProps> = ({
   serviceTitle,
   category,
 }) => {
+  const menuConfig = useMenu();
   const { moduleId } = useParams<{ moduleId: string }>();
   const path = moduleId ? getModulePath(menuConfig, moduleId) : undefined;
 

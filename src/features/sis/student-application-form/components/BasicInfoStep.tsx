@@ -1,4 +1,5 @@
 import { DatePicker, NumberBox, TextBox } from 'shared/components/forms';
+import SelectCaste from 'features/components/SelectCaste';
 import SelectGender from 'features/components/SelectGender';
 import SelectNationality from 'features/components/SelectNationality';
 import SelectResidencyStatus from 'features/components/SelectResidencyStatus';
@@ -48,13 +49,7 @@ export default function BasicInfoStep({ register }: BasicInfoStepProps) {
           required
         />
         <SelectGender {...register('gender')} required />
-        <TextBox
-          label="Caste"
-          placeholder="Enter Caste"
-          {...register('caste')}
-          maxLength={15}
-          required
-        />
+        <SelectCaste {...register('caste')} required />
         <DatePicker
           label="Date of Birth"
           placeholder="Select Date of Birth"

@@ -1,4 +1,4 @@
-import { menuConfig } from 'config/menu-routes';
+import { useMenu } from 'config/menu-routes';
 import React, { useMemo } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import WorkspaceLayout from 'shared/components/workspace-layout/WorkspaceLayout';
@@ -6,6 +6,7 @@ import { Sidebar, Tabs } from 'shared/new-components';
 import './MainLayout.css';
 
 export default function MainLayout({ children }: React.PropsWithChildren) {
+  const menuConfig = useMenu();
   const location = useLocation();
   const navigate = useNavigate();
 
