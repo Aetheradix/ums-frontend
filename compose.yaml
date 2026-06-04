@@ -1,0 +1,31 @@
+# services:
+#   ums-frontend:
+#     image: ums-frontend
+#     container_name: ums_frontend
+#     environment:
+
+#     build:
+#       context: .
+#       dockerfile: Dockerfile
+#     ports:
+#       - "4003:4000"
+#     logging:
+#       driver: "k8s-file"
+
+
+
+services:
+  ums_frontend:
+    image: ums-frontend:latest
+    container_name: ums_frontend
+    ports:
+      - "4003:4003"
+    build:
+      context: .          
+      dockerfile: Dockerfile
+      args:
+        - VITE_AUTH_BASE=https://74.225.222.228:4002/
+        - VITE_CLIENT_ID=spa-client
+        - VITE_POST_LOGOUT_URI=https://74.225.222.228:4002/
+        - VITE_AUTHORIZE_REDIRECT=https://74.225.222.228:4002/callback
+        - VITE_AUTHORIZE_SCOPE=openid profile offline_access
