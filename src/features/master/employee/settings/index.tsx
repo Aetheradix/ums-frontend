@@ -2,6 +2,7 @@ import { Route, Routes } from 'react-router-dom';
 import ActionOption from './action-option';
 import ActionOptionReason from './action-option-reason';
 import DocumentOption from './document-option';
+import EmployeeGroup from './employee-group';
 import NatureOfEmployment from './nature-of-employment';
 import OrganizationUnit from './organization-unit';
 import TravelPurpose from './travel-purpose';
@@ -15,6 +16,7 @@ export default function Settings() {
       <Route path="action-option" element={<ActionOption />} />
       <Route path="action-option-reason" element={<ActionOptionReason />} />
       <Route path="travel-purpose" element={<TravelPurpose />} />
+      <Route path="employee-group" element={<EmployeeGroup />} />
     </Routes>
   );
 }

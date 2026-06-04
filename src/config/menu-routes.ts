@@ -1,5 +1,5 @@
-import { useMemo } from 'react';
 import { useAuth } from 'auth';
+import { useMemo } from 'react';
 import { hasPermission } from 'shared/utils/permissionCheck';
 
 export const menuConfig: Menu.MenuItem[] = [
@@ -503,6 +503,17 @@ export const menuConfig: Menu.MenuItem[] = [
                 colorScheme: 'red',
                 children: [],
                 feature: '@employee/Settings/TravelPurpose',
+                action: 'read',
+              },
+              {
+                label: 'Employee Group',
+                slug: 'employee-group',
+                description: 'Manage employee group master data.',
+                path: '/master/employee/settings/employee-group',
+                icon: 'groups',
+                colorScheme: 'red',
+                children: [],
+                feature: '@employee/Settings/EmployeeGroup',
                 action: 'read',
               },
             ],
