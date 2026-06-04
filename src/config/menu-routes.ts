@@ -1,5 +1,5 @@
-import { useMemo } from 'react';
 import { useAuth } from 'auth';
+import { useMemo } from 'react';
 import { hasPermission } from 'shared/utils/permissionCheck';
 
 export const menuConfig: Menu.MenuItem[] = [
@@ -522,7 +522,6 @@ export const menuConfig: Menu.MenuItem[] = [
                 action: 'read',
               },
               {
-
                 label: 'Subject Specialization',
                 slug: 'subject-specialization',
                 description: 'Manage subject specialization master data.',
@@ -572,8 +571,8 @@ export const menuConfig: Menu.MenuItem[] = [
             path: '/career-advancement/apar-application/all',
             icon: 'assignment',
             colorScheme: 'orange',
-            feature: '@employee/CareerAdvancement/AparApplication',
-            action: 'read',
+            feature: '@CareerAdvancement/AparApplication',
+            action: 'Write',
           },
           {
             label: 'Sessions Management',
@@ -583,8 +582,8 @@ export const menuConfig: Menu.MenuItem[] = [
             path: '/career-advancement/sessions-management',
             icon: 'event',
             colorScheme: 'orange',
-            feature: '@employee/CareerAdvancement/SessionsManagement',
-            action: 'read',
+            feature: '@CareerAdvancement/SessionsManagement',
+            action: 'write',
           },
           {
             label: 'Employee Self Assessment',
@@ -594,8 +593,8 @@ export const menuConfig: Menu.MenuItem[] = [
             path: '/career-advancement/employee-self-assessment',
             icon: 'assignment',
             colorScheme: 'red',
-            feature: '@employee/CareerAdvancement/EmployeeSelfAssessment',
-            action: 'read',
+            feature: '@CareerAdvancement/EmployeeSelfAssessment',
+            action: 'write',
           },
           {
             label: 'Performance Appraisal System',
@@ -605,8 +604,8 @@ export const menuConfig: Menu.MenuItem[] = [
             path: '/career-advancement/performance-appraisal-system',
             icon: 'assignment',
             colorScheme: 'red',
-            feature: '@employee/CareerAdvancement/PerformanceAppraisalSystem',
-            action: 'read',
+            feature: '@CareerAdvancement/PerformanceAppraisalSystem',
+            action: 'write',
           },
         ],
       },
