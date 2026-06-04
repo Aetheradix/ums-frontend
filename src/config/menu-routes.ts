@@ -1,5 +1,5 @@
-import { useMemo } from 'react';
 import { useAuth } from 'auth';
+import { useMemo } from 'react';
 import { hasPermission } from 'shared/utils/permissionCheck';
 
 export const menuConfig: Menu.MenuItem[] = [
@@ -129,8 +129,8 @@ export const menuConfig: Menu.MenuItem[] = [
             path: '/master/subject/programme-mode-of-education',
             icon: 'apartment',
             colorScheme: 'purple',
-            feature: '@master/Subject/ModeOfEducation',
-            action: 'read',
+            feature: '@master/Subject/ProgrammeModeOfEducation',
+            action: 'write',
           },
           {
             label: 'Subject Category',
@@ -139,7 +139,7 @@ export const menuConfig: Menu.MenuItem[] = [
             icon: 'apartment',
             colorScheme: 'purple',
             feature: '@master/Subject/SubjectCategory',
-            action: 'read',
+            action: 'write',
           },
           {
             label: 'Subject ',
@@ -148,7 +148,7 @@ export const menuConfig: Menu.MenuItem[] = [
             icon: 'apartment',
             colorScheme: 'purple',
             feature: '@master/Subject/Subjects',
-            action: 'read',
+            action: 'write',
           },
           {
             label: 'Programme Specialization Structure',
@@ -157,7 +157,7 @@ export const menuConfig: Menu.MenuItem[] = [
             icon: 'apartment',
             colorScheme: 'purple',
             feature: '@master/Subject/ProgrammeSpecializationStructure',
-            action: 'read',
+            action: 'write',
           },
         ],
       },
@@ -177,8 +177,8 @@ export const menuConfig: Menu.MenuItem[] = [
             path: '/master/faculty-management/office-type',
             icon: 'apartment',
             colorScheme: 'green',
-            feature: '@master/FacultyAdmin/OfficeType',
-            action: 'read',
+            feature: '@master/Faculties/OfficeType',
+            action: 'write',
           },
           {
             label: 'Department',
@@ -186,8 +186,8 @@ export const menuConfig: Menu.MenuItem[] = [
             path: '/master/faculty-management/department',
             icon: 'domain',
             colorScheme: 'green',
-            feature: '@master/Department',
-            action: 'read',
+            feature: '@master/Faculties/Department',
+            action: 'write',
           },
           {
             label: 'Designation',
@@ -195,8 +195,8 @@ export const menuConfig: Menu.MenuItem[] = [
             path: '/master/faculty-management/designation',
             icon: 'badge',
             colorScheme: 'green',
-            feature: '@master/FacultyAdmin/Designation',
-            action: 'read',
+            feature: '@master/Faculties/Designation',
+            action: 'write',
           },
           {
             label: 'Faculty',
@@ -204,8 +204,8 @@ export const menuConfig: Menu.MenuItem[] = [
             path: '/master/faculty-management/faculty',
             icon: 'groups',
             colorScheme: 'green',
-            feature: '@master/FacultyAdmin/Faculty',
-            action: 'read',
+            feature: '@master/Faculties/Faculty',
+            action: 'write',
           },
         ],
       },
@@ -307,7 +307,7 @@ export const menuConfig: Menu.MenuItem[] = [
             icon: 'school',
             colorScheme: 'indigo',
             feature: '@master/College/CollegeType',
-            action: 'read',
+            action: 'write',
           },
           {
             label: 'Category',
@@ -316,7 +316,7 @@ export const menuConfig: Menu.MenuItem[] = [
             icon: 'school',
             colorScheme: 'red',
             feature: '@master/College/CollegeCategory',
-            action: 'read',
+            action: 'write',
           },
         ],
       },
@@ -390,7 +390,7 @@ export const menuConfig: Menu.MenuItem[] = [
             icon: 'workspace_premium',
             colorScheme: 'purple',
             feature: '@master/Grant/GrantType',
-            action: 'read',
+            action: 'write',
           },
           {
             label: 'Grant Category',
@@ -399,7 +399,7 @@ export const menuConfig: Menu.MenuItem[] = [
             icon: 'category',
             colorScheme: 'purple',
             feature: '@master/Grant/GrantCategory',
-            action: 'read',
+            action: 'write',
           },
           {
             label: 'Eligibility Application Process',
@@ -408,7 +408,7 @@ export const menuConfig: Menu.MenuItem[] = [
             icon: 'assignment_turned_in',
             colorScheme: 'purple',
             feature: '@master/Grant/EligibilityApplicationProcess',
-            action: 'read',
+            action: 'write',
           },
         ],
       },
@@ -427,7 +427,7 @@ export const menuConfig: Menu.MenuItem[] = [
             icon: 'assignment',
             colorScheme: 'teal',
             feature: '@master/Scheme/SchemeType',
-            action: 'read',
+            action: 'write',
           },
           {
             label: 'Scheme Category',
@@ -436,7 +436,7 @@ export const menuConfig: Menu.MenuItem[] = [
             icon: 'category',
             colorScheme: 'teal',
             feature: '@master/Scheme/SchemeCategory',
-            action: 'read',
+            action: 'write',
           },
           {
             label: 'Schemes',
@@ -445,7 +445,7 @@ export const menuConfig: Menu.MenuItem[] = [
             icon: 'assignment',
             colorScheme: 'teal',
             feature: '@master/Scheme/Schemes',
-            action: 'read',
+            action: 'write',
           },
         ],
       },
@@ -522,7 +522,6 @@ export const menuConfig: Menu.MenuItem[] = [
                 action: 'read',
               },
               {
-
                 label: 'Subject Specialization',
                 slug: 'subject-specialization',
                 description: 'Manage subject specialization master data.',
@@ -530,6 +529,8 @@ export const menuConfig: Menu.MenuItem[] = [
                 icon: 'menu_book',
                 colorScheme: 'red',
                 children: [],
+                feature: '@employee/Settings/SubjectSpecialization',
+                action: 'read',
               },
               {
                 label: 'Action Option Reasons',
@@ -572,8 +573,8 @@ export const menuConfig: Menu.MenuItem[] = [
             path: '/career-advancement/apar-application/all',
             icon: 'assignment',
             colorScheme: 'orange',
-            feature: '@employee/CareerAdvancement/AparApplication',
-            action: 'read',
+            feature: '@CareerAdvancement/AparApplication',
+            action: 'Write',
           },
           {
             label: 'Sessions Management',
@@ -583,8 +584,8 @@ export const menuConfig: Menu.MenuItem[] = [
             path: '/career-advancement/sessions-management',
             icon: 'event',
             colorScheme: 'orange',
-            feature: '@employee/CareerAdvancement/SessionsManagement',
-            action: 'read',
+            feature: '@CareerAdvancement/SessionsManagement',
+            action: 'write',
           },
           {
             label: 'Employee Self Assessment',
@@ -594,8 +595,8 @@ export const menuConfig: Menu.MenuItem[] = [
             path: '/career-advancement/employee-self-assessment',
             icon: 'assignment',
             colorScheme: 'red',
-            feature: '@employee/CareerAdvancement/EmployeeSelfAssessment',
-            action: 'read',
+            feature: '@CareerAdvancement/EmployeeSelfAssessment',
+            action: 'write',
           },
           {
             label: 'Performance Appraisal System',
@@ -605,8 +606,8 @@ export const menuConfig: Menu.MenuItem[] = [
             path: '/career-advancement/performance-appraisal-system',
             icon: 'assignment',
             colorScheme: 'red',
-            feature: '@employee/CareerAdvancement/PerformanceAppraisalSystem',
-            action: 'read',
+            feature: '@CareerAdvancement/PerformanceAppraisalSystem',
+            action: 'write',
           },
         ],
       },
