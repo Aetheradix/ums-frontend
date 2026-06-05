@@ -1,14 +1,10 @@
-FROM node:24-alpine
-
+FROM docker.io/library/nginx:alpine
+ARG CERT_FILE
+ARG CERT_KEY_FILE
 WORKDIR /app
-
-COPY package*.json ./
-
-RUN npm ci
-
-COPY . .
-
-EXPOSE 4003
-
-
-CMD ["npm", "run", "dev", "--", "--host", "0.0.0.0","--port", "4003"]
+COPY ./dist /usr/share/nginx/html
+COPY $CERT_FILE /usr/share/nginx/certs/ums.crt
+COPY $CERT_KEY_FILE /usr/share/nginx/certs/ums.key
+COPY ./nginx.conf /etc/nginx/conf.d/default.conf
+EXPOSE 443
+CMD ["nginx", "-g", "daemon off;"]

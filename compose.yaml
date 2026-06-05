@@ -1,0 +1,17 @@
+services:
+  ums-frontend:
+    image: ums-frontend
+    environment:
+      - NODE_ENV=$NODE_ENV
+      - VITE_API_HOST=$API_HOST_BASE
+      - VITE_AUTH_BASE=$AUTH_HOST_BASE
+      - VITE_CLIENT_ID=$CLIENT_ID
+      - VITE_POST_LOGOUT_URI=$CLIENT_HOST
+      - VITE_AUTHORIZE_REDIRECT="${$CLIENT_HOST}callback"
+      - VITE_AUTHORIZE_SCOPE=openid profile offline_access
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    container_name: ums_frontend
+    ports:
+      - '4003:443'
