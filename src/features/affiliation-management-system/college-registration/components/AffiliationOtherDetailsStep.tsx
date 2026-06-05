@@ -7,7 +7,7 @@ const anotherCollegeOptions = [
   { label: 'No', value: 'false' },
 ];
 
-interface CollegeAffiliationStepProps {
+interface AffiliationOtherDetailsStepProps {
   register: (
     key: Path<AffiliationManagementSystem.CollegeApplicationFormData>
   ) => {
@@ -16,9 +16,9 @@ interface CollegeAffiliationStepProps {
   };
 }
 
-export default function CollegeAffiliationStep({
+export default function AffiliationOtherDetailsStep({
   register,
-}: CollegeAffiliationStepProps) {
+}: AffiliationOtherDetailsStepProps) {
   return (
     <>
       <FormCard title="Other Details" icon="user">
@@ -85,7 +85,7 @@ export default function CollegeAffiliationStep({
             valueField="value"
             optionValue="value"
             defaultOptionText="Select Another College/Institute Run By this Society"
-            {...register('isAnotherCollegeInstituteRunBySociety')}
+            {...register('isOtherInstitutionRunning')}
             required
           />
         </FormGrid>

@@ -19,7 +19,7 @@ declare namespace AffiliationManagementSystem {
     deficiencyReason?: string;
   }
 
-  export interface CollegeAffiliationForm {
+  export interface AffiliationOtherDetailsForm {
     affiliationId?: number;
     registrationId?: number;
     principalDirectorName: string;
@@ -29,7 +29,7 @@ declare namespace AffiliationManagementSystem {
     secretaryName: string;
     societyRegistrationNo: string;
     societyRegistrationDate: Date;
-    isAnotherCollegeInstituteRunBySociety: boolean;
+    isOtherInstitutionRunning: boolean;
   }
 
   export interface CollegeCourseDetailForm {
@@ -40,9 +40,24 @@ declare namespace AffiliationManagementSystem {
     isFeePaid?: boolean;
     paymentDate?: string | null;
   }
+
+  export interface CollegeAffiliationDocumentForm {
+    documentId: string;
+    documentType: string;
+  }
+
+  export interface CollegeRegistrationListItem {
+    collegeRegistrationId: number;
+    collegeName: string;
+    collegeCategory: string;
+    collegeType: string;
+    collegeArea: string;
+    isActive: boolean;
+  }
+
   /** Combined form data for the multi-step application */
   export type CollegeApplicationFormData = CollegeRegistrationForm &
-    CollegeAffiliationForm & {
+    AffiliationOtherDetailsForm & {
       courses: CollegeCourseDetailForm[];
     } & {
       enclosures: Record<number, boolean>;

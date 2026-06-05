@@ -12,7 +12,6 @@ export const STEP_FIELDS: Record<
     'establishmentYearId',
     'collegeName',
     'collegeAddress',
-    'stateId',
     'districtId',
     'telephoneNo',
     'collegeEmail',
@@ -34,7 +33,7 @@ export const STEP_FIELDS: Record<
     'secretaryName',
     'societyRegistrationNo',
     'societyRegistrationDate',
-    'isAnotherCollegeInstituteRunBySociety',
+    'isOtherInstitutionRunning',
   ],
   2: ['courses'],
   3: ['enclosures', 'nocFile', 'affidavitFile', 'regularAuthorityFile'],
@@ -73,7 +72,7 @@ const schema =
           [keys.string.pattern]: errors.englishOnly,
         }),
       collegeAddress: o.string().required().max(500),
-      stateId: o.number().required(),
+      stateId: o.number().optional().allow(0, null),
       districtId: o.number().required(),
       telephoneNo: o.string().required().max(20),
       collegeEmail: o.string().required().max(255),
@@ -118,7 +117,7 @@ const schema =
       societyRegistrationNo: o.string().required().max(100),
       secretaryName: o.string().required().max(100),
       societyRegistrationDate: o.date().required(),
-      isAnotherCollegeInstituteRunBySociety: o.boolean().required(),
+      isOtherInstitutionRunning: o.boolean().required(),
 
       // Step 3 — Course Details
       courses: o

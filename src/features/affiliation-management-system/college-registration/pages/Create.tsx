@@ -1,14 +1,16 @@
 import { useCallback, useState } from 'react';
+import { useNavigate } from 'react-router';
 import { ToastService } from 'services';
 import { Button } from 'shared/components/buttons';
 import { FormPage, Stepper } from 'shared/new-components';
 import { useCreateCollegeRegistrationMutation } from '../queries';
+import { uploadCollegeDocuments } from '../api';
 import {
   useCollegeApplicationForm,
   STEP_FIELDS,
 } from '../components/form.hook';
 import CollegeRegistrationStep from '../components/CollegeRegistrationStep';
-import CollegeAffiliationStep from '../components/CollegeAffiliationStep';
+import AffiliationOtherDetailsStep from '../components/AffiliationOtherDetailsStep';
 import CollegeCourseDetailStep from '../components/CollegeCourseDetailStep';
 import CollegeEnclosureStep from '../components/CollegeEnclosureStep';
 
@@ -21,6 +23,8 @@ const STEPS = [
 
 export default function Create() {
   const [activeStep, setActiveStep] = useState(0);
+  const [isUploading, setIsUploading] = useState(false);
+  const navigate = useNavigate();
   const { mutateAsync, isPending } = useCreateCollegeRegistrationMutation();
 
   const { register, control, handleSubmit, reset, trigger } =
@@ -29,13 +33,22 @@ export default function Create() {
   const onFormSubmit = handleSubmit(
     async data => {
       try {
-        const result = await mutateAsync(data);
+        setIsUploading(true);
+        const documentIds = await uploadCollegeDocuments(
+          data.nocFile,
+          data.affidavitFile,
+          data.regularAuthorityFile
+        );
+        setIsUploading(false);
+
+        const result = await mutateAsync({ data, documentIds });
         if (result) {
           ToastService.success('College Registration submitted successfully.');
           reset();
-          setActiveStep(0);
+          navigate(-1);
         }
       } catch {
+        setIsUploading(false);
         ToastService.error('Failed to submit college registration');
       }
     },
@@ -86,7 +99,9 @@ export default function Create() {
           {activeStep === 0 && (
             <CollegeRegistrationStep register={register} control={control} />
           )}
-          {activeStep === 1 && <CollegeAffiliationStep register={register} />}
+          {activeStep === 1 && (
+            <AffiliationOtherDetailsStep register={register} />
+          )}
           {activeStep === 2 && <CollegeCourseDetailStep control={control} />}
           {activeStep === 3 && <CollegeEnclosureStep control={control} />}
         </div>
@@ -117,7 +132,7 @@ export default function Create() {
               label="Submit"
               type="submit"
               icon="check"
-              isLoading={isPending}
+              isLoading={isPending || isUploading}
             />
           )}
         </div>
