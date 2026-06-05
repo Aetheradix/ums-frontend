@@ -52,6 +52,12 @@ export default function Breadcrumb({ items }: BreadcrumbProps) {
         label = 'Grants';
       } else if (path.toLowerCase() === 'schemes') {
         label = 'Schemes';
+      } else if (path.toLowerCase() === 'employee-management') {
+        label = 'Employee Management System';
+      } else if (path.toLowerCase() === 'quick-onboarding') {
+        label = 'Quick Onboarding';
+      } else if (path.toLowerCase() === 'settings') {
+        label = 'Settings';
       }
 
       let toPath = currentPath;
@@ -77,6 +83,12 @@ export default function Breadcrumb({ items }: BreadcrumbProps) {
         toPath = '/home/sub-menu/grant';
       } else if (path.toLowerCase() === 'schemes') {
         toPath = '/home/sub-menu/schemes';
+      } else if (path.toLowerCase() === 'employee-management') {
+        toPath = '/home/sub-menu/employee-management';
+      } else if (path.toLowerCase() === 'settings') {
+        toPath = '/home/sub-menu/settings';
+      } else if (path.toLowerCase() === 'quick-onboarding') {
+        toPath = '/employee-management/quick-onboarding';
       }
 
       generatedItems.push({
