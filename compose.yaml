@@ -15,3 +15,5 @@ services:
     container_name: ums_frontend
     ports:
       - '4003:443'
+    logging:
+      driver: 'k8s-file'
