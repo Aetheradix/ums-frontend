@@ -1,5 +1,5 @@
-import { useMemo } from 'react';
 import { useAuth } from 'auth';
+import { useMemo } from 'react';
 import { hasPermission } from 'shared/utils/permissionCheck';
 
 export const menuConfig: Menu.MenuItem[] = [
@@ -318,6 +318,15 @@ export const menuConfig: Menu.MenuItem[] = [
             feature: '@master/College/CollegeCategory',
             action: 'read',
           },
+          {
+            label: 'Available Facility',
+            description: 'Manage available facility',
+            path: '/master/college/available-facility',
+            icon: 'school',
+            colorScheme: 'indigo',
+            feature: '@master/College/AvailableFacility',
+            action: 'read',
+          },
         ],
       },
       {
@@ -371,6 +380,15 @@ export const menuConfig: Menu.MenuItem[] = [
             icon: 'school',
             colorScheme: 'indigo',
             feature: '@master/Other/Nationality',
+            action: 'read',
+          },
+          {
+            label: 'Establishment Year',
+            description: 'Manage Establishment Year',
+            path: '/master/other/establishmentYear',
+            icon: 'school',
+            colorScheme: 'indigo',
+            feature: '@master/Other/EstablishmentYear',
             action: 'read',
           },
         ],
@@ -522,7 +540,6 @@ export const menuConfig: Menu.MenuItem[] = [
                 action: 'read',
               },
               {
-
                 label: 'Subject Specialization',
                 slug: 'subject-specialization',
                 description: 'Manage subject specialization master data.',
