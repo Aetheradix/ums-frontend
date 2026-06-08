@@ -55,6 +55,17 @@ declare namespace AffiliationManagementSystem {
     isActive: boolean;
   }
 
+  export interface CollegeRegistrationApprovalItem {
+    collegeRegistrationId: number;
+    collegeName: string;
+    collegeCategory: string;
+    collegeType: string;
+    collegeArea: string;
+    approvelStatus: number;
+    rejectionReason?: string;
+    isActive: boolean;
+  }
+
   /** Combined form data for the multi-step application */
   export type CollegeApplicationFormData = CollegeRegistrationForm &
     AffiliationOtherDetailsForm & {
