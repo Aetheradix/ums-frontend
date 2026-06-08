@@ -5,7 +5,6 @@ export default function CollegeRegistration() {
   return (
     <Routes>
       <Route index element={<Create />} />
-      <Route path="create" element={<Create />} />
     </Routes>
   );
 }

@@ -11,13 +11,11 @@ function buildApiPayload(
   form: AffiliationManagementSystem.CollegeApplicationFormData,
   documentIds: { documentId: string; documentType: string }[]
 ) {
-  // Extract the first checked facility id as AvailableFacilitiesId
   const facilityIds = Object.entries(form.availableFacilities ?? {})
     .filter(([, checked]) => checked)
     .map(([id]) => Number(id));
 
   return {
-    // College Registration fields
     establishmentYearId: form.establishmentYearId,
     collegeName: form.collegeName,
     collegeAddress: form.collegeAddress,
@@ -36,7 +34,6 @@ function buildApiPayload(
     deficiencyStatus: form.deficiencyStatus ?? null,
     deficiencyReason: form.deficiencyReason ?? null,
 
-    // Affiliation details (nested)
     affiliation: {
       principalDirectorName: form.principalDirectorName,
       principalMobileNo: form.principalMobileNo,
@@ -48,7 +45,6 @@ function buildApiPayload(
       isOtherInstitutionRunning: form.isOtherInstitutionRunning ?? false,
     },
 
-    // Course details
     courses: (form.courses ?? []).map(course => ({
       programmeFeesMappingId: course.programmeFeesMappingId,
       totalAmount: course.totalAmount ?? 0,
@@ -56,7 +52,6 @@ function buildApiPayload(
       paymentDate: course.paymentDate || null,
     })),
 
-    // Documents
     documents: documentIds,
   };
 }

@@ -791,6 +791,36 @@ export const menuConfig: Menu.MenuItem[] = [
       },
     ],
   },
+  {
+    label: 'Affiliation Management System',
+    slug: 'affiliation-management-system',
+    category: 'Affiliation Management System',
+    icon: 'groups',
+    colorScheme: 'red',
+    description: 'Classes • Grades • Advising • Resources',
+    children: [
+      {
+        label: 'College Registration',
+        slug: 'college-registration',
+        description: 'Manage college registration processes.',
+        path: '/affiliation-management-system/college-registration',
+        icon: 'edit_location',
+        colorScheme: 'red',
+        children: [
+          {
+            label: 'college Registration',
+            slug: 'college-registration',
+            description: 'Manage college registration processes.',
+            path: '/affiliation-management-system/college-registration',
+            icon: 'assignment',
+            colorScheme: 'orange',
+            // feature: '@affiliation/CollegeRegistration',
+            // action: 'read',
+          },
+        ],
+      },
+    ],
+  },
   // {
   //   label: 'Career\nGateway',
   //   slug: 'career-gateway',
