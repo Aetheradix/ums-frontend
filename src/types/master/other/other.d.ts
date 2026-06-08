@@ -178,5 +178,15 @@ declare namespace Master {
       id: string;
       text: string;
     }
+    interface EstablishmentYearForm {
+      name: string;
+      isActive: boolean;
+    }
+    // type EstablishmentYearItem = Data.WithId<EstablishmentYearForm>;
+    type EstablishmentYearItem = Data.WithId<
+      EstablishmentYearForm & {
+        isActive: boolean;
+      }
+    >;
   }
 }
