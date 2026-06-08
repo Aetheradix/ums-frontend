@@ -4,7 +4,6 @@ declare namespace AffiliationManagementSystem {
     establishmentYearId: number;
     collegeName: string;
     collegeAddress: string;
-    stateId: number;
     districtId: number;
     telephoneNo: string;
     collegeEmail: string;
@@ -36,6 +35,8 @@ declare namespace AffiliationManagementSystem {
     collegeCourseDetailId?: number;
     registrationId?: number;
     programmeFeesMappingId: number;
+    courseId?: number;
+    subjectId?: number;
     totalAmount?: number;
     isFeePaid?: boolean;
     paymentDate?: string | null;
@@ -55,7 +56,6 @@ declare namespace AffiliationManagementSystem {
     isActive: boolean;
   }
 
-  /** Combined form data for the multi-step application */
   export type CollegeApplicationFormData = CollegeRegistrationForm &
     AffiliationOtherDetailsForm & {
       courses: CollegeCourseDetailForm[];

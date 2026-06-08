@@ -17,9 +17,9 @@ function buildApiPayload(
 
   return {
     establishmentYearId: form.establishmentYearId,
+    collegeCode: form.collegeCode,
     collegeName: form.collegeName,
     collegeAddress: form.collegeAddress,
-    stateId: form.stateId ?? 0,
     districtId: form.districtId,
     telephoneNo: form.telephoneNo,
     collegeEmail: form.collegeEmail,

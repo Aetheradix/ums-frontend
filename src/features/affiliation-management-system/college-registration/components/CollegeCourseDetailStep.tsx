@@ -7,13 +7,19 @@ import { MultiSelectList } from 'shared/components/forms';
 import { ToastService } from 'services';
 import { useProgrammesQuery } from 'features/master/other/programme/queries';
 import { useSubjectsQuery } from 'features/master/subject/subjects/queries';
+import { useProgrammeFeesQuery } from 'features/master/affiliation/programme-fee/queries';
 
 interface CollegeCourseDetailStepProps {
   control: Control<AffiliationManagementSystem.CollegeApplicationFormData>;
 }
 
-// Helper to determine static/dynamic fees based on selected course name
-const getCourseFees = (courseId: number, courseName: string) => {
+// Helper to determine fees dynamically based on selected course from ProgrammeFee master
+const getCourseFees = (
+  courseId: number,
+  courseName: string,
+  programmeFees: Master.Affiliation.ProgrammeFeeItem[],
+  programmes: Master.Other.ProgrammeItem[]
+) => {
   if (!courseId) {
     return {
       affiliationFee: 0,
@@ -24,32 +30,24 @@ const getCourseFees = (courseId: number, courseName: string) => {
     };
   }
 
-  const name = courseName.toUpperCase();
-  if (name.includes('B.COM') || name.includes('BCOM')) {
-    return {
-      affiliationFee: 25000,
-      inspectionFee: 5000,
-      fdAmount: 50000,
-      courseType: 'TEMPORARY',
-      courseCode: 'BCOM',
-    };
-  } else if (name.includes('B.SC') || name.includes('BSC')) {
-    return {
-      affiliationFee: 30000,
-      inspectionFee: 7000,
-      fdAmount: 300000,
-      courseType: 'TEMPORARY',
-      courseCode: 'BSC',
-    };
-  } else {
-    return {
-      affiliationFee: 20000,
-      inspectionFee: 4000,
-      fdAmount: 40000,
-      courseType: 'TEMPORARY',
-      courseCode: name || 'OTHER',
-    };
-  }
+  const selectedProgramme = programmes?.find(p => p.id === courseId);
+  const fee = programmeFees?.find(f => f.programmeId === courseId);
+
+  console.log('Debugging Fee:', {
+    courseId,
+    courseName,
+    foundFee: fee,
+    allProgrammeFees: programmeFees,
+  });
+
+  return {
+    programmeFeeId: fee?.id || 0,
+    affiliationFee: fee?.affiliationFee || 0,
+    inspectionFee: fee?.inspectionFee || 0,
+    fdAmount: fee?.fixedDepositAmount || 0,
+    courseType: selectedProgramme?.degreeLevelName || 'TEMPORARY',
+    courseCode: courseName || 'OTHER',
+  };
 };
 
 export default function CollegeCourseDetailStep({
@@ -76,12 +74,18 @@ export default function CollegeCourseDetailStep({
   const tempCourseId = localWatch('tempCourseId');
   const tempSubjects = localWatch('tempSubjects');
 
-  // Load programs and subjects to display names in the summary table
+  // Load programs, subjects, and programme fees
   const { data: programmes } = useProgrammesQuery();
   const { data: subjects } = useSubjectsQuery();
+  const { data: programmeFeesData } = useProgrammeFeesQuery();
 
   const activeSubjects =
     (subjects as Master.SubjectMaster.SubjectItem[])?.filter(
+      item => item.isActive
+    ) || [];
+
+  const activeProgrammeFees =
+    (programmeFeesData as Master.Affiliation.ProgrammeFeeItem[])?.filter(
       item => item.isActive
     ) || [];
 
@@ -90,7 +94,9 @@ export default function CollegeCourseDetailStep({
   );
   const currentFees = getCourseFees(
     Number(tempCourseId),
-    selectedCourse?.name || ''
+    selectedCourse?.name || '',
+    activeProgrammeFees,
+    (programmes as Master.Other.ProgrammeItem[]) || []
   );
 
   const handleAddCourse = () => {
@@ -118,8 +124,11 @@ export default function CollegeCourseDetailStep({
 
     newSubjects.forEach((subj: Master.SubjectMaster.SubjectItem) => {
       const mappingId = cId * 10000 + Number(subj.id);
+
       append({
         programmeFeesMappingId: mappingId,
+        courseId: cId,
+        subjectId: Number(subj.id),
         totalAmount:
           currentFees.affiliationFee +
           currentFees.inspectionFee +
@@ -133,7 +142,6 @@ export default function CollegeCourseDetailStep({
       `Added ${newSubjects.length} subject(s) to the course.`
     );
 
-    // Reset dropdown values
     localReset({
       tempCourseId: '',
       tempSubjects: [],
@@ -141,13 +149,11 @@ export default function CollegeCourseDetailStep({
   };
 
   const handleRemoveGroup = (indices: number[]) => {
-    // Sort indices in descending order to avoid shifting issues when deleting
     const sorted = [...indices].sort((a, b) => b - a);
     sorted.forEach(idx => remove(idx));
     ToastService.success('Course selection removed successfully.');
   };
 
-  // Group fields by courseId for tabular rendering
   const grouped: Record<
     number,
     {
@@ -158,7 +164,11 @@ export default function CollegeCourseDetailStep({
   > = {};
 
   fields.forEach((field, index) => {
-    const courseId = Math.floor(field.programmeFeesMappingId / 10000);
+    const f = field as typeof field & { courseId?: number; subjectId?: number };
+    const courseId =
+      f.courseId !== undefined
+        ? f.courseId
+        : Math.floor(f.programmeFeesMappingId / 10000);
     if (!grouped[courseId]) {
       grouped[courseId] = {
         courseId,
@@ -198,10 +208,8 @@ export default function CollegeCourseDetailStep({
           </div>
         </FormGrid>
 
-        {/* Fees Information Panels */}
         {tempCourseId && (
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 p-4 mt-6 bg-slate-50/80 border border-slate-100 rounded-xl">
-            {/* Box 1: Affiliation Fee */}
             <div className="flex flex-col gap-2 p-4 bg-white border border-slate-100 rounded-lg shadow-sm">
               <span className="text-sm font-bold text-slate-700 border-b border-slate-100 pb-1.5">
                 Affiliation Fee
@@ -216,10 +224,9 @@ export default function CollegeCourseDetailStep({
               </span>
               <span className="text-xs text-slate-500 font-medium leading-relaxed">
                 Affiliation fee for additional subjects:{' '}
-                <strong className="text-slate-800">25000</strong> /- per subject
+                <strong className="text-slate-800">0</strong> /- per subject
               </span>
             </div>
-            {/* Box 2: Inspection Fee */}
             <div className="flex flex-col gap-2 p-4 bg-white border border-slate-100 rounded-lg shadow-sm">
               <span className="text-sm font-bold text-slate-700 border-b border-slate-100 pb-1.5">
                 Inspection fee
@@ -243,8 +250,11 @@ export default function CollegeCourseDetailStep({
                 FD Amount
               </span>
               <span className="text-xs text-slate-500 font-medium leading-relaxed">
-                An FD of <strong className="text-slate-800">0</strong> /- will
-                be payable for new courses.
+                An FD of{' '}
+                <strong className="text-slate-800">
+                  {currentFees.fdAmount}
+                </strong>{' '}
+                /- will be payable for new courses.
               </span>
             </div>
           </div>
@@ -260,7 +270,6 @@ export default function CollegeCourseDetailStep({
         </div>
       </FormCard>
 
-      {/* Grouped Courses Table */}
       {fields.length > 0 && (
         <FormCard title="Selected Courses List" icon="list">
           <div className="overflow-x-auto">
@@ -297,11 +306,20 @@ export default function CollegeCourseDetailStep({
                     (programmes as Master.Other.ProgrammeItem[])?.find(
                       p => p.id === row.courseId
                     )?.name ?? `Course #${row.courseId}`;
-                  const fees = getCourseFees(row.courseId, courseName);
+                  const fees = getCourseFees(
+                    row.courseId,
+                    courseName,
+                    activeProgrammeFees,
+                    (programmes as Master.Other.ProgrammeItem[]) || []
+                  );
 
                   const subjectNames = row.items
                     .map(item => {
-                      const sId = item.programmeFeesMappingId % 10000;
+                      const i = item as typeof item & { subjectId?: number };
+                      const sId =
+                        i.subjectId !== undefined
+                          ? i.subjectId
+                          : i.programmeFeesMappingId % 10000;
                       return (
                         (subjects as Master.SubjectMaster.SubjectItem[])?.find(
                           s => s.id === sId

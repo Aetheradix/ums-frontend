@@ -3,6 +3,12 @@ import SelectAcademicYearSession from './SelectAcademicYearSession';
 import SelectAssessmentSession from './SelectAssessmentSession';
 import SelectFaculty from './SelectFaculty';
 import SelectPerformanceRating from './SelectPerformanceRating';
+import SelectCollegeType from './SelectCollegeType';
+import SelectCollegeCategory from './SelectCollegeCategory';
+import SelectEstablishmentYear from './SelectEstablishmentYear';
+import SelectAccommodationType from './SelectAccommodationType';
+import SelectCollegeArea from './SelectCollegeArea';
+import SelectDeficiencyStatus from './SelectDeficiencyStatus';
 
 export {
   ActionButtons,
@@ -10,4 +16,10 @@ export {
   SelectAssessmentSession,
   SelectFaculty,
   SelectPerformanceRating,
+  SelectCollegeType,
+  SelectCollegeCategory,
+  SelectEstablishmentYear,
+  SelectAccommodationType,
+  SelectCollegeArea,
+  SelectDeficiencyStatus,
 };
