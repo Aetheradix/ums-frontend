@@ -1,43 +1,78 @@
-import { useCallback, useState } from 'react';
+import type { OverlayPanel } from 'primereact/overlaypanel';
+import { useCallback, useRef, useState } from 'react';
+import { ToastService } from 'services';
 import { Button } from 'shared/components/buttons';
 import { Loader } from 'shared/components/progress';
 import {
+  ActionOverlay,
   FormCard,
   FormPage,
-  FormPopup,
   GridPanel,
+  InlineCreatePanel,
 } from 'shared/new-components';
-import { ToastService } from 'services';
 import UserForm from '../components/UserForm';
 import {
   useCreateUserMutation,
+  useUpdateUserMutation,
   useUserQuery,
   useUsersQuery,
-  useUpdateUserMutation,
 } from '../queries';
+import './UserList.css';
 
-type PopupState =
-  | { mode: 'closed' }
-  | { mode: 'create' }
-  | { mode: 'edit'; id: string };
+type PopupState = { mode: 'closed' } | { mode: 'edit'; id: string };
 
 export default function List() {
   const { data, isLoading } = useUsersQuery();
-  const [popup, setPopup] = useState<PopupState>({ mode: 'closed' });
 
-  const closePopup = useCallback(() => setPopup({ mode: 'closed' }), []);
+  const editOverlayRef = useRef<OverlayPanel>(null);
+  const editButtonRef = useRef<HTMLButtonElement | null>(null);
+
+  const [popup, setPopup] = useState<PopupState>({ mode: 'closed' });
+  const [showCreatePanel, setShowCreatePanel] = useState(false);
+
+  const closeEditOverlay = useCallback(() => {
+    editOverlayRef.current?.hide();
+    setPopup({ mode: 'closed' });
+  }, []);
+
+  const handleEditClick = (
+    user: UserManagement.UserList,
+    event?: React.MouseEvent<HTMLButtonElement>
+  ) => {
+    if (!event) return;
+
+    const target = event.currentTarget;
+    editButtonRef.current = target;
+
+    setPopup({ mode: 'edit', id: user.id });
+
+    setTimeout(() => {
+      editOverlayRef.current?.toggle(event, target);
+    }, 0);
+  };
+
+  const handleRemove = (_user: UserManagement.UserList) => {
+    // TODO: connect delete/remove user API when available
+  };
 
   return (
     <FormPage
       title="User"
       description="Manage the list of all users in the system."
     >
+      <InlineCreatePanel
+        visible={showCreatePanel}
+        title="Create User"
+        onClose={() => setShowCreatePanel(false)}
+      >
+        <CreateUserContent onClose={() => setShowCreatePanel(false)} />
+      </InlineCreatePanel>
       <FormCard>
         {isLoading ? <Loader /> : undefined}
-
         <GridPanel
           data={data ?? []}
-          onEdit={user => setPopup({ mode: 'edit', id: user.id })}
+          onEdit={handleEditClick}
+          onRemove={handleRemove}
           columns={[
             {
               cell: (_, option) => <span>{option.rowIndex + 1}</span>,
@@ -55,8 +90,8 @@ export default function List() {
                 <span
                   className={
                     item.isActive
-                      ? 'text-green-600 font-medium'
-                      : 'text-red-600 font-medium'
+                      ? 'user-status-badge user-status-active'
+                      : 'user-status-badge user-status-inactive'
                   }
                 >
                   {item.isActive ? 'Active' : 'Inactive'}
@@ -69,34 +104,42 @@ export default function List() {
               label="Create"
               icon="plus"
               variant="primary"
-              onClick={() => setPopup({ mode: 'create' })}
+              onClick={() => setShowCreatePanel(true)}
             />
           }
           searchBox
         />
       </FormCard>
-
-      {/* Create Popup */}
-      <FormPopup
-        visible={popup.mode === 'create'}
-        onHide={closePopup}
-        title="Create User"
-        subtitle="Fill in the details to add a new user."
+      <ActionOverlay
+        ref={editOverlayRef}
+        className="user-edit-overlay-panel action-overlay-md"
+        dismissable
+        closeOnEscape
+        showCloseIcon={false}
       >
-        <CreateUserContent onClose={closePopup} />
-      </FormPopup>
+        <div className="action-overlay-shell">
+          <div className="action-overlay-header">
+            <div>
+              <h3 className="action-overlay-title">Edit User</h3>
+            </div>
 
-      {/* Edit Popup */}
-      <FormPopup
-        visible={popup.mode === 'edit'}
-        onHide={closePopup}
-        title="Edit User"
-        subtitle="Update the details of the user."
-      >
-        {popup.mode === 'edit' && (
-          <EditUserContent id={popup.id} onClose={closePopup} />
-        )}
-      </FormPopup>
+            <button
+              type="button"
+              className="action-overlay-close"
+              onClick={closeEditOverlay}
+              aria-label="Close edit user overlay"
+            >
+              <i className="pi pi-times" />
+            </button>
+          </div>
+
+          <div className="action-overlay-body">
+            {popup.mode === 'edit' && (
+              <EditUserContent id={popup.id} onClose={closeEditOverlay} />
+            )}
+          </div>
+        </div>
+      </ActionOverlay>
     </FormPage>
   );
 }
@@ -117,7 +160,9 @@ function CreateUserContent({ onClose }: { onClose: () => void }) {
     }
   }
 
-  return <UserForm onSubmit={handleSubmit} isSaving={isPending} />;
+  return (
+    <UserForm onSubmit={handleSubmit} isSaving={isPending} layout="inline" />
+  );
 }
 
 /* ── Inline Edit Content ── */
@@ -153,6 +198,7 @@ function EditUserContent({ id, onClose }: { id: string; onClose: () => void }) {
       isSaving={isPending}
       isEditMode
       onSubmit={handleSubmit}
+      layout="overlay"
     />
   );
 }

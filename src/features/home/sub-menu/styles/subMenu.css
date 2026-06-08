@@ -4,8 +4,11 @@
   @apply flex-1 py-8;
 }
 
+/* .submenu-page-container {
+  @apply max-w-[1400px] mx-auto px-6 w-full;
+} */
 .submenu-page-container {
-  @apply max-w-[1320px] mx-auto px-6 w-full;
+  @apply mx-auto px-6 w-full;
 }
 
 /* SubMenuHeader */

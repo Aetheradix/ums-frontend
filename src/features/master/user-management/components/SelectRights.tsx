@@ -3,7 +3,7 @@ import { DropDownList } from 'shared/components/forms';
 import { useRightsQuery } from '../role-permissions/queries';
 
 export default function SelectRights<T extends FieldValues>({
-  label = 'Action (Right)',
+  label = 'Access Right',
   disabled,
   ...props
 }: Controls.FormProps<T> & {
@@ -20,7 +20,7 @@ export default function SelectRights<T extends FieldValues>({
       textField={'name'}
       optionValue={'value'}
       label={label}
-      placeholder="Select Rights"
+      placeholder="Select Access Right"
       disabled={disabled}
       {...props}
     />
