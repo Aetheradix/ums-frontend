@@ -17,7 +17,7 @@ interface CollegeCourseDetailStepProps {
 const getCourseFees = (
   courseId: number,
   courseName: string,
-  programmeFees: Master.Affiliation.ProgrammeFeeItem[],
+  programmeFees: AffiliationManagementSystem.ProgrammeFeeItem[],
   programmes: Master.Other.ProgrammeItem[]
 ) => {
   if (!courseId) {
@@ -85,9 +85,9 @@ export default function CollegeCourseDetailStep({
     ) || [];
 
   const activeProgrammeFees =
-    (programmeFeesData as Master.Affiliation.ProgrammeFeeItem[])?.filter(
-      item => item.isActive
-    ) || [];
+    (
+      programmeFeesData as AffiliationManagementSystem.ProgrammeFeeItem[]
+    )?.filter(item => item.isActive) || [];
 
   const selectedCourse = (programmes as Master.Other.ProgrammeItem[])?.find(
     p => p.id === Number(tempCourseId)

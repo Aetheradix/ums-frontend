@@ -65,4 +65,14 @@ declare namespace AffiliationManagementSystem {
       affidavitFile: File | null;
       regularAuthorityFile: File | null;
     };
+
+  export interface ProgrammeFeeItem {
+    id: number;
+    programmeId: number;
+    fixedDepositAmount: number;
+    affiliationFee: number;
+    inspectionFee: number;
+    otherFee: number | null;
+    isActive: boolean;
+  }
 }
