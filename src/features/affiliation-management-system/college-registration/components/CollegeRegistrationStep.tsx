@@ -1,7 +1,7 @@
-import { useWatch } from 'react-hook-form';
-import type { Control, Path } from 'react-hook-form';
 import SelectAcademicYearSession from 'features/components/SelectAcademicYearSession';
 import SelectDistrict from 'features/components/SelectDistrict';
+import type { Control, Path } from 'react-hook-form';
+import { useWatch } from 'react-hook-form';
 import {
   CheckboxList,
   DropDownList,
@@ -130,8 +130,8 @@ export default function CollegeRegistrationStep({
           required
         />
         <TextBox
-          label="College Email Id"
-          placeholder="College Email Id"
+          label="College Email"
+          placeholder="College Email"
           {...register('collegeEmail')}
           maxLength={255}
           required

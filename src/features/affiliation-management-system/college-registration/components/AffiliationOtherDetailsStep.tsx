@@ -40,8 +40,8 @@ export default function AffiliationOtherDetailsStep({
             required
           />
           <TextBox
-            label="Email Id"
-            placeholder="Enter Email Id"
+            label="Email"
+            placeholder="Enter Email"
             {...register('principalEmail')}
             maxLength={70}
             required

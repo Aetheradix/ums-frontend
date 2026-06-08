@@ -8,9 +8,11 @@ import {
 export function useAppForm<TForm extends FieldValues>({
   resolver,
   defaultValues,
+  mode = 'onSubmit',
 }: {
   resolver?: Resolver<TForm, unknown, TForm>;
   defaultValues?: Forms.FetchDataFunc<TForm>;
+  mode?: 'onBlur' | 'onChange' | 'onSubmit' | 'onTouched' | 'all';
 }) {
   const {
     control,
@@ -18,7 +20,7 @@ export function useAppForm<TForm extends FieldValues>({
     register: _, // eslint-disable-line @typescript-eslint/no-unused-vars
     ...rest
   } = useForm<TForm>({
-    mode: 'onSubmit',
+    mode,
     resolver,
     defaultValues,
     shouldFocusError: false,

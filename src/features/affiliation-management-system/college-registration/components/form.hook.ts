@@ -1,7 +1,7 @@
 import { errors } from 'config/errors';
 import Joi from 'joi';
-import { useAppForm } from 'shared/hooks/form';
 import validation, { expressions, keys } from 'shared/utils/validation';
+import { useAppForm } from 'shared/hooks/form';
 
 export const STEP_FIELDS: Record<
   number,
@@ -147,6 +147,7 @@ export function useCollegeApplicationForm() {
   const { register, control, handleSubmit, reset, trigger } =
     useAppForm<AffiliationManagementSystem.CollegeApplicationFormData>({
       resolver: validation.resolver(schema),
+      mode: 'onChange',
     });
 
   return {
