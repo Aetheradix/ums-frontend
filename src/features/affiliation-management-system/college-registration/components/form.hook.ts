@@ -148,6 +148,9 @@ export function useCollegeApplicationForm() {
     useAppForm<AffiliationManagementSystem.CollegeApplicationFormData>({
       resolver: validation.resolver(schema),
       mode: 'onChange',
+      defaultValues: {
+        numberOfClassRooms: null as unknown as number,
+      },
     });
 
   return {

@@ -3,16 +3,16 @@ import { useNavigate } from 'react-router';
 import { ToastService } from 'services';
 import { Button } from 'shared/components/buttons';
 import { FormPage, Stepper } from 'shared/new-components';
-import { useCreateCollegeRegistrationMutation } from '../queries';
 import { uploadCollegeDocuments } from '../api';
-import {
-  useCollegeApplicationForm,
-  STEP_FIELDS,
-} from '../components/form.hook';
-import CollegeRegistrationStep from '../components/CollegeRegistrationStep';
 import AffiliationOtherDetailsStep from '../components/AffiliationOtherDetailsStep';
 import CollegeCourseDetailStep from '../components/CollegeCourseDetailStep';
 import CollegeEnclosureStep from '../components/CollegeEnclosureStep';
+import CollegeRegistrationStep from '../components/CollegeRegistrationStep';
+import {
+  STEP_FIELDS,
+  useCollegeApplicationForm,
+} from '../components/form.hook';
+import { useCreateCollegeRegistrationMutation } from '../queries';
 
 const STEPS = [
   { label: 'College Details' },
