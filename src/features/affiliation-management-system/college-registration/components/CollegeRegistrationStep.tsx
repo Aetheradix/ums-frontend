@@ -5,6 +5,7 @@ import {
   SelectCollegeType,
   SelectDeficiencyStatus,
   SelectEstablishmentYear,
+  SelectYesNo,
 } from 'features/components';
 import SelectDistrict from 'features/components/SelectDistrict';
 import { useAvailableFacilitiesQuery } from 'features/master/college/college-facility/queries';
@@ -12,17 +13,11 @@ import type { Control, Path } from 'react-hook-form';
 import { useWatch } from 'react-hook-form';
 import {
   CheckboxList,
-  DropDownList,
   NumberBox,
   TextArea,
   TextBox,
 } from 'shared/components/forms';
 import { FormCard, FormGrid } from 'shared/new-components';
-
-const deficiencyOptions = [
-  { label: 'Yes', value: 'Yes' },
-  { label: 'No', value: 'No' },
-];
 
 interface CollegeRegistrationStepProps {
   register: (
@@ -156,12 +151,8 @@ export default function CollegeRegistrationStep({
           {...register('numberOfClassRooms')}
           required
         />
-        <DropDownList
+        <SelectYesNo
           label="If any deficiency earlier raised by the committee"
-          data={deficiencyOptions}
-          textField="label"
-          valueField="value"
-          optionValue="value"
           defaultOptionText="Select Deficiency earlier raised by the committee"
           {...register('deficiencyEarlierRaisedByCommittee')}
           required
