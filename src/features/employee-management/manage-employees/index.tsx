@@ -1,6 +1,6 @@
 import { Route, Routes } from 'react-router-dom';
+import ViewProfile from './components/ViewProfile';
 import List from './pages/List';
-import ViewProfile from './pages/ViewProfile';
 
 export default function ManageEmployees() {
   return (
