@@ -86,14 +86,12 @@ export default function Create() {
       title="Application for Affiliation"
       description="Fill in all the required details to submit the affiliation application."
     >
-      {/* Stepper */}
       <Stepper
         steps={STEPS}
         activeStep={activeStep}
         onStepClick={handleStepClick}
       />
 
-      {/* Step Content */}
       <form onSubmit={onFormSubmit}>
         <div className="flex flex-col gap-6 mb-6">
           {activeStep === 0 && (
@@ -106,7 +104,6 @@ export default function Create() {
           {activeStep === 3 && <CollegeEnclosureStep control={control} />}
         </div>
 
-        {/* Navigation Buttons */}
         <div className="form-actions-container form-actions-right">
           {activeStep > 0 && (
             <Button
