@@ -480,6 +480,16 @@ export const menuConfig: Menu.MenuItem[] = [
             action: 'write',
           },
           {
+            label: 'Manage Employee',
+            slug: 'manage-employees',
+            description: 'Manage and view employees list.',
+            path: '/employee-management/manage-employees',
+            icon: 'manage_accounts',
+            colorScheme: 'blue',
+            feature: '@employee-management/manage-employees',
+            action: 'read',
+          },
+          {
             label: 'Settings',
             slug: 'settings',
             description:

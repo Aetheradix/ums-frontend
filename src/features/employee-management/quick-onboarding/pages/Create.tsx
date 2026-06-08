@@ -10,7 +10,7 @@ export default function Create() {
   const { mutateAsync, isPending } = useCreateEmployeeRegistrationMutation();
 
   const handleBack = useCallback(() => {
-    navigate('/home');
+    navigate('/employee-management/manage-employees');
   }, [navigate]);
 
   async function handleSubmit(data: EmployeeManagement.QuickOnboardingForm) {
