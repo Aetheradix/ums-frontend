@@ -1,13 +1,13 @@
-import type { Control } from 'react-hook-form';
-import { useFieldArray, useForm } from 'react-hook-form';
-import { Button } from 'shared/components/buttons';
-import { FormCard, FormGrid } from 'shared/new-components';
 import SelectProgramme from 'features/components/SelectProgramme';
-import { MultiSelectList } from 'shared/components/forms';
-import { ToastService } from 'services';
+import { useProgrammeFeesQuery } from 'features/master/affiliation/programme-fee/queries';
 import { useProgrammesQuery } from 'features/master/other/programme/queries';
 import { useSubjectsQuery } from 'features/master/subject/subjects/queries';
-import { useProgrammeFeesQuery } from 'features/master/affiliation/programme-fee/queries';
+import type { Control } from 'react-hook-form';
+import { useFieldArray, useForm } from 'react-hook-form';
+import { ToastService } from 'services';
+import { Button } from 'shared/components/buttons';
+import { MultiSelectList } from 'shared/components/forms';
+import { FormCard, FormGrid } from 'shared/new-components';
 
 interface CollegeCourseDetailStepProps {
   control: Control<AffiliationManagementSystem.CollegeApplicationFormData>;
@@ -178,9 +178,6 @@ export default function CollegeCourseDetailStep({
               textField="subjectName"
               required
             />
-            <span className="text-xs text-red-500 block mt-1.5 font-medium">
-              (In case of no subject, select PLAIN.)
-            </span>
           </div>
         </FormGrid>
 
@@ -198,10 +195,6 @@ export default function CollegeCourseDetailStep({
                 </strong>{' '}
                 /-
               </span>
-              <span className="text-xs text-slate-500 font-medium leading-relaxed">
-                Affiliation fee for additional subjects:{' '}
-                <strong className="text-slate-800">0</strong> /- per subject
-              </span>
             </div>
             <div className="flex flex-col gap-2 p-4 bg-white border border-slate-100 rounded-lg shadow-sm">
               <span className="text-sm font-bold text-slate-700 border-b border-slate-100 pb-1.5">
@@ -214,10 +207,6 @@ export default function CollegeCourseDetailStep({
                   {currentFees.inspectionFee}
                 </strong>{' '}
                 /-
-              </span>
-              <span className="text-xs text-slate-500 font-medium leading-relaxed">
-                Inspection fee for additional subjects:{' '}
-                <strong className="text-slate-800">0</strong> /- per subject
               </span>
             </div>
             {/* Box 3: FD Amount */}
@@ -263,7 +252,7 @@ export default function CollegeCourseDetailStep({
                     Course
                   </th>
                   <th className="border-b border-gray-200 px-4 py-3 text-left text-sky-800 font-bold">
-                    Branch
+                    Subjects
                   </th>
                   <th className="border-b border-gray-200 px-4 py-3 text-left text-sky-800 font-bold">
                     FD Amount
