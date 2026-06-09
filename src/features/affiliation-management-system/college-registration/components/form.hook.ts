@@ -1,7 +1,7 @@
 import { errors } from 'config/errors';
 import Joi from 'joi';
-import { useAppForm } from 'shared/hooks/form';
 import validation, { expressions, keys } from 'shared/utils/validation';
+import { useAppForm } from 'shared/hooks/form';
 
 export const STEP_FIELDS: Record<
   number,
@@ -36,7 +36,7 @@ export const STEP_FIELDS: Record<
     'isOtherInstitutionRunning',
   ],
   2: ['courses'],
-  3: ['enclosures', 'nocFile', 'affidavitFile', 'regularAuthorityFile'],
+  3: ['nocFile', 'affidavitFile', 'regularAuthorityFile'],
 };
 
 const pdfFileValidator = (o: Joi.Root) =>
@@ -72,7 +72,6 @@ const schema =
           [keys.string.pattern]: errors.englishOnly,
         }),
       collegeAddress: o.string().required().max(500),
-      stateId: o.number().optional().allow(0, null),
       districtId: o.number().required(),
       telephoneNo: o.string().required().max(20),
       collegeEmail: o.string().required().max(255),
@@ -127,6 +126,8 @@ const schema =
             collegeCourseDetailId: o.number().optional(),
             registrationId: o.number().optional(),
             programmeFeesMappingId: o.number().required(),
+            courseId: o.number().optional(),
+            subjectId: o.number().optional(),
             totalAmount: o.number().optional(),
             isFeePaid: o.boolean().optional(),
             paymentDate: o.string().allow('', null).optional(),
@@ -136,7 +137,6 @@ const schema =
         .required(),
 
       // Step 4 — Enclosures
-      enclosures: o.object().required(),
       nocFile: pdfFileValidator(o).required(),
       affidavitFile: pdfFileValidator(o).required(),
       regularAuthorityFile: pdfFileValidator(o).optional().allow(null),
@@ -147,6 +147,10 @@ export function useCollegeApplicationForm() {
   const { register, control, handleSubmit, reset, trigger } =
     useAppForm<AffiliationManagementSystem.CollegeApplicationFormData>({
       resolver: validation.resolver(schema),
+      mode: 'onChange',
+      defaultValues: {
+        numberOfClassRooms: null as unknown as number,
+      },
     });
 
   return {

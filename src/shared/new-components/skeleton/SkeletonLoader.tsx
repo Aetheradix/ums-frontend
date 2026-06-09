@@ -35,7 +35,7 @@ export default function SkeletonLoader({ type = 'grid' }: SkeletonLoaderProps) {
         {[1, 2, 3, 4, 5, 6].map(i => (
           <div
             key={i}
-            className={`${bgColor} ${borderColor} rounded-xl p-6 h-[160px] border flex flex-col justify-between transition-colors`}
+            className={`${bgColor} ${borderColor} rounded-xl p-6 h-40 border flex flex-col justify-between transition-colors`}
           >
             <div className="flex justify-between items-start">
               <div className={`rounded-xl w-12 h-12 ${boneColor}`}></div>
@@ -53,7 +53,7 @@ export default function SkeletonLoader({ type = 'grid' }: SkeletonLoaderProps) {
 
   if (type === 'form') {
     return (
-      <div className="space-y-6 animate-pulse w-full max-w-[1320px] mx-auto">
+      <div className="space-y-6 animate-pulse w-full mx-auto">
         <div
           className={`${bgColor} ${borderColor} rounded-xl p-6 h-[400px] border space-y-6 flex flex-col justify-between`}
         >
@@ -79,7 +79,7 @@ export default function SkeletonLoader({ type = 'grid' }: SkeletonLoaderProps) {
 
   // Grid / Table Skeleton fallback
   return (
-    <div className="animate-pulse w-full max-w-[1320px] mx-auto">
+    <div className="animate-pulse w-full mx-auto">
       <div className={`${bgColor} ${borderColor} rounded-xl p-6 border`}>
         <div className="flex justify-between items-center mb-6">
           <div className={`h-8 w-48 rounded-lg ${boneColor}`}></div>

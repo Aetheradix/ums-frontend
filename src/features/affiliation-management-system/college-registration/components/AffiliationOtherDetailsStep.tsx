@@ -1,11 +1,8 @@
 import type { Control, Path } from 'react-hook-form';
-import { DatePicker, DropDownList, TextBox } from 'shared/components/forms';
+import { DatePicker, TextBox } from 'shared/components/forms';
 import { FormCard, FormGrid } from 'shared/new-components';
 
-const anotherCollegeOptions = [
-  { label: 'Yes', value: 'true' },
-  { label: 'No', value: 'false' },
-];
+import { SelectYesNo } from 'features/components';
 
 interface AffiliationOtherDetailsStepProps {
   register: (
@@ -40,8 +37,8 @@ export default function AffiliationOtherDetailsStep({
             required
           />
           <TextBox
-            label="Email Id"
-            placeholder="Enter Email Id"
+            label="Email"
+            placeholder="Enter Email"
             {...register('principalEmail')}
             maxLength={70}
             required
@@ -78,12 +75,9 @@ export default function AffiliationOtherDetailsStep({
             {...register('societyRegistrationDate')}
             required
           />
-          <DropDownList
+          <SelectYesNo
             label="Is there any other college running by this committee which is affiliated with this University?"
-            data={anotherCollegeOptions}
-            textField="label"
-            valueField="value"
-            optionValue="value"
+            useBooleanValues={true}
             defaultOptionText="Select Another College/Institute Run By this Society"
             {...register('isOtherInstitutionRunning')}
             required

@@ -1,15 +1,16 @@
 import { FormActions, FormGrid } from 'shared/new-components';
-import { useRolePermissionForm } from './form.hook';
-import SelectRoles from '../../components/SelectRoles';
 import SelectDomain from '../../components/SelectDomain';
 import SelectFeatures from '../../components/SelectFeatures';
 import SelectRights from '../../components/SelectRights';
+import SelectRoles from '../../components/SelectRoles';
+import { useRolePermissionForm } from './form.hook';
 
 interface RolePermissionFormProps {
   onSubmit: (data: UserManagement.RolePermissionCreate) => Promise<void>;
   fetchData?: Forms.FetchDataFunc<UserManagement.RolePermissionCreate>;
   isSaving?: boolean;
   isEditMode?: boolean;
+  columns?: 1 | 2 | 3 | 4;
 }
 
 export default function RolePermissionForm(props: RolePermissionFormProps) {
@@ -20,7 +21,7 @@ export default function RolePermissionForm(props: RolePermissionFormProps) {
 
   return (
     <form onSubmit={handleSubmit}>
-      <FormGrid columns={2}>
+      <FormGrid columns={props.columns ?? 4}>
         <SelectRoles
           required
           disabled={props.isEditMode}

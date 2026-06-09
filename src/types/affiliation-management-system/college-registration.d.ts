@@ -4,7 +4,6 @@ declare namespace AffiliationManagementSystem {
     establishmentYearId: number;
     collegeName: string;
     collegeAddress: string;
-    stateId: number;
     districtId: number;
     telephoneNo: string;
     collegeEmail: string;
@@ -36,6 +35,8 @@ declare namespace AffiliationManagementSystem {
     collegeCourseDetailId?: number;
     registrationId?: number;
     programmeFeesMappingId: number;
+    courseId?: number;
+    subjectId?: number;
     totalAmount?: number;
     isFeePaid?: boolean;
     paymentDate?: string | null;
@@ -54,19 +55,19 @@ declare namespace AffiliationManagementSystem {
     collegeArea: string;
     isActive: boolean;
   }
-
   export interface CollegeRegistrationApprovalItem {
     collegeRegistrationId: number;
     collegeName: string;
     collegeCategory: string;
     collegeType: string;
     collegeArea: string;
-    approvelStatus: number;
+    approvalStatus: number;
     rejectionReason?: string;
     isActive: boolean;
   }
 
   /** Combined form data for the multi-step application */
+
   export type CollegeApplicationFormData = CollegeRegistrationForm &
     AffiliationOtherDetailsForm & {
       courses: CollegeCourseDetailForm[];
@@ -76,4 +77,14 @@ declare namespace AffiliationManagementSystem {
       affidavitFile: File | null;
       regularAuthorityFile: File | null;
     };
+
+  export interface ProgrammeFeeItem {
+    id: number;
+    programmeId: number;
+    fixedDepositAmount: number;
+    affiliationFee: number;
+    inspectionFee: number;
+    otherFee: number | null;
+    isActive: boolean;
+  }
 }

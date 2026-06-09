@@ -1,14 +1,15 @@
 import { FormActions, FormGrid } from 'shared/new-components';
-import { useUserAssignmentForm } from './form.hook';
-import SelectUsers from '../../components/SelectUsers';
-import SelectRoles from '../../components/SelectRoles';
 import SelectDomain from '../../components/SelectDomain';
+import SelectRoles from '../../components/SelectRoles';
+import SelectUsers from '../../components/SelectUsers';
+import { useUserAssignmentForm } from './form.hook';
 
 interface UserAssignmentFormProps {
   onSubmit: (data: UserManagement.UserAssignmentForm) => Promise<void>;
   fetchData?: Forms.FetchDataFunc<UserManagement.UserAssignmentForm>;
   isSaving?: boolean;
   isEditMode?: boolean;
+  columns?: 1 | 2 | 3 | 4;
 }
 
 export default function UserAssignmentForm(props: UserAssignmentFormProps) {
@@ -19,7 +20,7 @@ export default function UserAssignmentForm(props: UserAssignmentFormProps) {
 
   return (
     <form onSubmit={handleSubmit}>
-      <FormGrid columns={2}>
+      <FormGrid columns={props.columns ?? 4}>
         <SelectUsers
           required
           disabled={props.isEditMode}

@@ -5,8 +5,11 @@
   bg-[var(--bg-white)];
 }
 
+/* .ws-header-inner {
+  @apply max-w-[1440px] mx-auto px-6 flex items-center gap-10 max-md:flex-wrap max-md:gap-4;
+} */
 .ws-header-inner {
-  @apply max-w-[1320px] mx-auto px-6 flex items-center gap-10 max-md:flex-wrap max-md:gap-4;
+  @apply mx-auto px-6 flex items-center gap-10 max-md:flex-wrap max-md:gap-4;
 }
 
 .ws-logo-section {
