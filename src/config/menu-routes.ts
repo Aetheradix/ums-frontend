@@ -864,10 +864,10 @@ export const menuConfig: Menu.MenuItem[] = [
           {
             label: 'Programme Fee',
             description: 'Manage programme fees',
-            path: '/master/affiliation/programme-fee',
+            path: '/affiliation-management-system/affiliation-settings/programme-fee',
             icon: 'money',
             colorScheme: 'blue',
-            feature: 'Master/Affiliation/ProgrammeFee',
+            feature: '@master/Affiliation/ProgrammeFee',
             action: 'read',
           },
         ],

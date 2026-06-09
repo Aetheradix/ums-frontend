@@ -1,3 +1,4 @@
+import SelectProgramme from 'features/components/SelectProgramme';
 import { TextBox } from 'shared/components/forms';
 import { FormActions, FormGrid } from 'shared/new-components';
 import { useProgrammeFeeForm } from './form.hook';
@@ -18,13 +19,15 @@ export default function ProgrammeFeeForm(props: ProgrammeFeeFormProps) {
   return (
     <form onSubmit={handleSubmit}>
       <FormGrid columns={2}>
-        <TextBox
+        <SelectProgramme {...register('programmeId')} />
+
+        {/* <TextBox
           label="Programme Name"
           placeholder="Enter Programme Name"
           {...register('programmeName')}
           maxLength={50}
           required
-        />
+        /> */}
 
         <TextBox
           label="Fixed Deposit Amount"

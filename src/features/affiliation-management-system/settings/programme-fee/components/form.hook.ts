@@ -2,7 +2,8 @@ import { useAppForm } from 'shared/hooks/form';
 import validation from 'shared/utils/validation';
 
 const schema = validation.create<AffiliationMaster.ProgrammeFeeForm>(o => ({
-  programmeName: o.string().required().max(50).label('Programme Name'),
+  programmeId: o.number().required().label('Programme'),
+  // programmeName: o.string().required().max(50).label('Programme Name'),
   fixedDepositAmount: o
     .number()
     .required()

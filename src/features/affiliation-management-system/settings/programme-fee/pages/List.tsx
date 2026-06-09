@@ -18,7 +18,6 @@ type PopupState =
 
 export default function List() {
   const { data, isLoading } = useProgrammeFeesQuery();
-  console.log('Programme Fees:', data);
   const { mutateAsync: toggleStatus } = useProgrammeFeeActiveStatusMutation();
 
   const [popup, setPopup] = useState<PopupState>({

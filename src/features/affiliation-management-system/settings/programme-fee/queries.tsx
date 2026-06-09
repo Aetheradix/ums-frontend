@@ -26,6 +26,7 @@ export function useProgrammeFeeQuery(id: number) {
       if (!data) return undefined;
 
       return {
+        programmeId: data.programmeId,
         programmeName: data.programmeName,
         fixedDepositAmount: data.fixedDepositAmount,
         affiliationFee: data.affiliationFee,

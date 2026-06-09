@@ -2,7 +2,7 @@ import { ApiService } from 'services';
 
 const MASTER_API_ROOT = `master/`;
 
-const PROGRAMME_FEE_URL = `${MASTER_API_ROOT}programme-fees`;
+const PROGRAMME_FEE_URL = `${MASTER_API_ROOT}programme-fee`;
 
 export function getProgrammeFees() {
   return ApiService.getList<AffiliationMaster.ProgrammeFeeItem>(
@@ -23,6 +23,7 @@ export async function createProgrammeFee(
   const { error, data } =
     await ApiService.post<AffiliationMaster.ProgrammeFeeItem>(
       PROGRAMME_FEE_URL,
+
       form
     );
 
@@ -43,9 +44,6 @@ export async function deleteProgrammeFee(id: number): Promise<boolean> {
 }
 
 export async function patchProgrammeFeeStatus(id: number): Promise<boolean> {
-  const result = await ApiService.patch(
-    `${PROGRAMME_FEE_URL}/${id}/status`,
-    {}
-  );
+  const result = await ApiService.patch(`${PROGRAMME_FEE_URL}/${id}`, {});
   return !result.error;
 }
