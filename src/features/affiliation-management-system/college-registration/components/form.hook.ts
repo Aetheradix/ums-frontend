@@ -125,9 +125,8 @@ const schema =
           o.object().keys({
             collegeCourseDetailId: o.number().optional(),
             registrationId: o.number().optional(),
-            programmeFeesMappingId: o.number().required(),
-            courseId: o.number().optional(),
-            subjectId: o.number().optional(),
+            courseId: o.number().required(),
+            subjectIds: o.array().items(o.number()).min(1).required(),
             totalAmount: o.number().optional(),
             isFeePaid: o.boolean().optional(),
             paymentDate: o.string().allow('', null).optional(),
