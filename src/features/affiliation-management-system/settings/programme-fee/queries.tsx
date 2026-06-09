@@ -47,6 +47,9 @@ export function useCreateProgrammeFeeMutation() {
     onSuccess(data) {
       if (!data) return;
 
+      queryClient.invalidateQueries({
+        queryKey: QUERY_KEY,
+      });
       const result =
         queryClient.getQueryData<AffiliationMaster.ProgrammeFeeItem[]>(
           QUERY_KEY

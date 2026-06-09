@@ -21,14 +21,6 @@ export default function ProgrammeFeeForm(props: ProgrammeFeeFormProps) {
       <FormGrid columns={2}>
         <SelectProgramme {...register('programmeId')} />
 
-        {/* <TextBox
-          label="Programme Name"
-          placeholder="Enter Programme Name"
-          {...register('programmeName')}
-          maxLength={50}
-          required
-        /> */}
-
         <TextBox
           label="Fixed Deposit Amount"
           placeholder="Enter Fixed Deposit Amount"
