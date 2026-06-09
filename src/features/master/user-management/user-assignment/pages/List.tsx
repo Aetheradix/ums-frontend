@@ -1,19 +1,24 @@
-import { useCallback, useState } from 'react';
+import type { OverlayPanel } from 'primereact/overlaypanel';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { ToastService } from 'services';
 import { Button } from 'shared/components/buttons';
 import { Loader } from 'shared/components/progress';
 import {
+  ActionOverlay,
   FormCard,
   FormPage,
-  FormPopup,
   GridPanel,
+  InlineCreatePanel,
 } from 'shared/new-components';
-import { ToastService } from 'services';
+import RoleSidePanel from '../../components/RoleSidePanel';
+import '../../components/RoleSplitLayout.css';
 import UserAssignmentForm from '../components/UserAssignmentForm';
 import {
   useCreateUserAssignmentMutation,
-  useUserAssignmentsQuery,
   useUpdateUserAssignmentMutation,
+  useUserAssignmentsQuery,
 } from '../queries';
+import './UserAssignmentList.css';
 
 type PopupState =
   | { mode: 'closed' }
@@ -22,9 +27,58 @@ type PopupState =
 
 export default function List() {
   const { data, isLoading } = useUserAssignmentsQuery();
+
+  const editOverlayRef = useRef<OverlayPanel>(null);
+  const editButtonRef = useRef<HTMLButtonElement | null>(null);
+
   const [popup, setPopup] = useState<PopupState>({ mode: 'closed' });
+  const [selectedRole, setSelectedRole] =
+    useState<UserManagement.UserRoleList | null>(null);
+
+  useEffect(() => {
+    if (!selectedRole && data && data.length > 0) {
+      const firstRoleName = data[0].roleName;
+
+      setSelectedRole({
+        id: firstRoleName,
+        name: firstRoleName,
+        description: '',
+        isActive: true,
+      } as UserManagement.UserRoleList);
+    }
+  }, [data, selectedRole]);
+
+  const filteredAssignments = useMemo(() => {
+    if (!selectedRole) return [];
+
+    return (data ?? []).filter(item => item.roleName === selectedRole.name);
+  }, [data, selectedRole]);
 
   const closePopup = useCallback(() => setPopup({ mode: 'closed' }), []);
+
+  const closeEditOverlay = useCallback(() => {
+    editOverlayRef.current?.hide();
+    setPopup({ mode: 'closed' });
+  }, []);
+
+  const handleEditAssignmentClick = (
+    item: UserManagement.UserAssignmentList,
+    event: React.MouseEvent<HTMLButtonElement>
+  ) => {
+    const target = event.currentTarget;
+    editButtonRef.current = target;
+
+    setPopup({ mode: 'edit', item });
+
+    setTimeout(() => {
+      editOverlayRef.current?.toggle(event, target);
+    }, 0);
+  };
+
+  const handleDeleteAssignment = (_item: UserManagement.UserAssignmentList) => {
+    // TODO: connect delete user assignment API when available
+    ToastService.error('Delete user assignment API is not connected yet.');
+  };
 
   return (
     <FormPage
@@ -32,53 +86,124 @@ export default function List() {
       description="Manage user assignments in the system."
     >
       <FormCard>
-        {isLoading ? <Loader /> : undefined}
+        <div className="role-split-layout">
+          <RoleSidePanel
+            selectedRoleId={selectedRole?.id}
+            onRoleSelect={setSelectedRole}
+          />
 
-        <GridPanel
-          data={data ?? []}
-          onEdit={item => setPopup({ mode: 'edit', item })}
-          columns={[
-            {
-              cell: (_, option) => <span>{option.rowIndex + 1}</span>,
-              width: '30px',
-            },
-            { field: 'userName', header: 'User' },
-            { field: 'roleName', header: 'Role' },
-            { field: 'domain', header: 'Domain' },
-          ]}
-          toolbar={
-            <Button
-              label="Create"
-              icon="plus"
-              variant="primary"
-              onClick={() => setPopup({ mode: 'create' })}
-            />
-          }
-          searchBox
-        />
+          <div className="role-main-panel">
+            {isLoading ? <Loader /> : undefined}
+
+            <div className="role-main-header">
+              <div>
+                <h3 className="role-main-title">User Assignments</h3>
+              </div>
+            </div>
+
+            <InlineCreatePanel
+              visible={popup.mode === 'create'}
+              title="Create User Assignment"
+              onClose={closePopup}
+            >
+              <CreateUserAssignmentContent onClose={closePopup} />
+            </InlineCreatePanel>
+
+            {!selectedRole ? (
+              <div className="role-empty-state">
+                <i className="pi pi-users role-empty-icon" />
+                <h4>Select a role</h4>
+                <p>
+                  Select a role from the left panel to view and manage user
+                  assignments.
+                </p>
+              </div>
+            ) : (
+              <GridPanel
+                data={filteredAssignments}
+                emptyMessage={`No user assignments found for ${selectedRole?.name}.`}
+                columns={[
+                  { field: 'userName', header: 'User' },
+                  { field: 'roleName', header: 'Role' },
+                  { field: 'domain', header: 'Domain' },
+                  {
+                    header: 'Action',
+                    sortable: false,
+                    width: '120px',
+                    cell: (item: UserManagement.UserAssignmentList) => (
+                      <div className="user-assignment-actions">
+                        <button
+                          type="button"
+                          className="user-assignment-action-btn"
+                          aria-label="Edit user assignment"
+                          title="Edit"
+                          onClick={event =>
+                            handleEditAssignmentClick(item, event)
+                          }
+                        >
+                          <i className="pi pi-pencil" />
+                        </button>
+
+                        <button
+                          type="button"
+                          className="user-assignment-action-btn user-assignment-delete-btn"
+                          aria-label="Delete user assignment"
+                          title="Delete"
+                          onClick={() => handleDeleteAssignment(item)}
+                        >
+                          <i className="pi pi-trash" />
+                        </button>
+                      </div>
+                    ),
+                  },
+                ]}
+                toolbar={
+                  <Button
+                    label="Create"
+                    icon="plus"
+                    variant="primary"
+                    disabled={!selectedRole}
+                    onClick={() => setPopup({ mode: 'create' })}
+                  />
+                }
+                searchBox
+              />
+            )}
+          </div>
+        </div>
       </FormCard>
 
-      {/* Create Popup */}
-      <FormPopup
-        visible={popup.mode === 'create'}
-        onHide={closePopup}
-        title="Create User Assignment"
-        subtitle="Fill in the details to assign a user to a role."
+      <ActionOverlay
+        ref={editOverlayRef}
+        className="user-assignment-edit-overlay-panel action-overlay-md"
+        dismissable
+        closeOnEscape
+        showCloseIcon={false}
       >
-        <CreateUserAssignmentContent onClose={closePopup} />
-      </FormPopup>
+        <div className="action-overlay-shell">
+          <div className="action-overlay-header">
+            <h3 className="action-overlay-title">Edit User Assignment</h3>
 
-      {/* Edit Popup */}
-      <FormPopup
-        visible={popup.mode === 'edit'}
-        onHide={closePopup}
-        title="Edit User Assignment"
-        subtitle="Update the role assignment details."
-      >
-        {popup.mode === 'edit' && (
-          <EditUserAssignmentContent item={popup.item} onClose={closePopup} />
-        )}
-      </FormPopup>
+            <button
+              type="button"
+              className="action-overlay-close"
+              onClick={closeEditOverlay}
+              aria-label="Close edit user assignment overlay"
+            >
+              <i className="pi pi-times" />
+            </button>
+          </div>
+
+          <div className="action-overlay-body">
+            {popup.mode === 'edit' && (
+              <EditUserAssignmentContent
+                item={popup.item}
+                onClose={closeEditOverlay}
+              />
+            )}
+          </div>
+        </div>
+      </ActionOverlay>
     </FormPage>
   );
 }
@@ -130,6 +255,7 @@ function EditUserAssignmentContent({
       isSaving={isPending}
       isEditMode
       onSubmit={handleSubmit}
+      columns={1}
     />
   );
 }

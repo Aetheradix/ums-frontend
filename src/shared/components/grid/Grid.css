@@ -23,6 +23,9 @@
 .p-datatable .p-sortable-column .p-sortable-column-icon {
   @apply text-slate-400 ml-2;
 }
+.p-datatable .p-sortable-column .p-sortable-column-icon svg {
+  font-size: 5px;
+}
 
 /* Filter icon */
 .p-column-filter-menu-button {
@@ -54,7 +57,7 @@
 
 /* Dropdown */
 .p-paginator .p-dropdown {
-  @apply border border-slate-200 rounded-lg h-9 flex items-center min-w-[100px];
+  @apply border-none border-slate-200 rounded-lg h-9 flex items-center min-w-[100px];
 }
 
 .p-paginator .p-dropdown-label {
@@ -64,6 +67,24 @@
 /* Dropdown items */
 .p-dropdown-panel .p-dropdown-item {
   @apply px-4 py-2 text-sm;
+}
+
+.p-dropdown-panel .p-dropdown-filter-container {
+  @apply relative px-2 py-2 bg-white border! rounded-md!;
+  border-color: var(--border-light) !important;
+}
+
+.p-dropdown-panel .p-dropdown-filter {
+  @apply h-9 w-full border-none bg-white pl-3 pr-9 text-sm text-slate-700 outline-none;
+}
+
+.p-dropdown-panel .p-dropdown-filter-icon {
+  @apply right-5 top-1/2 -translate-y-1/2 text-slate-400;
+}
+
+.p-dropdown-panel .p-dropdown-items .p-dropdown-item.p-highlight {
+  color: var(--primary-color);
+  background-color: color-mix(in srgb, var(--color-black) 5%, white);
 }
 
 /* Push pagination to right */
@@ -147,6 +168,30 @@
   @apply text-zinc-400 hover:bg-zinc-800;
 }
 
+.dark .p-dropdown-panel {
+  background-color: var(--dark-card-bg);
+  border-color: var(--dark-border);
+  color: var(--dark-card-text);
+}
+
+.dark .p-dropdown-panel .p-dropdown-filter {
+  background-color: var(--dark-input-bg);
+  border-color: var(--dark-border);
+  color: var(--dark-card-text);
+}
+
+.dark .p-dropdown-panel .p-dropdown-filter::placeholder {
+  color: var(--gray-300);
+}
+
+.dark .p-dropdown-panel .p-dropdown-item {
+  color: var(--dark-card-text);
+}
+
+.dark .p-dropdown-panel .p-dropdown-item:hover {
+  background-color: var(--dark-input-bg);
+}
+
 /* --- 4. Misc --- */
 .p-ink {
   @apply hidden;
@@ -162,3 +207,70 @@
     width: 95vw !important;
   }
 }
+
+/* UI changes css starts 06/04/2026 */
+/* --- Grid Row Actions --- */
+.grid-action-col {
+  @apply w-24 min-w-24 text-right;
+}
+
+.grid-action-col .p-column-header-content {
+  @apply justify-end;
+}
+
+.grid-row-actions {
+  @apply flex items-center justify-end gap-1.5;
+}
+
+.grid-action-icon-btn {
+  @apply !inline-flex !h-8 !w-8 !min-w-8 !cursor-pointer !items-center !justify-center !gap-0 !border !border-slate-200 !bg-white !p-0 !text-slate-500 !shadow-sm !transition-all !duration-200 !ease-in-out;
+  border-radius: var(--radius-sm) !important;
+
+  position: relative;
+}
+
+.grid-action-icon-btn i,
+.grid-action-icon-btn .p-button-icon {
+  @apply !m-0 !text-sm;
+}
+
+.grid-action-icon-btn:hover {
+  @apply !-translate-y-px !cursor-pointer !border-slate-300 !bg-slate-50 !text-slate-900 !shadow-md;
+}
+
+.grid-action-edit-btn:hover {
+  @apply !border-indigo-200 !bg-indigo-50 !text-[#3e4095];
+}
+
+.grid-action-delete-btn:hover {
+  @apply !border-red-200 !bg-red-50 !text-red-600;
+}
+
+.grid-action-icon-btn:focus,
+.grid-action-icon-btn:focus-visible {
+  @apply !outline-none !ring-2 !ring-slate-200 !ring-offset-1;
+}
+
+/* --- Grid Row Actions Dark Theme --- */
+/* --- Grid Row Actions Dark Theme --- */
+.dark .grid-action-icon-btn {
+  @apply !border-zinc-700 !bg-zinc-900 !text-zinc-400 !shadow-none;
+}
+
+.dark .grid-action-icon-btn:hover {
+  @apply !border-zinc-600 !bg-zinc-800 !text-white;
+}
+
+.dark .grid-action-edit-btn:hover {
+  @apply !border-indigo-800 !bg-[#3e4095]/20 !text-indigo-200;
+}
+
+.dark .grid-action-delete-btn:hover {
+  @apply !border-red-900 !bg-red-950/40 !text-red-400;
+}
+
+.dark .grid-action-icon-btn:focus,
+.dark .grid-action-icon-btn:focus-visible {
+  @apply ring-zinc-700! ring-offset-zinc-950!;
+}
+/* UI changes css ends 06/04/2026 */

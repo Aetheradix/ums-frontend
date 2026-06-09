@@ -6,7 +6,6 @@ import {
 } from 'primereact/datatable';
 import React from 'react';
 import { Loader } from '../progress';
-import ButtonColumn from './ButtonColumn';
 import './Grid.css';
 
 function mapColumns<T>(columns: Controls.ColumnProps<T>[]) {
@@ -52,6 +51,48 @@ function paginationProps(pagination: Controls.Pagination) {
   };
 }
 
+function GridRowActions<T>({
+  item,
+  editCaption,
+  removeCaption,
+  onEdit,
+  onRemove,
+}: {
+  item: T;
+  editCaption?: string;
+  removeCaption?: string;
+  onEdit?: (item: T, event?: React.MouseEvent<HTMLButtonElement>) => void;
+  onRemove?: (item: T) => void;
+}) {
+  return (
+    <div className="grid-row-actions">
+      {onEdit && (
+        <button
+          type="button"
+          aria-label={editCaption ?? 'Edit'}
+          title={editCaption ?? 'Edit'}
+          className="grid-action-icon-btn grid-action-edit-btn"
+          onClick={event => onEdit(item, event)}
+        >
+          <i className="pi pi-pencil" />
+        </button>
+      )}
+
+      {onRemove && (
+        <button
+          type="button"
+          aria-label={removeCaption ?? 'Delete'}
+          title={removeCaption ?? 'Delete'}
+          className="grid-action-icon-btn grid-action-delete-btn"
+          onClick={() => onRemove(item)}
+        >
+          <i className="pi pi-trash" />
+        </button>
+      )}
+    </div>
+  );
+}
+
 function Grid<T>({
   data,
   columns,
@@ -62,29 +103,26 @@ function Grid<T>({
   searchFields,
   pagination = true,
   onValueChange,
+  emptyMessage = 'No Records Found',
   ...rest
 }: React.PropsWithChildren<Controls.GridProps<T>>) {
   const pageProps = paginationProps(pagination);
 
   // 🔥 Dummy data for testing
-  const dummyData = Array.from({ length: 25 }, (_, i) => ({
-    id: i + 1,
-    name: `State ${i + 1}`,
-    code: `C${i + 1}`,
-    isActive: i % 2 === 0,
-  }));
+  // const dummyData = Array.from({ length: 25 }, (_, i) => ({
+  //   id: i + 1,
+  //   name: `State ${i + 1}`,
+  //   code: `C${i + 1}`,
+  //   isActive: i % 2 === 0,
+  // }));
   return (
     <DataTable
-      value={
-        (data && (data as DataTableValueArray).length
-          ? data
-          : dummyData) as DataTableValueArray
-      }
+      value={(data ?? []) as DataTableValueArray}
       scrollable
       scrollHeight={rest.scrollHeight ?? '500px'}
       className="w-full"
       globalFilterFields={searchFields as string[]}
-      emptyMessage="No Records Found"
+      emptyMessage={emptyMessage}
       loadingIcon={<Loader type="inline" />}
       {...(rest as DataTableProps<DataTableValueArray>)}
       onValueChange={onValueChange as (e: DataTableValueArray) => void}
@@ -102,29 +140,17 @@ function Grid<T>({
     >
       {columns && mapColumns(columns)}
       {rest.children}
-      {onEdit ? (
+      {onEdit || onRemove ? (
         <Column
           header="Action"
-          className="grid-action-col-sm"
+          className="grid-action-col"
           body={item => (
-            <ButtonColumn
-              caption={editCaption ?? 'Edit'}
-              icon="pencil"
-              onClick={() => onEdit(item)}
-            />
-          )}
-        />
-      ) : undefined}
-
-      {onRemove ? (
-        <Column
-          header="Action"
-          className="grid-action-col-md"
-          body={item => (
-            <ButtonColumn
-              caption={removeCaption ?? 'Remove'}
-              icon="trash"
-              onClick={() => onRemove(item)}
+            <GridRowActions
+              item={item as T}
+              editCaption={editCaption}
+              removeCaption={removeCaption}
+              onEdit={onEdit}
+              onRemove={onRemove}
             />
           )}
         />

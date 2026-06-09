@@ -10,7 +10,7 @@
 }
 
 .input-block.vertical label {
-  @apply mb-1.5;
+  @apply mb-1;
 }
 
 .input-block.horizontal {
@@ -58,7 +58,7 @@
 
 .input-field-wrapper input {
   @apply w-full h-11 rounded-lg border border-slate-200
-  px-3 pr-24 text-sm text-slate-700
+  px-3 pr-2 text-sm text-slate-700
   outline-none transition-all duration-200;
 }
 
