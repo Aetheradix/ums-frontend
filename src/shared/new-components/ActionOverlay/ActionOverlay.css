@@ -1,0 +1,202 @@
+@reference "tailwindcss";
+
+/* --- Overlay Wrapper --- */
+.action-overlay-panel {
+  @apply z-[1200];
+}
+
+.action-overlay-panel.p-overlaypanel {
+  @apply rounded-xl border border-slate-200 bg-white shadow-xl;
+}
+
+.action-overlay-panel .p-overlaypanel-content {
+  @apply p-0;
+}
+
+/* PrimeReact built-in close icon */
+/* .action-overlay-panel .p-overlaypanel-close {
+  @apply absolute right-3 top-3 z-20 inline-flex h-5 w-5 items-center justify-center text-slate-500 transition-all duration-200;
+  transform: none !important;
+}
+
+.action-overlay-panel .p-overlaypanel-close:hover {
+  @apply text-slate-900;
+  background: transparent !important;
+} */
+
+/* --- Sizes --- */
+.action-overlay-md {
+  width: 330px !important;
+  max-width: 330px !important;
+}
+
+/* --- Shell --- */
+.action-overlay-shell {
+  @apply flex w-full flex-col overflow-hidden rounded-xl bg-white;
+  max-height: calc(100vh - 160px);
+}
+
+.action-overlay-header {
+  @apply flex shrink-0 items-center justify-between gap-3 border-b border-slate-100 px-4 py-2;
+}
+
+.action-overlay-body {
+  @apply flex-1 px-4 pb-10 pt-4;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.action-overlay-title {
+  @apply m-0 text-base font-semibold text-slate-900;
+}
+
+.action-overlay-subtitle {
+  @apply mb-0 mt-1 text-sm text-slate-500;
+}
+
+.action-overlay-body {
+  @apply flex-1 px-4 py-4;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.action-overlay-body::-webkit-scrollbar {
+  width: 6px;
+}
+
+.action-overlay-body::-webkit-scrollbar-track {
+  @apply rounded-full bg-slate-100;
+}
+
+.action-overlay-body::-webkit-scrollbar-thumb {
+  @apply rounded-full bg-slate-300;
+}
+
+.action-overlay-body::-webkit-scrollbar-thumb:hover {
+  @apply bg-slate-400;
+}
+
+/* Custom close button if used inside header */
+.action-overlay-close {
+  @apply inline-flex h-8 w-8 shrink-0 cursor-pointer items-center justify-center rounded-md p-0 text-slate-500 transition-all duration-200 ease-in-out;
+}
+
+.action-overlay-close:hover {
+  @apply border-slate-300 bg-slate-50 text-slate-900;
+}
+
+/* --- Form inside overlay --- */
+.action-overlay-body form {
+  @apply w-full;
+}
+
+.action-overlay-body input,
+.action-overlay-body .p-inputtext,
+.action-overlay-body .p-dropdown {
+  @apply w-full;
+}
+
+.action-overlay-body .form-grid {
+  column-gap: calc(var(--spacing, 0.5rem) * 2);
+  row-gap: calc(var(--spacing, 0.5rem) * 2);
+}
+
+.action-overlay-body .input-block.vertical {
+  @apply mb-0;
+}
+
+.action-overlay-body .input-field-wrapper input {
+  @apply h-[38px]! min-h-[38px]! shadow-sm!;
+  border-radius: var(--radius-md, 0.375rem) !important;
+  border-color: var(--border-light) !important;
+}
+
+.action-overlay-body form > div:last-child {
+  @apply mt-1 border-0 pt-3;
+}
+
+/* Status + Toggle in same line inside overlay */
+.action-overlay-body .user-form-status,
+.action-overlay-body .role-status-field {
+  @apply mb-2 flex items-center justify-between gap-3;
+}
+
+.action-overlay-body .user-form-status-label,
+.action-overlay-body .role-status-field-label {
+  @apply mb-0 text-sm font-semibold text-slate-900;
+}
+
+.action-overlay-body .user-status-toggle,
+.action-overlay-body .role-status-toggle {
+  @apply flex h-auto items-center gap-2;
+}
+
+/* --- Dark Theme --- */
+.dark .action-overlay-panel.p-overlaypanel,
+.dark .action-overlay-shell {
+  background-color: var(--dark-card-bg);
+  border-color: var(--dark-border);
+  color: var(--dark-card-text);
+  box-shadow: none;
+}
+
+.dark .action-overlay-header,
+.dark .action-overlay-body form > div:last-child {
+  border-color: var(--dark-border);
+}
+
+.dark .action-overlay-title,
+.dark .action-overlay-body .user-form-status-label,
+.dark .action-overlay-body .role-status-field-label {
+  color: var(--dark-card-text);
+}
+
+.dark .action-overlay-subtitle {
+  color: var(--gray-300);
+}
+
+/* .dark .action-overlay-close,
+.dark .action-overlay-panel .p-overlaypanel-close {
+  background-color: var(--dark-card-bg);
+  border-color: var(--dark-border);
+  color: var(--gray-300);
+}
+
+.dark .action-overlay-close:hover,
+.dark .action-overlay-panel .p-overlaypanel-close:hover {
+  background-color: var(--dark-input-bg);
+  color: var(--white);
+} */
+
+.dark .action-overlay-body input,
+.dark .action-overlay-body .p-inputtext,
+.dark .action-overlay-body .p-dropdown {
+  background-color: var(--dark-input-bg);
+  border-color: var(--dark-border);
+  color: var(--dark-card-text);
+}
+
+.dark .action-overlay-body input::placeholder,
+.dark .action-overlay-body .p-inputtext::placeholder {
+  color: var(--gray-300);
+}
+
+/* --- Small Screen --- */
+@media (max-width: 640px) {
+  .action-overlay-md {
+    width: calc(100vw - 2rem) !important;
+    max-width: calc(100vw - 2rem) !important;
+  }
+
+  .action-overlay-body {
+    @apply px-3 py-3;
+  }
+
+  .action-overlay-header {
+    @apply px-3 py-3;
+  }
+}
+
+.action-overlay-body .p-dropdown-label {
+  @apply border-0! shadow-none!;
+}

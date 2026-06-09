@@ -1,8 +1,9 @@
+import { ProtectedRoute } from 'auth';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import MainLayout from 'shared/components/layout/MainLayout';
-import { ProtectedRoute } from 'auth';
 import AdmissionPortal from './admission-portal';
 import CareerAdvancement from './career-advancement';
+import EmployeeManagement from './employee-management';
 import Home from './home';
 import Master from './master';
 import Sis from './sis';
@@ -37,6 +38,10 @@ export default function Features() {
                       <Route
                         path="career-advancement/*"
                         element={<CareerAdvancement />}
+                      />
+                      <Route
+                        path="employee-management/*"
+                        element={<EmployeeManagement />}
                       />
                     </Routes>
                   </MainLayout>
