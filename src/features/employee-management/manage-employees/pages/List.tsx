@@ -39,7 +39,7 @@ export default function List() {
                   variant="outlined"
                   size="small"
                   onClick={() =>
-                    navigate(`/employee-management/manage-employees/${item.id}`)
+                    navigate(`/employee-management/employee-profile/${item.id}`)
                   }
                 />
               ),

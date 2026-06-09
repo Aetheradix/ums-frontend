@@ -490,6 +490,14 @@ export const menuConfig: Menu.MenuItem[] = [
             action: 'read',
           },
           {
+            label: 'My Profile',
+            slug: 'my-profile',
+            description: 'View your employee profile.',
+            path: '/employee-management/employee-profile',
+            icon: 'person',
+            colorScheme: 'blue',
+          },
+          {
             label: 'Settings',
             slug: 'settings',
             description:

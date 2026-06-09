@@ -30,9 +30,14 @@ export const settingsUrls = (base: string) => {
   };
 };
 
+export const employeeProfileUrls = {
+  root: `${baseUrl}/employee-profile`,
+};
+
 export const employeeManagementUrls = {
   root: baseUrl,
 
+  employeeProfile: employeeProfileUrls,
   quickOnboarding: quickOnboardingUrls(baseUrl),
   settings: settingsUrls(baseUrl),
 };

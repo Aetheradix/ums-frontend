@@ -4,5 +4,16 @@ export function hasPermission(
   action?: string
 ) {
   if (!feature || !action) return true; // public menu
-  return permissions?.[feature]?.includes(action);
+
+  if (!permissions) return false;
+
+  const featureKey = Object.keys(permissions).find(
+    key => key.toLowerCase() === feature.toLowerCase()
+  );
+
+  if (!featureKey) return false;
+
+  return permissions[featureKey].some(
+    permittedAction => permittedAction.toLowerCase() === action.toLowerCase()
+  );
 }

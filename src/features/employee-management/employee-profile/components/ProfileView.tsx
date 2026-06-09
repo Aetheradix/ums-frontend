@@ -2,12 +2,21 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { Button } from 'shared/components/buttons';
 import { Loader } from 'shared/components/progress';
 import { FormCard, FormPage } from 'shared/new-components';
-import { useGetEmployeeByIdQuery } from '../queries';
+import { useGetEmployeeByIdQuery, useGetMyProfileQuery } from '../queries';
 
-export default function ViewProfile() {
+export default function ProfileView() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const { data, isLoading } = useGetEmployeeByIdQuery(Number(id));
+
+  const isMyProfile = !id || id === 'my-profile';
+
+  const { data: employeeData, isLoading: isEmployeeLoading } =
+    useGetEmployeeByIdQuery(!isMyProfile ? Number(id) : 0);
+  const { data: myData, isLoading: isMyProfileLoading } =
+    useGetMyProfileQuery(isMyProfile);
+
+  const data = isMyProfile ? myData : employeeData;
+  const isLoading = isMyProfile ? isMyProfileLoading : isEmployeeLoading;
 
   return (
     <FormPage
