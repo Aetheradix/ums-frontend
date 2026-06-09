@@ -851,6 +851,35 @@ export const menuConfig: Menu.MenuItem[] = [
           },
         ],
       },
+      {
+        label: 'Settings',
+        slug: 'settings',
+        description:
+          'Manage affiliation management system settings and masters.',
+        path: '/affiliation-management-system/settings',
+
+        children: [
+          {
+            label: 'Affiliation',
+            slug: 'affiliation',
+            description: 'Manage affiliation details.',
+            path: '/home/sub-menu/affiliation',
+            icon: 'link',
+            colorScheme: 'blue',
+            children: [
+              {
+                label: 'Programme Fee',
+                description: 'Manage programme fees',
+                path: '/master/affiliation/programme-fee',
+                icon: 'money',
+                colorScheme: 'blue',
+                feature: 'Master/Affiliation/ProgrammeFee',
+                action: 'read',
+              },
+            ],
+          },
+        ],
+      },
     ],
   },
   // {

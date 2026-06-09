@@ -1,13 +1,13 @@
-import type { Control } from 'react-hook-form';
-import { useFieldArray, useForm } from 'react-hook-form';
-import { Button } from 'shared/components/buttons';
-import { FormCard, FormGrid } from 'shared/new-components';
+import { useProgrammeFeesQuery } from 'features/affiliation-management-system/settings/programme-fee/queries';
 import SelectProgramme from 'features/components/SelectProgramme';
-import { MultiSelectList } from 'shared/components/forms';
-import { ToastService } from 'services';
 import { useProgrammesQuery } from 'features/master/other/programme/queries';
 import { useSubjectsQuery } from 'features/master/subject/subjects/queries';
-import { useProgrammeFeesQuery } from 'features/master/affiliation/programme-fee/queries';
+import type { Control } from 'react-hook-form';
+import { useFieldArray, useForm } from 'react-hook-form';
+import { ToastService } from 'services';
+import { Button } from 'shared/components/buttons';
+import { MultiSelectList } from 'shared/components/forms';
+import { FormCard, FormGrid } from 'shared/new-components';
 
 interface CollegeCourseDetailStepProps {
   control: Control<AffiliationManagementSystem.CollegeApplicationFormData>;
