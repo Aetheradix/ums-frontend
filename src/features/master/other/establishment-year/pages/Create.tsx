@@ -2,7 +2,7 @@ import { useCallback } from 'react';
 import { useNavigate } from 'react-router';
 import { ToastService } from 'services';
 import { FormCard, FormPage } from 'shared/new-components';
-import { masterUrls } from '../../../urls';
+import { affiliationManagementSystemUrls } from 'features/affiliation-management-system/urls';
 import EstablishmentYearForm from '../components/EstablishmentYearForm';
 import { useCreateEstablishmentYearMutation } from '../queries';
 
@@ -11,7 +11,7 @@ export default function Create() {
   const { mutateAsync, isPending } = useCreateEstablishmentYearMutation();
 
   const handleBack = useCallback(() => {
-    navigate(masterUrls.EstablishmentYear.root);
+    navigate(affiliationManagementSystemUrls.establishmentYear.root);
   }, [navigate]);
 
   async function handleSubmit(data: Master.Other.EstablishmentYearForm) {
