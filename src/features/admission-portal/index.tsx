@@ -11,7 +11,7 @@ export default function AdmissionPortal() {
   const [token, setToken] = useState<string | null>(null);
 
   const content = token ? (
-    <DashboardLayout onLogout={() => setToken(null)} />
+    <DashboardLayout onLogout={() => setToken(null)} token={token} />
   ) : email ? (
     <OtpStep email={email} onVerified={setToken} />
   ) : (

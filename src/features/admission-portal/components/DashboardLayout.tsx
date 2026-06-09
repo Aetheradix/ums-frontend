@@ -4,9 +4,13 @@ import FeePayment from '../pages/FeePayment';
 
 interface DashboardLayoutProps {
   onLogout: () => void;
+  token: string;
 }
 
-export default function DashboardLayout({ onLogout }: DashboardLayoutProps) {
+export default function DashboardLayout({
+  onLogout,
+  token,
+}: DashboardLayoutProps) {
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -80,9 +84,12 @@ export default function DashboardLayout({ onLogout }: DashboardLayoutProps) {
       <div className="flex-1 bg-[#fafafa]">
         <div className="max-w-7xl mx-auto px-6 py-6">
           <Routes>
-            <Route index element={<SubjectSelection />} />
-            <Route path="subject-selection" element={<SubjectSelection />} />
-            <Route path="fee-payment" element={<FeePayment />} />
+            <Route index element={<SubjectSelection token={token} />} />
+            <Route
+              path="subject-selection"
+              element={<SubjectSelection token={token} />}
+            />
+            <Route path="fee-payment" element={<FeePayment token={token} />} />
           </Routes>
         </div>
       </div>
