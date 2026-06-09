@@ -30,7 +30,12 @@ function InnerMultiSelectList<TData = Data.DataItem<number>>({
 }: MultiSelectProps<TData, FieldValues>) {
   const displayLabel = required && label ? `${label}` : label;
   return (
-    <InputBlock id={id} label={displayLabel} errorMessage={errorMessage}>
+    <InputBlock
+      id={id}
+      label={displayLabel}
+      errorMessage={errorMessage}
+      required={required}
+    >
       <MultiSelect
         inputId={id ?? name}
         options={data}
