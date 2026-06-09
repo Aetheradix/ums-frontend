@@ -7,7 +7,7 @@ pnpm-debug.log*
 
 # build output
 build
-dist
+#dist
 coverage
 
 # environment files

@@ -7,6 +7,7 @@ import EmployeeManagement from './employee-management';
 import Home from './home';
 import Master from './master';
 import Sis from './sis';
+import AffiliationManagementSystem from './affiliation-management-system';
 
 export default function Features() {
   return (
@@ -35,6 +36,10 @@ export default function Features() {
                       <Route index element={<Navigate to={'/home'} />} />
                       <Route path="master/*" element={<Master />} />
                       <Route path="sis/*" element={<Sis />} />
+                      <Route
+                        path="affiliation-management-system/*"
+                        element={<AffiliationManagementSystem />}
+                      />
                       <Route
                         path="career-advancement/*"
                         element={<CareerAdvancement />}

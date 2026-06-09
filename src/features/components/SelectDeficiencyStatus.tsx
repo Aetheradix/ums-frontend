@@ -1,33 +1,29 @@
-import { useCollegeTypesQuery } from 'features/master/college/college-type/queries';
+import { useDeficiencyStatusesQuery } from 'features/master/other/deficiency-status/queries';
 import type { FieldValues } from 'react-hook-form';
 import { DropDownList } from 'shared/components/forms';
 
-interface SelectCollegeTypeProps<
+interface SelectDeficiencyStatusProps<
   T extends FieldValues,
 > extends Controls.FormProps<T> {
   label?: string;
   disabled?: boolean;
 }
 
-export default function SelectCollegeType<T extends FieldValues>({
+export default function SelectDeficiencyStatus<T extends FieldValues>({
   defaultOptionText,
-  label = 'College Type',
+  label = 'Deficiency Status',
   ...props
-}: SelectCollegeTypeProps<T> &
+}: SelectDeficiencyStatusProps<T> &
   Controls.InputBlockProps & { defaultOptionText?: string }) {
-  const { data, isLoading } = useCollegeTypesQuery();
-  const activeData =
-    data?.filter(
-      (item: CollegeMaster.CollegeTypeItem) => item.isActive === true
-    ) || [];
+  const { data, isLoading } = useDeficiencyStatusesQuery();
 
   return (
     <DropDownList
-      data={activeData}
+      data={data}
       loading={isLoading}
-      textField="name"
-      valueField="name"
-      optionValue="name"
+      textField="text"
+      valueField="text"
+      optionValue="text"
       label={label}
       required={true}
       defaultOptionText={defaultOptionText}

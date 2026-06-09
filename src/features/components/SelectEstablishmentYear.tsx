@@ -1,24 +1,24 @@
-import { useCollegeTypesQuery } from 'features/master/college/college-type/queries';
+import { useEstablishmentYearsQuery } from 'features/master/other/establishment-year/queries';
 import type { FieldValues } from 'react-hook-form';
 import { DropDownList } from 'shared/components/forms';
 
-interface SelectCollegeTypeProps<
+interface SelectEstablishmentYearProps<
   T extends FieldValues,
 > extends Controls.FormProps<T> {
   label?: string;
   disabled?: boolean;
 }
 
-export default function SelectCollegeType<T extends FieldValues>({
+export default function SelectEstablishmentYear<T extends FieldValues>({
   defaultOptionText,
-  label = 'College Type',
+  label = 'Establishment Year',
   ...props
-}: SelectCollegeTypeProps<T> &
+}: SelectEstablishmentYearProps<T> &
   Controls.InputBlockProps & { defaultOptionText?: string }) {
-  const { data, isLoading } = useCollegeTypesQuery();
+  const { data, isLoading } = useEstablishmentYearsQuery();
   const activeData =
     data?.filter(
-      (item: CollegeMaster.CollegeTypeItem) => item.isActive === true
+      (item: Master.Other.EstablishmentYearItem) => item.isActive === true
     ) || [];
 
   return (
@@ -26,8 +26,8 @@ export default function SelectCollegeType<T extends FieldValues>({
       data={activeData}
       loading={isLoading}
       textField="name"
-      valueField="name"
-      optionValue="name"
+      valueField="id"
+      optionValue="id"
       label={label}
       required={true}
       defaultOptionText={defaultOptionText}
