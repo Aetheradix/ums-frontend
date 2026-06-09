@@ -1,24 +1,24 @@
-import { useCollegeTypesQuery } from 'features/master/college/college-type/queries';
+import { useCollegeCategoriesQuery } from 'features/master/college/college-category/queries';
 import type { FieldValues } from 'react-hook-form';
 import { DropDownList } from 'shared/components/forms';
 
-interface SelectCollegeTypeProps<
+interface SelectCollegeCategoryProps<
   T extends FieldValues,
 > extends Controls.FormProps<T> {
   label?: string;
   disabled?: boolean;
 }
 
-export default function SelectCollegeType<T extends FieldValues>({
+export default function SelectCollegeCategory<T extends FieldValues>({
   defaultOptionText,
-  label = 'College Type',
+  label = 'College Category',
   ...props
-}: SelectCollegeTypeProps<T> &
+}: SelectCollegeCategoryProps<T> &
   Controls.InputBlockProps & { defaultOptionText?: string }) {
-  const { data, isLoading } = useCollegeTypesQuery();
+  const { data, isLoading } = useCollegeCategoriesQuery();
   const activeData =
     data?.filter(
-      (item: CollegeMaster.CollegeTypeItem) => item.isActive === true
+      (item: CollegeMaster.CollegeCategoryItem) => item.isActive === true
     ) || [];
 
   return (

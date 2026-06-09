@@ -1,33 +1,39 @@
-import { useCollegeTypesQuery } from 'features/master/college/college-type/queries';
 import type { FieldValues } from 'react-hook-form';
 import { DropDownList } from 'shared/components/forms';
 
-interface SelectCollegeTypeProps<
+const yesNoOptions = [
+  { label: 'Yes', value: 'Yes' },
+  { label: 'No', value: 'No' },
+];
+
+const booleanOptions = [
+  { label: 'Yes', value: 'true' },
+  { label: 'No', value: 'false' },
+];
+
+interface SelectYesNoProps<
   T extends FieldValues,
 > extends Controls.FormProps<T> {
   label?: string;
   disabled?: boolean;
+  useBooleanValues?: boolean;
 }
 
-export default function SelectCollegeType<T extends FieldValues>({
+export default function SelectYesNo<T extends FieldValues>({
   defaultOptionText,
-  label = 'College Type',
+  label = 'Select',
+  useBooleanValues = false,
   ...props
-}: SelectCollegeTypeProps<T> &
+}: SelectYesNoProps<T> &
   Controls.InputBlockProps & { defaultOptionText?: string }) {
-  const { data, isLoading } = useCollegeTypesQuery();
-  const activeData =
-    data?.filter(
-      (item: CollegeMaster.CollegeTypeItem) => item.isActive === true
-    ) || [];
+  const options = useBooleanValues ? booleanOptions : yesNoOptions;
 
   return (
     <DropDownList
-      data={activeData}
-      loading={isLoading}
-      textField="name"
-      valueField="name"
-      optionValue="name"
+      data={options}
+      textField="label"
+      valueField="value"
+      optionValue="value"
       label={label}
       required={true}
       defaultOptionText={defaultOptionText}
