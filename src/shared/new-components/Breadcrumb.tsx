@@ -89,6 +89,10 @@ export default function Breadcrumb({ items }: BreadcrumbProps) {
         toPath = '/home/sub-menu/settings';
       } else if (path.toLowerCase() === 'quick-onboarding') {
         toPath = '/employee-management/quick-onboarding';
+      } else if (path.toLowerCase() === 'affiliation-management-system') {
+        toPath = '/home/sub-menu/affiliation-management-system';
+      } else if (path.toLowerCase() === 'affiliation-settings') {
+        toPath = '/home/sub-menu/affiliation-settings';
       }
 
       generatedItems.push({

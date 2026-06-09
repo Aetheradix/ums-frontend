@@ -1,6 +1,5 @@
 import { Route, Routes } from 'react-router';
 import CollegeCategory from './college/college-category';
-import AvailableFacility from './college/college-facility';
 import CollegeType from './college/college-type';
 import ActionOption from './employee/settings/action-option';
 import ActionOptionReason from './employee/settings/action-option-reason';
@@ -34,7 +33,6 @@ import Scheme from './schemes/scheme';
 import SchemeCategory from './schemes/scheme-category';
 import SchemeType from './schemes/scheme-type';
 import Subject from './subject';
-import EstablishmentYear from './other/establishment-year';
 
 import UserManagement from './user-management';
 
@@ -66,7 +64,6 @@ export default function Master() {
       <Route path="college/*">
         <Route path="college-type/*" element={<CollegeType />} />
         <Route path="college-category/*" element={<CollegeCategory />} />
-        <Route path="available-facility/*" element={<AvailableFacility />} />
       </Route>
 
       <Route path="other/*">
@@ -75,7 +72,6 @@ export default function Master() {
         <Route path="programme/*" element={<Programme />} />
         <Route path="specialisation/*" element={<Specialisation />} />
         <Route path="nationality/*" element={<Nationality />} />
-        <Route path="establishmentYear/*" element={<EstablishmentYear />} />
       </Route>
 
       <Route path="grant/*">

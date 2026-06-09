@@ -4,7 +4,7 @@ import { ToastService } from 'services';
 import { Loader } from 'shared/components/progress';
 import { useParamsId } from 'shared/hooks/params';
 import { FormCard, FormPage } from 'shared/new-components';
-import { masterUrls } from '../../../urls';
+import { affiliationManagementSystemUrls } from 'features/affiliation-management-system/urls';
 import EstablishmentYearForm from '../components/EstablishmentYearForm';
 import {
   useEstablishmentYearQuery,
@@ -22,7 +22,7 @@ export default function Edit() {
   const { data = DEFAULT, isLoading } = useEstablishmentYearQuery(id);
 
   const handleBack = useCallback(() => {
-    navigate(masterUrls.EstablishmentYear.root);
+    navigate(affiliationManagementSystemUrls.establishmentYear.root);
   }, [navigate]);
 
   if (isLoading) {
