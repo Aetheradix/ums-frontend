@@ -1,5 +1,4 @@
 import { collegeCategoryUrls } from './college/college-category/urls';
-import { availableFacilityUrls } from './college/college-facility/urls';
 import { collegeTypeUrls } from './college/college-type/urls';
 import { actionOptionReasonUrls } from './employee/settings/action-option-reason/urls';
 import { actionOptionUrls } from './employee/settings/action-option/urls';
@@ -37,8 +36,6 @@ import { schemeTypeUrls } from './schemes/scheme-type/urls';
 import { schemeUrls } from './schemes/scheme/urls';
 import { ProgrammeModeOfEducationUrls } from './subject/programme-mode-of-education/urls';
 import { subjectCategoryUrls } from './subject/subject-category/urls';
-import { establishmentYearUrls } from './other/establishment-year/urls';
-
 const baseUrl = '/master';
 export const masterUrls = {
   programmeModeOfEducation: ProgrammeModeOfEducationUrls(baseUrl),
@@ -61,7 +58,6 @@ export const masterUrls = {
   section: sectionUrls(`${baseUrl}/hr`),
   collegeType: collegeTypeUrls(`${baseUrl}/college`),
   collegeCategory: collegeCategoryUrls(`${baseUrl}/college`),
-  availableFacility: availableFacilityUrls(`${baseUrl}/college`),
   faculty: facultyUrls(`${baseUrl}/faculty-management`),
   degreeLevel: degreeLevelUrls(`${baseUrl}/other`),
   academicYear: academicYearUrls(`${baseUrl}/other`),
@@ -71,7 +67,6 @@ export const masterUrls = {
   schemeCategory: schemeCategoryUrls(`${baseUrl}/scheme`),
   specialisation: specialisationUrls(`${baseUrl}/other`),
   Nationality: nationalityUrls(`${baseUrl}/other`),
-  EstablishmentYear: establishmentYearUrls(`${baseUrl}/other`),
   grantType: grantTypeUrls(`${baseUrl}/grant`),
   grantCategory: grantCategoryUrls(`${baseUrl}/grant`),
   eligibilityApplicationProcess: eligibilityApplicationProcessUrls(

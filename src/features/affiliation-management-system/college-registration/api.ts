@@ -3,10 +3,6 @@ import { formatDatesInPayload } from 'shared/utils/dateUtils';
 
 const COLLEGE_REGISTRATION_URL = `college-affiliation/registration`;
 
-/**
- * Transforms the frontend form data into the API payload structure
- * that matches the backend CreateCollegeRegistrationCommand.
- */
 function buildApiPayload(
   form: AffiliationManagementSystem.CollegeApplicationFormData,
   documentIds: { documentId: string; documentType: string }[]
@@ -27,7 +23,7 @@ function buildApiPayload(
     collegeType: form.collegeType,
     accommodationType: form.accommodationType,
     collegeArea: form.collegeArea,
-    availableFacilitiesId: facilityIds[0] ?? 0,
+    availableFacilities: facilityIds,
     numberOfClassRooms: form.numberOfClassRooms,
     deficiencyEarlierRaisedByCommittee:
       form.deficiencyEarlierRaisedByCommittee === 'Yes',
