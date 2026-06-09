@@ -33,13 +33,6 @@ const getCourseFees = (
   const selectedProgramme = programmes?.find(p => p.id === courseId);
   const fee = programmeFees?.find(f => f.programmeId === courseId);
 
-  console.log('Debugging Fee:', {
-    courseId,
-    courseName,
-    foundFee: fee,
-    allProgrammeFees: programmeFees,
-  });
-
   return {
     programmeFeeId: fee?.id || 0,
     affiliationFee: fee?.affiliationFee || 0,
@@ -74,28 +67,25 @@ export default function CollegeCourseDetailStep({
   const tempSubjects = localWatch('tempSubjects');
 
   // Load programs, subjects, and programme fees
-  const { data: programmes } = useProgrammesQuery();
-  const { data: subjects } = useSubjectsQuery();
-  const { data: programmeFeesData } = useProgrammeFeesQuery();
+  const { data: programmesRaw } = useProgrammesQuery();
+  const { data: subjectsRaw } = useSubjectsQuery();
+  const { data: programmeFeesRaw } = useProgrammeFeesQuery();
 
-  const activeSubjects =
-    (subjects as Master.SubjectMaster.SubjectItem[])?.filter(
-      item => item.isActive
-    ) || [];
+  const programmes = (programmesRaw || []) as Master.Other.ProgrammeItem[];
+  const subjects = (subjectsRaw || []) as Master.SubjectMaster.SubjectItem[];
+  const programmeFeesData = (programmeFeesRaw ||
+    []) as AffiliationManagementSystem.ProgrammeFeeItem[];
 
-  const activeProgrammeFees =
-    (
-      programmeFeesData as AffiliationManagementSystem.ProgrammeFeeItem[]
-    )?.filter(item => item.isActive) || [];
+  const activeSubjects = subjects.filter(item => item.isActive);
 
-  const selectedCourse = (programmes as Master.Other.ProgrammeItem[])?.find(
-    p => p.id === Number(tempCourseId)
-  );
+  const activeProgrammeFees = programmeFeesData.filter(item => item.isActive);
+
+  const selectedCourse = programmes.find(p => p.id === Number(tempCourseId));
   const currentFees = getCourseFees(
     Number(tempCourseId),
     selectedCourse?.name || '',
     activeProgrammeFees,
-    (programmes as Master.Other.ProgrammeItem[]) || []
+    programmes
   );
 
   const handleAddCourse = () => {
@@ -268,22 +258,20 @@ export default function CollegeCourseDetailStep({
               <tbody>
                 {fields.map((field, rowIndex) => {
                   const courseName =
-                    (programmes as Master.Other.ProgrammeItem[])?.find(
-                      p => p.id === field.courseId
-                    )?.name ?? `Course #${field.courseId}`;
+                    programmes.find(p => p.id === field.courseId)?.name ??
+                    `Course #${field.courseId}`;
                   const fees = getCourseFees(
                     field.courseId!,
                     courseName,
                     activeProgrammeFees,
-                    (programmes as Master.Other.ProgrammeItem[]) || []
+                    programmes
                   );
 
                   const subjectNames = (field.subjectIds || [])
                     .map(sId => {
                       return (
-                        (subjects as Master.SubjectMaster.SubjectItem[])?.find(
-                          s => s.id === sId
-                        )?.subjectName ?? `Subject #${sId}`
+                        subjects.find(s => s.id === sId)?.subjectName ??
+                        `Subject #${sId}`
                       );
                     })
                     .filter(Boolean)

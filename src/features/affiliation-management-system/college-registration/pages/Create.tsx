@@ -126,7 +126,13 @@ export default function Create() {
           ) : (
             <Button
               key="submit-button"
-              label="Submit"
+              label={
+                isUploading
+                  ? 'Uploading...'
+                  : isPending
+                    ? 'Saving...'
+                    : 'Submit'
+              }
               type="submit"
               icon="check"
               isLoading={isPending || isUploading}

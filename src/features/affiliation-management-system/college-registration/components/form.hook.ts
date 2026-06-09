@@ -39,6 +39,8 @@ export const STEP_FIELDS: Record<
   3: ['nocFile', 'affidavitFile', 'regularAuthorityFile'],
 };
 
+const MAX_FILE_SIZE = 250 * 1024;
+
 const pdfFileValidator = (o: Joi.Root) =>
   o
     .any()
@@ -47,21 +49,21 @@ const pdfFileValidator = (o: Joi.Root) =>
         if (value.type !== 'application/pdf') {
           return helpers.error('any.invalid');
         }
-        if (value.size < 50 * 1024 || value.size > 250 * 1024) {
+        if (value.size > MAX_FILE_SIZE) {
           return helpers.error('any.invalid');
         }
       }
       return value;
     })
     .messages({
-      'any.invalid': 'Invalid file (PDF only, size between 50KB and 250KB)',
+      'any.invalid': 'Invalid file (PDF only, maximum size 250KB)',
     });
 
 const schema =
   validation.create<AffiliationManagementSystem.CollegeApplicationFormData>(
     o => ({
       // Step 1 — College Registration
-      collegeCode: o.string().required().max(20),
+      collegeCode: o.string().required().max(15),
       establishmentYearId: o.number().required(),
       collegeName: o
         .string()
