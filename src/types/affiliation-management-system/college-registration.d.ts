@@ -16,6 +16,7 @@ declare namespace AffiliationManagementSystem {
     deficiencyEarlierRaisedByCommittee: string;
     deficiencyStatus?: string;
     deficiencyReason?: string;
+    otherFacilities?: { facilityName: string }[];
   }
 
   export interface AffiliationOtherDetailsForm {

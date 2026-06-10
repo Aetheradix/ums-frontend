@@ -9,8 +9,10 @@ import {
 } from 'features/components';
 import SelectDistrict from 'features/components/SelectDistrict';
 import { useAvailableFacilitiesQuery } from 'features/master/college/college-facility/queries';
+import { useEffect } from 'react';
 import type { Control, Path } from 'react-hook-form';
-import { useWatch } from 'react-hook-form';
+import { useFieldArray, useWatch } from 'react-hook-form';
+import { Button } from 'shared/components/buttons';
 import {
   CheckboxList,
   NumberBox,
@@ -33,6 +35,26 @@ export default function CollegeRegistrationStep({
   register,
   control,
 }: CollegeRegistrationStepProps) {
+  const { data: facilityData } = useAvailableFacilitiesQuery();
+  const facilityOptions = [
+    ...(facilityData?.filter(f => f.isActive) || []),
+    { id: -1, facilityName: 'Other' },
+  ];
+
+  const watchedFacilities = useWatch({ control, name: 'availableFacilities' });
+  const isOtherSelected = watchedFacilities && watchedFacilities[-1] === true;
+
+  const { fields, append, remove } = useFieldArray({
+    control,
+    name: 'otherFacilities',
+  });
+
+  useEffect(() => {
+    if (isOtherSelected && fields.length === 0) {
+      append({ facilityName: '' });
+    }
+  }, [isOtherSelected, fields.length, append]);
+
   const watchedDeficiency = useWatch({
     control,
     name: 'deficiencyEarlierRaisedByCommittee',
@@ -42,12 +64,6 @@ export default function CollegeRegistrationStep({
     control,
     name: 'deficiencyStatus',
   });
-
-  const { data: facilityData } = useAvailableFacilitiesQuery();
-  const facilityOptions =
-    facilityData?.filter(
-      (f: CollegeMaster.AvailableFacilityItem) => f.isActive
-    ) || [];
 
   return (
     <FormCard title="College Details" icon="building">
@@ -132,8 +148,11 @@ export default function CollegeRegistrationStep({
           {...register('accommodationType')}
           required
         />
-        {/* Row 7 */}
         <div className="col-span-2">
+          <p className="text-sm font-medium text-blue-600 mb-2 whitespace-nowrap">
+            Note: If any of your available facilities are not shown in the list,
+            please select the 'Other' option and add them.
+          </p>
           <CheckboxList
             label="Available facilities"
             name="availableFacilities"
@@ -144,6 +163,52 @@ export default function CollegeRegistrationStep({
             columns={4}
           />
         </div>
+
+        {isOtherSelected && (
+          <div className="col-span-2 p-5 border border-slate-200 rounded-lg bg-slate-50 mt-2">
+            <div className="flex justify-between items-center mb-4 border-b border-slate-200 pb-2">
+              <span className="font-bold text-slate-700">
+                Add Other Facilities
+              </span>
+              <Button
+                type="button"
+                variant="outlined"
+                icon="plus"
+                label="Add More"
+                onClick={() => append({ facilityName: '' })}
+              />
+            </div>
+
+            <div className="flex flex-col gap-4">
+              {fields.map((field, index) => (
+                <div
+                  key={field.id}
+                  className="flex gap-4 items-start w-full md:w-1/2"
+                >
+                  <div className="flex-1">
+                    <TextBox
+                      label={`Other Facility ${index + 1}`}
+                      placeholder="Enter facility name"
+                      {...register(
+                        `otherFacilities.${index}.facilityName` as const
+                      )}
+                      required
+                    />
+                  </div>
+                  <div className="mt-7">
+                    <Button
+                      type="button"
+                      variant="text"
+                      className="text-danger hover:bg-red-50"
+                      icon="trash"
+                      onClick={() => remove(index)}
+                    />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
         {/* Row 8 */}
         <NumberBox
           label="Number of Class rooms"
