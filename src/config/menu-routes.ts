@@ -843,6 +843,16 @@ export const menuConfig: Menu.MenuItem[] = [
         ],
       },
       {
+        label: 'College Registration Approvals',
+        slug: 'registration-approval',
+        description: 'Manage college registration Approvals.',
+        path: '/affiliation-management-system/registration-approval',
+        icon: 'edit_location',
+        colorScheme: 'green',
+        // feature: '@collegeaffiliation/collegeregistrationapproval',
+        // action: 'read',
+      },
+      {
         label: 'Affiliation Settings',
         slug: 'affiliation-settings',
         description: 'Manage affiliation settings',
