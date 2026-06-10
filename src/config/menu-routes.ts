@@ -584,7 +584,6 @@ export const menuConfig: Menu.MenuItem[] = [
                 path: '/master/employee/settings/employee-group',
                 icon: 'groups',
                 colorScheme: 'red',
-                children: [],
                 feature: '@employee/Settings/EmployeeGroup',
                 action: 'read',
               },
