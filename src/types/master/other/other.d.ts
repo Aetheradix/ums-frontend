@@ -188,5 +188,17 @@ declare namespace Master {
         isActive: boolean;
       }
     >;
+    interface AccommodationTypeItem {
+      id: string;
+      text: string;
+    }
+    interface CollegeAreaItem {
+      id: string;
+      text: string;
+    }
+    interface DeficiencyStatusItem {
+      id: string;
+      text: string;
+    }
   }
 }
