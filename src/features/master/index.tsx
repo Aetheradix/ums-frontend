@@ -34,6 +34,7 @@ import SchemeCategory from './schemes/scheme-category';
 import SchemeType from './schemes/scheme-type';
 import Subject from './subject';
 
+import SeparationReasonType from './employee/settings/separation-reason-type';
 import UserManagement from './user-management';
 
 export default function Master() {
@@ -105,6 +106,10 @@ export default function Master() {
           <Route
             path="subject-specialization"
             element={<SubjectSpecialization />}
+          />
+          <Route
+            path="separation-reason-type/*"
+            element={<SeparationReasonType />}
           />
           <Route path="travel-purpose/*" element={<TravelPurpose />} />
         </Route>

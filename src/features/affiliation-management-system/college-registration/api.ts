@@ -42,7 +42,8 @@ function buildApiPayload(
     },
 
     courses: (form.courses ?? []).map(course => ({
-      programmeFeesMappingId: course.programmeFeesMappingId,
+      courseId: course.courseId,
+      subjectIds: course.subjectIds,
       totalAmount: course.totalAmount ?? 0,
       isFeePaid: course.isFeePaid ?? false,
       paymentDate: course.paymentDate || null,

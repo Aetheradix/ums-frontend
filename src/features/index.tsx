@@ -1,6 +1,7 @@
 import { ProtectedRoute } from 'auth';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import MainLayout from 'shared/components/layout/MainLayout';
+import AdmissionPortal from './admission-portal';
 import CareerAdvancement from './career-advancement';
 import EmployeeManagement from './employee-management';
 import Home from './home';
@@ -20,6 +21,7 @@ export default function Features() {
           </div>
         }
       />
+      <Route path="admission-portal/*" element={<AdmissionPortal />} />
       <Route
         path="/*"
         element={
