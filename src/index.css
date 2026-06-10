@@ -1478,3 +1478,10 @@ body {
 .ss-subject-card--selected .ss-credits-value {
   color: var(--color-black);
 }
+/* ============================================================
+   14. SMALL UTILITIES
+============================================================ */
+
+.pl-40 {
+  padding-left: 40px;
+}

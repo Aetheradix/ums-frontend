@@ -2,7 +2,7 @@ import { useCallback, useState } from 'react';
 import { useNavigate } from 'react-router';
 import { ToastService } from 'services';
 import { Button } from 'shared/components/buttons';
-import { FormPage, Stepper } from 'shared/new-components';
+import { FormPage } from 'shared/new-components';
 import { uploadCollegeDocuments } from '../api';
 import AffiliationOtherDetailsStep from '../components/AffiliationOtherDetailsStep';
 import CollegeCourseDetailStep from '../components/CollegeCourseDetailStep';
@@ -13,12 +13,29 @@ import {
   useCollegeApplicationForm,
 } from '../components/form.hook';
 import { useCreateCollegeRegistrationMutation } from '../queries';
+import './Create.css';
 
 const STEPS = [
-  { label: 'College Details' },
-  { label: 'Other Details' },
-  { label: 'Course Details' },
-  { label: 'Enclosures' },
+  {
+    label: 'College Details',
+    description: 'Basic college information',
+    icon: 'building',
+  },
+  {
+    label: 'Other Details',
+    description: 'Principal and society details',
+    icon: 'user',
+  },
+  {
+    label: 'Course Details',
+    description: 'Programme and subject details',
+    icon: 'book',
+  },
+  {
+    label: 'Enclosures',
+    description: 'Upload required documents',
+    icon: 'folder-open',
+  },
 ];
 
 export default function Create() {
@@ -27,7 +44,7 @@ export default function Create() {
   const navigate = useNavigate();
   const { mutateAsync, isPending } = useCreateCollegeRegistrationMutation();
 
-  const { register, control, handleSubmit, reset, trigger } =
+  const { register, control, handleSubmit, reset, trigger, setValue } =
     useCollegeApplicationForm();
 
   const onFormSubmit = handleSubmit(
@@ -42,6 +59,7 @@ export default function Create() {
         setIsUploading(false);
 
         const result = await mutateAsync({ data, documentIds });
+
         if (result) {
           ToastService.success('College Registration submitted successfully.');
           reset();
@@ -61,6 +79,7 @@ export default function Create() {
   const handleNext = useCallback(async () => {
     const fields = STEP_FIELDS[activeStep];
     const isValid = await trigger(fields);
+
     if (isValid) {
       setActiveStep(prev => prev + 1);
     }
@@ -79,6 +98,31 @@ export default function Create() {
     [activeStep]
   );
 
+  const renderActiveStep = () => {
+    switch (activeStep) {
+      case 0:
+        return (
+          <CollegeRegistrationStep
+            register={register}
+            control={control}
+            setValue={setValue}
+          />
+        );
+
+      case 1:
+        return <AffiliationOtherDetailsStep register={register} />;
+
+      case 2:
+        return <CollegeCourseDetailStep control={control} />;
+
+      case 3:
+        return <CollegeEnclosureStep control={control} />;
+
+      default:
+        return null;
+    }
+  };
+
   const isLastStep = activeStep === STEPS.length - 1;
 
   return (
@@ -86,60 +130,90 @@ export default function Create() {
       title="Application for Affiliation"
       description="Fill in all the required details to submit the affiliation application."
     >
-      <Stepper
-        steps={STEPS}
-        activeStep={activeStep}
-        onStepClick={handleStepClick}
-      />
+      <div className="affiliation-create-layout">
+        <aside className="affiliation-step-panel">
+          <div className="affiliation-step-panel-header">
+            <span className="affiliation-step-panel-dot" />
 
-      <form onSubmit={onFormSubmit}>
-        <div className="flex flex-col gap-6 mb-6">
-          {activeStep === 0 && (
-            <CollegeRegistrationStep register={register} control={control} />
-          )}
-          {activeStep === 1 && (
-            <AffiliationOtherDetailsStep register={register} />
-          )}
-          {activeStep === 2 && <CollegeCourseDetailStep control={control} />}
-          {activeStep === 3 && <CollegeEnclosureStep control={control} />}
-        </div>
+            <div>
+              <h3>Application Progress</h3>
+              <p>Complete all the steps to submit your application.</p>
+            </div>
+          </div>
 
-        <div className="form-actions-container form-actions-right">
-          {activeStep > 0 && (
-            <Button
-              key="back-button"
-              label="Back"
-              type="button"
-              onClick={handleBack}
-              icon="arrow-left"
-              variant="outlined"
-            />
-          )}
-          {!isLastStep ? (
-            <Button
-              key="next-button"
-              label="Next"
-              type="button"
-              onClick={handleNext}
-              icon="arrow-right"
-            />
-          ) : (
-            <Button
-              key="submit-button"
-              label={
-                isUploading
-                  ? 'Uploading...'
-                  : isPending
-                    ? 'Saving...'
-                    : 'Submit'
-              }
-              type="submit"
-              icon="check"
-              isLoading={isPending || isUploading}
-            />
-          )}
-        </div>
-      </form>
+          <div className="affiliation-step-list">
+            {STEPS.map((step, index) => {
+              const isActive = index === activeStep;
+              const isCompleted = index < activeStep;
+              const canClick = index < activeStep;
+
+              return (
+                <button
+                  key={step.label}
+                  type="button"
+                  className={`affiliation-step-item ${
+                    isActive ? 'active' : ''
+                  } ${isCompleted ? 'completed' : ''}`}
+                  onClick={() => canClick && handleStepClick(index)}
+                  disabled={!canClick && !isActive}
+                >
+                  <span className="affiliation-step-number">
+                    {isCompleted ? <i className="pi pi-check" /> : index + 1}
+                  </span>
+
+                  <span className="affiliation-step-content">
+                    <strong>{step.label}</strong>
+                    <small>{step.description}</small>
+                  </span>
+                </button>
+              );
+            })}
+          </div>
+        </aside>
+
+        <section className="affiliation-form-panel">
+          <form onSubmit={onFormSubmit}>
+            <div className="affiliation-form-content">{renderActiveStep()}</div>
+
+            <div className="affiliation-form-actions">
+              {activeStep > 0 && (
+                <Button
+                  key="back-button"
+                  label="Back"
+                  type="button"
+                  onClick={handleBack}
+                  icon="arrow-left"
+                  variant="outlined"
+                />
+              )}
+
+              {!isLastStep ? (
+                <Button
+                  key="next-button"
+                  label="Next"
+                  type="button"
+                  onClick={handleNext}
+                  icon="arrow-right"
+                />
+              ) : (
+                <Button
+                  key="submit-button"
+                  label={
+                    isUploading
+                      ? 'Uploading...'
+                      : isPending
+                        ? 'Saving...'
+                        : 'Submit'
+                  }
+                  type="submit"
+                  icon="check"
+                  isLoading={isPending || isUploading}
+                />
+              )}
+            </div>
+          </form>
+        </section>
+      </div>
     </FormPage>
   );
 }
