@@ -849,8 +849,8 @@ export const menuConfig: Menu.MenuItem[] = [
         path: '/affiliation-management-system/registration-approval',
         icon: 'edit_location',
         colorScheme: 'green',
-        feature: '@collegeaffiliation/collegeregistrationapproval',
-        action: 'read',
+        // feature: '@collegeaffiliation/collegeregistrationapproval',
+        // action: 'read',
       },
       {
         label: 'Affiliation Settings',
