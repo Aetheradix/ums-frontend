@@ -1,7 +1,8 @@
 @reference "tailwindcss";
 
 .inline-create-panel {
-  @apply mb-4 overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm;
+  @apply mb-4 rounded-xl border border-slate-200 bg-white shadow-sm;
+  overflow: visible;
 }
 
 .inline-create-panel-header {
@@ -42,17 +43,18 @@
   @apply mb-0;
 }
 
+/* Only compact height override, color/border/background global se aayega */
 .inline-create-panel-body .input-field-wrapper input {
-  @apply h-[34px]! min-h-[34px]! rounded-md! border! shadow-sm;
-  border-color: var(--border-light) !important;
+  @apply h-[34px]! min-h-[34px]!;
 }
 
+/* Only compact dropdown sizing, theme global se aayegi */
 .inline-create-panel-body .p-dropdown {
-  @apply !h-[38px] !min-h-[38px] !w-full !rounded-md !border !border-slate-200 !shadow-none;
+  @apply !h-[38px] !min-h-[38px] !w-full !rounded-md;
 }
 
 .inline-create-panel-body .p-dropdown-label {
-  @apply !flex !items-center border-none !py-0 !text-sm;
+  @apply !flex !items-center !py-0 !text-sm;
 }
 
 .inline-create-panel-body .p-dropdown-trigger {
@@ -64,20 +66,10 @@
   @apply !border-0 !shadow-none;
 }
 
-.inline-create-panel-body .input-field-wrapper .p-dropdown {
-  @apply !border-slate-200 !shadow-none;
-}
+/* =========================
+   Dark Mode
+========================= */
 
-.inline-create-panel {
-  @apply mb-4 rounded-xl border border-slate-200 bg-white shadow-sm;
-  overflow: visible;
-}
-
-/* .inline-create-panel-body form > div:last-child {
-  @apply mt-4 border-t border-slate-100 pt-3;
-} */
-
-/* Dark mode */
 .dark .inline-create-panel {
   background-color: var(--dark-card-bg);
   border-color: var(--dark-border);
@@ -85,27 +77,27 @@
   box-shadow: none;
 }
 
-/* .dark .inline-create-panel-header,
-.dark .inline-create-panel-body form > div:last-child {
-  border-color: var(--dark-border);
-} */
 .dark .inline-create-panel-header {
   border-color: var(--dark-border);
 }
 
 .dark .inline-create-panel-title {
-  color: var(--dark-card-text);
+  color: var(--dark-text);
 }
 
 .dark .inline-create-panel-subtitle {
-  color: var(--gray-300);
+  color: var(--dark-text-muted);
 }
 
 .dark .inline-create-panel-close {
-  color: var(--gray-300);
+  @apply border-white/[0.08] bg-white/[0.06] text-slate-300 shadow-none;
 }
 
 .dark .inline-create-panel-close:hover {
-  background-color: var(--dark-input-bg);
-  color: var(--white);
+  @apply border-white bg-white text-black;
+}
+
+.dark .inline-create-panel-body label,
+.dark .inline-create-panel-body .form-field-label {
+  @apply text-slate-200;
 }

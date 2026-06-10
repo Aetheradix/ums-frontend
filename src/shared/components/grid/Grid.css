@@ -1,19 +1,26 @@
 @reference "tailwindcss";
 
-/* --- 1. DataTable --- */
+/* =========================
+   1. DataTable
+========================= */
+
+.p-datatable {
+  @apply w-full overflow-hidden rounded-lg border border-slate-200 shadow-sm;
+}
+
 .p-datatable .p-datatable-thead > tr > th {
-  @apply bg-slate-50 font-semibold border-b border-slate-200 px-4 py-3 text-left;
+  @apply border-b border-slate-200 bg-slate-50 px-4 py-3 text-left font-semibold;
 }
 
 .p-datatable .p-datatable-tbody > tr > td {
-  @apply border border-slate-200 text-black align-middle;
+  @apply border border-slate-200 px-4 py-3 text-sm text-black align-middle;
 }
 
 /* Remove hover effects */
 .p-datatable .p-datatable-tbody > tr:hover {
-  @apply transition-colors;
   background-color: var(--bg-white);
 }
+
 .p-datatable .p-datatable-tbody > tr,
 .p-datatable .p-datatable-tbody > tr:hover * {
   transition: none !important;
@@ -21,8 +28,9 @@
 
 /* Sort icon */
 .p-datatable .p-sortable-column .p-sortable-column-icon {
-  @apply text-slate-400 ml-2;
+  @apply ml-2 h-3 w-3 text-slate-400;
 }
+
 .p-datatable .p-sortable-column .p-sortable-column-icon svg {
   font-size: 5px;
 }
@@ -34,7 +42,6 @@
 
 /* Frozen columns */
 .p-datatable .p-datatable-tbody > tr > td.p-frozen-column {
-  @apply transition-colors;
   background-color: var(--bg-white);
 }
 
@@ -42,174 +49,100 @@
   @apply bg-gray-50;
 }
 
-/* --- 2. Paginator --- */
+/* =========================
+   2. Paginator
+========================= */
+/* =========================
+   2. Paginator
+========================= */
+
 .p-paginator {
-  @apply flex items-center justify-between px-4 py-2 border-t min-h-[4rem];
+  @apply flex min-h-[4rem] w-full items-center border-t px-4 py-2 text-sm;
   background-color: var(--bg-white);
   border-color: var(--color-gray-200);
+  gap: 0.5rem;
 }
 
-/* Left content */
-.p-paginator-current,
+/* Showing 1-10 of 30 items */
+.p-paginator-current {
+  @apply order-1 mr-3 whitespace-nowrap text-sm text-slate-500;
+}
+
+/* Rows per page dropdown wrapper */
 .p-paginator-rpp-options {
-  @apply text-slate-500 text-sm mr-4;
+  @apply order-2 mr-4;
+  width: auto !important;
+  flex: 0 0 auto !important;
 }
 
-/* Dropdown */
+/* Rows per page dropdown */
 .p-paginator .p-dropdown {
-  @apply border-none border-slate-200 rounded-lg h-9 flex items-center min-w-[100px];
+  @apply flex h-9 min-w-[72px] items-center rounded-lg border border-slate-200 bg-white;
+  width: auto !important;
+  flex: 0 0 auto !important;
 }
 
+/* Dropdown label */
 .p-paginator .p-dropdown-label {
-  @apply text-sm text-slate-600 flex items-center;
+  @apply flex h-9 items-center px-3 py-0 text-sm leading-9 text-slate-600;
+  width: auto !important;
+  min-width: 32px;
 }
 
-/* Dropdown items */
-.p-dropdown-panel .p-dropdown-item {
-  @apply px-4 py-2 text-sm;
+/* Dropdown arrow */
+.p-paginator .p-dropdown-trigger {
+  @apply flex h-9 w-9 items-center justify-center;
 }
 
-.p-dropdown-panel .p-dropdown-filter-container {
-  @apply relative px-2 py-2 bg-white border! rounded-md!;
-  border-color: var(--border-light) !important;
-}
-
-.p-dropdown-panel .p-dropdown-filter {
-  @apply h-9 w-full border-none bg-white pl-3 pr-9 text-sm text-slate-700 outline-none;
-}
-
-.p-dropdown-panel .p-dropdown-filter-icon {
-  @apply right-5 top-1/2 -translate-y-1/2 text-slate-400;
-}
-
-.p-dropdown-panel .p-dropdown-items .p-dropdown-item.p-highlight {
-  color: var(--primary-color);
-  background-color: color-mix(in srgb, var(--color-black) 5%, white);
-}
-
-/* Push pagination to right */
+/* Page buttons group starts from right */
 .p-paginator-first {
-  @apply ml-auto;
+  @apply order-3 ml-auto;
 }
 
-/* Buttons */
-.p-paginator .p-link {
-  @apply min-w-[2.5rem] h-[2.5rem] shadow-none border-none;
+.p-paginator-prev {
+  @apply order-4;
 }
 
-/* Pages */
 .p-paginator-pages {
-  @apply flex gap-1;
+  @apply order-5 flex items-center gap-1;
 }
 
+.p-paginator-next {
+  @apply order-6;
+}
+
+.p-paginator-last {
+  @apply order-7;
+}
+
+/* Paginator buttons */
+.p-paginator .p-link {
+  @apply flex h-9 min-w-9 items-center justify-center rounded-lg border-0 bg-transparent text-sm text-slate-600 shadow-none;
+}
+
+.p-paginator .p-link:hover {
+  @apply bg-slate-100 text-black;
+}
+
+/* Page number */
 .p-paginator-page {
-  @apply text-slate-600 text-sm font-medium;
+  @apply text-sm font-medium text-slate-600;
 }
 
 /* Active page */
 .p-paginator-page.p-highlight {
-  @apply bg-black text-white rounded-lg border border-black;
+  @apply rounded-lg border border-black bg-black text-white;
 }
 
 /* Ellipsis */
 .p-paginator-ellipsis {
-  @apply text-slate-500 flex items-center justify-center min-w-[2rem];
+  @apply flex h-9 min-w-9 items-center justify-center text-slate-500;
 }
 
-/* --- 3. Dark Theme --- */
-.dark .p-datatable {
-  @apply border;
-  background-color: var(--dark-card-bg);
-  color: var(--dark-card-text);
-  border-color: var(--dark-border);
-}
+/* =========================
+   3. Grid Row Actions
+========================= */
 
-.dark .p-datatable-thead > tr > th {
-  background-color: var(--dark-header-bg) !important;
-  color: var(--white) !important;
-  @apply border-b;
-  border-color: var(--dark-border);
-}
-
-.dark .p-datatable-thead > tr > th .p-column-title,
-.dark .p-datatable-thead > tr > th .p-column-header-content {
-  background-color: transparent !important;
-  color: var(--white) !important;
-}
-
-.dark .p-sortable-column .p-sortable-column-icon {
-  @apply text-white;
-}
-
-.dark .p-datatable-tbody > tr > td {
-  background-color: var(--dark-card-bg);
-  color: var(--gray-300);
-}
-
-.dark .p-datatable-tbody > tr:nth-child(even) {
-  background-color: var(--dark-p-card-bg);
-}
-
-.dark .p-datatable-tbody > tr:hover {
-  background-color: var(--dark-input-bg);
-}
-
-.dark .p-paginator {
-  background-color: var(--dark-card-bg);
-  border-color: var(--dark-border);
-  color: var(--dark-card-text);
-}
-
-.dark .p-paginator .p-paginator-page.p-highlight {
-  @apply text-black border-white bg-[var(--bg-white)];
-}
-
-.dark .p-paginator .p-link {
-  @apply text-zinc-400 hover:bg-zinc-800;
-}
-
-.dark .p-dropdown-panel {
-  background-color: var(--dark-card-bg);
-  border-color: var(--dark-border);
-  color: var(--dark-card-text);
-}
-
-.dark .p-dropdown-panel .p-dropdown-filter {
-  background-color: var(--dark-input-bg);
-  border-color: var(--dark-border);
-  color: var(--dark-card-text);
-}
-
-.dark .p-dropdown-panel .p-dropdown-filter::placeholder {
-  color: var(--gray-300);
-}
-
-.dark .p-dropdown-panel .p-dropdown-item {
-  color: var(--dark-card-text);
-}
-
-.dark .p-dropdown-panel .p-dropdown-item:hover {
-  background-color: var(--dark-input-bg);
-}
-
-/* --- 4. Misc --- */
-.p-ink {
-  @apply hidden;
-}
-
-.time-input {
-  @apply p-1 border border-gray-300 rounded-md w-full;
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-  .p-dialog {
-    width: 95vw !important;
-  }
-}
-
-/* UI changes css starts 06/04/2026 */
-/* --- Grid Row Actions --- */
 .grid-action-col {
   @apply w-24 min-w-24 text-right;
 }
@@ -223,9 +156,11 @@
 }
 
 .grid-action-icon-btn {
-  @apply !inline-flex !h-8 !w-8 !min-w-8 !cursor-pointer !items-center !justify-center !gap-0 !border !border-slate-200 !bg-white !p-0 !text-slate-500 !shadow-sm !transition-all !duration-200 !ease-in-out;
+  @apply !inline-flex !h-8 !w-8 !min-w-8 !cursor-pointer;
+  @apply !items-center !justify-center !gap-0;
+  @apply !border !border-slate-200 !bg-white !p-0 !text-slate-500;
+  @apply !shadow-sm !transition-all !duration-200 !ease-in-out;
   border-radius: var(--radius-sm) !important;
-
   position: relative;
 }
 
@@ -251,8 +186,91 @@
   @apply !outline-none !ring-2 !ring-slate-200 !ring-offset-1;
 }
 
-/* --- Grid Row Actions Dark Theme --- */
-/* --- Grid Row Actions Dark Theme --- */
+/* =========================
+   4. Dark Theme
+========================= */
+
+.dark .p-datatable {
+  @apply border;
+  background-color: var(--dark-card-bg);
+  color: var(--dark-card-text);
+  border-color: var(--dark-border);
+}
+
+.dark .p-datatable-thead > tr > th {
+  @apply border-b;
+  background-color: var(--dark-header-bg) !important;
+  color: var(--white) !important;
+  border-color: var(--dark-border);
+}
+
+.dark .p-datatable-thead > tr > th .p-column-title,
+.dark .p-datatable-thead > tr > th .p-column-header-content {
+  background-color: transparent !important;
+  color: var(--white) !important;
+}
+
+.dark .p-sortable-column .p-sortable-column-icon {
+  @apply text-white;
+}
+
+.dark .p-datatable-tbody > tr > td {
+  background-color: var(--dark-card-bg);
+  color: var(--dark-card-text);
+  border-color: var(--dark-border);
+}
+
+.dark .p-datatable-tbody > tr:nth-child(even) > td {
+  background-color: var(--dark-surface-secondary);
+}
+
+.dark .p-datatable-tbody > tr:hover {
+  background-color: var(--dark-input-bg);
+}
+
+.dark .p-datatable .p-datatable-tbody > tr > td.p-frozen-column {
+  background-color: var(--dark-card-bg);
+}
+
+.dark
+  .p-datatable
+  .p-datatable-tbody
+  > tr:nth-child(even)
+  > td.p-frozen-column {
+  background-color: var(--dark-surface-secondary);
+}
+
+.dark .p-paginator {
+  background-color: var(--dark-card-bg);
+  border-color: var(--dark-border);
+  color: var(--dark-card-text);
+}
+
+.dark .p-paginator-current {
+  @apply text-zinc-400;
+}
+
+.dark .p-paginator .p-dropdown {
+  @apply border-zinc-700 bg-zinc-900;
+}
+
+.dark .p-paginator .p-dropdown-label {
+  @apply text-zinc-300;
+}
+
+.dark .p-paginator .p-link {
+  @apply text-zinc-400;
+}
+
+.dark .p-paginator .p-link:hover {
+  @apply bg-zinc-800 text-white;
+}
+
+.dark .p-paginator .p-paginator-page.p-highlight {
+  @apply border-white bg-white text-black;
+}
+
+/* Grid Row Actions Dark Theme */
 .dark .grid-action-icon-btn {
   @apply !border-zinc-700 !bg-zinc-900 !text-zinc-400 !shadow-none;
 }
@@ -273,4 +291,22 @@
 .dark .grid-action-icon-btn:focus-visible {
   @apply ring-zinc-700! ring-offset-zinc-950!;
 }
-/* UI changes css ends 06/04/2026 */
+
+/* =========================
+   5. Misc
+========================= */
+
+.p-ink {
+  @apply hidden;
+}
+
+.time-input {
+  @apply w-full rounded-md border border-gray-300 p-1;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .p-dialog {
+    width: 95vw !important;
+  }
+}
