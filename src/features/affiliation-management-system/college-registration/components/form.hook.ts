@@ -24,6 +24,7 @@ export const STEP_FIELDS: Record<
     'deficiencyEarlierRaisedByCommittee',
     'deficiencyStatus',
     'deficiencyReason',
+    'otherFacilities',
   ],
   1: [
     'principalDirectorName',
@@ -100,6 +101,14 @@ const schema =
           then: o.string().required().max(500),
           otherwise: o.string().optional().allow('', null),
         }),
+      otherFacilities: o
+        .array()
+        .items(
+          o.object().keys({
+            facilityName: o.string().required().max(200),
+          })
+        )
+        .optional(),
 
       // Step 2 — College Affiliation
       affiliationId: o.number().optional(),

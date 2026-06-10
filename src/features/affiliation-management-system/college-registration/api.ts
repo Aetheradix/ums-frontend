@@ -8,8 +8,16 @@ function buildApiPayload(
   documentIds: { documentId: string; documentType: string }[]
 ) {
   const facilityIds = Object.entries(form.availableFacilities ?? {})
-    .filter(([, checked]) => checked)
+    .filter(([id, checked]) => checked && Number(id) !== -1)
     .map(([id]) => Number(id));
+
+  const otherFacilitiesText =
+    form.availableFacilities?.[-1] && form.otherFacilities
+      ? form.otherFacilities
+          .map(f => f.facilityName)
+          .filter(Boolean)
+          .join(', ')
+      : null;
 
   return {
     establishmentYearId: form.establishmentYearId,
@@ -24,6 +32,7 @@ function buildApiPayload(
     accommodationType: form.accommodationType,
     collegeArea: form.collegeArea,
     availableFacilities: facilityIds,
+    availableFacilitiesOther: otherFacilitiesText,
     numberOfClassRooms: form.numberOfClassRooms,
     deficiencyEarlierRaisedByCommittee:
       form.deficiencyEarlierRaisedByCommittee === 'Yes',
