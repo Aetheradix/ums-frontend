@@ -9,8 +9,8 @@ import {
 } from 'features/components';
 import SelectDistrict from 'features/components/SelectDistrict';
 import { useAvailableFacilitiesQuery } from 'features/master/college/college-facility/queries';
-import { useEffect } from 'react';
-import type { Control, Path } from 'react-hook-form';
+import { useEffect, useRef } from 'react';
+import type { Control, Path, UseFormSetValue } from 'react-hook-form';
 import { useFieldArray, useWatch } from 'react-hook-form';
 import { Button } from 'shared/components/buttons';
 import {
@@ -29,20 +29,42 @@ interface CollegeRegistrationStepProps {
     name: Path<AffiliationManagementSystem.CollegeApplicationFormData>;
   };
   control: Control<AffiliationManagementSystem.CollegeApplicationFormData>;
+  setValue: UseFormSetValue<AffiliationManagementSystem.CollegeApplicationFormData>;
 }
+
+const getFacilityIcon = (facilityName: string) => {
+  const name = facilityName.toLowerCase();
+
+  if (name.includes('play')) return 'pi pi-map';
+  if (name.includes('library')) return 'pi pi-book';
+  if (name.includes('laboratory')) return 'pi pi-flask';
+  if (name.includes('boys')) return 'pi pi-home';
+  if (name.includes('girls')) return 'pi pi-user';
+  if (name.includes('medical')) return 'pi pi-briefcase';
+  if (name.includes('canteen')) return 'pi pi-shop';
+  if (name.includes('transport')) return 'pi pi-car';
+
+  return 'pi pi-ellipsis-h';
+};
 
 export default function CollegeRegistrationStep({
   register,
   control,
+  setValue,
 }: CollegeRegistrationStepProps) {
   const { data: facilityData } = useAvailableFacilitiesQuery();
+
   const facilityOptions = [
     ...(facilityData?.filter(f => f.isActive) || []),
     { id: -1, facilityName: 'Other' },
-  ];
+  ].map(item => ({
+    ...item,
+    icon: getFacilityIcon(item.facilityName),
+  }));
 
   const watchedFacilities = useWatch({ control, name: 'availableFacilities' });
   const isOtherSelected = watchedFacilities && watchedFacilities[-1] === true;
+  const wasOtherSelectedRef = useRef(false);
 
   const { fields, append, remove } = useFieldArray({
     control,
@@ -50,10 +72,41 @@ export default function CollegeRegistrationStep({
   });
 
   useEffect(() => {
-    if (isOtherSelected && fields.length === 0) {
+    if (
+      isOtherSelected &&
+      !wasOtherSelectedRef.current &&
+      fields.length === 0
+    ) {
       append({ facilityName: '' });
     }
+
+    wasOtherSelectedRef.current = !!isOtherSelected;
   }, [isOtherSelected, fields.length, append]);
+
+  const handleRemoveOtherFacility = (index: number) => {
+    remove(index);
+
+    if (fields.length === 1) {
+      setValue(
+        'availableFacilities',
+        {
+          ...(watchedFacilities || {}),
+          [-1]: false,
+        },
+        {
+          shouldDirty: true,
+          shouldValidate: true,
+        }
+      );
+
+      setValue('otherFacilities', [], {
+        shouldDirty: true,
+        shouldValidate: true,
+      });
+
+      wasOtherSelectedRef.current = false;
+    }
+  };
 
   const watchedDeficiency = useWatch({
     control,
@@ -67,35 +120,34 @@ export default function CollegeRegistrationStep({
 
   return (
     <FormCard title="College Details" icon="building">
-      <FormGrid columns={2}>
+      <FormGrid columns={3}>
         <TextBox
           label="College Code"
-          placeholder="College Code"
+          placeholder="College code"
           {...register('collegeCode')}
           maxLength={15}
           required
         />
+
         <SelectEstablishmentYear
-          label="Establishment year"
-          defaultOptionText="Select Establishment year"
+          label="Establishment Year"
+          defaultOptionText="Select establishment year"
           {...register('establishmentYearId')}
           required
         />
-        {/* Row 2 */}
-        <div className="col-span-2 md:col-span-1">
-          <TextBox
-            label="College Name"
-            placeholder="College Name"
-            {...register('collegeName')}
-            maxLength={200}
-            required
-          />
-        </div>
-        <div className="hidden md:block"></div>
-        <div className="col-span-2">
+
+        <TextBox
+          label="College Name"
+          placeholder="College name"
+          {...register('collegeName')}
+          maxLength={200}
+          required
+        />
+
+        <div className="affiliation-grid-full">
           <TextArea
             label="College Address"
-            placeholder="College Address"
+            placeholder="College address"
             {...register('collegeAddress')}
             required
           />
@@ -103,125 +155,155 @@ export default function CollegeRegistrationStep({
 
         <SelectDistrict
           label="District"
-          defaultOptionText="Select District"
+          defaultOptionText="Select district"
           {...register('districtId')}
           required
         />
+
         <TextBox
-          label="Telephone No"
-          subLabel="(Please write telephone number including STD CODE.)"
-          placeholder="Telephone No"
+          label="Telephone No."
+          subLabel="(Please write telephone number including STD code.)"
+          placeholder="Telephone No."
           {...register('telephoneNo')}
           maxLength={20}
           required
         />
+
         <TextBox
           label="College Email"
-          placeholder="College Email"
+          placeholder="College email"
           {...register('collegeEmail')}
           maxLength={255}
           required
         />
-        {/* Row 5 */}
+
         <SelectCollegeCategory
-          label="College category"
-          defaultOptionText="Select College category"
+          label="College Category"
+          defaultOptionText="Select college category"
           {...register('collegeCategory')}
           required
         />
+
         <SelectCollegeType
-          label="College type"
-          defaultOptionText="Select College type"
+          label="College Type"
+          defaultOptionText="Select college type"
           {...register('collegeType')}
           required
         />
-        {/* Row 6 */}
+
         <SelectCollegeArea
           label="College Area"
-          defaultOptionText="Select College area"
+          defaultOptionText="Select college area"
           {...register('collegeArea')}
           required
         />
+
         <SelectAccommodationType
-          label="Accommodation type"
+          label="Accommodation Type"
           defaultOptionText="Select Accommodation type"
           {...register('accommodationType')}
           required
         />
-        <div className="col-span-2">
-          <p className="text-sm font-medium text-blue-600 mb-2 whitespace-nowrap">
-            Note: If any of your available facilities are not shown in the list,
-            please select the 'Other' option and add them.
-          </p>
+
+        <NumberBox
+          label="Number of class rooms"
+          placeholder="Number of class rooms"
+          {...register('numberOfClassRooms')}
+          required
+        />
+
+        <SelectYesNo
+          label="If any deficiency earlier raised by the committee"
+          defaultOptionText="Select deficiency earlier raised by the committee"
+          {...register('deficiencyEarlierRaisedByCommittee')}
+          required
+        />
+
+        <div className="affiliation-grid-full affiliation-facility-section">
+          <div className="affiliation-facility-header-row">
+            <h4>Available facilities</h4>
+
+            <p>
+              Note: If any of your available facilities are not shown in the
+              list, please select the 'Other' option and add them.
+            </p>
+          </div>
+
           <CheckboxList
-            label="Available facilities"
             name="availableFacilities"
             control={control}
             options={facilityOptions}
             getLabel={opt => opt.facilityName}
             getValue={opt => opt.id}
             columns={4}
+            className="affiliation-facility-list"
+            itemClassName="affiliation-facility-item"
+            renderOption={opt => (
+              <div className="affiliation-facility-content">
+                <div className="affiliation-facility-left">
+                  <span className="affiliation-facility-icon-box">
+                    <i className={opt.icon} />
+                  </span>
+
+                  <span className="affiliation-facility-text">
+                    {opt.facilityName}
+                  </span>
+                </div>
+              </div>
+            )}
           />
         </div>
 
         {isOtherSelected && (
-          <div className="col-span-2 p-5 border border-slate-200 rounded-lg bg-slate-50 mt-2">
-            <div className="flex justify-between items-center mb-4 border-b border-slate-200 pb-2">
-              <span className="font-bold text-slate-700">
-                Add Other Facilities
-              </span>
-              <Button
-                type="button"
-                variant="outlined"
-                icon="plus"
-                label="Add More"
-                onClick={() => append({ facilityName: '' })}
-              />
-            </div>
+          <div className="affiliation-grid-full">
+            <div className="affiliation-other-facility-panel">
+              <div className="affiliation-other-facility-header">
+                <h4>Add Other Facilities</h4>
 
-            <div className="flex flex-col gap-4">
-              {fields.map((field, index) => (
-                <div
-                  key={field.id}
-                  className="flex gap-4 items-start w-full md:w-1/2"
-                >
-                  <div className="flex-1">
-                    <TextBox
-                      label={`Other Facility ${index + 1}`}
-                      placeholder="Enter facility name"
-                      {...register(
-                        `otherFacilities.${index}.facilityName` as const
-                      )}
-                      required
-                    />
+                <Button
+                  type="button"
+                  variant="outlined"
+                  icon="plus"
+                  label="Add More"
+                  onClick={() => append({ facilityName: '' })}
+                />
+              </div>
+
+              <div className="affiliation-other-facility-body">
+                {fields.map((field, index) => (
+                  <div
+                    key={field.id}
+                    className="affiliation-other-facility-row"
+                  >
+                    <label className="affiliation-other-facility-label">
+                      Other Facility {index + 1}
+                      <span>*</span>
+                    </label>
+
+                    <div className="affiliation-other-facility-input-wrap">
+                      <TextBox
+                        placeholder="Enter facility name"
+                        {...register(
+                          `otherFacilities.${index}.facilityName` as const
+                        )}
+                        required
+                      />
+
+                      <Button
+                        type="button"
+                        variant="text"
+                        className="affiliation-other-facility-delete"
+                        icon="trash"
+                        onClick={() => handleRemoveOtherFacility(index)}
+                      />
+                    </div>
                   </div>
-                  <div className="mt-7">
-                    <Button
-                      type="button"
-                      variant="text"
-                      className="text-danger hover:bg-red-50"
-                      icon="trash"
-                      onClick={() => remove(index)}
-                    />
-                  </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
           </div>
         )}
-        {/* Row 8 */}
-        <NumberBox
-          label="Number of Class rooms"
-          placeholder="Number of Class rooms"
-          {...register('numberOfClassRooms')}
-          required
-        />
-        <SelectYesNo
-          label="If any deficiency earlier raised by the committee"
-          defaultOptionText="Select Deficiency earlier raised by the committee"
-          {...register('deficiencyEarlierRaisedByCommittee')}
-          required
-        />
+
         {watchedDeficiency === 'Yes' && (
           <SelectDeficiencyStatus
             label="Deficiency Status"
@@ -230,6 +312,7 @@ export default function CollegeRegistrationStep({
             required
           />
         )}
+
         {watchedDeficiency === 'Yes' && watchedStatus === 'Pending' && (
           <TextBox
             label="Deficiency Reason"

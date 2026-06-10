@@ -1,0 +1,501 @@
+@reference "tailwindcss";
+
+/* =========================
+   Create Layout
+========================= */
+
+.affiliation-create-layout {
+  @apply grid items-start gap-5;
+  grid-template-columns: 350px minmax(0, 1fr);
+}
+
+.affiliation-form-panel {
+  @apply min-w-0;
+}
+
+.affiliation-form-content {
+  @apply mb-5;
+}
+
+.affiliation-form-actions {
+  @apply flex items-center justify-end gap-3;
+}
+
+/* =========================
+   Left Step Panel
+========================= */
+
+.affiliation-step-panel {
+  @apply sticky top-24 rounded-xl border border-slate-200 bg-white p-4 shadow-sm;
+}
+
+.affiliation-step-panel-header {
+  @apply mb-7 flex gap-3 border-b border-slate-100 pb-5;
+}
+
+.affiliation-step-panel-dot {
+  @apply mt-1 h-3 w-3 shrink-0 rounded-full bg-slate-100;
+}
+
+.affiliation-step-panel-header h3 {
+  @apply m-0 text-base font-semibold text-slate-900;
+}
+
+.affiliation-step-panel-header p {
+  @apply mb-0 mt-1 text-sm leading-5 text-slate-500;
+}
+
+.affiliation-step-list {
+  @apply relative flex flex-col gap-5;
+}
+
+.affiliation-step-list::before {
+  content: '';
+  @apply absolute bottom-8 left-4 top-8 w-px bg-slate-200;
+}
+
+.affiliation-step-item {
+  @apply relative z-1 flex w-full items-center gap-3 rounded-lg bg-transparent px-0 py-2 text-left transition-all duration-200;
+}
+
+.affiliation-step-item:not(:disabled) {
+  @apply cursor-pointer;
+}
+
+.affiliation-step-item:disabled {
+  @apply cursor-default;
+}
+
+.affiliation-step-number {
+  @apply flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-slate-300 bg-white text-sm font-semibold text-slate-700 transition-all duration-200;
+}
+
+.affiliation-step-item.active .affiliation-step-number {
+  @apply border-black bg-black text-white shadow-sm;
+}
+
+.affiliation-step-item.completed .affiliation-step-number {
+  @apply border-black bg-black text-white;
+}
+
+.affiliation-step-content {
+  @apply flex min-w-0 flex-col;
+}
+
+.affiliation-step-content strong {
+  @apply text-sm font-semibold text-slate-800;
+}
+
+.affiliation-step-content small {
+  @apply mt-0.5 text-xs text-slate-500;
+}
+
+.affiliation-step-item.active .affiliation-step-content strong {
+  @apply text-black;
+}
+
+/* =========================
+   Affiliation Form Helpers
+========================= */
+
+.affiliation-grid-full {
+  @apply col-span-full;
+}
+
+/* =========================
+   Facility Section
+========================= */
+
+.affiliation-facility-section {
+  @apply mt-1;
+}
+
+.affiliation-facility-header-row {
+  @apply mb-2 flex items-start gap-4;
+}
+
+.affiliation-facility-header-row h4 {
+  @apply m-0 shrink-0 text-sm font-semibold text-slate-900;
+}
+
+.affiliation-facility-header-row p {
+  @apply m-0 text-sm font-medium leading-5 text-blue-600;
+}
+
+.affiliation-facility-section .input-block.horizontal {
+  @apply border-none p-0;
+  grid-template-columns: 1fr !important;
+}
+
+.affiliation-facility-section .input-wrapper {
+  @apply mt-0;
+}
+
+/* =========================
+   Facility Cards
+========================= */
+
+.affiliation-facility-list {
+  @apply mt-2;
+}
+
+.affiliation-facility-item {
+  @apply min-h-[46px] justify-between gap-3 rounded-lg border border-slate-200 bg-white px-3 py-2 transition-all duration-200;
+}
+
+.affiliation-facility-item:hover {
+  @apply border-slate-300 bg-slate-50;
+}
+
+.affiliation-facility-item .checkbox-cell-content {
+  @apply min-w-0 flex-1;
+}
+
+.affiliation-facility-item .p-checkbox {
+  @apply order-2 ml-auto shrink-0;
+}
+
+.affiliation-facility-content {
+  @apply flex w-full min-w-0 items-center justify-between gap-3;
+}
+
+.affiliation-facility-left {
+  @apply flex min-w-0 items-center gap-3;
+}
+
+.affiliation-facility-icon-box {
+  @apply inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-md bg-slate-50 text-black;
+}
+
+.affiliation-facility-icon-box i {
+  @apply text-base text-black;
+}
+
+.affiliation-facility-text {
+  @apply truncate text-sm font-medium text-slate-700;
+}
+
+/* Facility checkbox base */
+.affiliation-facility-item .p-checkbox .p-checkbox-box {
+  @apply h-[1.15rem] w-[1.15rem] rounded border border-slate-500 bg-white shadow-none;
+}
+
+/* Facility checkbox checked state */
+.affiliation-facility-item .p-checkbox .p-checkbox-box.p-highlight,
+.affiliation-facility-item .p-checkbox.p-highlight .p-checkbox-box,
+.affiliation-facility-item .p-checkbox.p-checkbox-checked .p-checkbox-box {
+  @apply border-black bg-black;
+}
+
+/* Facility checkbox tick icon */
+.affiliation-facility-item .p-checkbox .p-checkbox-box .p-checkbox-icon,
+.affiliation-facility-item
+  .p-checkbox
+  .p-checkbox-box.p-highlight
+  .p-checkbox-icon,
+.affiliation-facility-item
+  .p-checkbox.p-highlight
+  .p-checkbox-box
+  .p-checkbox-icon,
+.affiliation-facility-item
+  .p-checkbox.p-checkbox-checked
+  .p-checkbox-box
+  .p-checkbox-icon {
+  @apply text-white;
+}
+
+/* SVG tick fix */
+.affiliation-facility-item .p-checkbox .p-checkbox-box .p-checkbox-icon svg,
+.affiliation-facility-item .p-checkbox .p-checkbox-box .p-checkbox-icon path {
+  color: white !important;
+  fill: white !important;
+  stroke: white !important;
+}
+
+/* =========================
+   Other Facilities Panel
+========================= */
+
+.affiliation-other-facility-panel {
+  @apply mt-3 overflow-hidden rounded-lg border border-slate-200 bg-slate-50;
+}
+
+.affiliation-other-facility-header {
+  @apply flex items-center justify-between gap-3 border-b border-slate-200 bg-white px-4 py-3;
+}
+
+.affiliation-other-facility-header h4 {
+  @apply m-0 text-sm font-semibold text-slate-900;
+}
+
+.affiliation-other-facility-body {
+  @apply grid gap-4 px-4 py-4;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.affiliation-other-facility-row {
+  @apply grid min-w-0 items-center gap-3;
+  grid-template-columns: 135px minmax(0, 1fr);
+}
+
+.affiliation-other-facility-label {
+  @apply text-sm font-semibold text-slate-800;
+}
+
+.affiliation-other-facility-label span {
+  @apply ml-1 text-red-500;
+}
+
+.affiliation-other-facility-input-wrap {
+  @apply relative min-w-0;
+}
+
+.affiliation-other-facility-input-wrap .input-block,
+.affiliation-other-facility-input-wrap .input-block.vertical {
+  @apply mb-0;
+}
+
+.affiliation-other-facility-input-wrap .input-wrapper {
+  @apply m-0;
+}
+
+.affiliation-other-facility-input-wrap input,
+.affiliation-other-facility-input-wrap .p-inputtext {
+  @apply pr-11 bg-white;
+}
+
+.affiliation-other-facility-delete.p-button {
+  @apply !absolute !right-1.5 !top-1/2 !z-10 !h-8 !w-8 !min-w-8 !-translate-y-1/2 !justify-center !rounded-md !border-0 !bg-transparent !p-0 !text-black !shadow-none;
+}
+
+.affiliation-other-facility-delete.p-button:hover {
+  @apply !bg-slate-100 !text-black;
+}
+
+.affiliation-other-facility-delete.p-button .p-button-label {
+  @apply hidden;
+}
+
+.affiliation-other-facility-delete.p-button .p-button-icon {
+  @apply !m-0 !text-sm;
+}
+/* =========================
+   Dark Mode
+========================= */
+
+.dark .affiliation-step-panel {
+  background-color: var(--dark-card-bg);
+  border-color: var(--dark-border);
+  box-shadow: none;
+}
+
+.dark .affiliation-step-panel-header {
+  border-color: var(--dark-border);
+}
+
+.dark .affiliation-step-panel-dot {
+  @apply bg-white/[0.08];
+}
+
+.dark .affiliation-step-panel-header h3 {
+  color: var(--dark-text);
+}
+
+.dark .affiliation-step-panel-header p {
+  color: var(--dark-text-muted);
+}
+
+.dark .affiliation-step-list::before {
+  background-color: var(--dark-border);
+}
+
+.dark .affiliation-step-number {
+  @apply border-white/[0.16] bg-white/[0.04] text-slate-300;
+}
+
+.dark .affiliation-step-item.active .affiliation-step-number,
+.dark .affiliation-step-item.completed .affiliation-step-number {
+  @apply border-white bg-white text-black;
+}
+
+.dark .affiliation-step-content strong {
+  @apply text-slate-300;
+}
+
+.dark .affiliation-step-content small {
+  @apply text-slate-500;
+}
+
+.dark .affiliation-step-item.active .affiliation-step-content strong {
+  @apply text-white;
+}
+
+.dark .affiliation-facility-header-row h4 {
+  @apply text-slate-100;
+}
+
+.dark .affiliation-facility-header-row p {
+  @apply text-blue-400;
+}
+
+.dark .affiliation-facility-item {
+  @apply border-white/[0.08] bg-white/[0.04];
+}
+
+.dark .affiliation-facility-item:hover {
+  @apply border-white/[0.16] bg-white/[0.06];
+}
+
+.dark .affiliation-facility-icon-box {
+  @apply bg-white/[0.06] text-white;
+}
+
+.dark .affiliation-facility-icon-box i {
+  @apply text-white;
+}
+
+.dark .affiliation-facility-text {
+  @apply text-slate-200;
+}
+
+.dark .affiliation-facility-item .p-checkbox .p-checkbox-box {
+  @apply border-white/35 bg-transparent;
+}
+
+.dark .affiliation-facility-item .p-checkbox .p-checkbox-box.p-highlight,
+.dark .affiliation-facility-item .p-checkbox.p-highlight .p-checkbox-box,
+.dark
+  .affiliation-facility-item
+  .p-checkbox.p-checkbox-checked
+  .p-checkbox-box {
+  @apply border-white bg-white;
+}
+
+.dark .affiliation-facility-item .p-checkbox .p-checkbox-box .p-checkbox-icon,
+.dark
+  .affiliation-facility-item
+  .p-checkbox
+  .p-checkbox-box.p-highlight
+  .p-checkbox-icon,
+.dark
+  .affiliation-facility-item
+  .p-checkbox.p-highlight
+  .p-checkbox-box
+  .p-checkbox-icon,
+.dark
+  .affiliation-facility-item
+  .p-checkbox.p-checkbox-checked
+  .p-checkbox-box
+  .p-checkbox-icon {
+  @apply text-black;
+}
+
+.dark
+  .affiliation-facility-item
+  .p-checkbox
+  .p-checkbox-box
+  .p-checkbox-icon
+  svg,
+.dark
+  .affiliation-facility-item
+  .p-checkbox
+  .p-checkbox-box
+  .p-checkbox-icon
+  path {
+  color: black !important;
+  fill: black !important;
+  stroke: black !important;
+}
+
+.dark .affiliation-other-facility-panel {
+  background-color: var(--dark-card-bg);
+  border-color: var(--dark-border);
+}
+
+.dark .affiliation-other-facility-header {
+  background-color: var(--dark-card-bg);
+  border-color: var(--dark-border);
+}
+
+.dark .affiliation-other-facility-header h4,
+.dark .affiliation-other-facility-label {
+  color: var(--dark-text);
+}
+
+.dark .affiliation-other-facility-delete.p-button {
+  @apply !text-white;
+}
+
+.dark .affiliation-other-facility-delete.p-button:hover {
+  @apply !bg-white/[0.08] !text-white;
+}
+
+/* =========================
+   Responsive
+========================= */
+
+@media (max-width: 1024px) {
+  .affiliation-create-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .affiliation-step-panel {
+    @apply static;
+  }
+
+  .affiliation-step-list {
+    @apply grid grid-cols-4 gap-3;
+  }
+
+  .affiliation-step-list::before {
+    @apply hidden;
+  }
+
+  .affiliation-step-item {
+    @apply flex-col items-start rounded-lg border border-slate-200 p-3;
+  }
+
+  .dark .affiliation-step-item {
+    border-color: var(--dark-border);
+  }
+}
+
+@media (max-width: 768px) {
+  .affiliation-facility-header-row {
+    @apply flex-col gap-1;
+  }
+
+  .affiliation-facility-header-row p {
+    @apply text-left;
+  }
+
+  .affiliation-other-facility-body {
+    grid-template-columns: 1fr;
+  }
+
+  .affiliation-other-facility-field {
+    grid-template-columns: 1fr;
+  }
+
+  .affiliation-other-facility-row {
+    grid-template-columns: 1fr;
+  }
+
+  .affiliation-other-facility-delete.p-button {
+    @apply !w-full;
+  }
+}
+
+@media (max-width: 640px) {
+  .affiliation-step-list {
+    @apply grid-cols-1;
+  }
+
+  .affiliation-form-actions {
+    @apply flex-col-reverse items-stretch;
+  }
+
+  .affiliation-form-actions .p-button {
+    @apply w-full justify-center;
+  }
+}

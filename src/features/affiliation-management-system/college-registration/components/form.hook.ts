@@ -154,7 +154,7 @@ const schema =
   );
 
 export function useCollegeApplicationForm() {
-  const { register, control, handleSubmit, reset, trigger } =
+  const { register, control, handleSubmit, reset, trigger, setValue } =
     useAppForm<AffiliationManagementSystem.CollegeApplicationFormData>({
       resolver: validation.resolver(schema),
       mode: 'onChange',
@@ -169,5 +169,6 @@ export function useCollegeApplicationForm() {
     handleSubmit,
     reset,
     trigger,
+    setValue,
   };
 }

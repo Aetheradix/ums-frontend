@@ -1,112 +1,156 @@
+@reference "tailwindcss";
+
+/* =========================
+   Scroll Container
+========================= */
+
 .checkbox-scroll-container {
-  max-height: 300px;
-  overflow-y: auto;
-  overflow-x: hidden;
+  @apply max-h-[300px] overflow-y-auto overflow-x-hidden;
 }
 
 .checkbox-scroll-container::-webkit-scrollbar {
-  width: 6px;
+  @apply w-1.5;
 }
 
 .checkbox-scroll-container::-webkit-scrollbar-track {
-  background: #f1f1f1;
-  border-radius: 3px;
+  @apply rounded bg-slate-100;
 }
 
 .checkbox-scroll-container::-webkit-scrollbar-thumb {
-  background: #888;
-  border-radius: 3px;
+  @apply rounded bg-slate-400;
 }
 
 .checkbox-scroll-container::-webkit-scrollbar-thumb:hover {
-  background: #555;
+  @apply bg-slate-600;
 }
 
+/* =========================
+   No Label Checkbox List
+========================= */
+
 .no-label-checkbox-list .input-block {
-  margin-bottom: 0;
-  display: inline-block;
-  width: auto;
+  @apply mb-0 inline-block w-auto;
 }
 
 .no-label-checkbox-list .checkbox-scroll-container {
-  max-height: none;
-  overflow: visible;
-  display: inline-block;
+  @apply inline-block max-h-none overflow-visible;
 }
 
 .no-label-checkbox-list .checkbox-scroll-container > div {
-  gap: 0 !important;
-  display: inline-flex;
-  align-items: center;
+  @apply inline-flex items-center gap-0!;
 }
 
 .no-label-checkbox-list label {
-  display: none !important;
+  @apply hidden!;
 }
 
 .no-label-checkbox-list .flex.align-items-center {
-  display: inline-flex;
-  align-items: center;
+  @apply inline-flex items-center;
 }
 
+/* =========================
+   Checkbox Table
+========================= */
+
 .checkbox-table {
-  width: 100%;
-  border-collapse: collapse;
+  @apply w-full border-collapse;
 }
 
 .checkbox-table th,
 .checkbox-table td {
-  padding: 0.6rem 0.75rem;
-  border-bottom: 1px solid var(--surface-border);
-  text-align: left;
+  @apply border-b border-slate-200 px-3 py-2.5 text-left;
 }
 
 .checkbox-table th {
-  font-weight: 600;
-  background-color: var(--surface-50);
+  @apply bg-slate-50 font-semibold;
 }
 
 .checkbox-table tr:hover {
-  background-color: var(--surface-100);
+  @apply bg-slate-100;
 }
+
+/* =========================
+   Checkbox Grid
+========================= */
 
 .checkbox-grid-table {
-  width: 100%;
-  border-collapse: collapse;
+  @apply w-full border-collapse;
 }
 
-/* treat table as grid */
 .checkbox-grid-table tbody {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr); /* desktop */
-  gap: 0.75rem;
+  @apply grid grid-cols-4 gap-3;
 }
 
-/* each cell behaves like card */
 .checkbox-grid-table tr {
   display: contents;
 }
 
 .checkbox-grid-table td {
-  padding: 0.6rem 0.75rem;
-  border: 1px solid var(--surface-border);
-  border-radius: 6px;
-  background: none;
+  @apply border-0 bg-transparent p-0;
 }
 
 .checkbox-cell {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
+  @apply flex min-h-[38px] cursor-pointer items-center gap-2 rounded-md border border-slate-200 bg-transparent px-3 py-2.5;
 }
 
-/* 📱 MOBILE */
+.checkbox-cell-content {
+  @apply flex min-w-0 flex-1 text-sm;
+}
+
+/* Default checkbox left side */
+.checkbox-cell .p-checkbox {
+  @apply order-[-1] shrink-0;
+}
+
+/* =========================
+   Dark Mode
+========================= */
+
+.dark .checkbox-scroll-container::-webkit-scrollbar-track {
+  @apply bg-zinc-900;
+}
+
+.dark .checkbox-scroll-container::-webkit-scrollbar-thumb {
+  @apply bg-zinc-700;
+}
+
+.dark .checkbox-scroll-container::-webkit-scrollbar-thumb:hover {
+  @apply bg-zinc-600;
+}
+
+.dark .checkbox-table th {
+  background-color: var(--dark-table-header-bg);
+  color: var(--dark-text);
+}
+
+.dark .checkbox-table td {
+  color: var(--dark-text);
+}
+
+.dark .checkbox-table th,
+.dark .checkbox-table td {
+  border-color: var(--dark-border);
+}
+
+.dark .checkbox-table tr:hover {
+  background-color: var(--dark-card-hover);
+}
+
+.dark .checkbox-cell {
+  border-color: var(--dark-border);
+  color: var(--dark-text);
+}
+
+/* =========================
+   Responsive
+========================= */
+
 @media (max-width: 768px) {
   .checkbox-grid-table tbody {
-    grid-template-columns: 1fr; /* one per row */
+    @apply grid-cols-1;
   }
 }
 
 .checkbox-alignment {
-  margin-top: 36px;
+  @apply mt-9;
 }
