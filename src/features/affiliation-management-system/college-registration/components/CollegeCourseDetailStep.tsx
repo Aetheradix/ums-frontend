@@ -161,11 +161,12 @@ export default function CollegeCourseDetailStep({
           />
           <div>
             <MultiSelectList
-              label="Subject"
+              label="Subjects"
               control={localControl}
               name="tempSubjects"
               data={activeSubjects}
               textField="subjectName"
+              placeholder="Select Subjects"
               required
             />
           </div>
