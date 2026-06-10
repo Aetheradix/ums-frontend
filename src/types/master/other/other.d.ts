@@ -178,5 +178,27 @@ declare namespace Master {
       id: string;
       text: string;
     }
+    interface EstablishmentYearForm {
+      name: string;
+      isActive: boolean;
+    }
+    // type EstablishmentYearItem = Data.WithId<EstablishmentYearForm>;
+    type EstablishmentYearItem = Data.WithId<
+      EstablishmentYearForm & {
+        isActive: boolean;
+      }
+    >;
+    interface AccommodationTypeItem {
+      id: string;
+      text: string;
+    }
+    interface CollegeAreaItem {
+      id: string;
+      text: string;
+    }
+    interface DeficiencyStatusItem {
+      id: string;
+      text: string;
+    }
   }
 }

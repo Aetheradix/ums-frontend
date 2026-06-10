@@ -19,6 +19,7 @@ interface GridPanelProps<T> extends Controls.GridProps<T> {
   onFilter?: (e: { globalFilter?: string }) => void;
   sortField?: string | null;
   sortOrder?: number | null;
+  emptyMessage?: string;
 }
 
 export default function GridPanel<T>({

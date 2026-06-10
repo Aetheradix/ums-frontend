@@ -3,9 +3,10 @@ import CollegeCategory from './college/college-category';
 import CollegeType from './college/college-type';
 import ActionOption from './employee/settings/action-option';
 import ActionOptionReason from './employee/settings/action-option-reason';
+import DocumentOption from './employee/settings/document-option';
 import NatureOfEmployment from './employee/settings/nature-of-employment';
 import OrganizationUnit from './employee/settings/organization-unit';
-import DocumentOption from './employee/settings/document-option';
+import SubjectSpecialization from './employee/settings/subject-specialization';
 import TravelPurpose from './employee/settings/travel-purpose';
 import Department from './faculty/department';
 import Designation from './faculty/designation';
@@ -33,9 +34,13 @@ import SchemeCategory from './schemes/scheme-category';
 import SchemeType from './schemes/scheme-type';
 import Subject from './subject';
 
+import SeparationReasonType from './employee/settings/separation-reason-type';
+import UserManagement from './user-management';
+
 export default function Master() {
   return (
     <Routes>
+      <Route path="user-management/*" element={<UserManagement />} />
       <Route path="location/*" element={<Location />} />
       <Route path="subject/*" element={<Subject />} />
 
@@ -98,6 +103,14 @@ export default function Master() {
           <Route path="organization-unit/*" element={<OrganizationUnit />} />
           <Route path="document-option/*" element={<DocumentOption />} />
           <Route path="action-option" element={<ActionOption />} />
+          <Route
+            path="subject-specialization"
+            element={<SubjectSpecialization />}
+          />
+          <Route
+            path="separation-reason-type/*"
+            element={<SeparationReasonType />}
+          />
           <Route path="travel-purpose/*" element={<TravelPurpose />} />
         </Route>
       </Route>

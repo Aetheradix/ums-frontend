@@ -82,7 +82,7 @@ export default function MainLayout({ children }: React.PropsWithChildren) {
       {/* Sub-Navigation for Master Modules (Hidden for Sidebar mode) */}
       {!isSidebarMode && activeIndex >= 0 && (
         <div className="main-layout-nav">
-          <div className="max-w-[1320px] mx-auto px-6">
+          <div className="mx-auto px-6">
             <Tabs
               activeIndex={activeIndex}
               onTabChange={handleTabChange}
@@ -98,7 +98,7 @@ export default function MainLayout({ children }: React.PropsWithChildren) {
       {/* Main Page Content */}
       <div className="main-layout-content">
         {isSidebarMode ? (
-          <div className="max-w-[1320px] mx-auto px-6 py-6 pb-16 flex flex-col lg:flex-row gap-8">
+          <div className="mx-auto px-6 py-6 pb-16 flex flex-col lg:flex-row gap-8">
             {/* Sidebar Navigation */}
             <Sidebar
               headerTitle={activeModuleInfo?.parent?.label || 'Navigation'}
@@ -113,9 +113,7 @@ export default function MainLayout({ children }: React.PropsWithChildren) {
             <main className="sis-main-content-area">{children}</main>
           </div>
         ) : (
-          <div className="max-w-[1320px] mx-auto px-6 py-6 pb-16">
-            {children}
-          </div>
+          <div className="mx-auto px-6 py-6 pb-16">{children}</div>
         )}
       </div>
     </WorkspaceLayout>

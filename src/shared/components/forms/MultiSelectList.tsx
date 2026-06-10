@@ -4,7 +4,8 @@ import { Controller, type FieldValues } from 'react-hook-form';
 import InputBlock from './InputBlock';
 
 interface MultiSelectProps<TData, TForm extends FieldValues>
-  extends Controls.FormProps<TForm>,
+  extends
+    Controls.FormProps<TForm>,
     Controls.InputBlockProps,
     Controls.InputProps {
   data?: TData[];
@@ -29,7 +30,12 @@ function InnerMultiSelectList<TData = Data.DataItem<number>>({
 }: MultiSelectProps<TData, FieldValues>) {
   const displayLabel = required && label ? `${label}` : label;
   return (
-    <InputBlock id={id} label={displayLabel} errorMessage={errorMessage}>
+    <InputBlock
+      id={id}
+      label={displayLabel}
+      errorMessage={errorMessage}
+      required={required}
+    >
       <MultiSelect
         inputId={id ?? name}
         options={data}
@@ -42,6 +48,7 @@ function InnerMultiSelectList<TData = Data.DataItem<number>>({
         maxSelectedLabels={1}
         selectedItemsLabel="{0} items selected"
         appendTo={appendTo}
+        className="w-full flex items-center min-h-[44px]"
         {...rest}
       />
     </InputBlock>

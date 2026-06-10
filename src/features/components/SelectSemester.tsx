@@ -7,15 +7,26 @@ interface SelectSemesterProps<
 > extends Controls.FormProps<T> {
   label?: string;
   disabled?: boolean;
+  data?: any[];
+  loading?: boolean;
+  value?: string | number | null;
+  onChange?: (value: string | number | null) => void;
 }
 
 export default function SelectSemester<T extends FieldValues>({
   defaultOptionText,
   label = 'Semester',
+  data: customData,
+  loading: customLoading,
   ...props
 }: SelectSemesterProps<T> &
   Controls.InputBlockProps & { defaultOptionText?: string }) {
-  const { data, isLoading } = useSemesterQuery();
+  const { data: queryData, isLoading: queryLoading } = useSemesterQuery({
+    enabled: customData === undefined,
+  });
+
+  const data = customData !== undefined ? customData : queryData;
+  const isLoading = customLoading !== undefined ? customLoading : queryLoading;
 
   return (
     <DropDownList
