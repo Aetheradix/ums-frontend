@@ -1,5 +1,5 @@
 export const collegeRegistrationApprovalUrls = (baseUrl: string) => {
-  const prefix = `${baseUrl}/college-registration-approval`;
+  const prefix = `${baseUrl}/registration-approval`;
   return {
     root: prefix,
   };

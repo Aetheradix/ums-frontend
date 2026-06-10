@@ -9,7 +9,7 @@ export default function AffiliationManagementSystem() {
   return (
     <Routes>
       <Route
-        path="college-registration-approval/*"
+        path="registration-approval/*"
         element={<CollegeRegistrationApproval />}
       />
       <Route path="college-registration/*" element={<CollegeRegistration />} />

@@ -826,15 +826,27 @@ export const menuConfig: Menu.MenuItem[] = [
         label: 'College Registration',
         slug: 'college-registration',
         description: 'Manage college registration processes.',
-        path: '/affiliation-management-system/college-registration-form',
+        path: '/affiliation-management-system/college-registration',
         icon: 'edit_location',
         colorScheme: 'red',
+        children: [
+          {
+            label: 'college Registration',
+            slug: 'college-registration',
+            description: 'Manage college registration processes.',
+            path: '/affiliation-management-system/college-registration',
+            icon: 'assignment',
+            colorScheme: 'orange',
+            // feature: '@affiliation/CollegeRegistration',
+            // action: 'read',
+          },
+        ],
       },
       {
         label: 'College Registration Approvals',
-        slug: 'college-registration-approval',
+        slug: 'registration-approval',
         description: 'Manage college registration Approvals.',
-        path: '/affiliation-management-system/college-registration-approval',
+        path: '/affiliation-management-system/registration-approval',
         icon: 'edit_location',
         colorScheme: 'green',
         feature: '@collegeaffiliation/collegeregistrationapproval',
@@ -881,7 +893,6 @@ export const menuConfig: Menu.MenuItem[] = [
       },
     ],
   },
-
   // {
   //   label: 'Career\nGateway',
   //   slug: 'career-gateway',
