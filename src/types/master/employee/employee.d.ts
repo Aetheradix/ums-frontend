@@ -20,6 +20,13 @@ declare namespace Master {
 
     type ActionOptionItem = Data.WithId<ActionOptionForm>;
 
+    interface SeparationReasonTypeForm {
+      name: string;
+      type: string;
+      isActive: boolean;
+    }
+
+    type SeparationReasonTypeItem = Data.WithId<SeparationReasonTypeForm>;
     interface ActionOptionReasonForm {
       actionOptionId: number;
       actionOptionName?: string;
@@ -29,7 +36,7 @@ declare namespace Master {
     }
 
     type ActionOptionReasonItem = Data.WithId<ActionOptionReasonForm>;
-    
+
     interface DocumentOptionsForm {
       name: string;
       isActive: boolean;
