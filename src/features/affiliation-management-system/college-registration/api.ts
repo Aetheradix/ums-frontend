@@ -20,7 +20,7 @@ function buildApiPayload(
       : null;
 
   return {
-    establishmentYearId: form.establishmentYearId,
+    establishmentYear: form.establishmentYear,
     collegeCode: form.collegeCode,
     collegeName: form.collegeName,
     collegeAddress: form.collegeAddress,
@@ -33,11 +33,8 @@ function buildApiPayload(
     collegeArea: form.collegeArea,
     availableFacilities: facilityIds,
     availableFacilitiesOther: otherFacilitiesText,
-    numberOfClassRooms: form.numberOfClassRooms,
-    deficiencyEarlierRaisedByCommittee:
-      form.deficiencyEarlierRaisedByCommittee === 'Yes',
-    deficiencyStatus: form.deficiencyStatus ?? null,
-    deficiencyReason: form.deficiencyReason ?? null,
+    applicationNumber: form.applicationNumber,
+    isSubmitted: form.isSubmitted ?? false,
 
     affiliation: {
       principalDirectorName: form.principalDirectorName,
@@ -75,12 +72,6 @@ export async function createCollegeRegistration(
   );
 
   return !error ? data : undefined;
-}
-
-export async function getCollegeRegistrations() {
-  return ApiService.getList<AffiliationManagementSystem.CollegeRegistrationListItem>(
-    COLLEGE_REGISTRATION_URL
-  );
 }
 
 export async function uploadCollegeDocuments(

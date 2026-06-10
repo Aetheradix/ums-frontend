@@ -1,3 +1,4 @@
+import { Dialog } from 'primereact/dialog';
 import { useCallback, useState } from 'react';
 import { useNavigate } from 'react-router';
 import { ToastService } from 'services';
@@ -41,6 +42,8 @@ const STEPS = [
 export default function Create() {
   const [activeStep, setActiveStep] = useState(0);
   const [isUploading, setIsUploading] = useState(false);
+  const [showDraftDialog, setShowDraftDialog] = useState(false);
+  const [draftAppNumber, setDraftAppNumber] = useState('');
   const navigate = useNavigate();
   const { mutateAsync, isPending } = useCreateCollegeRegistrationMutation();
 
@@ -61,9 +64,16 @@ export default function Create() {
         const result = await mutateAsync({ data, documentIds });
 
         if (result) {
-          ToastService.success('College Registration submitted successfully.');
-          reset();
-          navigate(-1);
+          if (data.isSubmitted === false) {
+            setDraftAppNumber(data.applicationNumber || '');
+            setShowDraftDialog(true);
+          } else {
+            ToastService.success(
+              'College Registration submitted successfully.'
+            );
+            reset();
+            navigate(-1);
+          }
         }
       } catch {
         setIsUploading(false);
@@ -116,7 +126,13 @@ export default function Create() {
         return <CollegeCourseDetailStep control={control} />;
 
       case 3:
-        return <CollegeEnclosureStep control={control} />;
+        return (
+          <CollegeEnclosureStep
+            register={register}
+            control={control}
+            setValue={setValue}
+          />
+        );
 
       default:
         return null;
@@ -196,24 +212,89 @@ export default function Create() {
                   icon="arrow-right"
                 />
               ) : (
-                <Button
-                  key="submit-button"
-                  label={
-                    isUploading
-                      ? 'Uploading...'
-                      : isPending
-                        ? 'Saving...'
-                        : 'Submit'
-                  }
-                  type="submit"
-                  icon="check"
-                  isLoading={isPending || isUploading}
-                />
+                <>
+                  <Button
+                    key="draft-button"
+                    label="Save as Draft"
+                    type="submit"
+                    icon="save"
+                    variant="outlined"
+                    className="!w-auto"
+                    onClick={() => setValue('isSubmitted', false)}
+                    isLoading={isPending || isUploading}
+                  />
+                  <Button
+                    key="submit-button"
+                    label={
+                      isUploading
+                        ? 'Uploading...'
+                        : isPending
+                          ? 'Saving...'
+                          : 'Final Submit'
+                    }
+                    type="submit"
+                    icon="check"
+                    onClick={() => setValue('isSubmitted', true)}
+                    isLoading={isPending || isUploading}
+                  />
+                </>
               )}
             </div>
           </form>
         </section>
       </div>
+
+      <Dialog
+        header={
+          <span className="text-xl font-bold text-slate-800">
+            Application Saved as Draft
+          </span>
+        }
+        visible={showDraftDialog}
+        style={{ width: '32rem' }}
+        onHide={() => {
+          setShowDraftDialog(false);
+          reset();
+          navigate(-1);
+        }}
+        footer={null}
+      >
+        <div className="flex flex-col gap-5 pt-2">
+          <p className="m-0 text-base text-slate-700">
+            Your application has been saved successfully as a draft.
+          </p>
+
+          <div className="flex flex-col items-center justify-center gap-1 rounded-xl border border-blue-100 bg-blue-50/50 py-4">
+            <span className="text-xs font-semibold uppercase tracking-wider text-blue-600">
+              Application Number
+            </span>
+            <span className="text-2xl font-bold tracking-widest text-blue-900">
+              {draftAppNumber}
+            </span>
+          </div>
+
+          <div className="rounded-lg border border-amber-100 bg-amber-50 p-4 text-sm leading-relaxed text-amber-900 shadow-sm">
+            <span className="block font-bold mb-1">Important Note:</span>
+            If you wish to resume or edit this application later, you will need
+            this Application Number along with the Affiliation Year. Please keep
+            it secure.
+          </div>
+
+          <div className="mt-2 flex justify-end">
+            <Button
+              label="OK"
+              icon="check"
+              variant="primary"
+              className="w-28"
+              onClick={() => {
+                setShowDraftDialog(false);
+                reset();
+                navigate(-1);
+              }}
+            />
+          </div>
+        </div>
+      </Dialog>
     </FormPage>
   );
 }

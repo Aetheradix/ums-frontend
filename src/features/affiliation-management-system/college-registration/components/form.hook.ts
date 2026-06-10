@@ -1,7 +1,7 @@
 import { errors } from 'config/errors';
 import Joi from 'joi';
-import validation, { expressions, keys } from 'shared/utils/validation';
 import { useAppForm } from 'shared/hooks/form';
+import validation, { expressions, keys } from 'shared/utils/validation';
 
 export const STEP_FIELDS: Record<
   number,
@@ -9,7 +9,7 @@ export const STEP_FIELDS: Record<
 > = {
   0: [
     'collegeCode',
-    'establishmentYearId',
+    'establishmentYear',
     'collegeName',
     'collegeAddress',
     'districtId',
@@ -20,10 +20,6 @@ export const STEP_FIELDS: Record<
     'accommodationType',
     'collegeArea',
     'availableFacilities',
-    'numberOfClassRooms',
-    'deficiencyEarlierRaisedByCommittee',
-    'deficiencyStatus',
-    'deficiencyReason',
     'otherFacilities',
   ],
   1: [
@@ -37,7 +33,13 @@ export const STEP_FIELDS: Record<
     'isOtherInstitutionRunning',
   ],
   2: ['courses'],
-  3: ['nocFile', 'affidavitFile', 'regularAuthorityFile'],
+  3: [
+    'nocFile',
+    'affidavitFile',
+    'regularAuthorityFile',
+    'applicationNumber',
+    'isSubmitted',
+  ],
 };
 
 const MAX_FILE_SIZE = 250 * 1024;
@@ -65,7 +67,12 @@ const schema =
     o => ({
       // Step 1 — College Registration
       collegeCode: o.string().required().max(15),
-      establishmentYearId: o.number().required(),
+      establishmentYear: o
+        .number()
+        .integer()
+        .min(1800)
+        .max(new Date().getFullYear())
+        .required(),
       collegeName: o
         .string()
         .required()
@@ -83,24 +90,6 @@ const schema =
       accommodationType: o.string().required().max(50),
       collegeArea: o.string().required().max(500),
       availableFacilities: o.object().required(),
-      numberOfClassRooms: o.number().required(),
-      deficiencyEarlierRaisedByCommittee: o.string().required(),
-      deficiencyStatus: o
-        .string()
-        .max(50)
-        .when('deficiencyEarlierRaisedByCommittee', {
-          is: 'Yes',
-          then: o.string().required().max(50),
-          otherwise: o.string().optional().allow('', null),
-        }),
-      deficiencyReason: o
-        .string()
-        .max(500)
-        .when('deficiencyStatus', {
-          is: 'Pending',
-          then: o.string().required().max(500),
-          otherwise: o.string().optional().allow('', null),
-        }),
       otherFacilities: o
         .array()
         .items(
@@ -109,6 +98,8 @@ const schema =
           })
         )
         .optional(),
+      applicationNumber: o.string().optional(),
+      isSubmitted: o.boolean().optional(),
 
       // Step 2 — College Affiliation
       affiliationId: o.number().optional(),
@@ -158,9 +149,7 @@ export function useCollegeApplicationForm() {
     useAppForm<AffiliationManagementSystem.CollegeApplicationFormData>({
       resolver: validation.resolver(schema),
       mode: 'onChange',
-      defaultValues: {
-        numberOfClassRooms: null as unknown as number,
-      },
+      defaultValues: {},
     });
 
   return {

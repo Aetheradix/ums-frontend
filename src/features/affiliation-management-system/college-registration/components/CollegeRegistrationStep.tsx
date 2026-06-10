@@ -3,19 +3,16 @@ import {
   SelectCollegeArea,
   SelectCollegeCategory,
   SelectCollegeType,
-  SelectDeficiencyStatus,
-  SelectEstablishmentYear,
-  SelectYesNo,
 } from 'features/components';
 import SelectDistrict from 'features/components/SelectDistrict';
 import { useAvailableFacilitiesQuery } from 'features/master/college/college-facility/queries';
 import { useEffect, useRef } from 'react';
 import type { Control, Path, UseFormSetValue } from 'react-hook-form';
-import { useFieldArray, useWatch } from 'react-hook-form';
+import { Controller, useFieldArray, useWatch } from 'react-hook-form';
 import { Button } from 'shared/components/buttons';
 import {
   CheckboxList,
-  NumberBox,
+  DatePicker,
   TextArea,
   TextBox,
 } from 'shared/components/forms';
@@ -107,17 +104,6 @@ export default function CollegeRegistrationStep({
       wasOtherSelectedRef.current = false;
     }
   };
-
-  const watchedDeficiency = useWatch({
-    control,
-    name: 'deficiencyEarlierRaisedByCommittee',
-  });
-
-  const watchedStatus = useWatch({
-    control,
-    name: 'deficiencyStatus',
-  });
-
   return (
     <FormCard title="College Details" icon="building">
       <FormGrid columns={3}>
@@ -128,12 +114,23 @@ export default function CollegeRegistrationStep({
           maxLength={15}
           required
         />
-
-        <SelectEstablishmentYear
-          label="Establishment Year"
-          defaultOptionText="Select establishment year"
-          {...register('establishmentYearId')}
-          required
+        <Controller
+          control={control}
+          name="establishmentYear"
+          render={({ field, fieldState }) => (
+            <DatePicker
+              label="Establishment Year"
+              name={field.name}
+              value={
+                field.value ? new Date(field.value as number, 0, 1) : undefined
+              }
+              onChange={val => field.onChange(val ? val.getFullYear() : null)}
+              view="year"
+              dateFormat="yy"
+              errorMessage={fieldState.error?.message}
+              required
+            />
+          )}
         />
 
         <TextBox
@@ -197,25 +194,10 @@ export default function CollegeRegistrationStep({
           {...register('collegeArea')}
           required
         />
-
         <SelectAccommodationType
           label="Accommodation Type"
           defaultOptionText="Select Accommodation type"
           {...register('accommodationType')}
-          required
-        />
-
-        <NumberBox
-          label="Number of class rooms"
-          placeholder="Number of class rooms"
-          {...register('numberOfClassRooms')}
-          required
-        />
-
-        <SelectYesNo
-          label="If any deficiency earlier raised by the committee"
-          defaultOptionText="Select deficiency earlier raised by the committee"
-          {...register('deficiencyEarlierRaisedByCommittee')}
           required
         />
 
@@ -302,25 +284,6 @@ export default function CollegeRegistrationStep({
               </div>
             </div>
           </div>
-        )}
-
-        {watchedDeficiency === 'Yes' && (
-          <SelectDeficiencyStatus
-            label="Deficiency Status"
-            defaultOptionText="Select Deficiency Status"
-            {...register('deficiencyStatus')}
-            required
-          />
-        )}
-
-        {watchedDeficiency === 'Yes' && watchedStatus === 'Pending' && (
-          <TextBox
-            label="Deficiency Reason"
-            placeholder="Deficiency Reason"
-            {...register('deficiencyReason')}
-            maxLength={500}
-            required
-          />
         )}
       </FormGrid>
     </FormCard>
