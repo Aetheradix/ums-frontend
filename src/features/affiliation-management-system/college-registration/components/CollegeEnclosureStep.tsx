@@ -19,32 +19,32 @@ export default function CollegeEnclosureStep({
           {/* File Uploads */}
           <div className="flex flex-col gap-6">
             <FileUpload
-              label="Attach scanned copy of NOC of MP Government in .pdf format (size between 50 KB to 250 KB)"
+              label="Attach scanned copy of NOC of MP Government in .pdf format (maximum size 250 KB)"
               name="nocFile"
               control={control}
               accept=".pdf"
               mode="file"
-              uploadNote="*PDF format only, size between 50 KB to 250 KB"
+              uploadNote="*PDF format only, maximum size 250 KB"
               required
             />
 
             <FileUpload
-              label="Attach scanned copy of Affidavit in .pdf format (size between 50 KB to 250 KB)"
+              label="Attach scanned copy of Affidavit in .pdf format (maximum size 250 KB)"
               name="affidavitFile"
               control={control}
               accept=".pdf"
               mode="file"
-              uploadNote="*PDF format only, size between 50 KB to 250 KB"
+              uploadNote="*PDF format only, maximum size 250 KB"
               required
             />
 
             <FileUpload
-              label="Attach scanned copy of relevant regular authority letter for professional course in .pdf format (size between 50 KB to 250 KB)"
+              label="Attach scanned copy of relevant regular authority letter for professional course in .pdf format (maximum size 250 KB)"
               name="regularAuthorityFile"
               control={control}
               accept=".pdf"
               mode="file"
-              uploadNote="*PDF format only, size between 50 KB to 250 KB (Optional)"
+              uploadNote="*PDF format only, maximum size 250 KB (Optional)"
             />
           </div>
         </FormGrid>
