@@ -3,7 +3,8 @@
 
 /* ============================================================
    1. TAILWIND v4 THEME — DESIGN TOKENS
-   ============================================================ */
+============================================================ */
+
 @theme {
   /* Neutral Colors */
   --color-black: #0a0a0a;
@@ -56,19 +57,19 @@
   --radius-3xl: 2rem;
 
   /* Font Size */
-  --font-size-xs: 0.75rem; /* 12px */
-  --font-size-sm: 0.875rem; /* 14px */
-  --font-size-md: 1rem; /* 16px */
-  --font-size-lg: 1.125rem; /* 18px */
-  --font-size-xl: 1.25rem; /* 20px */
-  --font-size-2xl: 1.5rem; /* 24px */
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-md: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.25rem;
+  --font-size-2xl: 1.5rem;
 
   /* Line Height */
-  --line-height-xs: 1rem; /* 16px */
-  --line-height-sm: 1.25rem; /* 20px */
-  --line-height-md: 1.5rem; /* 24px */
-  --line-height-lg: 1.75rem; /* 28px */
-  --line-height-xl: 2rem; /* 32px */
+  --line-height-xs: 1rem;
+  --line-height-sm: 1.25rem;
+  --line-height-md: 1.5rem;
+  --line-height-lg: 1.75rem;
+  --line-height-xl: 2rem;
 
   /* Font Weight */
   --font-weight-regular: 400;
@@ -84,7 +85,8 @@
 
 /* ============================================================
    2. ROOT VARIABLES — APP LEVEL
-   ============================================================ */
+============================================================ */
+
 :root {
   /* Base */
   --white: var(--color-white);
@@ -128,9 +130,7 @@
   --checkbox-highlight-bg: var(--badge-warning-bg);
   --checkbox-highlight-text: var(--badge-warning-text);
 
-  /* ========================================================
-     Toast
-     ======================================================== */
+  /* Toast */
   --toast-success-start: #16a34a;
   --toast-success-end: #057e29;
 
@@ -140,9 +140,7 @@
   --toast-border: #fafafa;
   --toast-shadow: rgba(0, 0, 0, 0.1);
 
-  /* ========================================================
-     DARK THEME
-     ======================================================== */
+  /* Dark Theme */
   --dark-bg: var(--color-primary);
 
   --dark-surface: #121214;
@@ -157,8 +155,8 @@
 
   --dark-shadow: rgba(0, 0, 0, 0.6);
 
-  --dark-input-bg: var(--color-primary);
-  --dark-input-border: var(--dark-border);
+  --dark-input-bg: #0d0d0f;
+  --dark-input-border: rgba(255, 255, 255, 0.1);
 
   --dark-button-bg: var(--dark-border);
   --dark-button-hover: var(--color-gray-700);
@@ -176,18 +174,19 @@
 
   --dark-card-bg: var(--dark-surface);
   --dark-card-hover: var(--dark-surface-hover);
-
   --dark-card-text: #e4e4e7;
   --dark-card-shadow: rgba(0, 0, 0, 0.4);
+
+  /* Backward compatible aliases */
+  --dark-p-card-bg: var(--dark-card-bg);
+  --dark-table-header-bg: var(--dark-surface-secondary);
 
   --dark-overlay-bg: rgba(9, 9, 11, 0.85);
 
   --dark-login-title: var(--color-white);
   --dark-login-subtitle: var(--color-gray-400);
 
-  /* ========================================================
-     Misc
-     ======================================================== */
+  /* Misc */
   --sidebar-overlay-bg: rgba(0, 0, 0, 0.45);
 
   --header-gradient-stripe: var(--white) 0e;
@@ -220,8 +219,9 @@
 }
 
 /* ============================================================
-   3. DARK MODE
-   ============================================================ */
+   3. DARK MODE VARIABLES
+============================================================ */
+
 .dark body,
 [data-theme='dark'] body {
   --primary-color: #fafafa;
@@ -235,16 +235,14 @@
 }
 
 /* ============================================================
-   4. GLOBAL TYPOGRAPHY
-   ============================================================ */
+   4. BASE LAYER — GLOBAL ELEMENT DEFAULTS
+============================================================ */
+
 html,
 body {
   font-family: var(--font-sans);
 }
 
-/* ============================================================
-   3. BASE LAYER — Global element defaults
-   ============================================================ */
 @layer base {
   html,
   body {
@@ -261,16 +259,16 @@ body {
   }
 
   table th {
-    @apply bg-gray-100 text-black p-2 text-left text-[15px] font-normal;
+    @apply bg-gray-100 p-2 text-left text-[15px] font-normal text-black;
   }
 
   table td {
-    @apply text-black text-left;
+    @apply text-left text-black;
   }
 
   /* Scrollbar */
   ::-webkit-scrollbar {
-    @apply w-1.5 h-1.5;
+    @apply h-1.5 w-1.5;
   }
 
   ::-webkit-scrollbar-track {
@@ -278,12 +276,16 @@ body {
   }
 
   ::-webkit-scrollbar-thumb {
-    background: var(--color-gray-900);
     @apply rounded-full;
+    background: var(--color-gray-900);
   }
 
   ::-webkit-scrollbar-thumb:hover {
     background: var(--color-gray-800);
+  }
+
+  .dark ::-webkit-scrollbar-track {
+    background: var(--color-gray-900);
   }
 
   .dark ::-webkit-scrollbar-thumb {
@@ -293,19 +295,16 @@ body {
   .dark ::-webkit-scrollbar-thumb:hover {
     background: var(--color-gray-600);
   }
-
-  .dark ::-webkit-scrollbar-track {
-    background: var(--color-gray-900);
-  }
 }
 
 /* ============================================================
-   4. COMPONENT LAYER — Reusable component patterns
-   ============================================================ */
+   5. COMPONENT LAYER — REUSABLE PATTERNS
+============================================================ */
+
 @layer components {
   /* App Layout */
   .app-layout {
-    @apply flex flex-col min-h-screen;
+    @apply flex min-h-screen flex-col;
   }
 
   .app-layout.sidebar-open {
@@ -318,7 +317,7 @@ body {
   }
 
   .main-layout {
-    @apply flex-1 flex flex-col;
+    @apply flex flex-1 flex-col;
   }
 
   .main-content {
@@ -348,14 +347,13 @@ body {
   /* Highlight values */
   .checkbox-highlight-val {
     @apply inline-block rounded px-1 py-0.5 font-medium;
-
     background-color: var(--checkbox-highlight-bg);
     color: var(--checkbox-highlight-text);
   }
 
   .rollback-value {
-    color: var(--color-green-700) !important;
     @apply font-bold;
+    color: var(--color-green-700) !important;
   }
 
   .bottom-nav-bar {
@@ -369,39 +367,7 @@ body {
   .footer-bar {
     background-color: var(--dark-bg, var(--primary-color));
   }
-  /* no where calling - 11/5/2026 */
-  /* .main-header-avatar {
-    width: 40px;
-    height: 40px;
-    background-color: #18181b;
-  }
 
-  .main-header-title {
-    color: var(--dark-text, #111827);
-  }
-
-  .main-header-subtitle {
-    color: var(--text-secondary);
-  } */
-
-  /* .main-header-search-input {
-    background-color: var(--dark-input-bg, #f4f4f5);
-    padding-left: 3rem;
-  } */
-
-  /* .main-header-badge {
-    width: 15px;
-    height: 15px;
-    font-size: 9px;
-    transform: translate(40%, -20%);
-  } */
-
-  /* .main-header-user-avatar {
-    background-color: var(--color-indigo-500);
-    color: var(--white);
-    font-weight: 700;
-  } */
-  /* no where calling - 11/5/2026 */
   .report-heading,
   .report-title,
   .report-caption {
@@ -412,6 +378,7 @@ body {
     color: var(--color-black);
   }
 
+  /* Captcha */
   .captcha-row {
     display: flex;
     align-items: center;
@@ -437,7 +404,8 @@ body {
   .captcha-refresh:hover {
     transform: rotate(90deg);
   }
-  /* File upload css starts here */
+
+  /* File Upload */
   .file-upload-preview {
     width: var(--preview-width, 100px);
     height: var(--preview-height, 120px);
@@ -470,8 +438,7 @@ body {
     text-align: center;
   }
 
-  /* File upload css ends here */
-
+  /* Icon helpers */
   .date-picker-checkbox-container {
     position: absolute;
     top: 50%;
@@ -537,8 +504,9 @@ body {
 }
 
 /* ============================================================
-   5. UTILITY LAYER — Custom utilities
-   ============================================================ */
+   6. UTILITY LAYER — CUSTOM UTILITIES
+============================================================ */
+
 @layer utilities {
   .text-primary {
     color: var(--primary-color);
@@ -546,8 +514,13 @@ body {
 }
 
 /* ============================================================
-   6. PRIMEREACT OVERRIDES — Must be outside layers for specificity
-   ============================================================ */
+   7. PRIMEREACT OVERRIDES — COMMON CONTROLS
+============================================================ */
+
+/* =========================
+   7.1 Input
+========================= */
+
 .p-inputtext {
   @apply text-[0.9rem];
   color: var(--color-gray-600);
@@ -563,12 +536,120 @@ body {
   outline-color: transparent;
 }
 
+.p-inputtext::placeholder {
+  @apply text-slate-400;
+}
+
+/* =========================
+   7.2 Dropdown / Multiselect Base
+========================= */
+
 .p-dropdown,
 .p-multiselect {
-  @apply border border-gray-300 shadow-sm;
+  @apply flex h-10 w-full items-center rounded-md border border-slate-200 bg-white text-sm text-slate-700 outline-none transition-all duration-200;
 }
+
+/* Closed dropdown label only */
+.p-dropdown > .p-dropdown-label.p-inputtext {
+  @apply h-10 min-w-0 flex-1 overflow-hidden text-ellipsis whitespace-nowrap border-0 px-3 py-0 text-sm leading-10 text-slate-700 shadow-none;
+}
+
+/* Closed dropdown placeholder */
+.p-dropdown > .p-dropdown-label.p-placeholder {
+  @apply text-slate-400;
+}
+
+/* Dropdown trigger */
+.p-dropdown > .p-dropdown-trigger {
+  @apply flex h-10 w-10 items-center justify-center text-slate-500;
+}
+
+/* Dropdown option text */
+.p-dropdown-item-label {
+  white-space: normal;
+}
+
+/* Multiselect label */
+.p-multiselect .p-multiselect-label {
+  padding: 0.2rem 0.75rem !important;
+  font-size: 0.9rem !important;
+}
+
+/* =========================
+   7.3 Dropdown Panel
+========================= */
+
+.p-dropdown-panel,
+.p-multiselect-panel {
+  @apply overflow-hidden rounded-md border border-slate-200 bg-white shadow-md;
+}
+
+/* Panel z-index */
+.p-dropdown-panel,
+.p-multiselect-panel,
+.p-datepicker-panel,
+.p-dialog-mask,
+.p-confirm-dialog {
+  z-index: 1033 !important;
+}
+
+/* Search wrapper */
+.p-dropdown-panel .p-dropdown-filter-container {
+  @apply relative border-b border-slate-100 bg-white px-2 py-2;
+}
+
+/* Search input */
+.p-dropdown-panel .p-dropdown-filter.p-inputtext {
+  @apply h-9 w-full rounded-md border border-slate-300 bg-white pl-3 pr-9 text-sm text-slate-700 shadow-none outline-none;
+}
+
+/* Search input focus */
+.p-dropdown-panel .p-dropdown-filter.p-inputtext:focus {
+  @apply border-slate-400 ring-0;
+}
+
+/* Search placeholder */
+.p-dropdown-panel .p-dropdown-filter.p-inputtext::placeholder {
+  @apply text-slate-400;
+}
+
+/* Search icon */
+.p-dropdown-panel .p-dropdown-filter-icon {
+  @apply right-5 top-1/2 -translate-y-1/2 text-slate-400;
+}
+
+/* Items wrapper */
+.p-dropdown-panel .p-dropdown-items {
+  @apply py-1;
+}
+
+/* Items */
+.p-dropdown-panel .p-dropdown-item {
+  @apply px-3 py-2 text-sm text-slate-700 transition-colors;
+}
+
+/* Item hover */
+.p-dropdown-panel .p-dropdown-item:not(.p-highlight):not(.p-disabled):hover {
+  @apply bg-slate-50 text-black;
+}
+
+/* Selected item */
+.p-dropdown-panel .p-dropdown-item.p-highlight {
+  color: var(--primary-color);
+  background-color: color-mix(in srgb, var(--color-black) 5%, white);
+}
+
+/* Empty message */
+.p-dropdown-panel .p-dropdown-empty-message {
+  @apply px-3 py-2 text-sm text-slate-400;
+}
+
+/* =========================
+   7.4 Button
+========================= */
+
 .p-button {
-  @apply rounded-md font-medium flex items-center;
+  @apply flex items-center rounded-md font-medium;
   transition: all 0.3s ease;
   color: var(--color-black);
   border: 1px solid var(--color-black);
@@ -581,22 +662,13 @@ body {
   font-weight: 700;
 }
 
+/* =========================
+   7.5 Common PrimeReact
+========================= */
+
 .p-column-title {
   @apply whitespace-nowrap font-bold;
   color: var(--color-gray-800);
-}
-
-.p-multiselect .p-multiselect-label {
-  padding: 0.2rem 0.75rem !important;
-  font-size: 0.9rem !important;
-}
-
-.p-dropdown-panel,
-.p-multiselect-panel,
-.p-datepicker-panel,
-.p-dialog-mask,
-.p-confirm-dialog {
-  z-index: 1033 !important;
 }
 
 .p-divider.p-divider-vertical {
@@ -604,21 +676,16 @@ body {
   vertical-align: middle !important;
 }
 
-.p-dropdown-item-label {
-  text-wrap: auto;
-}
+/* =========================
+   7.6 Datepicker
+========================= */
 
-.p-dropdown-label {
-  @apply overflow-hidden text-ellipsis whitespace-nowrap min-w-0 flex-1;
-}
-
-/* Datepicker */
 .datepicker-wrapper {
   @apply relative w-full;
 }
 
 .datepicker-wrapper .calendar-icon {
-  @apply absolute z-2 pointer-events-none;
+  @apply pointer-events-none absolute z-2;
   right: 0.75rem;
   top: 50%;
   transform: translateY(-50%);
@@ -629,7 +696,10 @@ body {
   padding-right: 2.5rem;
 }
 
-/* Subject width */
+/* =========================
+   7.7 Misc
+========================= */
+
 .subject-width {
   width: 25vw !important;
 }
@@ -639,8 +709,9 @@ body {
 }
 
 /* ============================================================
-   7. TOAST NOTIFICATIONS
-   ============================================================ */
+   8. TOAST NOTIFICATIONS
+============================================================ */
+
 .white-toast .p-toast-message {
   background: var(--white) !important;
   color: var(--black) !important;
@@ -719,17 +790,14 @@ body {
   background: var(--color-gray-100) !important;
 }
 
-/* Success Indicator */
 .white-toast .p-toast-message.p-toast-message-success {
   border-left: 4px solid var(--black) !important;
 }
 
-/* Error Indicator */
 .white-toast .p-toast-message.p-toast-message-error {
   border-left: 4px solid var(--color-danger) !important;
 }
 
-/* Progress bar animation */
 .white-toast .p-toast-message .p-toast-message-content::after {
   content: '';
   position: absolute;
@@ -747,9 +815,299 @@ body {
   background: var(--color-danger);
 }
 
-/* ==========================================
-   Dark Theme Variant
-   ========================================== */
+@keyframes toast-progress {
+  0% {
+    width: 100%;
+  }
+
+  100% {
+    width: 0%;
+  }
+}
+
+/* ============================================================
+   9. DARK THEME
+============================================================ */
+
+/* Layout */
+.dark .toggle-btn,
+.dark .user-name {
+  color: var(--dark-text);
+}
+
+.dark .main-content {
+  background-color: var(--dark-bg);
+}
+
+/* Cards */
+.dark .card {
+  background-color: var(--dark-card-bg);
+  color: var(--dark-card-text);
+  box-shadow: 0 2px 8px var(--dark-card-shadow);
+}
+
+.dark .card-title {
+  color: var(--dark-text);
+}
+
+.dark .card-content {
+  color: var(--dark-card-text);
+}
+
+.dark .p-card {
+  background: var(--dark-card-bg);
+  color: var(--dark-text);
+  border: 1px solid var(--dark-border);
+}
+
+.dark .p-card-title {
+  color: var(--dark-text);
+}
+
+/* Buttons */
+.dark .p-button {
+  background: var(--dark-button-bg);
+  color: var(--dark-text);
+}
+
+.dark .p-button:hover {
+  background: var(--dark-button-hover);
+}
+
+/* PrimeReact Common Controls */
+.dark .p-inputtext,
+.dark .p-dropdown,
+.dark .p-multiselect {
+  background: var(--dark-input-bg) !important;
+  color: var(--dark-text) !important;
+  border: 1px solid var(--dark-input-border) !important;
+  box-shadow: none !important;
+}
+
+.dark .p-inputtext::placeholder,
+.dark .p-dropdown > .p-dropdown-label,
+.dark .p-multiselect-label {
+  color: var(--dark-placeholder);
+}
+
+.dark .p-dropdown > .p-dropdown-trigger,
+.dark .p-multiselect-trigger,
+.dark .p-calendar-trigger {
+  color: var(--text-secondary) !important;
+}
+
+/* PrimeReact Panels */
+.dark .p-dropdown-panel,
+.dark .p-multiselect-panel,
+.dark .p-autocomplete-panel,
+.dark .p-cascader-panel,
+.dark .p-overlaypanel,
+.dark .p-datepicker {
+  background-color: var(--dark-card-bg) !important;
+  color: var(--dark-text) !important;
+  border: 1px solid var(--dark-border) !important;
+  box-shadow: 0 4px 12px var(--dark-shadow) !important;
+}
+
+.dark .p-dropdown-panel .p-dropdown-filter-container,
+.dark .p-multiselect-header,
+.dark .p-multiselect-filter-container {
+  background-color: var(--dark-card-bg) !important;
+  border-bottom: 1px solid var(--dark-border) !important;
+}
+
+.dark .p-dropdown-panel .p-dropdown-filter.p-inputtext,
+.dark .p-multiselect-filter,
+.dark .p-autocomplete-input {
+  background-color: var(--dark-input-bg) !important;
+  color: var(--dark-text) !important;
+  border: 1px solid var(--dark-border) !important;
+}
+
+.dark .p-dropdown-panel .p-dropdown-filter.p-inputtext::placeholder,
+.dark .p-multiselect-filter::placeholder,
+.dark .p-autocomplete-input::placeholder {
+  color: var(--dark-placeholder) !important;
+}
+
+.dark .p-dropdown-filter-icon,
+.dark .p-multiselect-filter-icon {
+  color: var(--text-secondary) !important;
+}
+
+/* PrimeReact Items */
+.dark .p-dropdown-panel .p-dropdown-item,
+.dark .p-multiselect-items .p-multiselect-item,
+.dark .p-autocomplete-item {
+  color: var(--text-secondary) !important;
+  transition:
+    background-color 0.2s,
+    color 0.2s;
+}
+
+.dark
+  .p-dropdown-panel
+  .p-dropdown-item:not(.p-highlight):not(.p-disabled):hover,
+.dark
+  .p-multiselect-items
+  .p-multiselect-item:not(.p-highlight):not(.p-disabled):hover,
+.dark .p-autocomplete-item:not(.p-highlight):not(.p-disabled):hover {
+  background-color: var(--dark-card-hover) !important;
+  color: var(--white) !important;
+}
+
+.dark .p-dropdown-panel .p-dropdown-item.p-highlight,
+.dark .p-multiselect-items .p-multiselect-item.p-highlight,
+.dark .p-autocomplete-item.p-highlight {
+  background-color: var(--primary-color) !important;
+  color: var(--white) !important;
+}
+
+.dark .p-dropdown-empty-message,
+.dark .p-multiselect-empty-message {
+  color: var(--text-secondary) !important;
+  padding: 0.5rem;
+}
+
+.dark .p-multiselect-token {
+  background: var(--dark-card-hover) !important;
+  color: var(--white) !important;
+}
+
+/* Focus */
+.dark .p-inputtext:focus,
+.dark .p-dropdown:not(.p-disabled).p-focus,
+.dark .p-multiselect:not(.p-disabled).p-focus {
+  border-color: var(--primary-color) !important;
+  box-shadow: 0 0 0 1px var(--primary-color) !important;
+}
+
+/* Checkbox */
+.dark .p-checkbox .p-checkbox-box {
+  border-color: var(--dark-border) !important;
+  background: var(--dark-input-bg) !important;
+}
+
+.dark .p-checkbox .p-checkbox-box.p-highlight {
+  border-color: var(--primary-color) !important;
+  background: var(--primary-color) !important;
+}
+
+/* Native select */
+.dark select {
+  background-color: var(--dark-input-bg) !important;
+  color: var(--dark-text) !important;
+  border: 1px solid var(--dark-border) !important;
+}
+
+.dark select option {
+  background-color: var(--dark-card-bg);
+  color: var(--dark-text);
+}
+
+/* Header / Navbar */
+.dark .header {
+  background-color: var(--dark-header-bg);
+  background-image: var(--dark-header-gradient);
+}
+
+.dark .logo-img {
+  filter: none;
+}
+
+.dark .sidebar-divider {
+  border-top: 1px solid var(--dark-navbar-border);
+}
+
+.dark .navbar {
+  background-color: var(--dark-navbar-bg);
+}
+
+.dark .navbar-link {
+  color: var(--dark-text);
+}
+
+.dark .navbar-link:hover {
+  background-color: var(--dark-link-hover);
+  color: var(--dark-text) !important;
+}
+
+.dark .dropdown-menu,
+.dark .dropdown-submenu-menu {
+  background-color: var(--dark-dropdown-bg);
+  border: 1px solid var(--dark-dropdown-border);
+  box-shadow: 0 4px 8px var(--dark-dropdown-shadow);
+}
+
+.dark .dropdown-link,
+.dark .dropdown-submenu .dropdown-link {
+  color: var(--dark-text);
+}
+
+.dark .dropdown-link:hover,
+.dark .dropdown-submenu .dropdown-link:hover {
+  background-color: var(--dark-link-hover);
+  color: var(--dark-text);
+}
+
+.dark .navbar-desktop {
+  background-color: var(--dark-navbar-bg);
+  border-bottom: 2px solid var(--dark-navbar-border);
+  box-shadow: 0 2px 4px var(--dark-dropdown-shadow);
+}
+
+.dark .navbar-desktop .navbar-link {
+  color: var(--dark-text);
+}
+
+.dark .navbar-desktop .dropdown-menu,
+.dark .navbar-desktop .dropdown-submenu-menu {
+  background-color: var(--dark-dropdown-bg);
+  border: 1px solid var(--dark-dropdown-border);
+  box-shadow: 0 4px 8px var(--dark-dropdown-shadow);
+}
+
+/* Login */
+.dark .login-title {
+  color: var(--dark-login-title);
+}
+
+.dark .login-subtitle {
+  color: var(--dark-login-subtitle);
+}
+
+/* Instruction / Highlight */
+.dark .instruction-box {
+  background-color: var(--primary-color);
+  border: 1px solid #27272a;
+  color: var(--dark-text);
+}
+
+.dark .checkbox-highlight-val {
+  background-color: #3f3f46;
+  color: #fafafa;
+}
+
+/* Basic table dark fallback */
+.dark table th {
+  background-color: var(--dark-table-header-bg);
+  color: var(--dark-text);
+}
+
+.dark table td {
+  color: var(--dark-text);
+}
+
+.dark .bg-even-group td {
+  background-color: #18181b !important;
+  color: var(--white) !important;
+}
+
+.dark .bg-odd-group td {
+  background-color: var(--dark-card-bg) !important;
+}
+
+/* Toast Dark */
 .dark .white-toast .p-toast-message {
   background: #0d0d0f !important;
   color: var(--white) !important;
@@ -792,294 +1150,25 @@ body {
   background: var(--color-danger);
 }
 
-@keyframes toast-progress {
-  0% {
-    width: 100%;
-  }
-  100% {
-    width: 0%;
-  }
+.dark .p-dropdown > .p-dropdown-label.p-inputtext {
+  background: transparent !important;
+  color: var(--dark-text) !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
+.dark .p-dropdown > .p-dropdown-label.p-placeholder {
+  color: var(--dark-placeholder) !important;
+}
+
+.dark .p-dropdown > .p-dropdown-trigger {
+  color: var(--dark-placeholder) !important;
 }
 
 /* ============================================================
-   8. DARK THEME
-   ============================================================ */
+   10. PRINT STYLES
+============================================================ */
 
-.dark .toggle-btn,
-.dark .user-name {
-  color: var(--dark-text);
-}
-
-.dark .main-content {
-  background-color: var(--dark-bg);
-}
-
-.dark .card {
-  background-color: var(--dark-card-bg);
-  color: var(--dark-card-text);
-  box-shadow: 0 2px 8px var(--dark-card-shadow);
-}
-
-.dark .card-title {
-  color: var(--dark-text);
-}
-
-.dark .card-content {
-  color: var(--dark-card-text);
-}
-
-.dark .p-button {
-  background: var(--dark-button-bg);
-  color: var(--dark-text);
-}
-
-.dark .p-button:hover {
-  background: var(--dark-button-hover);
-}
-
-.dark .p-card {
-  background: var(--dark-p-card-bg);
-  color: var(--dark-text);
-  border: 1px solid var(--dark-border);
-}
-
-.dark .p-card-title {
-  color: var(--dark-text);
-}
-
-.dark .p-inputtext,
-.dark .p-dropdown,
-.dark .p-multiselect {
-  background: var(--dark-input-bg);
-  color: var(--dark-text);
-  border: 1px solid var(--dark-input-border);
-}
-
-.dark .p-inputtext::placeholder,
-.dark .p-dropdown-label,
-.dark .p-multiselect-label {
-  color: var(--dark-placeholder);
-}
-
-.dark .p-dropdown-panel,
-.dark .p-multiselect-panel,
-.dark .p-autocomplete-panel,
-.dark .p-cascader-panel,
-.dark .p-overlaypanel,
-.dark .p-datepicker {
-  background-color: var(--dark-card-bg) !important;
-  color: var(--dark-text) !important;
-  border: 1px solid var(--dark-border) !important;
-  box-shadow: 0 4px 12px var(--dark-shadow) !important;
-}
-
-.dark .p-dropdown-trigger,
-.dark .p-multiselect-trigger,
-.dark .p-calendar-trigger {
-  color: var(--text-secondary) !important;
-}
-
-.dark .p-dropdown-items .p-dropdown-item,
-.dark .p-multiselect-items .p-multiselect-item,
-.dark .p-autocomplete-item {
-  color: var(--text-secondary) !important;
-  transition:
-    background-color 0.2s,
-    color 0.2s;
-}
-
-.dark
-  .p-dropdown-items
-  .p-dropdown-item:not(.p-highlight):not(.p-disabled):hover,
-.dark
-  .p-multiselect-items
-  .p-multiselect-item:not(.p-highlight):not(.p-disabled):hover,
-.dark .p-autocomplete-item:not(.p-highlight):not(.p-disabled):hover {
-  background-color: var(--dark-card-hover) !important;
-  color: var(--white) !important;
-}
-
-.dark .p-dropdown-items .p-dropdown-item.p-highlight,
-.dark .p-multiselect-items .p-multiselect-item.p-highlight,
-.dark .p-autocomplete-item.p-highlight {
-  background-color: var(--primary-color) !important;
-  color: var(--white) !important;
-}
-
-.dark .p-dropdown-header,
-.dark .p-dropdown-filter-container,
-.dark .p-multiselect-header,
-.dark .p-multiselect-filter-container {
-  background-color: var(--dark-card-bg) !important;
-  border-bottom: 1px solid var(--dark-border) !important;
-  padding: 0.5rem;
-}
-
-.dark .p-multiselect-header .p-multiselect-close {
-  color: var(--dark-text) !important;
-}
-
-.dark .p-dropdown-filter,
-.dark .p-multiselect-filter,
-.dark .p-autocomplete-input {
-  background-color: var(--dark-input-bg) !important;
-  color: var(--dark-text) !important;
-  border: 1px solid var(--dark-border) !important;
-}
-
-.dark .p-dropdown-filter-icon,
-.dark .p-multiselect-filter-icon {
-  color: var(--text-secondary) !important;
-}
-
-.dark .p-dropdown-empty-message,
-.dark .p-multiselect-empty-message {
-  color: var(--text-secondary) !important;
-  padding: 0.5rem;
-}
-
-.dark .p-multiselect-token {
-  background: var(--dark-card-hover) !important;
-  color: var(--white) !important;
-}
-
-.dark .p-inputtext:focus,
-.dark .p-dropdown:not(.p-disabled).p-focus,
-.dark .p-multiselect:not(.p-disabled).p-focus {
-  border-color: var(--primary-color) !important;
-  box-shadow: 0 0 0 1px var(--primary-color) !important;
-}
-
-.dark .p-checkbox .p-checkbox-box {
-  border-color: var(--dark-border) !important;
-  background: var(--dark-input-bg) !important;
-}
-
-.dark .p-checkbox .p-checkbox-box.p-highlight {
-  border-color: var(--primary-color) !important;
-  background: var(--primary-color) !important;
-}
-
-.dark select {
-  background-color: var(--dark-input-bg) !important;
-  color: var(--dark-text) !important;
-  border: 1px solid var(--dark-border) !important;
-}
-
-.dark select option {
-  background-color: var(--dark-card-bg);
-  color: var(--dark-text);
-}
-
-/* Dark theme layout */
-.dark .header {
-  background-color: var(--dark-header-bg);
-  background-image: var(--dark-header-gradient);
-}
-
-.dark .logo-img {
-  filter: none;
-}
-
-.dark .sidebar-divider {
-  border-top: 1px solid var(--dark-navbar-border);
-}
-
-.dark .navbar {
-  background-color: var(--dark-navbar-bg);
-}
-
-.dark .navbar-link {
-  color: var(--dark-text);
-}
-
-.dark .navbar-link:hover {
-  background-color: var(--dark-link-hover);
-  color: var(--dark-text) !important;
-}
-
-.dark .dropdown-menu,
-.dark .dropdown-submenu-menu {
-  background-color: var(--dark-dropdown-bg);
-  border: 1px solid var(--dark-dropdown-border);
-  box-shadow: 0 4px 8px var(--dark-dropdown-shadow);
-}
-
-.dark .dropdown-link {
-  color: var(--dark-text);
-}
-
-.dark .dropdown-link:hover {
-  background-color: var(--dark-link-hover);
-  color: var(--dark-text);
-}
-
-.dark .dropdown-submenu .dropdown-link {
-  color: var(--dark-text);
-}
-
-.dark .dropdown-submenu .dropdown-link:hover {
-  background-color: var(--dark-link-hover);
-  color: var(--dark-text);
-}
-
-.dark .navbar-desktop {
-  background-color: var(--dark-navbar-bg);
-  border-bottom: 2px solid var(--dark-navbar-border);
-  box-shadow: 0 2px 4px var(--dark-dropdown-shadow);
-}
-
-.dark .navbar-desktop .navbar-link {
-  color: var(--dark-text);
-}
-
-.dark .navbar-desktop .dropdown-menu,
-.dark .navbar-desktop .dropdown-submenu-menu {
-  background-color: var(--dark-dropdown-bg);
-  border: 1px solid var(--dark-dropdown-border);
-  box-shadow: 0 4px 8px var(--dark-dropdown-shadow);
-}
-
-.dark .login-title {
-  color: var(--dark-login-title);
-}
-
-.dark .login-subtitle {
-  color: var(--dark-login-subtitle);
-}
-
-.dark .instruction-box {
-  background-color: var(--primary-color);
-  border: 1px solid #27272a;
-  color: var(--dark-text);
-}
-
-.dark .checkbox-highlight-val {
-  background-color: #3f3f46;
-  color: #fafafa;
-}
-
-.dark table th {
-  background-color: var(--dark-table-header-bg);
-  color: var(--dark-text);
-}
-
-.dark table td {
-  color: var(--dark-text);
-}
-
-.dark .bg-even-group td {
-  background-color: #18181b !important;
-  color: var(--white) !important;
-}
-
-.dark .bg-odd-group td {
-  background-color: var(--dark-card-bg) !important;
-}
-
-/* ============================================================
-   9. PRINT STYLES
-   ============================================================ */
 @media print {
   .no-print {
     display: none !important;
@@ -1087,16 +1176,18 @@ body {
 }
 
 /* ============================================================
-   10. ROLLBACK ICON
-   ============================================================ */
+   11. ROLLBACK ICON
+============================================================ */
+
 .rollback:before {
   content: '\e994';
   color: rgb(175, 6, 6) !important;
 }
 
 /* ============================================================
-   11. MATERIAL SYMBOLS — Local font
-   ============================================================ */
+   12. MATERIAL SYMBOLS — LOCAL FONT
+============================================================ */
+
 @font-face {
   font-family: 'Material Symbols Local';
   font-style: normal;
@@ -1106,7 +1197,7 @@ body {
 
 .icon-base {
   font-family: 'Material Symbols Local', sans-serif;
-  @apply font-normal not-italic text-2xl leading-none tracking-normal normal-case inline-block whitespace-nowrap break-keep;
+  @apply inline-block break-keep text-2xl font-normal not-italic leading-none tracking-normal normal-case whitespace-nowrap;
   direction: ltr;
   font-feature-settings: 'liga';
   -webkit-font-feature-settings: 'liga';
@@ -1114,62 +1205,15 @@ body {
 }
 
 /* ============================================================
-   12. SYSTEMATIC GRID LOOK
-   ============================================================ */
-.p-datatable {
-  @apply w-full border border-zinc-200 rounded-lg overflow-hidden shadow-sm;
-}
+   13. FORM GLOBAL CSS
+============================================================ */
 
-/* .p-datatable .p-datatable-thead > tr > th {
-  @apply bg-zinc-50 text-zinc-700 font-semibold py-3 px-4 border-b border-zinc-200 text-sm;
-} */
-
-.p-datatable .p-datatable-tbody > tr > td {
-  @apply py-3 px-4 text-sm;
-  border-bottom: 1px solid var(--color-gray-100);
-}
-
-.p-datatable .p-datatable-tbody > tr:last-child > td {
-  @apply border-b-0;
-}
-
-.p-paginator {
-  @apply border-t border-zinc-200 py-3 text-sm px-5;
-}
-
-/* Dark Theme Adjustments for Grid */
-
-.dark .p-datatable {
-  border-color: var(--dark-border);
-}
-
-.dark .p-datatable .p-datatable-thead > tr > th {
-  @apply text-(--dark-text);
-  background-color: var(--dark-surface-secondary);
-  border-color: var(--dark-border);
-}
-
-.dark .p-datatable .p-datatable-tbody > tr > td {
-  @apply text-(--dark-text);
-  border-color: var(--dark-border);
-}
-
-.dark .p-paginator {
-  @apply text-(--dark-text-muted);
-  background-color: var(--dark-surface-secondary);
-  border-color: var(--dark-border);
-}
-
-.pl-40 {
-  padding-left: 40px;
-}
-
-/* form global css starts here */
 .form-field-wrapper {
-  @apply w-full mb-1;
+  @apply mb-1 w-full;
 }
+
 .form-field-label {
-  @apply shrink-0 font-semibold text-sm text-gray-700 dark:text-gray-300 pt-1;
+  @apply shrink-0 text-sm font-semibold text-gray-700 dark:text-gray-300;
 }
 
 .form-option-label {
@@ -1182,9 +1226,15 @@ body {
 }
 
 .form-error-message {
-  @apply block mt-1 text-sm;
+  @apply mt-1 block text-sm;
   color: var(--color-danger);
 }
+
+/* ============================================================
+   14. SMALL UTILITIES
+
+.pl-40 {
+  padding-left: 40px;
 /* form global css ends here */
 
 /* ============================================================

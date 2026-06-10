@@ -1,7 +1,7 @@
 @reference "tailwindcss";
 
 .form-grid {
-  @apply grid gap-x-6 gap-y-4;
+  @apply grid gap-x-5 gap-y-0;
 }
 
 .form-grid-cols-1 {

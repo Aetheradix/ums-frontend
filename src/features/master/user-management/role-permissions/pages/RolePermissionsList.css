@@ -83,3 +83,8 @@
   color: var(--color-danger);
   border-color: var(--color-danger);
 }
+
+.dark .role-permission-check {
+  @apply border-slate-500;
+  accent-color: var(--white);
+}
