@@ -2,6 +2,7 @@ import { collegeCategoryUrls } from './college/college-category/urls';
 import { collegeTypeUrls } from './college/college-type/urls';
 import { actionOptionReasonUrls } from './employee/settings/action-option-reason/urls';
 import { actionOptionUrls } from './employee/settings/action-option/urls';
+import { employeeGroupUrls } from './employee/settings/employee-group/urls';
 import { employmentNatureUrls } from './employee/settings/nature-of-employment/urls';
 import { organizationUnitUrls } from './employee/settings/organization-unit/urls';
 import { subjectSpecializationUrls } from './employee/settings/subject-specialization/urls';
@@ -80,4 +81,5 @@ export const masterUrls = {
   ),
   actionOptionReason: actionOptionReasonUrls(`${baseUrl}/employee/settings`),
   travelPurpose: travelPurposeUrls(`${baseUrl}/employee/settings`),
+  employeeGroup: employeeGroupUrls(`${baseUrl}/employee/settings`),
 };
