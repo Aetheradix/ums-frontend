@@ -34,9 +34,8 @@ declare namespace AffiliationManagementSystem {
   export interface CollegeCourseDetailForm {
     collegeCourseDetailId?: number;
     registrationId?: number;
-    programmeFeesMappingId: number;
-    courseId?: number;
-    subjectId?: number;
+    courseId: number;
+    subjectIds: number[];
     totalAmount?: number;
     isFeePaid?: boolean;
     paymentDate?: string | null;

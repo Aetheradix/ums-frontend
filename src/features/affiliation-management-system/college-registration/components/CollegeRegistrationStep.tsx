@@ -56,7 +56,7 @@ export default function CollegeRegistrationStep({
           label="College Code"
           placeholder="College Code"
           {...register('collegeCode')}
-          maxLength={50}
+          maxLength={15}
           required
         />
         <SelectEstablishmentYear

@@ -33,13 +33,6 @@ const getCourseFees = (
   const selectedProgramme = programmes?.find(p => p.id === courseId);
   const fee = programmeFees?.find(f => f.programmeId === courseId);
 
-  console.log('Debugging Fee:', {
-    courseId,
-    courseName,
-    foundFee: fee,
-    allProgrammeFees: programmeFees,
-  });
-
   return {
     programmeFeeId: fee?.id || 0,
     affiliationFee: fee?.affiliationFee || 0,
@@ -53,8 +46,7 @@ const getCourseFees = (
 export default function CollegeCourseDetailStep({
   control,
 }: CollegeCourseDetailStepProps) {
-  // Use React Hook Form's useFieldArray to manage the courses list dynamically
-  const { fields, append, remove } = useFieldArray({
+  const { fields, append, remove, update } = useFieldArray({
     control,
     name: 'courses',
   });
@@ -75,28 +67,25 @@ export default function CollegeCourseDetailStep({
   const tempSubjects = localWatch('tempSubjects');
 
   // Load programs, subjects, and programme fees
-  const { data: programmes } = useProgrammesQuery();
-  const { data: subjects } = useSubjectsQuery();
-  const { data: programmeFeesData } = useProgrammeFeesQuery();
+  const { data: programmesRaw } = useProgrammesQuery();
+  const { data: subjectsRaw } = useSubjectsQuery();
+  const { data: programmeFeesRaw } = useProgrammeFeesQuery();
 
-  const activeSubjects =
-    (subjects as Master.SubjectMaster.SubjectItem[])?.filter(
-      item => item.isActive
-    ) || [];
+  const programmes = (programmesRaw || []) as Master.Other.ProgrammeItem[];
+  const subjects = (subjectsRaw || []) as Master.SubjectMaster.SubjectItem[];
+  const programmeFeesData = (programmeFeesRaw ||
+    []) as AffiliationManagementSystem.ProgrammeFeeItem[];
 
-  const activeProgrammeFees =
-    (
-      programmeFeesData as AffiliationManagementSystem.ProgrammeFeeItem[]
-    )?.filter(item => item.isActive) || [];
+  const activeSubjects = subjects.filter(item => item.isActive);
 
-  const selectedCourse = (programmes as Master.Other.ProgrammeItem[])?.find(
-    p => p.id === Number(tempCourseId)
-  );
+  const activeProgrammeFees = programmeFeesData.filter(item => item.isActive);
+
+  const selectedCourse = programmes.find(p => p.id === Number(tempCourseId));
   const currentFees = getCourseFees(
     Number(tempCourseId),
     selectedCourse?.name || '',
     activeProgrammeFees,
-    (programmes as Master.Other.ProgrammeItem[]) || []
+    programmes
   );
 
   const handleAddCourse = () => {
@@ -106,29 +95,35 @@ export default function CollegeCourseDetailStep({
     }
 
     const cId = Number(tempCourseId);
+    const existingCourseIndex = fields.findIndex(f => f.courseId === cId);
+    const newSubjectIds = tempSubjects.map((s: any) => Number(s.id));
 
-    // Filter out subjects that are already added for this course
-    const newSubjects = tempSubjects.filter(
-      (subj: Master.SubjectMaster.SubjectItem) => {
-        const mappingId = cId * 10000 + Number(subj.id);
-        return !fields.some(f => f.programmeFeesMappingId === mappingId);
-      }
-    );
-
-    if (newSubjects.length === 0) {
-      ToastService.error(
-        'All selected subjects for this course have already been added.'
+    if (existingCourseIndex >= 0) {
+      const existingField = fields[existingCourseIndex];
+      const existingSubjectIds = existingField.subjectIds || [];
+      const subjectsToAdd = newSubjectIds.filter(
+        id => !existingSubjectIds.includes(id)
       );
-      return;
-    }
 
-    newSubjects.forEach((subj: Master.SubjectMaster.SubjectItem) => {
-      const mappingId = cId * 10000 + Number(subj.id);
+      if (subjectsToAdd.length === 0) {
+        ToastService.error(
+          'All selected subjects for this course have already been added.'
+        );
+        return;
+      }
 
+      update(existingCourseIndex, {
+        ...existingField,
+        subjectIds: [...existingSubjectIds, ...subjectsToAdd],
+      });
+
+      ToastService.success(
+        `Added ${subjectsToAdd.length} new subject(s) to the existing course.`
+      );
+    } else {
       append({
-        programmeFeesMappingId: mappingId,
         courseId: cId,
-        subjectId: Number(subj.id),
+        subjectIds: newSubjectIds,
         totalAmount:
           currentFees.affiliationFee +
           currentFees.inspectionFee +
@@ -136,11 +131,11 @@ export default function CollegeCourseDetailStep({
         isFeePaid: false,
         paymentDate: '',
       });
-    });
 
-    ToastService.success(
-      `Added ${newSubjects.length} subject(s) to the course.`
-    );
+      ToastService.success(
+        `Added course with ${newSubjectIds.length} subject(s).`
+      );
+    }
 
     localReset({
       tempCourseId: '',
@@ -148,39 +143,10 @@ export default function CollegeCourseDetailStep({
     });
   };
 
-  const handleRemoveGroup = (indices: number[]) => {
-    const sorted = [...indices].sort((a, b) => b - a);
-    sorted.forEach(idx => remove(idx));
+  const handleRemoveCourse = (index: number) => {
+    remove(index);
     ToastService.success('Course selection removed successfully.');
   };
-
-  const grouped: Record<
-    number,
-    {
-      courseId: number;
-      items: typeof fields;
-      indices: number[];
-    }
-  > = {};
-
-  fields.forEach((field, index) => {
-    const f = field as typeof field & { courseId?: number; subjectId?: number };
-    const courseId =
-      f.courseId !== undefined
-        ? f.courseId
-        : Math.floor(f.programmeFeesMappingId / 10000);
-    if (!grouped[courseId]) {
-      grouped[courseId] = {
-        courseId,
-        items: [],
-        indices: [],
-      };
-    }
-    grouped[courseId].items.push(field);
-    grouped[courseId].indices.push(index);
-  });
-
-  const groupedRows = Object.values(grouped);
 
   return (
     <div className="flex flex-col gap-6">
@@ -202,9 +168,6 @@ export default function CollegeCourseDetailStep({
               textField="subjectName"
               required
             />
-            <span className="text-xs text-red-500 block mt-1.5 font-medium">
-              (In case of no subject, select PLAIN.)
-            </span>
           </div>
         </FormGrid>
 
@@ -222,10 +185,6 @@ export default function CollegeCourseDetailStep({
                 </strong>{' '}
                 /-
               </span>
-              <span className="text-xs text-slate-500 font-medium leading-relaxed">
-                Affiliation fee for additional subjects:{' '}
-                <strong className="text-slate-800">0</strong> /- per subject
-              </span>
             </div>
             <div className="flex flex-col gap-2 p-4 bg-white border border-slate-100 rounded-lg shadow-sm">
               <span className="text-sm font-bold text-slate-700 border-b border-slate-100 pb-1.5">
@@ -238,10 +197,6 @@ export default function CollegeCourseDetailStep({
                   {currentFees.inspectionFee}
                 </strong>{' '}
                 /-
-              </span>
-              <span className="text-xs text-slate-500 font-medium leading-relaxed">
-                Inspection fee for additional subjects:{' '}
-                <strong className="text-slate-800">0</strong> /- per subject
               </span>
             </div>
             {/* Box 3: FD Amount */}
@@ -287,7 +242,7 @@ export default function CollegeCourseDetailStep({
                     Course
                   </th>
                   <th className="border-b border-gray-200 px-4 py-3 text-left text-sky-800 font-bold">
-                    Branch
+                    Subjects
                   </th>
                   <th className="border-b border-gray-200 px-4 py-3 text-left text-sky-800 font-bold">
                     FD Amount
@@ -301,29 +256,22 @@ export default function CollegeCourseDetailStep({
                 </tr>
               </thead>
               <tbody>
-                {groupedRows.map((row, rowIndex) => {
+                {fields.map((field, rowIndex) => {
                   const courseName =
-                    (programmes as Master.Other.ProgrammeItem[])?.find(
-                      p => p.id === row.courseId
-                    )?.name ?? `Course #${row.courseId}`;
+                    programmes.find(p => p.id === field.courseId)?.name ??
+                    `Course #${field.courseId}`;
                   const fees = getCourseFees(
-                    row.courseId,
+                    field.courseId!,
                     courseName,
                     activeProgrammeFees,
-                    (programmes as Master.Other.ProgrammeItem[]) || []
+                    programmes
                   );
 
-                  const subjectNames = row.items
-                    .map(item => {
-                      const i = item as typeof item & { subjectId?: number };
-                      const sId =
-                        i.subjectId !== undefined
-                          ? i.subjectId
-                          : i.programmeFeesMappingId % 10000;
+                  const subjectNames = (field.subjectIds || [])
+                    .map(sId => {
                       return (
-                        (subjects as Master.SubjectMaster.SubjectItem[])?.find(
-                          s => s.id === sId
-                        )?.subjectName ?? `Subject #${sId}`
+                        subjects.find(s => s.id === sId)?.subjectName ??
+                        `Subject #${sId}`
                       );
                     })
                     .filter(Boolean)
@@ -331,7 +279,7 @@ export default function CollegeCourseDetailStep({
 
                   return (
                     <tr
-                      key={row.courseId}
+                      key={field.id}
                       className="hover:bg-gray-50 border-b border-gray-150"
                     >
                       <td className="px-4 py-3 text-center">
@@ -339,7 +287,7 @@ export default function CollegeCourseDetailStep({
                           label="Delete"
                           variant="text"
                           className="text-danger font-semibold p-0 hover:underline text-[14px]"
-                          onClick={() => handleRemoveGroup(row.indices)}
+                          onClick={() => handleRemoveCourse(rowIndex)}
                         />
                       </td>
                       <td className="px-4 py-3 text-sm text-gray-700">
