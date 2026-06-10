@@ -3,6 +3,7 @@ import EstablishmentYear from 'features/master/other/establishment-year';
 import { Route, Routes } from 'react-router';
 import CollegeRegistration from './college-registration';
 import CollegeRegistrationApproval from './college-registration-approval';
+import ProgrammeFee from './settings/programme-fee';
 
 export default function AffiliationManagementSystem() {
   return (
@@ -15,6 +16,7 @@ export default function AffiliationManagementSystem() {
       <Route path="affiliation-settings/*">
         <Route path="available-facility/*" element={<AvailableFacility />} />
         <Route path="establishment-year/*" element={<EstablishmentYear />} />
+        <Route path="programme-fee/*" element={<ProgrammeFee />} />
       </Route>
     </Routes>
   );
