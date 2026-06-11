@@ -1,7 +1,7 @@
 declare namespace AffiliationManagementSystem {
   export interface CollegeRegistrationForm {
     collegeCode: string;
-    establishmentYearId: number;
+    establishmentYear: number;
     collegeName: string;
     collegeAddress: string;
     districtId: number;
@@ -12,11 +12,9 @@ declare namespace AffiliationManagementSystem {
     accommodationType: string;
     collegeArea: string;
     availableFacilities: Record<number, boolean>;
-    numberOfClassRooms: number;
-    deficiencyEarlierRaisedByCommittee: string;
-    deficiencyStatus?: string;
-    deficiencyReason?: string;
     otherFacilities?: { facilityName: string }[];
+    applicationNumber?: string;
+    isSubmitted?: boolean;
   }
 
   export interface AffiliationOtherDetailsForm {
