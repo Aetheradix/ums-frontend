@@ -1,6 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import {
   getCollegeRegistrationApprovals,
+  getCollegeRegistrationById,
   updateCollegeRegistrationApprovalStatus,
 } from './api';
 
@@ -17,6 +18,19 @@ export function useCollegeRegistrationApprovalsQuery() {
   });
 
   return { data, isLoading, refetch };
+}
+
+export function useCollegeRegistrationByIdQuery(id: number | null) {
+  const { data, isLoading } = useQuery({
+    queryKey: [...QUERY_KEY, id],
+    queryFn: async () => {
+      const res = await getCollegeRegistrationById(id!);
+      return res.data;
+    },
+    enabled: !!id,
+  });
+
+  return { data, isLoading };
 }
 
 export function useUpdateCollegeRegistrationApprovalStatusMutation() {

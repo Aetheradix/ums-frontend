@@ -85,4 +85,44 @@ declare namespace AffiliationManagementSystem {
     otherFee: number | null;
     isActive: boolean;
   }
+
+  export interface CollegeRegistrationPreview {
+    registrationId: number;
+    establishmentYearId: number;
+    collegeName: string;
+    collegeAddress: string;
+    districtId: number;
+    telephoneNo: string;
+    collegeEmail: string;
+    collegeCategory: string;
+    collegeType: string;
+    accommodationType: string;
+    collegeCode: string;
+    districtName: string;
+    collegeArea: string;
+    numberOfClassRooms: number;
+    deficiencyEarlierRaisedByCommittee: boolean;
+    availableFacilities: string[];
+    otherDetail?: {
+      principalDirectorName: string;
+      principalMobileNo: string;
+      principalEmail?: string;
+      societyName: string;
+      secretaryName: string;
+      societyRegistrationNo: string;
+      societyRegistrationDate: string;
+      isOtherInstitutionRunning: boolean;
+    };
+    courseDetails: {
+      collegeCourseDetailId: number;
+      programmeFeesMappingId: number;
+      totalAmount: number;
+      isFeePaid: boolean;
+    }[];
+    documents: {
+      collegeAffiliationDocumentId: number;
+      documentId: string;
+      documentType: string;
+    }[];
+  }
 }
