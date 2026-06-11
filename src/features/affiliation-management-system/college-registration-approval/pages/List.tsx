@@ -155,12 +155,12 @@ export default function List() {
                 <strong>College Address:</strong>{' '}
                 {previewData.collegeAddress || 'N/A'}
               </p>
-              <p>
+              {/* <p>
                 <strong>District:</strong>{' '}
                 {(previewData as any).districtName ||
                   previewData.districtId ||
                   'N/A'}
-              </p>
+              </p> */}
               <p>
                 <strong>Telephone No.:</strong>{' '}
                 {previewData.telephoneNo || 'N/A'}
@@ -185,14 +185,14 @@ export default function List() {
                 <strong>Accommodation Type:</strong>{' '}
                 {previewData.accommodationType || 'N/A'}
               </p>
-              <p>
+              {/* <p>
                 <strong>No. of Classrooms:</strong>{' '}
                 {previewData.numberOfClassRooms || 'N/A'}
-              </p>
-              <p>
+              </p> */}
+              {/* <p>
                 <strong>Available Facility:</strong>{' '}
                 {(previewData as any).availableFacilities?.join(', ') || 'N/A'}
-              </p>
+              </p> */}
               <p>
                 <strong>Any Deficiency:</strong>{' '}
                 {(previewData as any).deficiencyEarlierRaisedByCommittee
