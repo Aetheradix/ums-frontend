@@ -61,5 +61,13 @@ declare namespace Master {
     }
 
     type TravelPurposeItem = Data.WithId<TravelPurposeForm>;
+
+    interface EmployeeGroupForm {
+      name: string;
+      description: string;
+      isActive: boolean;
+    }
+
+    type EmployeeGroupItem = Data.WithId<EmployeeGroupForm>;
   }
 }

@@ -34,6 +34,7 @@ import SchemeCategory from './schemes/scheme-category';
 import SchemeType from './schemes/scheme-type';
 import Subject from './subject';
 
+import EmployeeGroup from './employee/settings/employee-group';
 import SeparationReasonType from './employee/settings/separation-reason-type';
 import UserManagement from './user-management';
 
@@ -112,6 +113,7 @@ export default function Master() {
             element={<SeparationReasonType />}
           />
           <Route path="travel-purpose/*" element={<TravelPurpose />} />
+          <Route path="employee-group/*" element={<EmployeeGroup />} />
         </Route>
       </Route>
     </Routes>
