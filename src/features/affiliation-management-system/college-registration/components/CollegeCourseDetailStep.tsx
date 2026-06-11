@@ -34,7 +34,7 @@ const getCourseFees = (
   const fee = programmeFees?.find(f => f.programmeId === courseId);
 
   return {
-    programmeFeeId: fee?.id || 0,
+    programmeFeeId: fee?.programmeFeeId || 0,
     affiliationFee: fee?.affiliationFee || 0,
     inspectionFee: fee?.inspectionFee || 0,
     fdAmount: fee?.fixedDepositAmount || 0,

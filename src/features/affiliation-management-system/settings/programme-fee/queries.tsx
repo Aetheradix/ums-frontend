@@ -18,11 +18,11 @@ export function useProgrammeFeesQuery() {
   return { data, isLoading };
 }
 
-export function useProgrammeFeeQuery(id: number) {
+export function useProgrammeFeeQuery(programmeFeeId: number) {
   return useQuery({
-    queryKey: [...QUERY_KEY, id],
+    queryKey: [...QUERY_KEY, programmeFeeId],
     queryFn: async () => {
-      const data = await getProgrammeFee(id);
+      const data = await getProgrammeFee(programmeFeeId);
       if (!data) return undefined;
 
       return {
@@ -60,12 +60,12 @@ export function useCreateProgrammeFeeMutation() {
   });
 }
 
-export function useUpdateProgrammeFeeMutation(id: number) {
+export function useUpdateProgrammeFeeMutation(programmeFeeId: number) {
   const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: async (data: AffiliationMaster.ProgrammeFeeForm) =>
-      await updateProgrammeFee(id, data),
+      await updateProgrammeFee(programmeFeeId, data),
 
     onSuccess(success, formData) {
       if (!success) return;
@@ -75,13 +75,15 @@ export function useUpdateProgrammeFeeMutation(id: number) {
           QUERY_KEY
         ) ?? [];
 
-      const index = result.findIndex(item => item.id === id);
+      const index = result.findIndex(
+        item => item.programmeFeeId === programmeFeeId
+      );
       if (index === -1) return;
 
       const existing = result[index];
 
       const itemToReplace: AffiliationMaster.ProgrammeFeeItem = {
-        id,
+        programmeFeeId,
         programmeId: existing.programmeId,
         programmeName: formData.programmeName,
         fixedDepositAmount: formData.fixedDepositAmount,
@@ -98,7 +100,7 @@ export function useUpdateProgrammeFeeMutation(id: number) {
       ];
 
       queryClient.setQueryData(QUERY_KEY, updatedItems);
-      queryClient.setQueryData([...QUERY_KEY, id], formData);
+      queryClient.setQueryData([...QUERY_KEY, programmeFeeId], formData);
     },
   });
 }
@@ -107,8 +109,10 @@ export function useProgrammeFeeActiveStatusMutation() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async (data: { id: number; isActive: boolean }) =>
-      await patchProgrammeFeeStatus(data.id),
+    mutationFn: async (data: { programmeFeeId: number; isActive: boolean }) => {
+      console.log(data);
+      return await patchProgrammeFeeStatus(data.programmeFeeId);
+    },
 
     onSuccess(success, variables) {
       if (!success) return;
@@ -118,7 +122,9 @@ export function useProgrammeFeeActiveStatusMutation() {
           QUERY_KEY
         ) ?? [];
 
-      const index = result.findIndex(item => item.id === variables.id);
+      const index = result.findIndex(
+        item => item.programmeFeeId === variables.programmeFeeId
+      );
       if (index === -1) return;
 
       const updatedItem = {
