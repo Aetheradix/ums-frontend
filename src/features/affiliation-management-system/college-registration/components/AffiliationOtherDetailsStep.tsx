@@ -18,27 +18,30 @@ export default function AffiliationOtherDetailsStep({
 }: AffiliationOtherDetailsStepProps) {
   return (
     <>
-      <FormCard title="Other Details" icon="user">
-        <FormGrid columns={2}>
+      <FormCard
+        title="Management Details"
+        subtitle="Principal and society details"
+        icon="user"
+      >
+        <FormGrid columns={3}>
           <TextBox
             label="Principal/Director Name"
-            placeholder="Enter Principal/Director Name"
+            placeholder="Enter principal/director Name"
             {...register('principalDirectorName')}
             maxLength={100}
             required
           />
-          <div className="hidden md:block"></div>
 
           <TextBox
-            label="Mobile No"
-            placeholder="Enter Mobile No"
+            label="Mobile No."
+            placeholder="Enter mobile no."
             {...register('principalMobileNo')}
             maxLength={10}
             required
           />
           <TextBox
             label="Email"
-            placeholder="Enter Email"
+            placeholder="Enter email"
             {...register('principalEmail')}
             maxLength={70}
             required
@@ -46,42 +49,52 @@ export default function AffiliationOtherDetailsStep({
         </FormGrid>
       </FormCard>
 
-      <FormCard title="Society/Committee Details" icon="building">
-        <FormGrid columns={2}>
+      <FormCard
+        title="Society/Committee Details"
+        subtitle="Enter the society/committee registration and authorized person details."
+        icon="building"
+      >
+        <FormGrid columns={3}>
           <TextBox
             label="Society Name"
-            placeholder="Enter Society Name"
+            placeholder="Enter society name"
             {...register('societyName')}
             maxLength={200}
             required
           />
+
           <TextBox
             label="Secretary Name"
-            placeholder="Enter Secretary Name"
+            placeholder="Enter secretary name"
             {...register('secretaryName')}
             maxLength={100}
             required
           />
+
           <TextBox
             label="Society Registration No."
-            placeholder="Enter Society Registration No."
+            placeholder="Enter society registration no."
             {...register('societyRegistrationNo')}
             maxLength={100}
             required
           />
+
           <DatePicker
             label="Society Registration Date"
-            placeholder="Select Society Registration Date"
+            placeholder="Select society registration date"
             {...register('societyRegistrationDate')}
             required
           />
-          <SelectYesNo
-            label="Is there any other college running by this committee which is affiliated with this University?"
-            useBooleanValues={true}
-            defaultOptionText="Select Another College/Institute Run By this Society"
-            {...register('isOtherInstitutionRunning')}
-            required
-          />
+
+          <div className="affiliation-grid-span-2">
+            <SelectYesNo
+              label="Is there any other college running by this committee which is affiliated with this University?"
+              useBooleanValues={true}
+              defaultOptionText="Select another college/institute run by this society"
+              {...register('isOtherInstitutionRunning')}
+              required
+            />
+          </div>
         </FormGrid>
       </FormCard>
     </>

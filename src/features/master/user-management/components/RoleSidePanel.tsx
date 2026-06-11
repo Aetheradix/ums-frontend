@@ -168,7 +168,7 @@ export default function RoleSidePanel({
                 <span className="role-side-item-actions">
                   <button
                     type="button"
-                    className="role-side-icon-btn"
+                    className="grid-action-icon-btn grid-action-edit-btn"
                     aria-label="Edit role"
                     title="Edit role"
                     onClick={event => {
@@ -181,7 +181,7 @@ export default function RoleSidePanel({
 
                   <button
                     type="button"
-                    className="role-side-icon-btn role-side-delete-btn"
+                    className="grid-action-icon-btn grid-action-delete-btn"
                     aria-label="Delete role"
                     title="Delete role"
                     onClick={event => {

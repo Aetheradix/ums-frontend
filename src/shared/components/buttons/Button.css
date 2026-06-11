@@ -1,13 +1,8 @@
 @reference "tailwindcss";
-/* ── Base button ── */
-.p-button {
-  @apply relative overflow-hidden rounded-lg font-medium transition-all duration-300 ease-in-out;
-}
 
 /* ── Ripple effect ── */
 .ripple {
-  @apply absolute rounded-full pointer-events-none;
-  background: rgba(255, 255, 255, 0.6);
+  @apply pointer-events-none absolute rounded-full bg-white/60;
   transform: scale(0);
   animation: ripple 0.6s linear;
 }
@@ -21,144 +16,129 @@
 
 /* ── Variants ── */
 .button-variant-primary {
-  @apply bg-black text-white! border-black;
+  @apply !border-black !bg-black !text-white;
 }
 
-.button-variant-primary i {
-  @apply text-white!;
+.button-variant-primary i,
+.button-variant-primary .p-button-icon {
+  @apply !text-white;
 }
 
 .button-variant-success {
-  @apply bg-transparent text-green-500;
-  border: 1px solid var(--success-color) !important;
+  @apply !border !border-[var(--success-color)] !bg-transparent !text-green-500;
 }
 
 .text-success {
-  color: var(--success-color) !important;
+  @apply !text-[var(--success-color)];
 }
 
 .button-variant-danger {
-  @apply bg-transparent w-auto;
-  border: 1px solid var(--color-danger) !important;
-  color: var(--color-danger);
+  @apply !w-auto !border !border-[var(--color-danger)] !bg-transparent !text-[var(--color-danger)];
 }
 
 .button-variant-warning {
-  background-color: var(--warning-color);
-  border-color: var(--warning-color);
-  @apply text-white;
+  @apply !border-[var(--warning-color)] !bg-[var(--warning-color)] !text-white;
 }
 
 .button-variant-info {
-  background-color: var(--info-color);
-  border-color: var(--info-color);
-  @apply text-white;
+  @apply !border-[var(--info-color)] !bg-[var(--info-color)] !text-white;
 }
 
 .button-variant-outlined {
-  @apply bg-transparent w-full border border-zinc-900 text-zinc-900;
+  @apply !w-auto !border !border-zinc-900 !bg-transparent !text-zinc-900;
 }
 
-.button-variant-outlined i {
-  @apply text-zinc-900;
+.button-variant-outlined i,
+.button-variant-outlined .p-button-icon {
+  @apply !text-zinc-900;
 }
 
 .button-variant-text {
-  @apply bg-transparent p-0 min-w-[5.5rem];
+  @apply !min-w-[5.5rem] !border-transparent !bg-transparent !p-0;
 }
 
 /* ── Sizes ── */
 .button-size-small {
-  @apply px-3 py-[0.3rem] text-sm;
+  @apply !px-3 !py-[0.3rem] !text-sm;
 }
 
 .button-size-medium {
-  @apply px-4 py-[0.3rem] text-[0.9rem] no-underline;
+  @apply px-4! py-[0.7rem]! !text-[0.9rem] no-underline;
 }
 
 .button-size-large {
-  @apply px-6 py-3 text-lg;
+  @apply !px-6 !py-3 !text-lg;
 }
 
 .button-auto-width {
-  width: auto !important;
+  @apply !w-auto;
 }
 
 /* ── Disabled ── */
 .button-disabled {
-  @apply opacity-60 cursor-not-allowed pointer-events-none;
+  @apply pointer-events-none cursor-not-allowed opacity-60;
 }
 
-/* ── PrimeReact button severity overrides ── */
+/* ── PrimeReact severity overrides ── */
 .p-button.p-button-success,
 .p-button-group.p-button-success > .p-button,
 .p-splitbutton.p-button-success > .p-button {
-  color: var(--success-color-alt);
-  border: 1px solid var(--success-color-alt);
+  @apply !border !border-[var(--success-color-alt)] !text-[var(--success-color-alt)];
 }
 
 .p-button.p-button-danger,
 .p-button-group.p-button-danger > .p-button,
 .p-splitbutton.p-button-danger > .p-button {
-  color: var(--color-danger);
-  border: 1px solid var(--color-danger);
+  @apply !border !border-[var(--color-danger)] !text-[var(--color-danger)];
 }
 
 /* ── Dark theme ── */
 .dark .button-variant-primary {
-  background-color: var(--white) !important;
-  color: var(--primary-color) !important;
-  border: 1px solid var(--white) !important;
+  @apply !border-white !bg-white !text-[var(--primary-color)];
 }
 
-.dark .button-variant-primary i {
-  color: var(--primary-color) !important;
+.dark .button-variant-primary i,
+.dark .button-variant-primary .p-button-icon {
+  @apply !text-[var(--primary-color)];
 }
 
 .dark .button-variant-primary:hover {
-  background-color: #e4e4e7 !important;
+  @apply !bg-zinc-200;
 }
 
 .dark .button-variant-success {
-  background-color: var(--success-color);
-  border-color: var(--success-color);
-  @apply text-white;
+  @apply !border-[var(--success-color)] !bg-[var(--success-color)] !text-white;
 }
 
 .dark .button-variant-danger {
-  background-color: var(--color-danger);
-  border-color: var(--color-danger);
-  @apply text-white;
+  @apply !border-[var(--color-danger)] !bg-[var(--color-danger)] !text-white;
 }
 
 .dark .button-variant-warning {
-  background-color: var(--warning-color);
-  border-color: var(--warning-color);
-  @apply text-white;
+  @apply !border-[var(--warning-color)] !bg-[var(--warning-color)] !text-white;
 }
 
 .dark .button-variant-info {
-  background-color: var(--info-color);
-  border-color: var(--info-color);
-  @apply text-white;
+  @apply !border-[var(--info-color)] !bg-[var(--info-color)] !text-white;
 }
 
 .dark .button-variant-outlined {
-  background-color: #27272a !important;
-  border-color: #3f3f46 !important;
-  color: var(--white) !important;
+  @apply !border-zinc-700 !bg-zinc-800 !text-white;
+}
+
+.dark .button-variant-outlined i,
+.dark .button-variant-outlined .p-button-icon {
+  @apply !text-white;
 }
 
 .dark .button-variant-outlined:hover {
-  background-color: #3f3f46 !important;
+  @apply !bg-zinc-700;
 }
 
 .dark .button-variant-text {
-  @apply bg-transparent;
-  border-color: transparent;
-  color: var(--dark-text);
+  @apply !border-transparent !bg-transparent !text-[var(--dark-text)];
 }
 
 .dark .button-variant-text:hover {
-  background-color: var(--dark-link-hover);
+  @apply !bg-[var(--dark-link-hover)];
 }

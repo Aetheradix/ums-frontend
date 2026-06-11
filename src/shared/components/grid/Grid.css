@@ -52,9 +52,6 @@
 /* =========================
    2. Paginator
 ========================= */
-/* =========================
-   2. Paginator
-========================= */
 
 .p-paginator {
   @apply flex min-h-[4rem] w-full items-center border-t px-4 py-2 text-sm;
@@ -155,6 +152,10 @@
   @apply flex items-center justify-end gap-1.5;
 }
 
+.grid-row-actions-center {
+  @apply flex items-center justify-center gap-1.5;
+}
+
 .grid-action-icon-btn {
   @apply !inline-flex !h-8 !w-8 !min-w-8 !cursor-pointer;
   @apply !items-center !justify-center !gap-0;
@@ -166,11 +167,15 @@
 
 .grid-action-icon-btn i,
 .grid-action-icon-btn .p-button-icon {
-  @apply !m-0 !text-sm;
+  @apply !m-0 !text-sm !leading-none;
+}
+
+.grid-action-icon-btn .p-button-label {
+  @apply hidden;
 }
 
 .grid-action-icon-btn:hover {
-  @apply !-translate-y-px !cursor-pointer !border-slate-300 !bg-slate-50 !text-slate-900 !shadow-md;
+  @apply !-translate-y-px !border-slate-300 !bg-slate-50 !text-slate-900 !shadow-md;
 }
 
 .grid-action-edit-btn:hover {
