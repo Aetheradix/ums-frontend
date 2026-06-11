@@ -8,6 +8,5 @@ declare namespace AffiliationMaster {
     otherFee: number;
     isActive: boolean;
   }
-
-  type ProgrammeFeeItem = Data.WithId<ProgrammeFeeForm>;
+  type ProgrammeFeeItem = Data.WithId<ProgrammeFeeForm, 'programmeFeeId'>;
 }

@@ -10,9 +10,9 @@ export function getProgrammeFees() {
   );
 }
 
-export async function getProgrammeFee(id: number) {
+export async function getProgrammeFee(programmeFeeId: number) {
   const { data } = await ApiService.get<AffiliationMaster.ProgrammeFeeItem>(
-    `${PROGRAMME_FEE_URL}/${id}`
+    `${PROGRAMME_FEE_URL}/${programmeFeeId}`
   );
   return data;
 }
@@ -31,19 +31,29 @@ export async function createProgrammeFee(
 }
 
 export async function updateProgrammeFee(
-  id: number,
+  programmeFeeId: number,
   form: AffiliationMaster.ProgrammeFeeForm
 ): Promise<boolean> {
-  const result = await ApiService.put(`${PROGRAMME_FEE_URL}/${id}`, form);
+  const result = await ApiService.put(
+    `${PROGRAMME_FEE_URL}/${programmeFeeId}`,
+    form
+  );
   return !result.error;
 }
 
-export async function deleteProgrammeFee(id: number): Promise<boolean> {
-  const result = await ApiService.del(`${PROGRAMME_FEE_URL}/${id}`);
+export async function deleteProgrammeFee(
+  programmeFeeId: number
+): Promise<boolean> {
+  const result = await ApiService.del(`${PROGRAMME_FEE_URL}/${programmeFeeId}`);
   return !result.error;
 }
 
-export async function patchProgrammeFeeStatus(id: number): Promise<boolean> {
-  const result = await ApiService.patch(`${PROGRAMME_FEE_URL}/${id}`, {});
+export async function patchProgrammeFeeStatus(
+  programmeFeeId: number
+): Promise<boolean> {
+  const result = await ApiService.patch(
+    `${PROGRAMME_FEE_URL}/${programmeFeeId}`,
+    {}
+  );
   return !result.error;
 }

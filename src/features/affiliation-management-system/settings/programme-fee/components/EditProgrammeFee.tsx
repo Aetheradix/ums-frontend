@@ -7,17 +7,18 @@ import {
 import ProgrammeFeeForm from './ProgrammeFeeForm';
 
 interface EditProgrammeFeeProps {
-  id: number;
+  programmeFeeId: number;
   onClose: () => void;
 }
 
 export default function EditProgrammeFee({
-  id,
+  programmeFeeId,
   onClose,
 }: EditProgrammeFeeProps) {
-  const { mutateAsync, isPending } = useUpdateProgrammeFeeMutation(id);
+  const { mutateAsync, isPending } =
+    useUpdateProgrammeFeeMutation(programmeFeeId);
 
-  const { data, isLoading } = useProgrammeFeeQuery(id);
+  const { data, isLoading } = useProgrammeFeeQuery(programmeFeeId);
 
   const DEFAULT: AffiliationMaster.ProgrammeFeeForm = {
     programmeId: 0,

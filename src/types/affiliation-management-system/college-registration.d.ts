@@ -77,7 +77,7 @@ declare namespace AffiliationManagementSystem {
     };
 
   export interface ProgrammeFeeItem {
-    id: number;
+    programmeFeeId: number;
     programmeId: number;
     fixedDepositAmount: number;
     affiliationFee: number;
