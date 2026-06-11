@@ -14,7 +14,7 @@ import {
 type PopupState =
   | { mode: 'closed' }
   | { mode: 'create' }
-  | { mode: 'edit'; id: number };
+  | { mode: 'edit'; programmeFeeId: number };
 
 export default function List() {
   const { data, isLoading } = useProgrammeFeesQuery();
@@ -28,7 +28,7 @@ export default function List() {
     item: AffiliationMaster.ProgrammeFeeItem
   ) => {
     await toggleStatus({
-      id: item.id,
+      programmeFeeId: item.programmeFeeId,
       isActive: !item.isActive,
     });
   };
@@ -47,7 +47,7 @@ export default function List() {
           onEdit={fee =>
             setPopup({
               mode: 'edit',
-              id: fee.id,
+              programmeFeeId: fee.programmeFeeId,
             })
           }
           columns={[
@@ -115,7 +115,10 @@ export default function List() {
           title="Edit Programme Fee"
           subtitle="Update the details of the programme fee."
         >
-          <EditProgrammeFee id={popup.id} onClose={closePopup} />
+          <EditProgrammeFee
+            programmeFeeId={popup.programmeFeeId}
+            onClose={closePopup}
+          />
         </FormPopup>
       ) : null}
     </FormPage>
