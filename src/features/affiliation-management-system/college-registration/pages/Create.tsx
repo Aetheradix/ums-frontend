@@ -23,7 +23,7 @@ const STEPS = [
     icon: 'building',
   },
   {
-    label: 'Other Details',
+    label: 'Management Details',
     description: 'Principal and society details',
     icon: 'user',
   },
@@ -108,6 +108,17 @@ export default function Create() {
     [activeStep]
   );
 
+  const handleCopyDraftNumber = useCallback(async () => {
+    if (!draftAppNumber) return;
+
+    try {
+      await navigator.clipboard.writeText(draftAppNumber);
+      ToastService.success('Application number copied.');
+    } catch {
+      ToastService.error('Unable to copy application number.');
+    }
+  }, [draftAppNumber]);
+
   const renderActiveStep = () => {
     switch (activeStep) {
       case 0:
@@ -149,7 +160,9 @@ export default function Create() {
       <div className="affiliation-create-layout">
         <aside className="affiliation-step-panel">
           <div className="affiliation-step-panel-header">
-            <span className="affiliation-step-panel-dot" />
+            <span className="affiliation-step-panel-icon">
+              <i className="pi pi-check-square" />
+            </span>
 
             <div>
               <h3>Application Progress</h3>
@@ -219,7 +232,7 @@ export default function Create() {
                     type="submit"
                     icon="save"
                     variant="outlined"
-                    className="!w-auto"
+                    className="w-auto!"
                     onClick={() => setValue('isSubmitted', false)}
                     isLoading={isPending || isUploading}
                   />
@@ -245,13 +258,10 @@ export default function Create() {
       </div>
 
       <Dialog
-        header={
-          <span className="text-xl font-bold text-slate-800">
-            Application Saved as Draft
-          </span>
-        }
         visible={showDraftDialog}
-        style={{ width: '32rem' }}
+        className="draft-success-dialog"
+        showHeader={false}
+        style={{ width: '34rem' }}
         onHide={() => {
           setShowDraftDialog(false);
           reset();
@@ -259,33 +269,65 @@ export default function Create() {
         }}
         footer={null}
       >
-        <div className="flex flex-col gap-5 pt-2">
-          <p className="m-0 text-base text-slate-700">
-            Your application has been saved successfully as a draft.
-          </p>
+        <button
+          type="button"
+          className="draft-success-close"
+          onClick={() => {
+            setShowDraftDialog(false);
+            reset();
+            navigate(-1);
+          }}
+        >
+          <i className="pi pi-times" />
+        </button>
 
-          <div className="flex flex-col items-center justify-center gap-1 rounded-xl border border-blue-100 bg-blue-50/50 py-4">
-            <span className="text-xs font-semibold uppercase tracking-wider text-blue-600">
-              Application Number
-            </span>
-            <span className="text-2xl font-bold tracking-widest text-blue-900">
-              {draftAppNumber}
+        <div className="draft-success-content">
+          <div className="draft-success-icon-wrap">
+            <span className="draft-success-icon">
+              <i className="pi pi-check" />
             </span>
           </div>
 
-          <div className="rounded-lg border border-amber-100 bg-amber-50 p-4 text-sm leading-relaxed text-amber-900 shadow-sm">
-            <span className="block font-bold mb-1">Important Note:</span>
-            If you wish to resume or edit this application later, you will need
-            this Application Number along with the Affiliation Year. Please keep
-            it secure.
+          <div className="draft-success-header">
+            <h3>Application Saved as Draft</h3>
+            <p>Your application has been saved successfully as a draft.</p>
           </div>
 
-          <div className="mt-2 flex justify-end">
+          <div className="draft-application-number-card">
+            <span>Application Number</span>
+
+            <strong>{draftAppNumber}</strong>
+
+            <button
+              type="button"
+              className="draft-copy-button"
+              onClick={handleCopyDraftNumber}
+              title="Copy application number"
+            >
+              <i className="pi pi-copy" />
+            </button>
+          </div>
+
+          <div className="draft-important-note">
+            <span className="draft-note-icon">
+              <i className="pi pi-info" />
+            </span>
+
+            <div>
+              <strong>Important Note</strong>
+              <p>
+                To resume or edit this application later, you will need this
+                Application Number along with the Affiliation Year. Please keep
+                it secure.
+              </p>
+            </div>
+          </div>
+
+          <div className="draft-success-actions">
             <Button
-              label="OK"
+              label="OK, Got it"
               icon="check"
               variant="primary"
-              className="w-28"
               onClick={() => {
                 setShowDraftDialog(false);
                 reset();

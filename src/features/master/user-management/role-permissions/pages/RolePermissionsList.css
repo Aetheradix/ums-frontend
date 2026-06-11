@@ -9,24 +9,6 @@
   @apply mx-auto block h-5 w-5 cursor-default rounded-md border border-slate-300 accent-black;
 }
 
-.role-permission-actions {
-  @apply flex items-center justify-center gap-2;
-}
-
-.role-permission-action-btn {
-  @apply inline-flex h-8 w-8 cursor-pointer items-center justify-center rounded-md border border-slate-200 bg-white p-0 text-slate-500 transition-all duration-200;
-}
-
-.role-permission-action-btn:hover {
-  @apply bg-slate-50 text-slate-900;
-  border-color: var(--color-gray-300);
-}
-
-.role-permission-delete-btn:hover {
-  @apply bg-red-50 text-red-600;
-  border-color: var(--color-danger);
-}
-
 /* Feature Name header/body left */
 .role-permission-main-panel
   .p-datatable-thead
@@ -65,23 +47,6 @@
 /* --- Dark Theme --- */
 .dark .role-permission-feature-name {
   color: var(--dark-card-text);
-}
-
-.dark .role-permission-action-btn {
-  background-color: var(--dark-card-bg);
-  border-color: var(--dark-border);
-  color: var(--gray-300);
-}
-
-.dark .role-permission-action-btn:hover {
-  background-color: var(--dark-input-bg);
-  color: var(--white);
-}
-
-.dark .role-permission-delete-btn:hover {
-  background-color: color-mix(in srgb, var(--color-danger) 15%, transparent);
-  color: var(--color-danger);
-  border-color: var(--color-danger);
 }
 
 .dark .role-permission-check {

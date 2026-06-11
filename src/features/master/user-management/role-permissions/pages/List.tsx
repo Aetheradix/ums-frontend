@@ -215,10 +215,10 @@ export default function List() {
                     sortable: false,
                     width: '120px',
                     cell: (item: FeaturePermissionRow) => (
-                      <div className="role-permission-actions">
+                      <div className="grid-row-actions-center">
                         <button
                           type="button"
-                          className="role-permission-action-btn"
+                          className="grid-action-icon-btn grid-action-edit-btn"
                           aria-label="Edit permission"
                           title="Edit"
                           onClick={event =>
@@ -230,7 +230,7 @@ export default function List() {
 
                         <button
                           type="button"
-                          className="role-permission-action-btn role-permission-delete-btn"
+                          className="grid-action-icon-btn grid-action-delete-btn"
                           aria-label="Delete permission"
                           title="Delete"
                           onClick={() => handleDeletePermission(item)}

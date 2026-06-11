@@ -131,10 +131,10 @@ export default function List() {
                     sortable: false,
                     width: '120px',
                     cell: (item: UserManagement.UserAssignmentList) => (
-                      <div className="user-assignment-actions">
+                      <div className="grid-row-actions-center">
                         <button
                           type="button"
-                          className="user-assignment-action-btn"
+                          className="grid-action-icon-btn grid-action-edit-btn"
                           aria-label="Edit user assignment"
                           title="Edit"
                           onClick={event =>
@@ -146,7 +146,7 @@ export default function List() {
 
                         <button
                           type="button"
-                          className="user-assignment-action-btn user-assignment-delete-btn"
+                          className="grid-action-icon-btn grid-action-delete-btn"
                           aria-label="Delete user assignment"
                           title="Delete"
                           onClick={() => handleDeleteAssignment(item)}

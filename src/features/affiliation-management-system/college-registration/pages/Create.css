@@ -13,9 +13,9 @@
   @apply min-w-0;
 }
 
-.affiliation-form-content {
+/* .affiliation-form-content {
   @apply mb-5;
-}
+} */
 
 .affiliation-form-actions {
   @apply flex items-center justify-end gap-3;
@@ -26,15 +26,19 @@
 ========================= */
 
 .affiliation-step-panel {
-  @apply sticky top-24 rounded-xl border border-slate-200 bg-white p-4 shadow-sm;
+  @apply top-24 rounded-xl border border-slate-200 bg-white p-4 shadow-sm;
 }
 
 .affiliation-step-panel-header {
   @apply mb-7 flex gap-3 border-b border-slate-100 pb-5;
 }
 
-.affiliation-step-panel-dot {
-  @apply mt-1 h-3 w-3 shrink-0 rounded-full bg-slate-100;
+.affiliation-step-panel-icon {
+  @apply flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-slate-100 text-black;
+}
+
+.affiliation-step-panel-icon i {
+  @apply text-base;
 }
 
 .affiliation-step-panel-header h3 {
@@ -46,7 +50,7 @@
 }
 
 .affiliation-step-list {
-  @apply relative flex flex-col gap-5;
+  @apply relative flex flex-col gap-15;
 }
 
 .affiliation-step-list::before {
@@ -102,6 +106,10 @@
   @apply col-span-full;
 }
 
+.affiliation-grid-span-2 {
+  @apply col-span-2;
+}
+
 /* =========================
    Facility Section
 ========================= */
@@ -111,15 +119,23 @@
 }
 
 .affiliation-facility-header-row {
-  @apply mb-2 flex items-start gap-4;
+  @apply mb-2 flex justify-between flex-wrap items-center gap-2;
 }
 
 .affiliation-facility-header-row h4 {
   @apply m-0 shrink-0 text-sm font-semibold text-slate-900;
 }
 
-.affiliation-facility-header-row p {
-  @apply m-0 text-sm font-medium leading-5 text-blue-600;
+.affiliation-facility-note {
+  @apply m-0 inline-flex items-center gap-2 rounded-md bg-slate-50 px-3 py-1.5 text-sm font-medium leading-5 text-slate-700;
+}
+
+.affiliation-facility-note i {
+  @apply shrink-0 text-sm text-slate-800;
+}
+
+.affiliation-facility-note strong {
+  @apply font-semibold text-slate-900;
 }
 
 .affiliation-facility-section .input-block.horizontal {
@@ -151,6 +167,7 @@
   @apply min-w-0 flex-1;
 }
 
+/* Facility checkbox right side only */
 .affiliation-facility-item .p-checkbox {
   @apply order-2 ml-auto shrink-0;
 }
@@ -171,45 +188,12 @@
   @apply text-base text-black;
 }
 
+.affiliation-facility-material-icon {
+  @apply text-[18px] leading-none text-black;
+}
+
 .affiliation-facility-text {
   @apply truncate text-sm font-medium text-slate-700;
-}
-
-/* Facility checkbox base */
-.affiliation-facility-item .p-checkbox .p-checkbox-box {
-  @apply h-[1.15rem] w-[1.15rem] rounded border border-slate-500 bg-white shadow-none;
-}
-
-/* Facility checkbox checked state */
-.affiliation-facility-item .p-checkbox .p-checkbox-box.p-highlight,
-.affiliation-facility-item .p-checkbox.p-highlight .p-checkbox-box,
-.affiliation-facility-item .p-checkbox.p-checkbox-checked .p-checkbox-box {
-  @apply border-black bg-black;
-}
-
-/* Facility checkbox tick icon */
-.affiliation-facility-item .p-checkbox .p-checkbox-box .p-checkbox-icon,
-.affiliation-facility-item
-  .p-checkbox
-  .p-checkbox-box.p-highlight
-  .p-checkbox-icon,
-.affiliation-facility-item
-  .p-checkbox.p-highlight
-  .p-checkbox-box
-  .p-checkbox-icon,
-.affiliation-facility-item
-  .p-checkbox.p-checkbox-checked
-  .p-checkbox-box
-  .p-checkbox-icon {
-  @apply text-white;
-}
-
-/* SVG tick fix */
-.affiliation-facility-item .p-checkbox .p-checkbox-box .p-checkbox-icon svg,
-.affiliation-facility-item .p-checkbox .p-checkbox-box .p-checkbox-icon path {
-  color: white !important;
-  fill: white !important;
-  stroke: white !important;
 }
 
 /* =========================
@@ -261,7 +245,7 @@
 
 .affiliation-other-facility-input-wrap input,
 .affiliation-other-facility-input-wrap .p-inputtext {
-  @apply pr-11 bg-white;
+  @apply bg-white pr-11;
 }
 
 .affiliation-other-facility-delete.p-button {
@@ -279,6 +263,7 @@
 .affiliation-other-facility-delete.p-button .p-button-icon {
   @apply !m-0 !text-sm;
 }
+
 /* =========================
    Dark Mode
 ========================= */
@@ -293,8 +278,8 @@
   border-color: var(--dark-border);
 }
 
-.dark .affiliation-step-panel-dot {
-  @apply bg-white/[0.08];
+.dark .affiliation-step-panel-icon {
+  @apply bg-white/[0.08] text-white;
 }
 
 .dark .affiliation-step-panel-header h3 {
@@ -334,8 +319,13 @@
   @apply text-slate-100;
 }
 
-.dark .affiliation-facility-header-row p {
-  @apply text-blue-400;
+.dark .affiliation-facility-note {
+  @apply border-white/[0.12] bg-white/[0.05] text-slate-300;
+}
+
+.dark .affiliation-facility-note i,
+.dark .affiliation-facility-note strong {
+  @apply text-white;
 }
 
 .dark .affiliation-facility-item {
@@ -350,61 +340,13 @@
   @apply bg-white/[0.06] text-white;
 }
 
-.dark .affiliation-facility-icon-box i {
+.dark .affiliation-facility-icon-box i,
+.dark .affiliation-facility-material-icon {
   @apply text-white;
 }
 
 .dark .affiliation-facility-text {
   @apply text-slate-200;
-}
-
-.dark .affiliation-facility-item .p-checkbox .p-checkbox-box {
-  @apply border-white/35 bg-transparent;
-}
-
-.dark .affiliation-facility-item .p-checkbox .p-checkbox-box.p-highlight,
-.dark .affiliation-facility-item .p-checkbox.p-highlight .p-checkbox-box,
-.dark
-  .affiliation-facility-item
-  .p-checkbox.p-checkbox-checked
-  .p-checkbox-box {
-  @apply border-white bg-white;
-}
-
-.dark .affiliation-facility-item .p-checkbox .p-checkbox-box .p-checkbox-icon,
-.dark
-  .affiliation-facility-item
-  .p-checkbox
-  .p-checkbox-box.p-highlight
-  .p-checkbox-icon,
-.dark
-  .affiliation-facility-item
-  .p-checkbox.p-highlight
-  .p-checkbox-box
-  .p-checkbox-icon,
-.dark
-  .affiliation-facility-item
-  .p-checkbox.p-checkbox-checked
-  .p-checkbox-box
-  .p-checkbox-icon {
-  @apply text-black;
-}
-
-.dark
-  .affiliation-facility-item
-  .p-checkbox
-  .p-checkbox-box
-  .p-checkbox-icon
-  svg,
-.dark
-  .affiliation-facility-item
-  .p-checkbox
-  .p-checkbox-box
-  .p-checkbox-icon
-  path {
-  color: black !important;
-  fill: black !important;
-  stroke: black !important;
 }
 
 .dark .affiliation-other-facility-panel {
@@ -420,6 +362,11 @@
 .dark .affiliation-other-facility-header h4,
 .dark .affiliation-other-facility-label {
   color: var(--dark-text);
+}
+
+.dark .affiliation-other-facility-input-wrap input,
+.dark .affiliation-other-facility-input-wrap .p-inputtext {
+  background-color: var(--dark-input-bg) !important;
 }
 
 .dark .affiliation-other-facility-delete.p-button {
@@ -473,16 +420,8 @@
     grid-template-columns: 1fr;
   }
 
-  .affiliation-other-facility-field {
-    grid-template-columns: 1fr;
-  }
-
   .affiliation-other-facility-row {
     grid-template-columns: 1fr;
-  }
-
-  .affiliation-other-facility-delete.p-button {
-    @apply !w-full;
   }
 }
 
@@ -498,4 +437,160 @@
   .affiliation-form-actions .p-button {
     @apply w-full justify-center;
   }
+}
+
+/* =========================
+   Draft Success Dialog
+========================= */
+
+.draft-success-dialog .p-dialog-content {
+  @apply relative overflow-hidden rounded-2xl bg-white p-0;
+}
+
+.draft-success-dialog.p-dialog {
+  @apply rounded-2xl shadow-2xl;
+}
+
+.draft-success-close {
+  @apply absolute right-4 top-4 z-10 flex h-8 w-8 cursor-pointer items-center justify-center rounded-full border-0 bg-transparent text-slate-500 transition-all duration-200;
+}
+
+.draft-success-close:hover {
+  @apply bg-slate-100 text-black;
+}
+
+.draft-success-content {
+  @apply flex flex-col items-center px-6 pb-6 pt-7;
+}
+
+.draft-success-icon-wrap {
+  @apply mb-4 flex items-center justify-center;
+}
+
+.draft-success-icon {
+  @apply flex h-16 w-16 items-center justify-center rounded-full bg-emerald-50 text-emerald-600;
+}
+
+.draft-success-icon i {
+  @apply text-3xl font-bold;
+}
+
+.draft-success-header {
+  @apply mb-5 text-center;
+}
+
+.draft-success-header h3 {
+  @apply m-0 text-2xl font-bold text-slate-900;
+}
+
+.draft-success-header p {
+  @apply m-0 mt-2 text-sm font-medium text-slate-600;
+}
+
+.draft-application-number-card {
+  @apply relative mb-4 flex w-full flex-col items-center justify-center rounded-xl border border-blue-100 bg-blue-50/60 px-12 py-5;
+}
+
+.draft-application-number-card span {
+  @apply text-xs font-bold uppercase tracking-wider text-blue-600;
+}
+
+.draft-application-number-card strong {
+  @apply mt-2 text-3xl font-bold tracking-widest text-blue-950;
+}
+
+.draft-copy-button {
+  @apply absolute right-4 top-1/2 flex h-9 w-9 -translate-y-1/2 cursor-pointer items-center justify-center rounded-lg border border-blue-100 bg-white transition-all duration-200;
+}
+
+.draft-copy-button:hover {
+  @apply border-blue-200 bg-blue-50 text-blue-900;
+}
+
+.draft-important-note {
+  @apply flex w-full gap-3 rounded-xl border border-amber-100 bg-amber-50 px-4 py-4 text-amber-950;
+}
+
+.draft-note-icon {
+  @apply mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-amber-200/70 text-amber-700;
+}
+
+.draft-note-icon i {
+  @apply text-sm;
+}
+
+.draft-important-note strong {
+  @apply block text-sm font-bold;
+}
+
+.draft-important-note p {
+  @apply m-0 mt-1 text-sm font-medium leading-6;
+}
+
+.draft-success-actions {
+  @apply mt-5 flex w-full justify-end border-t border-slate-100 pt-4;
+}
+
+.draft-success-actions .p-button {
+  @apply !w-auto !px-5;
+}
+
+/* =========================
+   Dark Mode
+========================= */
+
+.dark .draft-success-dialog .p-dialog-content {
+  background-color: var(--dark-card-bg);
+}
+
+.dark .draft-success-close {
+  @apply text-slate-300;
+}
+
+.dark .draft-success-close:hover {
+  @apply bg-white/[0.08] text-white;
+}
+
+.dark .draft-success-icon {
+  @apply bg-emerald-500/[0.14] text-emerald-300;
+}
+
+.dark .draft-success-header h3 {
+  @apply text-white;
+}
+
+.dark .draft-success-header p {
+  @apply text-slate-300;
+}
+
+.dark .draft-application-number-card {
+  @apply border-white/[0.08] bg-white/[0.04];
+}
+
+.dark .draft-application-number-card span {
+  @apply text-blue-300;
+}
+
+.dark .draft-application-number-card strong {
+  @apply text-white;
+}
+
+.dark .draft-copy-button {
+  @apply border-white/[0.08] bg-white/[0.06] text-white;
+}
+
+.dark .draft-copy-button:hover {
+  @apply bg-white/[0.1];
+}
+
+.dark .draft-important-note {
+  @apply border-amber-500/[0.18] bg-amber-500/[0.12] text-amber-100;
+}
+
+.dark .draft-note-icon {
+  @apply bg-amber-500/[0.22] text-amber-200;
+}
+
+.dark .draft-success-actions {
+  @apply border-white/[0.08];
 }

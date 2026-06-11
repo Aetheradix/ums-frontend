@@ -7,7 +7,8 @@ import { useFieldArray, useForm } from 'react-hook-form';
 import { ToastService } from 'services';
 import { Button } from 'shared/components/buttons';
 import { MultiSelectList } from 'shared/components/forms';
-import { FormCard, FormGrid } from 'shared/new-components';
+import { FormCard, FormGrid, GridPanel } from 'shared/new-components';
+import './CollegeCourseDetailStep.css';
 
 interface CollegeCourseDetailStepProps {
   control: Control<AffiliationManagementSystem.CollegeApplicationFormData>;
@@ -148,9 +149,47 @@ export default function CollegeCourseDetailStep({
     ToastService.success('Course selection removed successfully.');
   };
 
+  const selectedCourseRows = fields.map((field, rowIndex) => {
+    const courseName =
+      programmes.find(p => p.id === field.courseId)?.name ??
+      `Course #${field.courseId}`;
+
+    const fees = getCourseFees(
+      field.courseId!,
+      courseName,
+      activeProgrammeFees,
+      programmes
+    );
+
+    const subjectNames = (field.subjectIds || [])
+      .map(sId => {
+        return (
+          subjects.find(s => s.id === sId)?.subjectName ?? `Subject #${sId}`
+        );
+      })
+      .filter(Boolean)
+      .join(', ');
+
+    return {
+      id: field.id,
+      rowIndex,
+      sNo: rowIndex + 1,
+      courseType: fees.courseType,
+      course: fees.courseCode,
+      subjects: subjectNames,
+      fdAmount: fees.fdAmount,
+      affiliationFee: fees.affiliationFee,
+      inspectionFee: fees.inspectionFee,
+    };
+  });
+
   return (
-    <div className="flex flex-col gap-6">
-      <FormCard title="Course Details" icon="book">
+    <div className="flex flex-col">
+      <FormCard
+        title="Course Details"
+        subtitle="Select the programme, subjects, and applicable course fee details."
+        icon="book"
+      >
         <FormGrid columns={2}>
           <SelectProgramme
             label="Course"
@@ -173,50 +212,49 @@ export default function CollegeCourseDetailStep({
         </FormGrid>
 
         {tempCourseId && (
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 p-4 mt-6 bg-slate-50/80 border border-slate-100 rounded-xl">
-            <div className="flex flex-col gap-2 p-4 bg-white border border-slate-100 rounded-lg shadow-sm">
-              <span className="text-sm font-bold text-slate-700 border-b border-slate-100 pb-1.5">
-                Affiliation Fee
+          <div className="course-fee-summary-panel">
+            <div className="course-fee-card course-fee-card-affiliation">
+              <span className="course-fee-icon">
+                <span className="icon-base">currency_rupee</span>
               </span>
-              <span className="text-xs text-slate-500 font-medium leading-relaxed">
-                Affiliation fee for new courses (including 1 Foundation Course
-                subject):{' '}
-                <strong className="text-slate-800">
-                  {currentFees.affiliationFee}
-                </strong>{' '}
-                /-
-              </span>
+
+              <div className="course-fee-content">
+                <h4>Affiliation Fee</h4>
+                <strong>₹{currentFees.affiliationFee} /-</strong>
+                <p>For new courses including 1 foundation subject</p>
+              </div>
             </div>
-            <div className="flex flex-col gap-2 p-4 bg-white border border-slate-100 rounded-lg shadow-sm">
-              <span className="text-sm font-bold text-slate-700 border-b border-slate-100 pb-1.5">
-                Inspection fee
+
+            <div className="course-fee-card course-fee-card-inspection">
+              <span className="course-fee-icon">
+                <span className="icon-base">find_in_page</span>
               </span>
-              <span className="text-xs text-slate-500 font-medium leading-relaxed">
-                Inspection fee for new courses (including 1 Foundation Course
-                subject):{' '}
-                <strong className="text-slate-800">
-                  {currentFees.inspectionFee}
-                </strong>{' '}
-                /-
-              </span>
+
+              <div className="course-fee-content">
+                <h4>Inspection Fee</h4>
+                <strong>₹{currentFees.inspectionFee} /-</strong>
+                <p>For new courses including 1 foundation subject</p>
+              </div>
             </div>
-            {/* Box 3: FD Amount */}
-            <div className="flex flex-col gap-2 p-4 bg-white border border-slate-100 rounded-lg shadow-sm">
-              <span className="text-sm font-bold text-slate-700 border-b border-slate-100 pb-1.5">
-                FD Amount
+
+            <div className="course-fee-card course-fee-card-fd">
+              <span className="course-fee-icon">
+                <span className="icon-base">account_balance</span>
               </span>
-              <span className="text-xs text-slate-500 font-medium leading-relaxed">
-                An FD of{' '}
-                <strong className="text-slate-800">
-                  {currentFees.fdAmount}
-                </strong>{' '}
-                /- will be payable for new courses.
-              </span>
+
+              <div className="course-fee-content">
+                <h4>FD Amount</h4>
+                <strong>₹{currentFees.fdAmount} /-</strong>
+                <p>
+                  An FD of ₹{currentFees.fdAmount} /- will be payable for new
+                  courses.
+                </p>
+              </div>
             </div>
           </div>
         )}
 
-        <div className="flex justify-center mt-6">
+        <div className="flex justify-end">
           <Button
             label="Add course"
             icon="plus"
@@ -227,97 +265,62 @@ export default function CollegeCourseDetailStep({
       </FormCard>
 
       {fields.length > 0 && (
-        <FormCard title="Selected Courses List" icon="list">
-          <div className="overflow-x-auto">
-            <table className="w-full border-collapse">
-              <thead>
-                <tr className="bg-sky-100/50">
-                  <th className="border-b border-gray-200 px-4 py-3 text-center w-24 text-sky-800 font-bold"></th>
-                  <th className="border-b border-gray-200 px-4 py-3 text-left w-16 text-sky-800 font-bold">
-                    S.No
-                  </th>
-                  <th className="border-b border-gray-200 px-4 py-3 text-left text-sky-800 font-bold">
-                    Course Type
-                  </th>
-                  <th className="border-b border-gray-200 px-4 py-3 text-left text-sky-800 font-bold">
-                    Course
-                  </th>
-                  <th className="border-b border-gray-200 px-4 py-3 text-left text-sky-800 font-bold">
-                    Subjects
-                  </th>
-                  <th className="border-b border-gray-200 px-4 py-3 text-left text-sky-800 font-bold">
-                    FD Amount
-                  </th>
-                  <th className="border-b border-gray-200 px-4 py-3 text-left text-sky-800 font-bold">
-                    Affiliation Fee
-                  </th>
-                  <th className="border-b border-gray-200 px-4 py-3 text-left text-sky-800 font-bold">
-                    Inspection Fee
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {fields.map((field, rowIndex) => {
-                  const courseName =
-                    programmes.find(p => p.id === field.courseId)?.name ??
-                    `Course #${field.courseId}`;
-                  const fees = getCourseFees(
-                    field.courseId!,
-                    courseName,
-                    activeProgrammeFees,
-                    programmes
-                  );
-
-                  const subjectNames = (field.subjectIds || [])
-                    .map(sId => {
-                      return (
-                        subjects.find(s => s.id === sId)?.subjectName ??
-                        `Subject #${sId}`
-                      );
-                    })
-                    .filter(Boolean)
-                    .join(', ');
-
-                  return (
-                    <tr
-                      key={field.id}
-                      className="hover:bg-gray-50 border-b border-gray-150"
-                    >
-                      <td className="px-4 py-3 text-center">
-                        <Button
-                          label="Delete"
-                          variant="text"
-                          className="text-danger font-semibold p-0 hover:underline text-[14px]"
-                          onClick={() => handleRemoveCourse(rowIndex)}
-                        />
-                      </td>
-                      <td className="px-4 py-3 text-sm text-gray-700">
-                        {rowIndex + 1}
-                      </td>
-                      <td className="px-4 py-3 text-sm text-gray-700 font-medium">
-                        {fees.courseType}
-                      </td>
-                      <td className="px-4 py-3 text-sm text-gray-800 font-bold">
-                        {fees.courseCode}
-                      </td>
-                      <td className="px-4 py-3 text-sm text-gray-600 max-w-xs break-words">
-                        {subjectNames}
-                      </td>
-                      <td className="px-4 py-3 text-sm text-gray-700 font-semibold">
-                        {fees.fdAmount}
-                      </td>
-                      <td className="px-4 py-3 text-sm text-gray-700 font-semibold">
-                        {fees.affiliationFee}
-                      </td>
-                      <td className="px-4 py-3 text-sm text-gray-700 font-semibold">
-                        {fees.inspectionFee}
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          </div>
+        <FormCard
+          title="Selected Courses"
+          subtitle="Review the courses added for this affiliation application."
+          icon="list"
+        >
+          <GridPanel
+            data={selectedCourseRows}
+            columns={[
+              {
+                field: 'sNo',
+                header: 'S.No',
+                width: '70px',
+              },
+              {
+                field: 'courseType',
+                header: 'Course Type',
+              },
+              {
+                field: 'course',
+                header: 'Course',
+              },
+              {
+                field: 'subjects',
+                header: 'Subjects',
+              },
+              {
+                field: 'fdAmount',
+                header: 'FD Amount',
+                cell: row => <span>₹{row.fdAmount}</span>,
+              },
+              {
+                field: 'affiliationFee',
+                header: 'Affiliation Fee',
+                cell: row => <span>₹{row.affiliationFee}</span>,
+              },
+              {
+                field: 'inspectionFee',
+                header: 'Inspection Fee',
+                cell: row => <span>₹{row.inspectionFee}</span>,
+              },
+              {
+                header: 'Action',
+                width: '80px',
+                sortable: false,
+                cell: row => (
+                  <Button
+                    type="button"
+                    icon="trash"
+                    variant="text"
+                    className="grid-action-button grid-action-button-delete"
+                    onClick={() => handleRemoveCourse(row.rowIndex)}
+                  />
+                ),
+              },
+            ]}
+          />
         </FormCard>
       )}
     </div>

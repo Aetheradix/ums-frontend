@@ -34,11 +34,11 @@ const getFacilityIcon = (facilityName: string) => {
 
   if (name.includes('play')) return 'pi pi-map';
   if (name.includes('library')) return 'pi pi-book';
-  if (name.includes('laboratory')) return 'pi pi-flask';
+  if (name.includes('laboratory')) return 'pi pi-cog';
   if (name.includes('boys')) return 'pi pi-home';
   if (name.includes('girls')) return 'pi pi-user';
   if (name.includes('medical')) return 'pi pi-briefcase';
-  if (name.includes('canteen')) return 'pi pi-shop';
+  if (name.includes('canteen')) return 'pi pi-shopping-bag';
   if (name.includes('transport')) return 'pi pi-car';
 
   return 'pi pi-ellipsis-h';
@@ -105,7 +105,11 @@ export default function CollegeRegistrationStep({
     }
   };
   return (
-    <FormCard title="College Details" icon="building">
+    <FormCard
+      title="College Details"
+      subtitle="Enter the basic college information required for affiliation."
+      icon="building"
+    >
       <FormGrid columns={3}>
         <TextBox
           label="College Code"
@@ -120,6 +124,7 @@ export default function CollegeRegistrationStep({
           render={({ field, fieldState }) => (
             <DatePicker
               label="Establishment Year"
+              placeholder="Select establishment year"
               name={field.name}
               value={
                 field.value ? new Date(field.value as number, 0, 1) : undefined
@@ -203,11 +208,14 @@ export default function CollegeRegistrationStep({
 
         <div className="affiliation-grid-full affiliation-facility-section">
           <div className="affiliation-facility-header-row">
-            <h4>Available facilities</h4>
+            <h4>Available Facilities</h4>
 
-            <p>
-              Note: If any of your available facilities are not shown in the
-              list, please select the 'Other' option and add them.
+            <p className="affiliation-facility-note">
+              <i className="pi pi-info-circle" />
+              <span>
+                <strong>Note:</strong> If any of your available facilities are
+                not listed, please select the “Other” option and add them.
+              </span>
             </p>
           </div>
 

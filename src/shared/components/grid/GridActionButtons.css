@@ -20,7 +20,7 @@
 
 /* Icon inside button */
 .p-button.grid-action-button .p-button-icon {
-  @apply !m-0 text-sm leading-none;
+  @apply !m-0 inline-flex items-center justify-center text-sm leading-none;
 }
 
 /* Hide label if Button component adds one */

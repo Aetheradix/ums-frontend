@@ -569,10 +569,33 @@ body {
   white-space: normal;
 }
 
-/* Multiselect label */
+/* Multiselect closed field */
+.p-multiselect {
+  @apply min-h-10;
+}
+
 .p-multiselect .p-multiselect-label {
-  padding: 0.2rem 0.75rem !important;
-  font-size: 0.9rem !important;
+  @apply flex min-h-10 flex-1 flex-wrap items-center gap-1 overflow-hidden px-3 py-1 text-sm text-slate-700;
+}
+
+.p-multiselect .p-multiselect-label.p-placeholder {
+  @apply text-slate-400;
+}
+
+.p-multiselect .p-multiselect-token {
+  @apply m-0 inline-flex max-w-full items-center gap-1 rounded-md border border-slate-200 bg-slate-50 px-2 py-0.5 text-sm text-slate-700;
+}
+
+.p-multiselect .p-multiselect-token-label {
+  @apply max-w-52 truncate leading-none;
+}
+
+.p-multiselect .p-multiselect-token-icon {
+  @apply ml-1 text-xs text-slate-500;
+}
+
+.p-multiselect .p-multiselect-trigger {
+  @apply flex h-10 w-10 shrink-0 items-center justify-center text-slate-500;
 }
 
 /* =========================
@@ -645,21 +668,184 @@ body {
 }
 
 /* =========================
+   Multiselect Panel
+========================= */
+
+.p-multiselect-panel {
+  @apply overflow-hidden rounded-md border border-slate-200 bg-white shadow-md;
+}
+
+.p-multiselect-header {
+  @apply flex items-center gap-2 border-b border-slate-100 bg-white px-2 py-2;
+}
+
+/* Header checkbox */
+.p-multiselect-header .p-checkbox {
+  @apply shrink-0;
+}
+
+/* Search box wrapper */
+.p-multiselect-filter-container {
+  @apply relative flex-1;
+}
+
+/* Search input */
+.p-multiselect-filter-container .p-inputtext,
+.p-multiselect-filter.p-inputtext {
+  @apply h-9 w-full rounded-md border border-slate-300 bg-white px-3 pr-9 text-sm text-slate-700 shadow-none outline-none;
+}
+
+/* Search input focus */
+.p-multiselect-filter-container .p-inputtext:focus,
+.p-multiselect-filter.p-inputtext:focus {
+  @apply border-slate-300 ring-1 ring-black;
+}
+
+/* Search icon */
+.p-multiselect-filter-container .p-multiselect-filter-icon,
+.p-multiselect-filter-icon {
+  @apply absolute right-3 top-1/2 -translate-y-1/2 text-sm text-slate-400;
+}
+
+/* Close icon */
+.p-multiselect-close {
+  @apply flex h-8 w-8 shrink-0 items-center justify-center rounded-md text-slate-500 transition-all duration-200;
+}
+
+.p-multiselect-close:hover {
+  @apply bg-slate-100 text-black;
+}
+
+/* Items wrapper */
+.p-multiselect-items-wrapper {
+  @apply max-h-64 overflow-y-auto;
+}
+
+.p-multiselect-items {
+  @apply py-1;
+}
+
+/* Item row */
+.p-multiselect-item {
+  @apply flex min-h-8 cursor-pointer items-center gap-2 px-3 py-1.5 text-sm text-slate-700 transition-colors;
+}
+
+/* Item checkbox */
+.p-multiselect-item .p-checkbox {
+  @apply shrink-0;
+}
+
+/* Item text */
+.p-multiselect-item span:not(.p-checkbox-icon) {
+  @apply leading-5;
+}
+
+/* Hover */
+.p-multiselect-item:not(.p-highlight):not(.p-disabled):hover {
+  @apply bg-slate-50 text-black;
+}
+
+/* Selected */
+.p-multiselect-item.p-highlight {
+  @apply bg-slate-100 text-black;
+}
+
+/* Empty message */
+.p-multiselect-empty-message {
+  @apply px-3 py-2 text-sm text-slate-400;
+}
+
+/* Multiselect dark mode */
+.dark .p-multiselect .p-multiselect-label {
+  color: var(--dark-text) !important;
+}
+
+.dark .p-multiselect .p-multiselect-label.p-placeholder {
+  color: var(--dark-placeholder) !important;
+}
+
+.dark .p-multiselect .p-multiselect-token {
+  background-color: var(--dark-card-hover) !important;
+  border-color: var(--dark-border) !important;
+  color: var(--dark-text) !important;
+}
+
+.dark .p-multiselect .p-multiselect-token-icon {
+  color: var(--dark-text-muted) !important;
+}
+
+.dark .p-multiselect-header {
+  background-color: var(--dark-card-bg) !important;
+  border-color: var(--dark-border) !important;
+}
+
+.dark .p-multiselect-filter-container .p-inputtext,
+.dark .p-multiselect-filter.p-inputtext {
+  background-color: var(--dark-input-bg) !important;
+  border-color: var(--dark-border) !important;
+  color: var(--dark-text) !important;
+}
+
+.dark .p-multiselect-filter-container .p-inputtext:focus,
+.dark .p-multiselect-filter.p-inputtext:focus {
+  border-color: var(--dark-text) !important;
+  box-shadow: 0 0 0 1px var(--dark-text) !important;
+}
+
+.dark .p-multiselect-filter-icon,
+.dark .p-multiselect-close {
+  color: var(--dark-text-muted) !important;
+}
+
+.dark .p-multiselect-close:hover {
+  background-color: var(--dark-card-hover) !important;
+  color: var(--dark-text) !important;
+}
+
+.dark .p-multiselect-item {
+  color: var(--dark-text-muted) !important;
+}
+
+.dark .p-multiselect-item:not(.p-highlight):not(.p-disabled):hover {
+  background-color: var(--dark-card-hover) !important;
+  color: var(--dark-text) !important;
+}
+
+.dark .p-multiselect-item.p-highlight {
+  background-color: var(--dark-card-hover) !important;
+  color: var(--dark-text) !important;
+}
+/* =========================
    7.4 Button
 ========================= */
 
 .p-button {
-  @apply flex items-center rounded-md font-medium;
-  transition: all 0.3s ease;
-  color: var(--color-black);
-  border: 1px solid var(--color-black);
-  padding: 0.5rem 1rem;
-  gap: 0.5rem;
+  @apply relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-md border border-slate-300 px-4! py-[0.7rem]! !text-[0.9rem] leading-none text-black transition-all duration-300;
 }
 
-.p-button .p-button-icon-left {
-  font-size: 0.7rem;
-  font-weight: 700;
+/* Button text */
+.p-button .p-button-label {
+  @apply inline-flex items-center justify-center leading-none;
+}
+
+/* Button icon wrapper */
+.p-button .p-button-icon,
+.p-button .p-button-icon-left,
+.p-button .p-button-icon-right {
+  @apply m-0 inline-flex items-center justify-center leading-none;
+}
+
+/* PrimeIcon actual icon */
+.p-button .p-button-icon::before,
+.p-button .p-button-icon-left::before,
+.p-button .p-button-icon-right::before {
+  @apply leading-none;
+}
+
+/* Icon size */
+.p-button .p-button-icon-left,
+.p-button .p-button-icon-right {
+  @apply text-[0.75rem] font-bold;
 }
 
 /* =========================
@@ -689,15 +875,196 @@ body {
   right: 0.75rem;
   top: 50%;
   transform: translateY(-50%);
-  color: #6b7280;
+  color: var(--color-gray-500);
 }
 
 .custom-calendar .p-inputtext {
   padding-right: 2.5rem;
 }
 
+/* Datepicker popup panel */
+.p-datepicker {
+  @apply overflow-hidden rounded-lg border border-slate-200 bg-white shadow-lg;
+  padding: 0.75rem !important;
+  min-width: 25rem;
+}
+
+/* Header */
+.p-datepicker .p-datepicker-header {
+  @apply flex items-center justify-between border-0 bg-white px-1 pb-3 pt-0;
+}
+
+/* Month / year title */
+.p-datepicker .p-datepicker-title {
+  @apply flex-1 text-center text-sm font-semibold text-black;
+}
+
+.p-datepicker .p-datepicker-title .p-datepicker-year,
+.p-datepicker .p-datepicker-title .p-datepicker-month {
+  @apply text-sm font-semibold text-black;
+}
+
+/* Previous / next buttons */
+.p-datepicker .p-datepicker-prev,
+.p-datepicker .p-datepicker-next {
+  @apply flex h-8 w-8 items-center justify-center rounded-md border-0 bg-transparent text-black transition-all duration-200;
+}
+
+.p-datepicker .p-datepicker-prev:hover,
+.p-datepicker .p-datepicker-next:hover {
+  @apply bg-slate-100 text-black;
+}
+
+/* Year picker grid */
+.p-datepicker .p-yearpicker {
+  @apply grid justify-items-center grid-cols-2 gap-x-12 gap-y-1 px-1 pb-1;
+}
+
+/* Year item */
+.p-datepicker .p-yearpicker .p-yearpicker-year {
+  @apply flex h-8 items-center justify-center rounded-md text-sm font-medium text-slate-700 transition-all duration-200;
+}
+
+/* Year hover */
+.p-datepicker
+  .p-yearpicker
+  .p-yearpicker-year:not(.p-disabled):not(.p-highlight):hover {
+  @apply bg-slate-50 text-black;
+}
+
+/* Selected year */
+.p-datepicker .p-yearpicker .p-yearpicker-year.p-highlight {
+  @apply border border-slate-300 bg-white text-black shadow-none;
+}
+
+/* Focused year */
+.p-datepicker .p-yearpicker .p-yearpicker-year:focus {
+  @apply outline-none ring-1 ring-black;
+}
+
+/* Input focus when datepicker open */
+.p-calendar.p-focus .p-inputtext,
+.custom-calendar.p-focus .p-inputtext,
+.p-inputwrapper-focus .p-inputtext {
+  @apply border-slate-300 shadow-none ring-1 ring-slate-200;
+}
+
+/* Datepicker dark mode */
+.dark .p-datepicker {
+  background-color: var(--dark-card-bg) !important;
+  border-color: var(--dark-border) !important;
+  color: var(--dark-text) !important;
+  box-shadow: 0 8px 24px var(--dark-shadow) !important;
+}
+
+.dark .p-datepicker .p-datepicker-header {
+  background-color: var(--dark-card-bg) !important;
+  border-color: var(--dark-border) !important;
+}
+
+.dark .p-datepicker .p-datepicker-title,
+.dark .p-datepicker .p-datepicker-title .p-datepicker-year,
+.dark .p-datepicker .p-datepicker-title .p-datepicker-month {
+  color: var(--dark-text) !important;
+}
+
+.dark .p-datepicker .p-datepicker-prev,
+.dark .p-datepicker .p-datepicker-next {
+  color: var(--dark-text) !important;
+}
+
+.dark .p-datepicker .p-datepicker-prev:hover,
+.dark .p-datepicker .p-datepicker-next:hover {
+  background-color: var(--dark-card-hover) !important;
+  color: var(--dark-text) !important;
+}
+
+.dark .p-datepicker .p-yearpicker .p-yearpicker-year {
+  color: var(--dark-text-muted) !important;
+}
+
+.dark
+  .p-datepicker
+  .p-yearpicker
+  .p-yearpicker-year:not(.p-disabled):not(.p-highlight):hover {
+  background-color: var(--dark-card-hover) !important;
+  color: var(--dark-text) !important;
+}
+
+.dark .p-datepicker .p-yearpicker .p-yearpicker-year.p-highlight {
+  background-color: var(--dark-text) !important;
+  border-color: var(--dark-text) !important;
+  color: var(--dark-bg) !important;
+}
+
+.dark .p-datepicker .p-yearpicker .p-yearpicker-year:focus {
+  box-shadow: 0 0 0 1px var(--dark-text) !important;
+}
+
 /* =========================
-   7.7 Misc
+   7.7 Global Checkbox
+========================= */
+
+.p-checkbox {
+  @apply inline-flex shrink-0 items-center justify-center;
+}
+
+.p-checkbox .p-checkbox-box {
+  @apply flex h-[1.15rem] w-[1.15rem] items-center justify-center rounded border border-slate-400 bg-white shadow-none transition-all duration-200;
+}
+
+.p-checkbox .p-checkbox-box.p-highlight,
+.p-checkbox.p-highlight .p-checkbox-box,
+.p-checkbox.p-checkbox-checked .p-checkbox-box {
+  @apply border-slate-300 bg-black;
+}
+
+.p-checkbox .p-checkbox-box .p-checkbox-icon,
+.p-checkbox .p-checkbox-box.p-highlight .p-checkbox-icon,
+.p-checkbox.p-highlight .p-checkbox-box .p-checkbox-icon,
+.p-checkbox.p-checkbox-checked .p-checkbox-box .p-checkbox-icon {
+  @apply text-white;
+}
+
+.p-checkbox .p-checkbox-box .p-checkbox-icon svg,
+.p-checkbox .p-checkbox-box .p-checkbox-icon path {
+  color: white !important;
+  fill: white !important;
+  stroke: white !important;
+}
+
+/* Dark checkbox */
+.dark .p-checkbox .p-checkbox-box {
+  border-color: rgba(255, 255, 255, 0.35) !important;
+  background: transparent !important;
+}
+
+.dark .p-checkbox .p-checkbox-box.p-highlight,
+.dark .p-checkbox.p-highlight .p-checkbox-box,
+.dark .p-checkbox.p-checkbox-checked .p-checkbox-box {
+  border-color: var(--white) !important;
+  background: var(--white) !important;
+}
+
+.dark .p-checkbox .p-checkbox-box.p-highlight .p-checkbox-icon,
+.dark .p-checkbox.p-highlight .p-checkbox-box .p-checkbox-icon,
+.dark .p-checkbox.p-checkbox-checked .p-checkbox-box .p-checkbox-icon {
+  color: var(--black) !important;
+}
+
+.dark .p-checkbox .p-checkbox-box.p-highlight .p-checkbox-icon svg,
+.dark .p-checkbox.p-highlight .p-checkbox-box .p-checkbox-icon svg,
+.dark .p-checkbox.p-checkbox-checked .p-checkbox-box .p-checkbox-icon svg,
+.dark .p-checkbox .p-checkbox-box.p-highlight .p-checkbox-icon path,
+.dark .p-checkbox.p-highlight .p-checkbox-box .p-checkbox-icon path,
+.dark .p-checkbox.p-checkbox-checked .p-checkbox-box .p-checkbox-icon path {
+  color: var(--black) !important;
+  fill: var(--black) !important;
+  stroke: var(--black) !important;
+}
+
+/* =========================
+   7.8 Misc
 ========================= */
 
 .subject-width {
@@ -901,8 +1268,7 @@ body {
 .dark .p-multiselect-panel,
 .dark .p-autocomplete-panel,
 .dark .p-cascader-panel,
-.dark .p-overlaypanel,
-.dark .p-datepicker {
+.dark .p-overlaypanel {
   background-color: var(--dark-card-bg) !important;
   color: var(--dark-text) !important;
   border: 1px solid var(--dark-border) !important;
@@ -980,17 +1346,6 @@ body {
 .dark .p-multiselect:not(.p-disabled).p-focus {
   border-color: var(--primary-color) !important;
   box-shadow: 0 0 0 1px var(--primary-color) !important;
-}
-
-/* Checkbox */
-.dark .p-checkbox .p-checkbox-box {
-  border-color: var(--dark-border) !important;
-  background: var(--dark-input-bg) !important;
-}
-
-.dark .p-checkbox .p-checkbox-box.p-highlight {
-  border-color: var(--primary-color) !important;
-  background: var(--primary-color) !important;
 }
 
 /* Native select */

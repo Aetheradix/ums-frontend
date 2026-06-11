@@ -1,23 +1,5 @@
 @reference "tailwindcss";
 
-.user-assignment-actions {
-  @apply flex items-center justify-center gap-2;
-}
-
-.user-assignment-action-btn {
-  @apply inline-flex h-8 w-8 cursor-pointer items-center justify-center rounded-md border border-slate-200 bg-white p-0 text-slate-500 transition-all duration-200;
-}
-
-.user-assignment-action-btn:hover {
-  @apply bg-slate-50 text-slate-900;
-  border-color: var(--color-gray-300);
-}
-
-.user-assignment-delete-btn:hover {
-  @apply bg-red-50 text-red-600;
-  border-color: var(--color-danger);
-}
-
 /* Action column center */
 .role-main-panel .p-datatable-thead th:last-child .p-column-header-content {
   @apply justify-center;
@@ -25,22 +7,4 @@
 
 .role-main-panel .p-datatable-tbody td:last-child {
   @apply text-center;
-}
-
-/* Dark */
-.dark .user-assignment-action-btn {
-  background-color: var(--dark-card-bg);
-  border-color: var(--dark-border);
-  color: var(--gray-300);
-}
-
-.dark .user-assignment-action-btn:hover {
-  background-color: var(--dark-input-bg);
-  color: var(--white);
-}
-
-.dark .user-assignment-delete-btn:hover {
-  background-color: color-mix(in srgb, var(--color-danger) 15%, transparent);
-  color: var(--color-danger);
-  border-color: var(--color-danger);
 }
