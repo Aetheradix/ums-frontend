@@ -184,7 +184,7 @@ export default function CollegeCourseDetailStep({
   });
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col gap-4">
       <FormCard
         title="Course Details"
         subtitle="Select the programme, subjects, and applicable course fee details."

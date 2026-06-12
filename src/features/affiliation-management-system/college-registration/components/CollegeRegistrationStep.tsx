@@ -134,6 +134,7 @@ export default function CollegeRegistrationStep({
               dateFormat="yy"
               errorMessage={fieldState.error?.message}
               required
+              maxDate={new Date()}
             />
           )}
         />

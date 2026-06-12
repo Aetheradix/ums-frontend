@@ -82,13 +82,43 @@ const schema =
           [keys.string.pattern]: errors.englishOnly,
         }),
       collegeAddress: o.string().required().max(500),
-      districtId: o.number().required(),
-      telephoneNo: o.string().required().max(20),
-      collegeEmail: o.string().required().max(255),
-      collegeCategory: o.string().required().max(50),
-      collegeType: o.string().required().max(50),
-      accommodationType: o.string().required().max(50),
-      collegeArea: o.string().required().max(500),
+      districtId: o.number().required().messages({ 'number.base': 'Required' }),
+      telephoneNo: o
+        .string()
+        .required()
+        .max(20)
+        .pattern(/^[0-9]{10,15}$/)
+        .messages({
+          [keys.string.pattern]: 'Telephone number must be 10 to 15 digits',
+        }),
+      collegeEmail: o
+        .string()
+        .required()
+        .max(255)
+        .email({ tlds: { allow: false } })
+        .messages({
+          'string.email': 'Please enter a valid email address',
+        }),
+      collegeCategory: o
+        .string()
+        .required()
+        .max(50)
+        .messages({ 'string.base': 'Required' }),
+      collegeType: o
+        .string()
+        .required()
+        .max(50)
+        .messages({ 'string.base': 'Required' }),
+      accommodationType: o
+        .string()
+        .required()
+        .max(50)
+        .messages({ 'string.base': 'Required' }),
+      collegeArea: o
+        .string()
+        .required()
+        .max(500)
+        .messages({ 'string.base': 'Required' }),
       availableFacilities: o.object().required(),
       otherFacilities: o
         .array()
@@ -118,7 +148,10 @@ const schema =
       societyRegistrationNo: o.string().required().max(100),
       secretaryName: o.string().required().max(100),
       societyRegistrationDate: o.date().required(),
-      isOtherInstitutionRunning: o.boolean().required(),
+      isOtherInstitutionRunning: o
+        .boolean()
+        .required()
+        .messages({ 'boolean.base': 'Required' }),
 
       // Step 3 — Course Details
       courses: o
@@ -127,7 +160,10 @@ const schema =
           o.object().keys({
             collegeCourseDetailId: o.number().optional(),
             registrationId: o.number().optional(),
-            courseId: o.number().required(),
+            courseId: o
+              .number()
+              .required()
+              .messages({ 'number.base': 'Required' }),
             subjectIds: o.array().items(o.number()).min(1).required(),
             totalAmount: o.number().optional(),
             isFeePaid: o.boolean().optional(),
@@ -135,7 +171,11 @@ const schema =
           })
         )
         .min(1)
-        .required(),
+        .required()
+        .messages({
+          'array.min': 'Please add at least one course to proceed.',
+          'any.required': 'Please add at least one course to proceed.',
+        }),
 
       // Step 4 — Enclosures
       nocFile: pdfFileValidator(o).required(),
