@@ -1,10 +1,12 @@
 import { Checkbox as PrimeCheckbox } from 'primereact/checkbox';
+import type { ReactNode } from 'react';
 import { Controller, type FieldValues } from 'react-hook-form';
 import './CheckBoxList.css';
 import InputBlock from './InputBlock';
 
 interface CheckBoxListProps<TForm extends FieldValues, TData>
-  extends Controls.FormProps<TForm>,
+  extends
+    Controls.FormProps<TForm>,
     Controls.InputBlockProps,
     Controls.InputProps {
   options: TData[];
@@ -16,6 +18,8 @@ interface CheckBoxListProps<TForm extends FieldValues, TData>
   getDisabled?: (option: TData) => boolean;
   orientation?: 'horizontal' | 'vertical';
   className?: string;
+  itemClassName?: string;
+  renderOption?: (option: TData) => ReactNode;
 }
 
 function InnerCheckboxList<TData>({
@@ -33,6 +37,9 @@ function InnerCheckboxList<TData>({
   getDisabled,
   required,
   subLabel,
+  className = '',
+  itemClassName = '',
+  renderOption,
   ...rest
 }: CheckBoxListProps<FieldValues, TData>) {
   const inputId = id ?? name;
@@ -42,8 +49,8 @@ function InnerCheckboxList<TData>({
     onChange?.({ ...selectedValues, [value]: checked });
   };
 
-  // split options into rows
   const rows: TData[][] = [];
+
   for (let i = 0; i < options.length; i += columns) {
     rows.push(options.slice(i, i + columns));
   }
@@ -57,7 +64,7 @@ function InnerCheckboxList<TData>({
       subLabel={subLabel}
       orientation="horizontal"
     >
-      <table className="checkbox-grid-table">
+      <table className={`checkbox-grid-table ${className}`}>
         <tbody>
           {rows.map((row, rowIndex) => (
             <tr key={rowIndex}>
@@ -70,7 +77,16 @@ function InnerCheckboxList<TData>({
 
                 return (
                   <td key={checkboxId}>
-                    <div className="checkbox-cell">
+                    <label
+                      htmlFor={checkboxId}
+                      className={`checkbox-cell ${itemClassName} ${
+                        optionDisabled ? 'text-400' : ''
+                      }`}
+                    >
+                      <span className="checkbox-cell-content">
+                        {renderOption ? renderOption(option) : optionLabel}
+                      </span>
+
                       <PrimeCheckbox
                         inputId={checkboxId}
                         checked={checked}
@@ -80,13 +96,7 @@ function InnerCheckboxList<TData>({
                         disabled={disabled || optionDisabled}
                         {...rest}
                       />
-                      <label
-                        htmlFor={checkboxId}
-                        className={optionDisabled ? 'text-400' : ''}
-                      >
-                        {optionLabel}
-                      </label>
-                    </div>
+                    </label>
                   </td>
                 );
               })}
@@ -109,6 +119,8 @@ export default function CheckboxList<TForm extends FieldValues, TData>({
   getDisabled,
   orientation,
   className,
+  itemClassName,
+  renderOption,
   ...rest
 }: CheckBoxListProps<TForm, TData>) {
   if (!control || !name) {
@@ -123,6 +135,8 @@ export default function CheckboxList<TForm extends FieldValues, TData>({
         getDisabled={getDisabled}
         orientation={orientation}
         className={className}
+        itemClassName={itemClassName}
+        renderOption={renderOption}
         {...rest}
       />
     );
@@ -143,6 +157,9 @@ export default function CheckboxList<TForm extends FieldValues, TData>({
           getLabel={getLabel}
           getValue={getValue}
           getDisabled={getDisabled}
+          className={className}
+          itemClassName={itemClassName}
+          renderOption={renderOption}
         />
       )}
     />

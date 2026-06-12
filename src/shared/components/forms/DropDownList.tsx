@@ -54,8 +54,8 @@ function InnerDropDownList<TData = Data.DataItem<number>>({
   const optionsWithDefault = [
     {
       [textField]: defaultOptionText,
-      [valueField]: null,
-    } as TData,
+      ...(textField !== valueField ? { [valueField]: null } : {}),
+    } as unknown as TData,
     ...(data ?? []),
   ];
 
@@ -79,7 +79,13 @@ function InnerDropDownList<TData = Data.DataItem<number>>({
           inputId={id ?? name}
           options={!defaultOptionText ? data : optionsWithDefault}
           optionLabel={textField as string}
-          onChange={e => onChange?.(e.value)}
+          onChange={e => {
+            if (e.value === defaultOptionText) {
+              onChange?.(null);
+            } else {
+              onChange?.(e.value);
+            }
+          }}
           invalid={!!errorMessage}
           className={`w-full ${showCheckbox ? 'pl-8' : ''}`}
           filter={filter}

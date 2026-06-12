@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { Controller, type FieldValues } from 'react-hook-form';
 import { Button } from 'shared/components/buttons';
 import { getPhotoUrl } from 'shared/utils/photoUrl';
+import './FileUpload.css';
 import InputBlock from './InputBlock';
-
 interface FileUploadProps<TForm extends FieldValues>
   extends
     Controls.FormProps<TForm>,
@@ -143,28 +143,27 @@ function InnerFileUpload({
                 )}
               </div>
             </div>
-            <div className="flex items-center gap-2 ml-4">
+            <div className="file-upload-actions">
               <Button
                 label={fileNameToShow ? 'Change' : 'Choose'}
                 icon={fileNameToShow ? 'refresh' : 'plus'}
                 variant="outlined"
                 type="button"
-                className="pointer-events-none"
+                className="file-upload-change-button pointer-events-none"
               />
+
               {fileNameToShow && (
-                <span
+                <button
+                  type="button"
+                  className="file-upload-delete-button"
                   onClick={e => {
                     e.stopPropagation();
                     handleClear();
                   }}
+                  title="Remove file"
                 >
-                  <Button
-                    icon="trash"
-                    variant="outlined"
-                    type="button"
-                    className="text-red-500 hover:bg-red-50 hover:border-red-200"
-                  />
-                </span>
+                  <i className="pi pi-trash" />
+                </button>
               )}
             </div>
           </div>

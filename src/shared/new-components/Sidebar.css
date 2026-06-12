@@ -1,164 +1,166 @@
+@reference "tailwindcss";
+
 /* Sidebar Container */
 .app-sidebar-container {
-  width: 280px;
-  flex-shrink: 0;
-  background: var(--white);
-  border: 1px solid rgba(0, 0, 0, 0.06);
-  border-radius: var(--radius-xl, 1rem);
-  padding: 1.5rem 1rem;
-  height: auto;
-  min-height: 600px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
+  @apply w-[350px] flex-shrink-0 bg-white rounded-2xl px-4 py-6 h-auto min-h-[600px] flex flex-col gap-6;
+  @apply border border-black/[0.06] shadow-[0_4px_20px_rgba(0,0,0,0.02)];
 }
 
 /* Sidebar Header */
 .app-sidebar-header {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  padding: 0.5rem;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-  padding-bottom: 1.25rem;
+  @apply flex items-center gap-4 p-2 pb-5 border-b border-black/[0.05];
 }
 
 .app-sidebar-header-icon {
-  font-size: 1.3rem;
-  color: var(--black);
-  background: rgba(0, 0, 0, 0.04);
-  padding: 0.5rem;
-  border-radius: var(--radius-md, 0.5rem);
-  width: 36px;
-  height: 36px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  @apply text-[1.3rem] text-black bg-black/[0.04] p-2 rounded-lg flex items-center justify-center;
 }
 
 .app-sidebar-header-text h3 {
-  font-size: 0.95rem;
-  font-weight: 800;
-  color: var(--black);
-  margin: 0;
-  line-height: 1.2;
+  @apply text-[0.95rem] font-extrabold text-black m-0 leading-[1.2];
 }
 
 .app-sidebar-header-text p {
-  font-size: 0.75rem;
-  font-weight: 500;
-  color: var(--color-gray-500);
-  margin: 2px 0 0 0;
-  line-height: 1;
+  @apply text-xs font-medium text-gray-500 mt-0.5 mb-0 leading-snug;
 }
 
 /* Sidebar Menu */
 .app-sidebar-menu {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
+  @apply flex flex-col gap-2;
 }
 
 /* Sidebar Item */
 .app-sidebar-item {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  padding: 0.75rem 1rem;
-  border-radius: var(--radius-lg, 0.75rem);
-  background: transparent;
-  border: none;
-  text-align: left;
-  cursor: pointer;
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-  color: var(--color-gray-600);
-  font-weight: 600;
-  font-size: 0.85rem;
-  position: relative;
+  @apply w-full flex items-center gap-3 px-4 py-3 rounded-xl bg-transparent border-0 text-left cursor-pointer;
+  @apply transition-all duration-300 ease-out text-gray-600 font-semibold text-[0.85rem] relative;
 }
 
 .app-sidebar-item:hover {
-  background: rgba(0, 0, 0, 0.03);
-  color: var(--black);
-  transform: translateX(4px);
+  @apply bg-black/[0.03] text-black translate-x-1;
 }
 
 /* Active State */
 .app-sidebar-item.active {
-  background: var(--black) !important;
-  color: var(--white) !important;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  @apply bg-black text-white shadow-[0_4px_12px_rgba(0,0,0,0.15)];
 }
 
 .app-sidebar-item.active .app-sidebar-icon {
-  color: var(--white) !important;
+  @apply text-white;
 }
 
 .app-sidebar-icon {
-  font-size: 1.1rem;
-  color: var(--color-gray-400);
-  transition: color 0.2s ease;
-  width: 20px;
-  text-align: center;
-}
-
-.app-sidebar-item:hover .app-sidebar-icon {
-  color: var(--black);
+  @apply text-[1.1rem] text-gray-400 transition-colors duration-200 w-5 text-center;
 }
 
 .app-sidebar-arrow {
-  margin-left: auto;
-  font-size: 0.75rem;
-  opacity: 0.7;
+  @apply ml-auto text-xs opacity-70;
+}
+
+.app-sidebar-help-box {
+  @apply mt-auto flex items-center gap-3 rounded-xl border border-black/[0.08] bg-white px-3 py-3 cursor-pointer;
+  @apply shadow-[0_4px_16px_rgba(0,0,0,0.03)] transition-all duration-300 ease-out;
+}
+
+.app-sidebar-help-box:hover {
+  @apply border-black/[0.14] bg-black/[0.02] translate-y-[-1px];
+}
+
+.app-sidebar-help-icon {
+  @apply flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-black/[0.04] text-black;
+}
+
+.app-sidebar-help-icon .pi {
+  @apply text-lg leading-none;
+}
+
+.app-sidebar-help-text {
+  @apply flex min-w-0 flex-1 flex-col;
+}
+
+.app-sidebar-help-text strong {
+  @apply text-xs font-bold leading-tight text-black;
+}
+
+.app-sidebar-help-text span {
+  @apply text-xs font-medium leading-tight text-gray-500;
+}
+
+.app-sidebar-help-arrow {
+  @apply text-sm text-black opacity-70;
 }
 
 /* ==========================================
    Dark Mode Sidebar Overrides
    ========================================== */
+
 .dark .app-sidebar-container {
-  background: #0d0d0f;
-  border-color: rgba(255, 255, 255, 0.06);
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+  @apply bg-[#0d0d0f] border-white/[0.06] shadow-[0_4px_30px_rgba(0,0,0,0.3)];
 }
 
 .dark .app-sidebar-header {
-  border-bottom-color: rgba(255, 255, 255, 0.06);
+  @apply border-white/[0.06];
 }
 
 .dark .app-sidebar-header-icon {
-  color: var(--white);
-  background: rgba(255, 255, 255, 0.04);
+  @apply text-white bg-white/[0.04];
 }
 
 .dark .app-sidebar-header-text h3 {
-  color: var(--white);
+  @apply text-white;
 }
 
 .dark .app-sidebar-header-text p {
-  color: var(--color-gray-400);
+  @apply text-gray-400;
 }
 
 .dark .app-sidebar-item {
-  color: var(--color-gray-400);
+  @apply text-gray-400;
 }
 
 .dark .app-sidebar-item:hover {
-  background: rgba(255, 255, 255, 0.03);
-  color: var(--white);
+  @apply bg-white/[0.03] text-white;
 }
 
 .dark .app-sidebar-item:hover .app-sidebar-icon {
-  color: var(--white);
+  @apply text-white;
 }
 
 .dark .app-sidebar-item.active {
-  background: var(--white) !important;
-  color: var(--black) !important;
-  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.15);
+  @apply bg-white text-black shadow-[0_4px_12px_rgba(255,255,255,0.15)];
 }
 
 .dark .app-sidebar-item.active .app-sidebar-icon {
-  color: var(--black) !important;
+  @apply text-black;
+}
+
+.app-sidebar-header-icon .pi {
+  @apply leading-none text-black;
+  font-size: 30px;
+}
+
+.dark .app-sidebar-header-icon .pi {
+  @apply text-white;
+}
+
+.dark .app-sidebar-help-box {
+  @apply border-white/[0.08] bg-[#0d0d0f] shadow-[0_4px_20px_rgba(0,0,0,0.28)];
+}
+
+.dark .app-sidebar-help-box:hover {
+  @apply border-white/[0.14] bg-white/[0.03];
+}
+
+.dark .app-sidebar-help-icon {
+  @apply bg-white/[0.06] text-white;
+}
+
+.dark .app-sidebar-help-text strong {
+  @apply text-white;
+}
+
+.dark .app-sidebar-help-text span {
+  @apply text-gray-400;
+}
+
+.dark .app-sidebar-help-arrow {
+  @apply text-white;
 }

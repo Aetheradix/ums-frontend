@@ -2,7 +2,7 @@ import { useCallback } from 'react';
 import { useNavigate } from 'react-router';
 import { ToastService } from 'services';
 import { FormCard, FormPage } from 'shared/new-components';
-import { masterUrls } from '../../../urls';
+import { affiliationManagementSystemUrls } from 'features/affiliation-management-system/urls';
 import AvailableFacilityForm from '../components/AvailableFacilityForm';
 import { useCreateAvailableFacilityMutation } from '../queries';
 
@@ -11,7 +11,7 @@ export default function Create() {
   const { mutateAsync, isPending } = useCreateAvailableFacilityMutation();
 
   const handleBack = useCallback(() => {
-    navigate(masterUrls.availableFacility.root);
+    navigate(affiliationManagementSystemUrls.availableFacility.root);
   }, [navigate]);
 
   async function handleSubmit(data: CollegeMaster.AvailableFacilityForm) {

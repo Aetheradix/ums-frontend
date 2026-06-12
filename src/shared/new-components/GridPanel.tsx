@@ -6,6 +6,7 @@ interface GridPanelProps<T> extends Controls.GridProps<T> {
   title?: string;
   toolbar?: React.ReactElement;
   searchBox?: boolean;
+  searchPlaceholder?: string;
   exportExcel?: boolean;
   onExportExcel?: () => void;
   isExporting?: boolean;
@@ -19,12 +20,14 @@ interface GridPanelProps<T> extends Controls.GridProps<T> {
   onFilter?: (e: { globalFilter?: string }) => void;
   sortField?: string | null;
   sortOrder?: number | null;
+  emptyMessage?: string;
 }
 
 export default function GridPanel<T>({
   title,
   toolbar,
   searchBox = false,
+  searchPlaceholder = 'Search...',
   exportExcel = false,
   onExportExcel,
   isExporting,
@@ -61,7 +64,7 @@ export default function GridPanel<T>({
               <i className="pi pi-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
               <input
                 type="text"
-                placeholder="Search..."
+                placeholder={searchPlaceholder}
                 value={currentGlobalFilter}
                 onChange={handleSearchChange}
                 className="p-inputtext w-64 pl-40"

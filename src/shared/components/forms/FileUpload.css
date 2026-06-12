@@ -1,0 +1,29 @@
+@reference "tailwindcss";
+
+.file-upload-actions {
+  @apply ml-4 flex shrink-0 items-center gap-2;
+}
+
+.file-upload-change-button.p-button {
+  @apply !h-10 !w-auto !min-w-fit !gap-2 !rounded-md !px-4 !py-0;
+}
+
+.file-upload-delete-button {
+  @apply flex h-10 w-10 shrink-0 cursor-pointer items-center justify-center rounded-md border border-zinc-900 bg-transparent text-zinc-900 transition-all duration-200;
+}
+
+.file-upload-delete-button:hover {
+  @apply border-red-200 bg-red-50 text-red-600;
+}
+
+.file-upload-delete-button i {
+  @apply text-sm leading-none;
+}
+
+.dark .file-upload-delete-button {
+  @apply border-white/[0.16] bg-transparent text-white;
+}
+
+.dark .file-upload-delete-button:hover {
+  @apply border-red-400 bg-red-500/[0.12] text-red-400;
+}

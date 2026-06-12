@@ -25,5 +25,10 @@
 }
 
 .breadcrumb-item-link {
-  @apply cursor-pointer transition-colors duration-200 hover:text-blue-600;
+  @apply cursor-pointer transition-colors duration-200 
+         hover:text-(--color-black,#000);
+}
+
+.dark .breadcrumb-item-link:hover {
+  color: var(--color-zinc-100, oklch(96.7% 0.001 286.375)) !important;
 }

@@ -4,9 +4,10 @@ declare namespace Controls {
     columns?: ColumnProps<T>[];
     children?: React.ReactNode;
     editCaption?: string;
-    onEdit?: (obj: T) => void;
+    onEdit?: (obj: T, event?: React.MouseEvent<HTMLButtonElement>) => void;
     removeCaption?: string;
     onRemove?: (obj: T) => void;
+    emptyMessage?: string;
     pagination?: Pagination;
     searchFields?: (keyof T)[];
     globalFilter?: string;

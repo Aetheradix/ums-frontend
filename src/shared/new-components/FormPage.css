@@ -4,11 +4,14 @@
   @apply flex-1 min-h-0;
 }
 
+/* .form-page-container {
+  @apply max-w-[1440px] mx-auto w-full;
+} */
 .form-page-container {
-  @apply max-w-[1320px] mx-auto w-full;
+  @apply mx-auto w-full;
 }
 
-/* 🔥 FIXED HEADER */
+/* FIXED HEADER */
 .form-page-header {
   @apply flex flex-col gap-2 mb-6;
 }
