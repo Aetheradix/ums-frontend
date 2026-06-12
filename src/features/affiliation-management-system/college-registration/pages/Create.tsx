@@ -92,6 +92,14 @@ export default function Create() {
 
     if (isValid) {
       setActiveStep(prev => prev + 1);
+    } else {
+      if (activeStep === 2) {
+        ToastService.error('Please add at least one course to proceed.');
+      } else {
+        ToastService.error(
+          'Please fix the validation errors before proceeding.'
+        );
+      }
     }
   }, [activeStep, trigger]);
 

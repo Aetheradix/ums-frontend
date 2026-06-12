@@ -14,6 +14,7 @@ interface DatePickerProps<TForm extends FieldValues>
   required?: boolean;
   disabledDays?: number[];
   minDate?: Date;
+  maxDate?: Date;
   appendTo?: 'self' | HTMLElement | (() => HTMLElement) | undefined | null;
   showCheckbox?: boolean;
   checkboxChecked?: boolean;
