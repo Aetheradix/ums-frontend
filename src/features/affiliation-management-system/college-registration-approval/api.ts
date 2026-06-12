@@ -8,6 +8,12 @@ export async function getCollegeRegistrationApprovals() {
   );
 }
 
+export async function getCollegeRegistrationById(id: number) {
+  return ApiService.get<AffiliationManagementSystem.CollegeRegistrationPreview>(
+    `college-affiliation/registration/${id}`
+  );
+}
+
 export async function updateCollegeRegistrationApprovalStatus(
   id: number,
   status: number,
