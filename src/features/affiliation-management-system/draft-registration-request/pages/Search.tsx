@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { ToastService } from 'services';
+import { Button } from 'shared/components/buttons';
 import { FormCard, FormPage } from 'shared/new-components';
 import DraftSearchForm from '../components/DraftRegistrationRequestForm';
 import type { DraftSearchFormData } from '../components/form.hook';
@@ -9,6 +11,7 @@ export default function Search() {
   const [searchParams, setSearchParams] = useState<DraftSearchFormData | null>(
     null
   );
+  const navigate = useNavigate();
 
   const { data, isFetching, isError, isSuccess } = useGetDraftRegistrationQuery(
     searchParams?.applicationNumber || '',
@@ -40,15 +43,35 @@ export default function Search() {
 
       {isSuccess && data && (
         <FormCard title="Draft Data Details">
-          <div style={{ marginTop: '1rem' }}>
+          <div className="mt-4">
+            <p>
+              <strong>Application Number:</strong> {data.applicationNumber}
+            </p>
             <p>
               <strong>College Name:</strong> {data.collegeName}
             </p>
             <p>
-              <strong>Code:</strong> {data.collegeCode}
+              <strong>Establishment Year:</strong> {data.establishmentYear}
             </p>
-            <p style={{ color: '#2563eb', marginTop: '0.5rem' }}>
-              Next step: This data will be passed to the full registration form!
+            <p>
+              <strong>Email:</strong> {data.collegeEmail}
+            </p>
+            <div className="mt-4">
+              <Button
+                label="Edit Registration"
+                icon="pi pi-user-edit"
+                onClick={() =>
+                  navigate(
+                    '/affiliation-management-system/college-registration',
+                    {
+                      state: { draftData: data },
+                    }
+                  )
+                }
+              />
+            </div>
+            <p className="text-blue-600 mt-2">
+              Click edit to pre-fill the form with these details.
             </p>
           </div>
         </FormCard>

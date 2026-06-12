@@ -1,6 +1,6 @@
 import { Dialog } from 'primereact/dialog';
-import { useCallback, useState } from 'react';
-import { useNavigate } from 'react-router';
+import { useCallback, useState, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { ToastService } from 'services';
 import { Button } from 'shared/components/buttons';
 import { FormPage } from 'shared/new-components';
@@ -13,7 +13,10 @@ import {
   STEP_FIELDS,
   useCollegeApplicationForm,
 } from '../components/form.hook';
-import { useCreateCollegeRegistrationMutation } from '../queries';
+import {
+  useCreateCollegeRegistrationMutation,
+  useUpdateCollegeRegistrationMutation,
+} from '../queries';
 import './Create.css';
 
 const STEPS = [
@@ -45,10 +48,76 @@ export default function Create() {
   const [showDraftDialog, setShowDraftDialog] = useState(false);
   const [draftAppNumber, setDraftAppNumber] = useState('');
   const navigate = useNavigate();
-  const { mutateAsync, isPending } = useCreateCollegeRegistrationMutation();
+  const location = useLocation();
+  const { mutateAsync: createMutate, isPending: isCreating } =
+    useCreateCollegeRegistrationMutation();
+  const { mutateAsync: updateMutate, isPending: isUpdating } =
+    useUpdateCollegeRegistrationMutation();
+  const isPending = isCreating || isUpdating;
 
   const { register, control, handleSubmit, reset, trigger, setValue } =
     useCollegeApplicationForm();
+
+  const draftData = location.state
+    ?.draftData as AffiliationManagementSystem.DraftRegistrationRequest;
+  const registrationId = draftData?.registrationId;
+
+  useEffect(() => {
+    if (draftData) {
+      const availableFacilitiesMap =
+        draftData.availableFacilities?.reduce(
+          (acc, curr) => {
+            acc[curr] = true;
+            return acc;
+          },
+          {} as Record<number, boolean>
+        ) || {};
+
+      const otherFacilitiesArray = draftData.availableFacilitiesOther
+        ? draftData.availableFacilitiesOther
+            .split(',')
+            .map(name => ({ facilityName: name.trim() }))
+        : [];
+
+      reset({
+        applicationNumber: draftData.applicationNumber,
+        collegeName: draftData.collegeName,
+        collegeCode: draftData.collegeCode,
+        establishmentYear: draftData.establishmentYear,
+        collegeAddress: draftData.collegeAddress,
+        districtId: draftData.districtId,
+        telephoneNo: draftData.telephoneNo,
+        collegeEmail: draftData.collegeEmail,
+        collegeCategory: draftData.collegeCategory,
+        collegeType: draftData.collegeType,
+        accommodationType: draftData.accommodationType,
+        collegeArea: draftData.collegeArea,
+        availableFacilities: availableFacilitiesMap,
+        otherFacilities: otherFacilitiesArray,
+        principalDirectorName:
+          draftData.affiliation?.principalDirectorName || '',
+        principalMobileNo: draftData.affiliation?.principalMobileNo || '',
+        principalEmail: draftData.affiliation?.principalEmail || '',
+        societyName: draftData.affiliation?.societyName || '',
+        secretaryName: draftData.affiliation?.secretaryName || '',
+        societyRegistrationNo:
+          draftData.affiliation?.societyRegistrationNo || '',
+        societyRegistrationDate: draftData.affiliation?.societyRegistrationDate
+          ? new Date(draftData.affiliation.societyRegistrationDate)
+          : undefined,
+        isOtherInstitutionRunning:
+          draftData.affiliation?.isOtherInstitutionRunning || false,
+        courses:
+          draftData.courses?.map(c => ({
+            courseId: c.courseId,
+            subjectIds: c.subjectIds || [],
+            totalAmount: c.totalAmount,
+            isFeePaid: c.isFeePaid,
+            paymentDate: c.paymentDate ? c.paymentDate : null,
+          })) || [],
+      });
+    }
+  }, [draftData, reset]);
 
   const onFormSubmit = handleSubmit(
     async data => {
@@ -61,7 +130,16 @@ export default function Create() {
         );
         setIsUploading(false);
 
-        const result = await mutateAsync({ data, documentIds });
+        let result;
+        if (registrationId) {
+          result = await updateMutate({
+            id: registrationId,
+            data,
+            documentIds,
+          });
+        } else {
+          result = await createMutate({ data, documentIds });
+        }
 
         if (result) {
           if (data.isSubmitted === false) {
@@ -269,7 +347,6 @@ export default function Create() {
         visible={showDraftDialog}
         className="draft-success-dialog"
         showHeader={false}
-        style={{ width: '34rem' }}
         onHide={() => {
           setShowDraftDialog(false);
           reset();

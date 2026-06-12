@@ -1,14 +1,16 @@
 import type { FieldValues } from 'react-hook-form';
 import { DropDownList } from 'shared/components/forms';
 
-const yesNoOptions = [
+type SelectOption = { label: string; value: string | boolean };
+
+const yesNoOptions: SelectOption[] = [
   { label: 'Yes', value: 'Yes' },
   { label: 'No', value: 'No' },
 ];
 
-const booleanOptions = [
-  { label: 'Yes', value: 'true' },
-  { label: 'No', value: 'false' },
+const booleanOptions: SelectOption[] = [
+  { label: 'Yes', value: true },
+  { label: 'No', value: false },
 ];
 
 interface SelectYesNoProps<
