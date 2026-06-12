@@ -1,4 +1,5 @@
 import React from 'react';
+import { benifitsStats } from '../constants/data';
 
 export const Benefits: React.FC = () => {
   return (
@@ -11,12 +12,7 @@ export const Benefits: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
           <div className="order-2 md:order-1">
             <div className="grid grid-cols-2 gap-4">
-              {[
-                { val: '99.9%', label: 'Uptime Guaranteed' },
-                { val: '10x', label: 'Faster Deployment' },
-                { val: '40%', label: 'Cost Reduction' },
-                { val: '24/7', label: 'Expert Support' },
-              ].map((stat, i) => (
+              {benifitsStats.map((stat, i) => (
                 <div
                   key={i}
                   className="p-8 rounded-3xl glass border-white/5 text-center"

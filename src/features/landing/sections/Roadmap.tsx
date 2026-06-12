@@ -1,4 +1,5 @@
 import React from 'react';
+import { roadmap } from '../constants/data';
 
 export const Roadmap: React.FC = () => {
   return (
@@ -12,28 +13,7 @@ export const Roadmap: React.FC = () => {
           {/* Vertical Line */}
           <div className="absolute left-8 md:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-neon-indigo via-neon-cyan to-transparent opacity-20" />
 
-          {[
-            {
-              phase: 'Q3 2026',
-              title: 'Genesis Launch',
-              desc: 'Core platform release with essential features and initial integrations.',
-            },
-            {
-              phase: 'Q4 2026',
-              title: 'Intelligence Suite',
-              desc: 'AI-driven analytics and automated workflow optimization engine.',
-            },
-            {
-              phase: 'Q1 2027',
-              title: 'Global Expansion',
-              desc: 'Multi-region deployment and enhanced collaborative tools for distributed teams.',
-            },
-            {
-              phase: 'Q2 2027',
-              title: 'Enterprise Ecosystem',
-              desc: 'Full-scale API marketplace and partner integration framework.',
-            },
-          ].map((item, i) => (
+          {roadmap.map((item, i) => (
             <div
               key={i}
               className={`flex flex-col md:flex-row items-center gap-8 ${i % 2 === 0 ? 'md:flex-row-reverse' : ''}`}

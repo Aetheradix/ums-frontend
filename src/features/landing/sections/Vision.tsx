@@ -1,5 +1,6 @@
 import gsap from 'gsap';
 import React, { useEffect, useRef } from 'react';
+import { visionCards } from '../constants/data';
 
 export const Vision: React.FC = () => {
   const sectionRef = useRef<HTMLElement>(null);
@@ -52,23 +53,7 @@ export const Vision: React.FC = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {[
-            {
-              title: 'Innovation First',
-              desc: "Pushing the boundaries of what's possible with cutting-edge tech.",
-              gradient: 'from-neon-indigo/20 to-transparent',
-            },
-            {
-              title: 'Experience Driven',
-              desc: 'Every pixel is crafted to provide a premium and fluid experience.',
-              gradient: 'from-neon-violet/20 to-transparent',
-            },
-            {
-              title: 'Data Centric',
-              desc: 'Harnessing the power of data to drive intelligent decision-making.',
-              gradient: 'from-neon-cyan/20 to-transparent',
-            },
-          ].map((item, i) => (
+          {visionCards.map((item, i) => (
             <div
               key={i}
               className={`vision-card p-10 rounded-3xl glass border-white/5 relative overflow-hidden group`}

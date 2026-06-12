@@ -1,9 +1,14 @@
 import gsap from 'gsap';
 import React, { useEffect, useRef } from 'react';
+import { seamlessIntegrations } from '../constants/data';
 
 export const HowItWorks: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const horizontalRef = useRef<HTMLDivElement>(null);
+
+  console.log('Rendering HowItWorks section', {
+    seamlessIntegrations,
+  });
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -42,33 +47,7 @@ export const HowItWorks: React.FC = () => {
         ref={horizontalRef}
         className="flex gap-12 px-12 items-center min-w-max"
       >
-        {[
-          {
-            step: '01',
-            title: 'Configuration',
-            desc: 'Define your requirements and customize your workspace parameters.',
-          },
-          {
-            step: '02',
-            title: 'Integration',
-            desc: 'Connect your existing data sources and external applications seamlessly.',
-          },
-          {
-            step: '03',
-            title: 'Optimization',
-            desc: 'AI-driven analysis suggests improvements for your unique workflow.',
-          },
-          {
-            step: '04',
-            title: 'Execution',
-            desc: 'Launch your processes with full confidence and real-time monitoring.',
-          },
-          {
-            step: '05',
-            title: 'Scale',
-            desc: 'Automatically expand your resources as your business grows.',
-          },
-        ].map((item, i) => (
+        {seamlessIntegrations.map((item, i) => (
           <div
             key={i}
             className="step-card w-[80vw] md:w-[40vw] h-[50vh] glass rounded-[2.5rem] p-12 flex flex-col justify-between border-white/5 relative group"

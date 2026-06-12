@@ -1,5 +1,6 @@
-import { Database, Layers, Network, Share2 } from 'lucide-react';
+import { Share2 } from 'lucide-react';
 import React from 'react';
+import { coreTechnologies } from '../constants/data';
 
 export const CoreTech: React.FC = () => {
   return (
@@ -20,23 +21,7 @@ export const CoreTech: React.FC = () => {
           </p>
 
           <div className="space-y-4 pt-4">
-            {[
-              {
-                icon: Database,
-                label: 'Distributed Infrastructure',
-                desc: 'No single point of failure.',
-              },
-              {
-                icon: Network,
-                label: 'Neural Mesh Routing',
-                desc: 'Intelligent traffic management.',
-              },
-              {
-                icon: Layers,
-                label: 'Atomic Components',
-                desc: 'Extremely modular design system.',
-              },
-            ].map((item, i) => (
+            {coreTechnologies.map((item, i) => (
               <div
                 key={i}
                 className="flex gap-4 p-4 rounded-2xl hover:bg-white/5 transition-colors group"
