@@ -38,7 +38,7 @@ export const Vision: React.FC = () => {
     <section
       ref={sectionRef}
       id="vision"
-      className="min-h-screen py-32 px-6 bg-black"
+      className="min-h-screen py-32 px-6 bg-white"
       data-scroll-section
     >
       <div className="max-w-7xl mx-auto">

@@ -6,7 +6,7 @@ export const CoreTech: React.FC = () => {
   return (
     <section
       id="tech"
-      className="py-32 px-6 bg-black relative overflow-hidden"
+      className="py-32 px-6 bg-white relative overflow-hidden"
       data-scroll-section
     >
       <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-16">

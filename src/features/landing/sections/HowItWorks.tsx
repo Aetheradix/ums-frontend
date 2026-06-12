@@ -34,7 +34,7 @@ export const HowItWorks: React.FC = () => {
     <section
       ref={containerRef}
       id="how-it-works"
-      className="bg-black overflow-hidden h-screen flex flex-col justify-center"
+      className="bg-white overflow-hidden h-screen flex flex-col justify-center"
       data-scroll-section
     >
       <div className="px-6 mb-12">

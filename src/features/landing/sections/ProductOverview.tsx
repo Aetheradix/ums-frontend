@@ -5,7 +5,7 @@ export const ProductOverview: React.FC = () => {
   return (
     <section
       id="product"
-      className="py-32 px-6 bg-zinc-950 relative overflow-hidden"
+      className="py-32 px-6 bg-white relative overflow-hidden"
       data-scroll-section
     >
       {/* Decorative Blur */}
@@ -65,7 +65,7 @@ export const ProductOverview: React.FC = () => {
               key={i}
               className="p-8 rounded-3xl glass border-white/5 hover:border-neon-cyan/30 transition-all group"
             >
-              <div className="w-14 h-14 rounded-2xl bg-zinc-900 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+              <div className="w-14 h-14 rounded-2xl bg-zinc-200 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                 <feature.icon className="text-neon-cyan w-8 h-8" />
               </div>
               <h3 className="text-xl font-bold mb-3">{feature.name}</h3>

@@ -3,7 +3,7 @@ import { roadmap } from '../constants/data';
 
 export const Roadmap: React.FC = () => {
   return (
-    <section id="roadmap" className="py-32 px-6 bg-black" data-scroll-section>
+    <section id="roadmap" className="py-32 px-6 bg-white" data-scroll-section>
       <div className="max-w-7xl mx-auto">
         <h2 className="text-4xl md:text-6xl font-bold mb-20 text-center">
           Our <span className="text-gradient">Roadmap</span>

@@ -31,7 +31,7 @@ export const LandingPage: React.FC = () => {
   }, []);
 
   return (
-    <div className="bg-black text-white selection:bg-indigo-500 selection:text-white min-h-screen">
+    <div className="bg-white text-zinc-600 selection:bg-indigo-500 selection:text-white min-h-screen">
       <Navbar />
       <main className="relative">
         <Hero />

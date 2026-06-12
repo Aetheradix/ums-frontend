@@ -3,11 +3,7 @@ import { benifitsStats } from '../constants/data';
 
 export const Benefits: React.FC = () => {
   return (
-    <section
-      id="benefits"
-      className="py-32 px-6 bg-zinc-950"
-      data-scroll-section
-    >
+    <section id="benefits" className="py-32 px-6 bg-white" data-scroll-section>
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
           <div className="order-2 md:order-1">

@@ -86,7 +86,7 @@ export const Hero: React.FC = () => {
 
       {/* Floating Mockup / Visual Element Placeholder */}
       <div className="mt-20 w-full max-w-4xl glass rounded-t-3xl border-b-0 p-4 pb-0 h-40 md:h-64 opacity-50 translate-y-10">
-        <div className="w-full h-full bg-zinc-900 rounded-t-2xl flex items-center justify-center text-zinc-700 font-mono text-xs">
+        <div className="w-full h-full bg-zinc-300 rounded-t-2xl flex items-center justify-center text-zinc-700 font-mono text-xs">
           [ IMMERSIVE_VISUAL_ELEMENT ]
         </div>
       </div>
