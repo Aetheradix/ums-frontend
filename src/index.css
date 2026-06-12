@@ -5,60 +5,49 @@
    1. TAILWIND v4 THEME — DESIGN TOKENS
    ============================================================ */
 @theme {
-  /* Neutral Colors */
-  --color-black: #0a0a0a;
-  --color-white: #ffffff;
-  --color-gray-100: #f4f4f5;
-  --color-gray-200: #e4e4e7;
-  --color-gray-300: #d4d4d8;
-  --color-gray-400: #a1a1aa;
-  --color-gray-500: #71717a;
-  --color-gray-600: #52525b;
-  --color-gray-700: #3f3f46;
-  --color-gray-800: #27272a;
-  --color-gray-900: #18181b;
+  /* Premium Neons */
+  --color-neon-indigo: #6366f1;
+  --color-neon-violet: #8b5cf6;
+  --color-neon-cyan: #06b6d4;
+  --color-neon-pink: #ec4899;
 
-  /* Brand */
-  --color-primary: var(--color-black);
-  --color-primary-hover: #1e56be;
-  --color-primary-shadow: #041c8a;
+  /* Glassmorphism */
+  --glass-bg: rgba(255, 255, 255, 0.03);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --glass-blur: blur(12px);
 
-  /* Semantic */
-  --color-success: #10b981;
-  --color-danger: #d1143e;
-  --color-warning: #f59e0b;
-  --color-info: #06b6d4;
-
-  /* Additional */
-  --color-indigo-500: #6366f1;
-  --color-blue-500: #007bff;
-  --color-green-700: #057e29;
-
-  /* Surface */
-  --surface-light: #f8f9fa;
-  --surface-info-bg: #e0f2fe;
-  --surface-info-border: #38bdf8;
-
-  /* Border */
-  --border-light: #dee2e6;
-
-  /* Badge */
-  --badge-warning-bg: #fef08a;
-  --badge-warning-text: #854d0e;
-
-  /* Radius */
-  --radius-xs: 0.25rem;
-  --radius-sm: 0.375rem;
-  --radius-md: 0.5rem;
-  --radius-lg: 0.75rem;
-  --radius-xl: 1rem;
-  --radius-2xl: 1.5rem;
-  --radius-3xl: 2rem;
+  /* Gradients */
+  --gradient-premium: linear-gradient(
+    135deg,
+    var(--color-neon-indigo),
+    var(--color-neon-violet)
+  );
+  --gradient-dark: linear-gradient(180deg, #0a0a0a 0%, #121214 100%);
 
   /* Font */
   --font-sans:
     'Plus Jakarta Sans', 'Poppins', 'Inter', 'Segoe UI', Roboto, Helvetica,
     Arial, sans-serif;
+}
+
+@utility glass {
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+}
+
+@utility text-gradient {
+  background: linear-gradient(
+    to right,
+    var(--color-neon-indigo),
+    var(--color-neon-cyan)
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+@utility bg-premium-gradient {
+  background: var(--gradient-premium);
 }
 
 /* ============================================================

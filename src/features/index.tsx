@@ -1,14 +1,16 @@
+import { ProtectedRoute } from 'auth';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import MainLayout from 'shared/components/layout/MainLayout';
-import { ProtectedRoute } from 'auth';
 import CareerAdvancement from './career-advancement';
 import Home from './home';
+import { LandingPage } from './landing/LandingPage';
 import Master from './master';
 import Sis from './sis';
 
 export default function Features() {
   return (
     <Routes>
+      <Route path="landing" element={<LandingPage />} />
       <Route path="public/*" element={<div>Public Page Placeholder</div>} />
       <Route
         path="callback"
