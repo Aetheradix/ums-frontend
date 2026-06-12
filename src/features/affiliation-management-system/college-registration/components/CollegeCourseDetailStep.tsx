@@ -14,7 +14,6 @@ interface CollegeCourseDetailStepProps {
   control: Control<AffiliationManagementSystem.CollegeApplicationFormData>;
 }
 
-// Helper to determine fees dynamically based on selected course from ProgrammeFee master
 const getCourseFees = (
   courseId: number,
   courseName: string,
@@ -52,7 +51,6 @@ export default function CollegeCourseDetailStep({
     name: 'courses',
   });
 
-  // Local form state for Course & Multi-Select Subject selection dropdowns
   const {
     watch: localWatch,
     reset: localReset,
@@ -67,7 +65,6 @@ export default function CollegeCourseDetailStep({
   const tempCourseId = localWatch('tempCourseId');
   const tempSubjects = localWatch('tempSubjects');
 
-  // Load programs, subjects, and programme fees
   const { data: programmesRaw } = useProgrammesQuery();
   const { data: subjectsRaw } = useSubjectsQuery();
   const { data: programmeFeesRaw } = useProgrammeFeesQuery();

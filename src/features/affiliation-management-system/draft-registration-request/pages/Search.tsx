@@ -13,7 +13,7 @@ export default function Search() {
   );
   const navigate = useNavigate();
 
-  const { data, isFetching, isError, isSuccess } = useGetDraftRegistrationQuery(
+  const { data, isFetching, isSuccess } = useGetDraftRegistrationQuery(
     searchParams?.applicationNumber || '',
     searchParams?.establishmentYear || 0
   );
@@ -23,14 +23,10 @@ export default function Search() {
   };
 
   useEffect(() => {
-    if (isError) {
-      ToastService.error(
-        'Draft registration not found for the provided details.'
-      );
-    } else if (isSuccess && data) {
+    if (isSuccess && data) {
       ToastService.success('Draft registration data retrieved successfully.');
     }
-  }, [isError, isSuccess, data]);
+  }, [isSuccess, data]);
 
   return (
     <FormPage
@@ -62,7 +58,7 @@ export default function Search() {
                 icon="pi pi-user-edit"
                 onClick={() =>
                   navigate(
-                    '/affiliation-management-system/college-registration',
+                    '/affiliation-management-system/college-registration/update',
                     {
                       state: { draftData: data },
                     }
