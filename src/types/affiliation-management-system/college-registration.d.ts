@@ -62,6 +62,8 @@ declare namespace AffiliationManagementSystem {
     approvalStatus: number;
     rejectionReason?: string;
     isActive: boolean;
+    createdOn: string;
+    applicationNumber?: string;
   }
 
   /** Combined form data for the multi-step application */
