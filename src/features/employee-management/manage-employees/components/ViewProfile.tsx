@@ -5,7 +5,7 @@ import { Loader } from 'shared/components/progress';
 import { FormPage, Tabs } from 'shared/new-components';
 import { useGetEmployeeByIdQuery } from '../queries';
 import EmployeeProfileSummaryCard from './EmployeeProfileSummaryCard';
-import './ViewProfile.css';
+import '../styles/ViewProfile.css';
 import ContactTab from './tabs/ContactTab';
 import DocumentsTab from './tabs/DocumentsTab';
 import EmploymentTab from './tabs/EmploymentTab';

@@ -65,6 +65,10 @@ const Header: React.FC = () => {
 
   const username = user?.profile?.name || user?.profile?.sub || 'User';
   const email = user?.profile?.email || 'No email provided';
+  const firstName = user?.profile?.given_name || '';
+  const lastName = user?.profile?.family_name || '';
+  const fullName =
+    firstName || lastName ? `${firstName} ${lastName}`.trim() : '';
 
   const initials =
     username
@@ -153,6 +157,11 @@ const Header: React.FC = () => {
                   <p className="text-sm font-semibold text-slate-800 dark:text-zinc-200 truncate">
                     {username}
                   </p>
+                  {fullName && (
+                    <p className="text-xs text-slate-600 dark:text-zinc-300 truncate mt-0.5 font-medium">
+                      {fullName}
+                    </p>
+                  )}
                   <p className="text-xs text-slate-500 dark:text-zinc-400 truncate mt-0.5">
                     {email}
                   </p>
