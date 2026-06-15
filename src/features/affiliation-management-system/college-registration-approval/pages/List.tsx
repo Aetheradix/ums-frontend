@@ -69,7 +69,7 @@ export default function List() {
             },
             {
               field: 'createdOn',
-              header: 'Registration Date',
+              header: 'Action Date',
               cell: (item: ApprovalItem) => (
                 <span>{formatDate(item.createdOn)}</span>
               ),
