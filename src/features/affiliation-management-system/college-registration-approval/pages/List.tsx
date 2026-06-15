@@ -7,6 +7,7 @@ import {
   FormPopup,
   GridPanel,
 } from 'shared/new-components';
+import { formatDate } from 'shared/utils/dateUtils';
 import { useRegistrationApprovalForm } from '../components/form.hook';
 import { RegistrationApprovalForm } from '../components/RegistrationApprovalForm';
 import {
@@ -58,6 +59,21 @@ export default function List() {
             },
             { field: 'collegeName', header: 'College Name' },
             { field: 'collegeCategory', header: 'Category' },
+
+            {
+              field: 'applicationNumber',
+              header: 'Application Number',
+              cell: (item: ApprovalItem) => (
+                <span>{item.applicationNumber || '-'}</span>
+              ),
+            },
+            {
+              field: 'createdOn',
+              header: 'Registration Date',
+              cell: (item: ApprovalItem) => (
+                <span>{formatDate(item.createdOn)}</span>
+              ),
+            },
 
             {
               header: 'Preview',
