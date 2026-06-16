@@ -82,6 +82,7 @@ export default function List() {
                 <Button
                   label="Preview"
                   variant="text"
+                  className="border shadow-sm rounded-md"
                   onClick={() => setPreviewId(item.collegeRegistrationId)}
                 />
               ),
@@ -151,107 +152,171 @@ export default function List() {
           <Loader />
         ) : previewData ? (
           <div className="flex flex-col gap-4 max-h-[60vh] overflow-y-auto pr-2">
-            <div>
-              <h3 className="font-bold mb-2">College Details</h3>
-              <p>
-                <strong>College Code:</strong>{' '}
-                {previewData.collegeCode || 'N/A'}
-              </p>
-              <p>
-                <strong>Establishment Year:</strong>{' '}
-                {(previewData as any).establishmentYear ||
-                  previewData.establishmentYearId ||
-                  'N/A'}
-              </p>
-              <p>
-                <strong>College Name:</strong>{' '}
-                {previewData.collegeName || 'N/A'}
-              </p>
-              <p>
-                <strong>College Address:</strong>{' '}
-                {previewData.collegeAddress || 'N/A'}
-              </p>
-              {/* <p>
-                <strong>District:</strong>{' '}
-                {(previewData as any).districtName ||
-                  previewData.districtId ||
-                  'N/A'}
-              </p> */}
-              <p>
-                <strong>Telephone No.:</strong>{' '}
-                {previewData.telephoneNo || 'N/A'}
-              </p>
-              <p className="break-all">
-                <strong>College Email:</strong>{' '}
-                {previewData.collegeEmail || 'N/A'}
-              </p>
-              <p>
-                <strong>College Category:</strong>{' '}
-                {previewData.collegeCategory || 'N/A'}
-              </p>
-              <p>
-                <strong>College Type:</strong>{' '}
-                {previewData.collegeType || 'N/A'}
-              </p>
-              <p>
-                <strong>College Area:</strong>{' '}
-                {previewData.collegeArea || 'N/A'}
-              </p>
-              <p>
-                <strong>Accommodation Type:</strong>{' '}
-                {previewData.accommodationType || 'N/A'}
-              </p>
-              {/* <p>
-                <strong>No. of Classrooms:</strong>{' '}
-                {previewData.numberOfClassRooms || 'N/A'}
-              </p> */}
-              {/* <p>
-                <strong>Available Facility:</strong>{' '}
-                {(previewData as any).availableFacilities?.join(', ') || 'N/A'}
-              </p> */}
-              <p>
-                <strong>Any Deficiency:</strong>{' '}
-                {(previewData as any).deficiencyEarlierRaisedByCommittee
-                  ? 'Yes'
-                  : 'No'}
-              </p>
+            <div className="bg-gray-50 p-4 rounded-md border border-gray-200">
+              <h3 className="font-semibold text-lg border-b pb-2 mb-4 text-gray-800">
+                College Details
+              </h3>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-4 gap-x-6">
+                <div>
+                  <span className="block text-sm text-gray-500">
+                    College Code
+                  </span>
+                  <span className="font-medium text-gray-900">
+                    {previewData.collegeCode || 'N/A'}
+                  </span>
+                </div>
+                <div>
+                  <span className="block text-sm text-gray-500">
+                    Establishment Year
+                  </span>
+                  <span className="font-medium text-gray-900">
+                    {(previewData as any).establishmentYear ||
+                      previewData.establishmentYearId ||
+                      'N/A'}
+                  </span>
+                </div>
+                <div>
+                  <span className="block text-sm text-gray-500">
+                    College Name
+                  </span>
+                  <span className="font-medium text-gray-900">
+                    {previewData.collegeName || 'N/A'}
+                  </span>
+                </div>
+                <div>
+                  <span className="block text-sm text-gray-500">
+                    College Address
+                  </span>
+                  <span className="font-medium text-gray-900">
+                    {previewData.collegeAddress || 'N/A'}
+                  </span>
+                </div>
+                <div>
+                  <span className="block text-sm text-gray-500">
+                    Telephone No.
+                  </span>
+                  <span className="font-medium text-gray-900">
+                    {previewData.telephoneNo || 'N/A'}
+                  </span>
+                </div>
+                <div className="break-all">
+                  <span className="block text-sm text-gray-500">
+                    College Email
+                  </span>
+                  <span className="font-medium text-gray-900">
+                    {previewData.collegeEmail || 'N/A'}
+                  </span>
+                </div>
+                <div>
+                  <span className="block text-sm text-gray-500">
+                    College Category
+                  </span>
+                  <span className="font-medium text-gray-900">
+                    {previewData.collegeCategory || 'N/A'}
+                  </span>
+                </div>
+                <div>
+                  <span className="block text-sm text-gray-500">
+                    College Type
+                  </span>
+                  <span className="font-medium text-gray-900">
+                    {previewData.collegeType || 'N/A'}
+                  </span>
+                </div>
+                <div>
+                  <span className="block text-sm text-gray-500">
+                    College Area
+                  </span>
+                  <span className="font-medium text-gray-900">
+                    {previewData.collegeArea || 'N/A'}
+                  </span>
+                </div>
+                <div>
+                  <span className="block text-sm text-gray-500">
+                    Accommodation Type
+                  </span>
+                  <span className="font-medium text-gray-900">
+                    {previewData.accommodationType || 'N/A'}
+                  </span>
+                </div>
+                <div>
+                  <span className="block text-sm text-gray-500">
+                    Any Deficiency
+                  </span>
+                  <span className="font-medium text-gray-900">
+                    {(previewData as any).deficiencyEarlierRaisedByCommittee
+                      ? 'Yes'
+                      : 'No'}
+                  </span>
+                </div>
+              </div>
             </div>
 
             {previewData.otherDetail && (
-              <div className="mt-4">
-                <h3 className="font-bold mb-2">Other Details</h3>
-                <p>
-                  <strong>Principal Name:</strong>{' '}
-                  {previewData.otherDetail.principalDirectorName || 'N/A'}
-                </p>
-                <p>
-                  <strong>Mobile No.:</strong>{' '}
-                  {previewData.otherDetail.principalMobileNo || 'N/A'}
-                </p>
-                <p className="break-all">
-                  <strong>Email:</strong>{' '}
-                  {previewData.otherDetail.principalEmail || 'N/A'}
-                </p>
-                <p>
-                  <strong>Society Name:</strong>{' '}
-                  {previewData.otherDetail.societyName || 'N/A'}
-                </p>
-                <p>
-                  <strong>Secretary Name:</strong>{' '}
-                  {previewData.otherDetail.secretaryName || 'N/A'}
-                </p>
-                <p>
-                  <strong>Society Registration No.:</strong>{' '}
-                  {previewData.otherDetail.societyRegistrationNo || 'N/A'}
-                </p>
-                <p>
-                  <strong>Society Date of Registration:</strong>{' '}
-                  {previewData.otherDetail.societyRegistrationDate
-                    ? new Date(
-                        previewData.otherDetail.societyRegistrationDate
-                      ).toLocaleDateString()
-                    : 'N/A'}
-                </p>
+              <div className="mt-4 bg-gray-50 p-4 rounded-md border border-gray-200">
+                <h3 className="font-semibold text-lg border-b pb-2 mb-4 text-gray-800">
+                  Other Details
+                </h3>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-4 gap-x-6">
+                  <div>
+                    <span className="block text-sm text-gray-500">
+                      Principal Name
+                    </span>
+                    <span className="font-medium text-gray-900">
+                      {previewData.otherDetail.principalDirectorName || 'N/A'}
+                    </span>
+                  </div>
+                  <div>
+                    <span className="block text-sm text-gray-500">
+                      Mobile No.
+                    </span>
+                    <span className="font-medium text-gray-900">
+                      {previewData.otherDetail.principalMobileNo || 'N/A'}
+                    </span>
+                  </div>
+                  <div className="break-all">
+                    <span className="block text-sm text-gray-500">Email</span>
+                    <span className="font-medium text-gray-900">
+                      {previewData.otherDetail.principalEmail || 'N/A'}
+                    </span>
+                  </div>
+                  <div>
+                    <span className="block text-sm text-gray-500">
+                      Society Name
+                    </span>
+                    <span className="font-medium text-gray-900">
+                      {previewData.otherDetail.societyName || 'N/A'}
+                    </span>
+                  </div>
+                  <div>
+                    <span className="block text-sm text-gray-500">
+                      Secretary Name
+                    </span>
+                    <span className="font-medium text-gray-900">
+                      {previewData.otherDetail.secretaryName || 'N/A'}
+                    </span>
+                  </div>
+                  <div>
+                    <span className="block text-sm text-gray-500">
+                      Society Registration No.
+                    </span>
+                    <span className="font-medium text-gray-900">
+                      {previewData.otherDetail.societyRegistrationNo || 'N/A'}
+                    </span>
+                  </div>
+                  <div>
+                    <span className="block text-sm text-gray-500">
+                      Society Date of Registration
+                    </span>
+                    <span className="font-medium text-gray-900">
+                      {previewData.otherDetail.societyRegistrationDate
+                        ? new Date(
+                            previewData.otherDetail.societyRegistrationDate
+                          ).toLocaleDateString()
+                        : 'N/A'}
+                    </span>
+                  </div>
+                </div>
               </div>
             )}
 
