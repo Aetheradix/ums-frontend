@@ -33,6 +33,14 @@ declare namespace Api {
     text: string;
   }
 
+  interface PagedResponse<T> {
+    items: T[];
+    totalCount: number;
+    pageNumber: number;
+    pageSize: number;
+    totalPages: number;
+  }
+
   interface ApiResult<T = unknown> {
     error: boolean;
     data?: T;
