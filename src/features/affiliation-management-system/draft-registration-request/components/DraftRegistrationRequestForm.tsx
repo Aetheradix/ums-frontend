@@ -45,7 +45,7 @@ export default function DraftSearchForm({
           )}
         />
 
-        <div className="flex items-end pb-1">
+        <div className="flex items-start mt-7">
           <Button
             type="submit"
             label={isFetching ? 'Searching...' : 'Search'}
