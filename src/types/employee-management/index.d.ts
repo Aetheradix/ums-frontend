@@ -21,7 +21,6 @@ declare namespace EmployeeManagement {
     mobileNumber: number | string;
     officialEmail: string;
     dateOfBirth: Date | null;
-    employeeCodeSelection: 'AutoGenerate' | 'Manual';
     employeeCode: string;
   }
 

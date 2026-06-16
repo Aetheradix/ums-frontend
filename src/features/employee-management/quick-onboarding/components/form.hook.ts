@@ -51,17 +51,7 @@ const schema = validation.create<EmployeeManagement.QuickOnboardingForm>(o => ({
   dateOfBirth: o.date().required().label('Date of Birth'),
 
   // Employee Code
-  employeeCodeSelection: o.string().required().label('Employee Code Selection'),
-
-  employeeCode: o
-    .string()
-    .max(50)
-    .label('Employee Code')
-    .when('employeeCodeSelection', {
-      is: 'Manual',
-      then: o.string().required(),
-      otherwise: o.string().allow(''),
-    }),
+  employeeCode: o.string().required().max(50).label('Employee Code'),
 }));
 
 export function useQuickOnboardingForm(
@@ -89,7 +79,6 @@ export function useQuickOnboardingForm(
         officialEmail: '',
         dateOfBirth: null,
 
-        employeeCodeSelection: 'AutoGenerate',
         employeeCode: '',
       },
 

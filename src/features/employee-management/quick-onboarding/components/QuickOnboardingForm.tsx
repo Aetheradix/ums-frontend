@@ -1,3 +1,4 @@
+import SelectAppointedCategory from 'features/components/SelectAppointedCategory';
 import SelectDesignation from 'features/components/SelectDesignation';
 import SelectGender from 'features/components/SelectGender';
 import SelectNatureOfEmployment from 'features/components/SelectNatureOfEmployment';
@@ -7,7 +8,7 @@ import SelectSalutation from 'features/components/SelectSalutation';
 import SelectServiceCadre from 'features/components/SelectServiceCadre';
 import SelectSubjectSpecialization from 'features/components/SelectSubjectSpecialization';
 import { Button } from 'shared/components/buttons';
-import { DatePicker, RadioButtonList, TextBox } from 'shared/components/forms';
+import { DatePicker, TextBox } from 'shared/components/forms';
 import { FormCard, FormGrid } from 'shared/new-components';
 import { useQuickOnboardingForm } from './form.hook';
 
@@ -26,7 +27,7 @@ export default function QuickOnboardingForm({
   initialData,
   isReadOnly = false,
 }: QuickOnboardingFormProps) {
-  const { control, handleSubmit, watch, reset } = useQuickOnboardingForm(
+  const { control, handleSubmit, reset } = useQuickOnboardingForm(
     onSubmit,
     initialData
   );
@@ -71,11 +72,11 @@ export default function QuickOnboardingForm({
 
             <SelectGender name="gender" control={control} required />
 
-            <TextBox
-              control={control}
+            <SelectAppointedCategory
               name="appointedCategory"
               label="Appointed Category"
-              placeholder="Enter appointed category"
+              control={control}
+              required
             />
 
             <TextBox
@@ -148,36 +149,13 @@ export default function QuickOnboardingForm({
               required
             />
 
-            <div className="col-span-3">
-              <RadioButtonList
-                control={control}
-                name="employeeCodeSelection"
-                label="Employee Code Selection"
-                required
-                variant="horizontal"
-                optionLayout="horizontal"
-                options={[
-                  {
-                    label: 'Auto Generate',
-                    value: 'AutoGenerate',
-                  },
-                  {
-                    label: 'Enter Existing Employee Code',
-                    value: 'Manual',
-                  },
-                ]}
-              />
-            </div>
-
-            {watch('employeeCodeSelection') === 'Manual' && (
-              <TextBox
-                control={control}
-                name="employeeCode"
-                label="Existing Employee Code"
-                placeholder="Enter existing employee code"
-                required
-              />
-            )}
+            <TextBox
+              control={control}
+              name="employeeCode"
+              label="Employee Code"
+              placeholder="Enter Employee code"
+              required
+            />
           </FormGrid>
         </FormCard>
       </fieldset>
