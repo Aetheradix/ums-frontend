@@ -38,7 +38,7 @@ export default function List() {
     >
       <FormCard>
         <GridPanel
-          data={data}
+          data={data ?? []}
           loading={isLoading}
           onRemove={item => handleDelete(item.id)}
           columns={[

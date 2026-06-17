@@ -1,4 +1,5 @@
-import { useForm } from 'react-hook-form';
+import { useAppForm } from 'shared/hooks/form';
+import validation from 'shared/utils/validation';
 import { Button } from 'shared/components/buttons';
 import { TextBox } from 'shared/components/forms';
 
@@ -8,9 +9,17 @@ type Props = {
   onSubmit: (data: Cms.UniversityStatForm) => void;
 };
 
+const schema = validation.create<Cms.UniversityStatForm>(o => ({
+  label: o.string().required().label('Label'),
+  value: o.string().required().label('Value'),
+  icon: o.string().optional().allow(''),
+  displayOrder: o.number().optional().allow(null, 0),
+}));
+
 export default function StatForm({ fetchData, isSaving, onSubmit }: Props) {
-  const { register, handleSubmit } = useForm<Cms.UniversityStatForm>({
+  const { register, handleSubmit } = useAppForm<Cms.UniversityStatForm>({
     defaultValues: fetchData,
+    resolver: validation.resolver(schema),
   });
 
   return (
@@ -23,17 +32,17 @@ export default function StatForm({ fetchData, isSaving, onSubmit }: Props) {
         <TextBox
           label="Label"
           required
-          {...register('label', { required: 'Label is required' })}
+          {...register('label')}
         />
         <TextBox
           label="Value"
           required
-          {...register('value', { required: 'Value is required' })}
+          {...register('value')}
         />
         <TextBox label="Icon (Material Icon)" {...register('icon')} />
         <TextBox
           label="Display Order"
-          {...register('displayOrder', { valueAsNumber: true })}
+          {...register('displayOrder')}
         />
       </div>
 

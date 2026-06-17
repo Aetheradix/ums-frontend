@@ -1,4 +1,5 @@
-import { useForm } from 'react-hook-form';
+import { useAppForm } from 'shared/hooks/form';
+import validation from 'shared/utils/validation';
 import { Button } from 'shared/components/buttons';
 import { TextBox, Switch } from 'shared/components/forms';
 
@@ -18,13 +19,24 @@ const DEFAULT_DATA: Cms.DownloadForm = {
   displayOrder: 0,
 };
 
+const schema = validation.create<Cms.DownloadForm>(o => ({
+  name: o.string().required().label('Name'),
+  icon: o.string().optional().allow(''),
+  fileType: o.string().optional().allow(''),
+  fileSizeDisplay: o.string().optional().allow(''),
+  displayOrder: o.number().optional().allow(null, 0),
+  fileUrl: o.string().optional().allow('', null),
+  isActive: o.boolean().optional(),
+}));
+
 export default function DownloadForm({
   fetchData = DEFAULT_DATA,
   isSaving,
   onSubmit,
 }: Props) {
-  const { register, handleSubmit, control } = useForm<Cms.DownloadForm>({
+  const { register, handleSubmit, control } = useAppForm<Cms.DownloadForm>({
     defaultValues: fetchData,
+    resolver: validation.resolver(schema),
   });
 
   return (
@@ -38,7 +50,7 @@ export default function DownloadForm({
           <TextBox
             label="Name"
             required
-            {...register('name', { required: 'Name is required' })}
+            {...register('name')}
           />
         </div>
         <TextBox label="Icon (Material Icon)" {...register('icon')} />
@@ -52,7 +64,7 @@ export default function DownloadForm({
         />
         <TextBox
           label="Display Order"
-          {...register('displayOrder', { valueAsNumber: true })}
+          {...register('displayOrder')}
         />
         <div className="col-span-2">
           <TextBox label="File URL" {...register('fileUrl')} />

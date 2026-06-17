@@ -1,6 +1,7 @@
-import { useForm } from 'react-hook-form';
+import { useAppForm } from 'shared/hooks/form';
+import validation from 'shared/utils/validation';
 import { Button } from 'shared/components/buttons';
-import { TextBox, Switch, TextArea } from 'shared/components/forms';
+import { TextBox, Switch, TextArea, InputBlock } from 'shared/components/forms';
 
 type Props = {
   fetchData?: Cms.DepartmentForm;
@@ -22,13 +23,27 @@ const DEFAULT_DATA: Cms.DepartmentForm = {
   displayOrder: 0,
 };
 
+const schema = validation.create<Cms.DepartmentForm>(o => ({
+  name: o.string().required().label('Name'),
+  shortName: o.string().required().label('Short Name'),
+  icon: o.string().optional().allow(''),
+  colorHex: o.string().optional().allow(''),
+  totalCourses: o.number().optional().allow(null, 0),
+  totalFaculty: o.number().optional().allow(null, 0),
+  totalStudents: o.number().optional().allow(null, 0),
+  description: o.string().optional().allow(''),
+  isActive: o.boolean().optional(),
+  displayOrder: o.number().optional().allow(null, 0),
+}));
+
 export default function DepartmentForm({
   fetchData = DEFAULT_DATA,
   isSaving,
   onSubmit,
 }: Props) {
-  const { register, handleSubmit, control } = useForm<Cms.DepartmentForm>({
+  const { register, handleSubmit, control } = useAppForm<Cms.DepartmentForm>({
     defaultValues: fetchData,
+    resolver: validation.resolver(schema),
   });
 
   return (
@@ -41,30 +56,39 @@ export default function DepartmentForm({
         <TextBox
           label="Name"
           required
-          {...register('name', { required: 'Name is required' })}
+          {...register('name')}
         />
         <TextBox
           label="Short Name"
           required
-          {...register('shortName', { required: 'Short Name is required' })}
+          {...register('shortName')}
         />
         <TextBox label="Icon (Material Icon name)" {...register('icon')} />
-        <TextBox label="Color Hex" type="color" {...register('colorHex')} />
+        
+        <InputBlock label="Color Hex" id="colorHex">
+          <input
+            id="colorHex"
+            type="color"
+            className="w-full h-10 p-1 border rounded-md cursor-pointer"
+            {...register('colorHex')}
+          />
+        </InputBlock>
+
         <TextBox
           label="Total Courses"
-          {...register('totalCourses', { valueAsNumber: true })}
+          {...register('totalCourses')}
         />
         <TextBox
           label="Total Faculty"
-          {...register('totalFaculty', { valueAsNumber: true })}
+          {...register('totalFaculty')}
         />
         <TextBox
           label="Total Students"
-          {...register('totalStudents', { valueAsNumber: true })}
+          {...register('totalStudents')}
         />
         <TextBox
           label="Display Order"
-          {...register('displayOrder', { valueAsNumber: true })}
+          {...register('displayOrder')}
         />
         <div className="col-span-2">
           <TextArea label="Description" {...register('description')} />

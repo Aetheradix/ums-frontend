@@ -1,4 +1,5 @@
-import { useForm } from 'react-hook-form';
+import { useAppForm } from 'shared/hooks/form';
+import validation from 'shared/utils/validation';
 import { Button } from 'shared/components/buttons';
 import {
   TextBox,
@@ -30,6 +31,21 @@ const DEFAULT_DATA: Cms.CourseForm = {
   displayOrder: 0,
 };
 
+const schema = validation.create<Cms.CourseForm>(o => ({
+  name: o.string().required().label('Name'),
+  icon: o.string().optional().allow(''),
+  level: o.string().required().label('Level'),
+  departmentId: o.number().required().label('Department'),
+  duration: o.string().optional().allow(''),
+  eligibilityCriteria: o.string().optional().allow(''),
+  annualFees: o.number().optional().allow(null, 0),
+  totalSeats: o.number().optional().allow(null, 0),
+  badgeColor: o.string().optional().allow(''),
+  description: o.string().optional().allow(''),
+  isActive: o.boolean().optional(),
+  displayOrder: o.number().optional().allow(null, 0),
+}));
+
 export default function CourseForm({
   fetchData = DEFAULT_DATA,
   isSaving,
@@ -37,8 +53,9 @@ export default function CourseForm({
 }: Props) {
   const { data: departments } = useDepartmentsQuery();
 
-  const { register, handleSubmit, control } = useForm<Cms.CourseForm>({
+  const { register, handleSubmit, control } = useAppForm<Cms.CourseForm>({
     defaultValues: fetchData,
+    resolver: validation.resolver(schema),
   });
 
   return (
@@ -51,7 +68,7 @@ export default function CourseForm({
         <TextBox
           label="Name"
           required
-          {...register('name', { required: 'Name is required' })}
+          {...register('name')}
         />
         <DropDownList
           textField="label"
@@ -79,17 +96,17 @@ export default function CourseForm({
         <TextBox label="Duration (e.g., 4 Years)" {...register('duration')} />
         <TextBox
           label="Annual Fees (₹)"
-          {...register('annualFees', { valueAsNumber: true })}
+          {...register('annualFees')}
         />
         <TextBox
           label="Total Seats"
-          {...register('totalSeats', { valueAsNumber: true })}
+          {...register('totalSeats')}
         />
         <TextBox label="Icon (Material Icon)" {...register('icon')} />
         <TextBox label="Badge Color CSS Class" {...register('badgeColor')} />
         <TextBox
           label="Display Order"
-          {...register('displayOrder', { valueAsNumber: true })}
+          {...register('displayOrder')}
         />
         <div className="col-span-2">
           <TextBox

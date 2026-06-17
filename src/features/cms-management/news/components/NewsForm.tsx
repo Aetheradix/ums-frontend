@@ -1,4 +1,5 @@
-import { useForm } from 'react-hook-form';
+import { useAppForm } from 'shared/hooks/form';
+import validation from 'shared/utils/validation';
 import { Button } from 'shared/components/buttons';
 import {
   TextBox,
@@ -23,13 +24,24 @@ const DEFAULT_DATA: Cms.NewsEventForm = {
   displayOrder: 0,
 };
 
+const schema = validation.create<Cms.NewsEventForm>(o => ({
+  title: o.string().required().label('Title'),
+  category: o.string().required().label('Category'),
+  displayOrder: o.number().optional().allow(null, 0),
+  externalLink: o.string().optional().allow('', null),
+  imageUrl: o.string().optional().allow('', null),
+  description: o.string().optional().allow(''),
+  isPublished: o.boolean().optional(),
+}));
+
 export default function NewsForm({
   fetchData = DEFAULT_DATA,
   isSaving,
   onSubmit,
 }: Props) {
-  const { register, handleSubmit, control } = useForm<Cms.NewsEventForm>({
+  const { register, handleSubmit, control } = useAppForm<Cms.NewsEventForm>({
     defaultValues: fetchData,
+    resolver: validation.resolver(schema),
   });
 
   return (
@@ -43,7 +55,7 @@ export default function NewsForm({
           <TextBox
             label="Title"
             required
-            {...register('title', { required: 'Title is required' })}
+            {...register('title')}
           />
         </div>
         <DropDownList
@@ -62,7 +74,7 @@ export default function NewsForm({
         />
         <TextBox
           label="Display Order"
-          {...register('displayOrder', { valueAsNumber: true })}
+          {...register('displayOrder')}
         />
         <div className="col-span-2">
           <TextBox label="External Link URL" {...register('externalLink')} />

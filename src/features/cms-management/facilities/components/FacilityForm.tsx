@@ -1,4 +1,5 @@
-import { useForm } from 'react-hook-form';
+import { useAppForm } from 'shared/hooks/form';
+import validation from 'shared/utils/validation';
 import { Button } from 'shared/components/buttons';
 import { TextBox, Switch, TextArea } from 'shared/components/forms';
 
@@ -16,13 +17,22 @@ const DEFAULT_DATA: Cms.FacilityForm = {
   displayOrder: 0,
 };
 
+const schema = validation.create<Cms.FacilityForm>(o => ({
+  name: o.string().required().label('Name'),
+  icon: o.string().optional().allow(''),
+  displayOrder: o.number().optional().allow(null, 0),
+  description: o.string().optional().allow(''),
+  isActive: o.boolean().optional(),
+}));
+
 export default function FacilityForm({
   fetchData = DEFAULT_DATA,
   isSaving,
   onSubmit,
 }: Props) {
-  const { register, handleSubmit, control } = useForm<Cms.FacilityForm>({
+  const { register, handleSubmit, control } = useAppForm<Cms.FacilityForm>({
     defaultValues: fetchData,
+    resolver: validation.resolver(schema),
   });
 
   return (
@@ -35,12 +45,12 @@ export default function FacilityForm({
         <TextBox
           label="Name"
           required
-          {...register('name', { required: 'Name is required' })}
+          {...register('name')}
         />
         <TextBox label="Icon (Material Icon)" {...register('icon')} />
         <TextBox
           label="Display Order"
-          {...register('displayOrder', { valueAsNumber: true })}
+          {...register('displayOrder')}
         />
         <div className="col-span-2">
           <TextArea label="Description" {...register('description')} />

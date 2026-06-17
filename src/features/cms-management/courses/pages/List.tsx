@@ -44,7 +44,7 @@ export default function List() {
     >
       <FormCard>
         <GridPanel
-          data={data}
+          data={data ?? []}
           loading={isLoading}
           onEdit={course => setPopup({ mode: 'edit', id: course.id })}
           onRemove={course => handleDelete(course.id)}
