@@ -448,7 +448,7 @@
 }
 
 .draft-success-dialog.p-dialog {
-  @apply rounded-2xl shadow-2xl;
+  @apply rounded-2xl shadow-2xl w-[34rem] max-w-[95vw];
 }
 
 .draft-success-close {

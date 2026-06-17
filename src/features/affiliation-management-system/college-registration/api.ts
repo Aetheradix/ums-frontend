@@ -74,6 +74,22 @@ export async function createCollegeRegistration(
   return !error ? data : undefined;
 }
 
+export async function updateCollegeRegistration(
+  id: number,
+  form: AffiliationManagementSystem.CollegeApplicationFormData,
+  documentIds: { documentId: string; documentType: string }[]
+) {
+  const payload = buildApiPayload(form, documentIds);
+  const formattedPayload = formatDatesInPayload(payload);
+
+  const { error, data } = await ApiService.put<{ value: number }>(
+    `${COLLEGE_REGISTRATION_URL}/${id}`,
+    formattedPayload
+  );
+
+  return !error ? data : undefined;
+}
+
 export async function uploadCollegeDocuments(
   nocFile: File | null,
   affidavitFile: File | null,
