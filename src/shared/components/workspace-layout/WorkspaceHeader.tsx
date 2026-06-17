@@ -1,9 +1,11 @@
-import React, { useEffect, useState, useRef } from 'react';
-import { WaffleMenu } from 'shared/new-components';
 import { useAuth } from 'auth';
+import React, { useEffect, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { WaffleMenu } from 'shared/new-components';
 import './WorkspaceHeader.css';
 
 const Header: React.FC = () => {
+  const navigate = useNavigate();
   const [isDarkMode, setIsDarkMode] = useState(false);
   const { user, logout } = useAuth();
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -34,10 +36,7 @@ const Header: React.FC = () => {
 
     if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
       setIsDarkMode(true);
-
-      /* ui changes update starts - 11/05/2026 */
       document.body.classList.add('dark');
-      /* ui changes update ends - 11/05/2026 */
     }
   }, []);
 
@@ -46,16 +45,10 @@ const Header: React.FC = () => {
       const newMode = !prev;
 
       if (newMode) {
-        /* ui changes update starts - 11/05/2026 */
         document.body.classList.add('dark');
-        /* ui changes update ends - 11/05/2026 */
-
         localStorage.setItem('theme', 'dark');
       } else {
-        /* ui changes update starts - 11/05/2026 */
         document.body.classList.remove('dark');
-        /* ui changes update ends - 11/05/2026 */
-
         localStorage.setItem('theme', 'light');
       }
 
@@ -157,6 +150,18 @@ const Header: React.FC = () => {
                     {email}
                   </p>
                 </div>
+
+                <button
+                  type="button"
+                  className="ws-dropdown-item"
+                  onClick={() => {
+                    setDropdownOpen(false);
+                    navigate('/settings/my-profile');
+                  }}
+                >
+                  <i className="pi pi-user text-sm" />
+                  <span>My Profile</span>
+                </button>
 
                 <button onClick={logout} className="ws-dropdown-item-danger">
                   <i className="pi pi-sign-out text-sm" />
