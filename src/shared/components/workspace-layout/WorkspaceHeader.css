@@ -2,7 +2,7 @@
 
 .ws-header {
   @apply border-b border-slate-200 py-3
-  bg-[var(--bg-white)];
+  bg-(--bg-white);
 }
 
 /* .ws-header-inner {
@@ -117,4 +117,37 @@
 .dark .ws-action-icons,
 .dark .ws-search-icon {
   @apply text-zinc-400;
+}
+
+/* dropdown items */
+.ws-dropdown-item {
+  @apply flex w-full cursor-pointer items-center gap-3 border-0 bg-transparent px-4 py-2.5 text-left text-sm font-medium text-slate-700 transition-all duration-200;
+}
+
+.ws-dropdown-item:hover {
+  @apply bg-slate-50 text-black;
+}
+
+.ws-dropdown-item i {
+  @apply text-slate-500;
+}
+
+.ws-dropdown-item:hover i {
+  @apply text-black;
+}
+
+.dark .ws-dropdown-item {
+  @apply text-zinc-300;
+}
+
+.dark .ws-dropdown-item:hover {
+  @apply bg-white/[0.06] text-white;
+}
+
+.dark .ws-dropdown-item i {
+  @apply text-zinc-400;
+}
+
+.dark .ws-dropdown-item:hover i {
+  @apply text-white;
 }
