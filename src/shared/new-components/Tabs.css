@@ -9,7 +9,7 @@
 }
 
 .p-tabview .p-tabview-nav li .p-tabview-nav-link {
-  @apply flex items-center px-4 py-4 font-bold text-slate-600 no-underline cursor-pointer border-b-3 border-transparent transition-all duration-200;
+  @apply flex items-center px-4 py-4 font-bold tracking-[0.1px] text-slate-600 no-underline cursor-pointer border-b-3 border-transparent transition-all duration-200;
   font-family: var(--font-sans);
   font-size: 15px;
 }
