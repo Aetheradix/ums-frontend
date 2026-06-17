@@ -5,6 +5,8 @@ import CollegeRegistration from './college-registration';
 import CollegeRegistrationApproval from './college-registration-approval';
 import ProgrammeFee from './settings/programme-fee';
 
+import DraftRegistrationRequest from './draft-registration-request';
+
 export default function AffiliationManagementSystem() {
   return (
     <Routes>
@@ -13,6 +15,10 @@ export default function AffiliationManagementSystem() {
         element={<CollegeRegistrationApproval />}
       />
       <Route path="college-registration/*" element={<CollegeRegistration />} />
+      <Route
+        path="draft-registration-request/*"
+        element={<DraftRegistrationRequest />}
+      />
       <Route path="affiliation-settings/*">
         <Route path="available-facility/*" element={<AvailableFacility />} />
         <Route path="establishment-year/*" element={<EstablishmentYear />} />

@@ -853,6 +853,15 @@ export const menuConfig: Menu.MenuItem[] = [
         ],
       },
       {
+        label: 'Draft College Registration',
+        slug: 'draft-registration-request',
+        description: 'Manage draft college registration processes.',
+        path: '/affiliation-management-system/draft-registration-request',
+        icon: 'assignment',
+        colorScheme: 'orange',
+      },
+
+      {
         label: 'College Registration Approvals',
         slug: 'registration-approval',
         description: 'Manage college registration Approvals.',

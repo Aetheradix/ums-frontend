@@ -21,6 +21,7 @@ declare global {
     /**Common props for inputs */
     interface InputProps {
       disabled?: boolean;
+      readOnly?: boolean;
       ref?: RefCallBack;
       autoFocus?: boolean;
       placeholder?: string;

@@ -27,6 +27,7 @@ interface CollegeRegistrationStepProps {
   };
   control: Control<AffiliationManagementSystem.CollegeApplicationFormData>;
   setValue: UseFormSetValue<AffiliationManagementSystem.CollegeApplicationFormData>;
+  isEdit?: boolean;
 }
 
 const getFacilityIcon = (facilityName: string) => {
@@ -48,6 +49,7 @@ export default function CollegeRegistrationStep({
   register,
   control,
   setValue,
+  isEdit = false,
 }: CollegeRegistrationStepProps) {
   const { data: facilityData } = useAvailableFacilitiesQuery();
 
@@ -111,12 +113,21 @@ export default function CollegeRegistrationStep({
       icon="building"
     >
       <FormGrid columns={3}>
+        {isEdit && (
+          <TextBox
+            label="Application Number"
+            placeholder="Application number"
+            {...register('applicationNumber')}
+            readOnly
+          />
+        )}
         <TextBox
           label="College Code"
           placeholder="College code"
           {...register('collegeCode')}
           maxLength={15}
           required
+          readOnly={isEdit}
         />
         <Controller
           control={control}
