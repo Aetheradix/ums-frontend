@@ -115,7 +115,8 @@ export default function ApplicationForm() {
   const { mutateAsync, isPending } = useCreateApplicationMutation();
 
   // Initialize form hook at the top to avoid Temporal Dead Zone (TDZ) reference errors
-  const { register, handleSubmit, reset, trigger } = useApplicationForm();
+  const { register, handleSubmit, reset, trigger, control, setValue } =
+    useApplicationForm();
 
   // Load all master lists for translation of selected IDs to text labels
   const { data: academicYears } = useAcademicYearsQuery();
@@ -327,7 +328,13 @@ export default function ApplicationForm() {
           {activeStep === 1 && <FatherInfoStep register={register} />}
           {activeStep === 2 && <MotherInfoStep register={register} />}
           {activeStep === 3 && <AcademicInfoStep register={register} />}
-          {activeStep === 4 && <AddressInfoStep register={register} />}
+          {activeStep === 4 && (
+            <AddressInfoStep
+              register={register}
+              control={control}
+              setValue={setValue}
+            />
+          )}
         </div>
 
         {/* Navigation Buttons */}

@@ -7,21 +7,34 @@ interface SelectTehsilProps<
 > extends Controls.FormProps<T> {
   label?: string;
   disabled?: boolean;
+  districtId?: number | string | null;
 }
 
 export default function SelectTehsil<T extends FieldValues>({
   defaultOptionText,
   label = 'Tehsil',
+  districtId,
   ...props
 }: SelectTehsilProps<T> &
   Controls.InputBlockProps & { defaultOptionText?: string }) {
   const { data, isLoading } = useTehsilsQuery();
+
   const activeData =
     data?.filter((item: Master.TehsilItem) => item.isActive === true) || [];
 
+  const filteredData =
+    districtId !== undefined
+      ? activeData.filter(
+          (item: Master.TehsilItem) =>
+            String(item.districtId) === String(districtId)
+        )
+      : activeData;
+
+  const isDisabled = districtId !== undefined ? !districtId : props.disabled;
+
   return (
     <DropDownList
-      data={activeData}
+      data={filteredData}
       loading={isLoading}
       textField="name"
       valueField="id"
@@ -35,6 +48,7 @@ export default function SelectTehsil<T extends FieldValues>({
           : defaultOptionText
       }
       {...props}
+      disabled={isDisabled}
     />
   );
 }

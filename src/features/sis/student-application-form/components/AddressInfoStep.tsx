@@ -1,3 +1,5 @@
+import { useEffect } from 'react';
+import { useWatch, type Control, type UseFormSetValue } from 'react-hook-form';
 import { NumberBox, TextBox } from 'shared/components/forms';
 import SelectAddressType from 'features/components/SelectAddressType';
 import SelectBlock from 'features/components/SelectBlock';
@@ -10,9 +12,72 @@ import type { ApplicationFormData } from '../types';
 
 interface AddressInfoStepProps {
   register: (key: keyof ApplicationFormData) => any;
+  control: Control<ApplicationFormData>;
+  setValue: UseFormSetValue<ApplicationFormData>;
 }
 
-export default function AddressInfoStep({ register }: AddressInfoStepProps) {
+export default function AddressInfoStep({
+  register,
+  control,
+  setValue,
+}: AddressInfoStepProps) {
+  const selectedState = useWatch({ control, name: 'state' });
+  const selectedDivision = useWatch({ control, name: 'division' });
+  const selectedDistrict = useWatch({ control, name: 'district' });
+  const selectedTehsil = useWatch({ control, name: 'tehsil' });
+
+  useEffect(() => {
+    setValue('division', null as any, {
+      shouldValidate: false,
+      shouldDirty: true,
+    });
+    setValue('district', null as any, {
+      shouldValidate: false,
+      shouldDirty: true,
+    });
+    setValue('tehsil', null as any, {
+      shouldValidate: false,
+      shouldDirty: true,
+    });
+    setValue('block', null as any, {
+      shouldValidate: false,
+      shouldDirty: true,
+    });
+  }, [selectedState]);
+
+  useEffect(() => {
+    setValue('district', null as any, {
+      shouldValidate: false,
+      shouldDirty: true,
+    });
+    setValue('tehsil', null as any, {
+      shouldValidate: false,
+      shouldDirty: true,
+    });
+    setValue('block', null as any, {
+      shouldValidate: false,
+      shouldDirty: true,
+    });
+  }, [selectedDivision]);
+
+  useEffect(() => {
+    setValue('tehsil', null as any, {
+      shouldValidate: false,
+      shouldDirty: true,
+    });
+    setValue('block', null as any, {
+      shouldValidate: false,
+      shouldDirty: true,
+    });
+  }, [selectedDistrict]);
+
+  useEffect(() => {
+    setValue('block', null as any, {
+      shouldValidate: false,
+      shouldDirty: true,
+    });
+  }, [selectedTehsil]);
+
   return (
     <FormCard title="Address Details" icon="map-marker">
       <FormGrid columns={3}>
@@ -24,11 +89,33 @@ export default function AddressInfoStep({ register }: AddressInfoStepProps) {
           maxLength={20}
           required
         />
+
         <SelectState {...register('state')} required />
-        <SelectDivision {...register('division')} required />
-        <SelectDistrict {...register('district')} required />
-        <SelectTehsil {...register('tehsil')} required />
-        <SelectBlock {...register('block')} required />
+
+        <SelectDivision
+          {...register('division')}
+          stateId={selectedState}
+          required
+        />
+
+        <SelectDistrict
+          {...register('district')}
+          divisionId={selectedDivision}
+          required
+        />
+
+        <SelectTehsil
+          {...register('tehsil')}
+          districtId={selectedDistrict}
+          required
+        />
+
+        <SelectBlock
+          {...register('block')}
+          tehsilId={selectedTehsil}
+          required
+        />
+
         <TextBox
           label="Address Line 1"
           placeholder="Enter Address Line 1"

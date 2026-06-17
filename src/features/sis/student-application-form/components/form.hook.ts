@@ -71,10 +71,17 @@ const schema = validation.create<ApplicationFormData>(o => ({
 }));
 
 export function useApplicationForm() {
-  const { register, handleSubmit, reset, control, trigger, getValues } =
-    useAppForm<ApplicationFormData>({
-      resolver: validation.resolver(schema),
-    });
+  const {
+    register,
+    handleSubmit,
+    reset,
+    control,
+    trigger,
+    getValues,
+    setValue,
+  } = useAppForm<ApplicationFormData>({
+    resolver: validation.resolver(schema),
+  });
 
   return {
     register,
@@ -83,5 +90,6 @@ export function useApplicationForm() {
     control,
     trigger,
     getValues,
+    setValue,
   };
 }
