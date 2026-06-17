@@ -25,6 +25,9 @@ interface ButtonProps {
   disabled?: boolean;
   size?: ButtonSize;
   isActive?: boolean;
+  tooltip?: string;
+  tooltipPosition?: 'top' | 'bottom' | 'left' | 'right';
+  ariaLabel?: string;
 }
 
 const CLASS_BASE = 'p-button p-component';
@@ -40,6 +43,9 @@ export default function Button({
   disabled = false,
   size = 'medium',
   isActive,
+  tooltip,
+  tooltipPosition = 'top',
+  ariaLabel,
 }: React.PropsWithChildren<ButtonProps>) {
   const cssVariant: ButtonVariant =
     isActive !== undefined
@@ -113,6 +119,13 @@ export default function Button({
       label={label}
       loading={isLoading}
       disabled={disabled}
+      tooltip={tooltip}
+      tooltipOptions={{
+        position: tooltipPosition,
+        showDelay: 150,
+        hideDelay: 50,
+      }}
+      aria-label={ariaLabel ?? tooltip ?? label}
     />
   );
 }
