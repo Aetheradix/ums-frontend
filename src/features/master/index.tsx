@@ -37,6 +37,7 @@ import Subject from './subject';
 import EmployeeGroup from './employee/settings/employee-group';
 import SeparationReasonType from './employee/settings/separation-reason-type';
 import UserManagement from './user-management';
+import CmsManagement from '../cms-management';
 
 export default function Master() {
   return (
@@ -44,6 +45,7 @@ export default function Master() {
       <Route path="user-management/*" element={<UserManagement />} />
       <Route path="location/*" element={<Location />} />
       <Route path="subject/*" element={<Subject />} />
+      <Route path="cms-management/*" element={<CmsManagement />} />
 
       <Route path="faculty-management/*">
         <Route path="office-type/*" element={<OfficeType />} />
