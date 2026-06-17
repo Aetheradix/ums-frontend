@@ -1,4 +1,4 @@
-import SelectAppointedCategory from 'features/components/SelectAppointedCategory';
+import SelectCaste from 'features/components/SelectCaste';
 import SelectDesignation from 'features/components/SelectDesignation';
 import SelectGender from 'features/components/SelectGender';
 import SelectNatureOfEmployment from 'features/components/SelectNatureOfEmployment';
@@ -72,9 +72,9 @@ export default function QuickOnboardingForm({
 
             <SelectGender name="gender" control={control} required />
 
-            <SelectAppointedCategory
+            <SelectCaste
               name="appointedCategory"
-              label="Appointed Category"
+              label="Category"
               control={control}
               required
             />
