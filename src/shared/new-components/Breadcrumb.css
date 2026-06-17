@@ -17,7 +17,7 @@
 }
 
 .breadcrumb-item-active {
-  @apply text-slate-900 font-semibold;
+  @apply font-semibold text-slate-900 tracking-[0.1px];
 }
 
 .dark .breadcrumb-item-active {
