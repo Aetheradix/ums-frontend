@@ -7,6 +7,20 @@ export interface CreateApplicationCommand {
   address: AddressDto;
 }
 
+export interface PriorEducationEntry {
+  id: string;
+  educationLevel: string;
+  institutionName: string;
+  boardOrUniversity: string;
+  passingYear: number | null;
+  percentage: number | null;
+  cgpa: number | null;
+  subjectsOrStream: string;
+  documentType: string;
+  documentFile: File | null;
+  documentId: string | null;
+}
+
 export interface AcademicDto {
   degreeLevelId: number;
   degreeLevelName: string;
@@ -16,6 +30,19 @@ export interface AcademicDto {
   specialisationName: string;
   previousInstitutionType: string;
   previousInstitutionCgpa: number;
+  priorEducations: PriorEducationApiEntry[];
+}
+
+export interface PriorEducationApiEntry {
+  educationLevel: string;
+  institutionName: string;
+  boardOrUniversity: string;
+  passingYear: number;
+  percentage: number | null;
+  cgpa: number | null;
+  subjectsOrStream: string;
+  documentType: string;
+  documentId: string | null;
 }
 
 export interface BasicInfoDto {
@@ -64,16 +91,10 @@ export interface AddressDto {
   zipcode: number;
 }
 
-/**
- * Internal form shape used by react-hook-form.
- * Dropdown fields store the selected ID value.
- */
 export interface ApplicationFormData {
-  // Top-level
   academicSession: string;
   programme: string;
 
-  // Basic Info
   firstName: string;
   middleName?: string;
   lastName: string;
@@ -97,14 +118,14 @@ export interface ApplicationFormData {
   ethnicity: string;
   nationality: string;
 
-  // Academic
   degreeLevel: string;
   programOfStudy: any;
   specialisation: string;
   previousInstitutionType: string;
   previousInstitutionCgpa: number | null;
 
-  // Address
+  priorEducations: PriorEducationEntry[];
+
   addressType: string;
   country: string;
   state: string;
