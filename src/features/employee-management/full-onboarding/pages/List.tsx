@@ -3,16 +3,16 @@ import { Button } from 'shared/components/buttons';
 import GridActionButtons from 'shared/components/grid/GridActionButtons';
 import { Loader } from 'shared/components/progress';
 import { FormCard, FormPage, GridPanel } from 'shared/new-components';
-import { useGetBasicEmployeesQuery } from '../queries';
+import { useGetAllFullOnboardingQuery } from '../queries';
 
 export default function List() {
   const navigate = useNavigate();
-  const { data, isLoading } = useGetBasicEmployeesQuery();
+  const { data, isLoading } = useGetAllFullOnboardingQuery();
 
   return (
     <FormPage
-      title="Manage Employee"
-      description="View and manage the list of all employees in the system."
+      title="Full Onboarding"
+      description="View and manage employees onboarded through Full Onboarding."
     >
       <FormCard>
         {isLoading && <Loader />}
@@ -35,16 +35,16 @@ export default function List() {
               {
                 header: 'Action',
                 sortable: false,
-                cell: (item: EmployeeManagement.QuickOnboardingItem) => (
+                cell: (item: EmployeeManagement.FullOnboardingItem) => (
                   <GridActionButtons
                     onView={() =>
                       navigate(
-                        `/employee-management/manage-employees/${item.quickOnboardingId}`
+                        `/employee-management/manage-employees/${item.fullOnboardingId}`
                       )
                     }
                     onEdit={() =>
                       navigate(
-                        `/employee-management/manage-employees/${item.quickOnboardingId}/edit`
+                        `/employee-management/manage-employees/${item.fullOnboardingId}/edit`
                       )
                     }
                     onDelete={() => {}}
@@ -70,7 +70,7 @@ export default function List() {
                   variant="primary"
                   size="small"
                   onClick={() =>
-                    navigate('/employee-management/quick-onboarding')
+                    navigate('/employee-management/full-onboarding/create')
                   }
                 />
               </>

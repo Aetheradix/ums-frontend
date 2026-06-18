@@ -60,27 +60,7 @@ export function useQuickOnboardingForm(
 ) {
   const { register, control, handleSubmit, reset, setValue, watch } =
     useAppForm<EmployeeManagement.QuickOnboardingForm>({
-      defaultValues: fetchData || {
-        employeeType: '',
-        employeeNatureId: null,
-        organizationUnitId: null,
-        postId: null,
-        designationId: null,
-        seniorityRank: '',
-        subjectSpecializationId: null,
-
-        salutation: '',
-        firstName: '',
-        middleName: '',
-        lastName: '',
-        gender: '',
-        appointedCategory: '',
-        mobileNumber: '',
-        officialEmail: '',
-        dateOfBirth: null,
-
-        employeeCode: '',
-      },
+      defaultValues: fetchData,
 
       resolver: validation.resolver(schema),
     });

@@ -1,17 +1,8 @@
 declare namespace EmployeeManagement {
-  export interface QuickOnboardingForm {
-    employeeId?: number;
-
-    // Employee Information
+  export interface QuickOnboardingBase {
+    // Shared fields
     employeeType: string;
-    employeeNatureId: number;
-    organizationUnitId: number;
-    postId: number;
-    designationId: number;
     seniorityRank: string;
-    subjectSpecializationId: number;
-
-    // Personal Information
     salutation: string;
     firstName: string;
     middleName: string;
@@ -24,27 +15,23 @@ declare namespace EmployeeManagement {
     employeeCode: string;
   }
 
-  export interface EmployeeBasicInfoDto {
-    id: number;
-    employeeCode: string;
-    fullName: string;
-    gender: string;
-    employeeNature: string;
-    organizationUnit: string;
-    post: string;
-    subjectSpecialization: string;
-    mobileNumber: string;
-    officialEmail: string;
+  export interface QuickOnboardingForm extends QuickOnboardingBase {
+    employeeId?: number;
+    employeeNatureId: number;
+    organizationUnitId: number;
+    postId: number;
+    designationId: number;
+    subjectSpecializationId: number;
   }
 
-  export interface EmployeeDto extends QuickOnboardingForm {
-    id: number;
-    name: string;
-    employeeNature?: string;
-    organizationUnit?: string;
-    post?: string;
-    subjectSpecialization?: string;
-    isActive?: boolean;
+  export interface QuickOnboardingItem extends QuickOnboardingBase {
+    quickOnboardingId: number;
+    fullName: string;
+    employeeNatureName: string;
+    organizationUnitName: string;
+    postName: string;
+    subjectSpecializationName: string;
+    isActive: boolean;
   }
 
   // ── Full Onboarding Types ──

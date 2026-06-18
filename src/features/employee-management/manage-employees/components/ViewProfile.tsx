@@ -72,7 +72,7 @@ export default function ViewProfile() {
               className="employee-back-list-btn"
               onClick={() =>
                 navigate(
-                  `/employee-management/manage-employees/${data.id}/edit`
+                  `/employee-management/manage-employees/${data.quickOnboardingId}/edit`
                 )
               }
             />

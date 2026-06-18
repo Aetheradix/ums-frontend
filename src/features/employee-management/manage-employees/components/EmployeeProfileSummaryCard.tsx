@@ -45,7 +45,7 @@ export default function EmployeeProfileSummaryCard({
 
             <span className="employee-profile-chip">
               <i className="pi pi-shield" />
-              {data.employeeNature || 'N/A'}
+              {data.employeeNatureName || 'N/A'}
             </span>
           </div>
         </div>
