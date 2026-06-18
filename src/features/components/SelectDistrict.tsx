@@ -7,21 +7,34 @@ interface SelectDistrictProps<
 > extends Controls.FormProps<T> {
   label?: string;
   disabled?: boolean;
+  divisionId?: number | string | null;
 }
 
 export default function SelectDistrict<T extends FieldValues>({
   defaultOptionText,
   label = 'District',
+  divisionId,
   ...props
 }: SelectDistrictProps<T> &
   Controls.InputBlockProps & { defaultOptionText?: string }) {
   const { data, isLoading } = useDistrictsQuery();
+
   const activeData =
     data?.filter((item: Master.DistrictItem) => item.isActive === true) || [];
 
+  const filteredData =
+    divisionId !== undefined
+      ? activeData.filter(
+          (item: Master.DistrictItem) =>
+            String(item.divisionId) === String(divisionId)
+        )
+      : activeData;
+
+  const isDisabled = divisionId !== undefined ? !divisionId : props.disabled;
+
   return (
     <DropDownList
-      data={activeData}
+      data={filteredData}
       loading={isLoading}
       textField="name"
       valueField="id"
@@ -35,6 +48,7 @@ export default function SelectDistrict<T extends FieldValues>({
           : defaultOptionText
       }
       {...props}
+      disabled={isDisabled}
     />
   );
 }
