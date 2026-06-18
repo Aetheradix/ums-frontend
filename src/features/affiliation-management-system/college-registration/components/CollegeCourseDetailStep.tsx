@@ -289,7 +289,7 @@ export default function CollegeCourseDetailStep({
               },
               {
                 field: 'fdAmount',
-                header: 'FD Amount',
+                header: 'Security Amount',
                 cell: row => <span>₹{row.fdAmount}</span>,
               },
               {
