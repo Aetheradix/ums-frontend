@@ -26,8 +26,8 @@ export default function SelectCollegeType<T extends FieldValues>({
       data={activeData}
       loading={isLoading}
       textField="name"
-      valueField="name"
-      optionValue="name"
+      valueField="id"
+      optionValue="id"
       label={label}
       required={true}
       defaultOptionText={defaultOptionText}

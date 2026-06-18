@@ -240,7 +240,7 @@ export default function CollegeCourseDetailStep({
               </span>
 
               <div className="course-fee-content">
-                <h4>SD Amount</h4>
+                <h4>FD Amount</h4>
                 <strong>₹{currentFees.sdAmount} /-</strong>
                 <p>
                   An FD of ₹{currentFees.sdAmount} /- will be payable for new
@@ -289,7 +289,7 @@ export default function CollegeCourseDetailStep({
               },
               {
                 field: 'sdAmount',
-                header: 'SD Amount',
+                header: 'Security Amount',
                 cell: row => <span>₹{row.sdAmount}</span>,
               },
               {
