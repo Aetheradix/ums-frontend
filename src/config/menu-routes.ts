@@ -452,7 +452,8 @@ export const menuConfig: Menu.MenuItem[] = [
       {
         label: 'CMS Management',
         slug: 'cms-management',
-        description: 'Manage website content including courses, departments, faculty, news, downloads, gallery, facilities, stats, and notices.',
+        description:
+          'Manage website content including courses, departments, faculty, news, downloads, gallery, facilities, stats, and notices.',
         path: '/home/sub-menu/cms-management',
         icon: 'web',
         colorScheme: 'blue',
@@ -659,6 +660,16 @@ export const menuConfig: Menu.MenuItem[] = [
                 colorScheme: 'red',
                 feature: '@employee/Settings/EmployeeGroup',
                 action: 'read',
+              },
+              {
+                label: 'Department Group Type',
+                slug: 'department-group-type',
+                description: 'Manage Department Group Types',
+                path: '/master/employee/settings/department-group-type',
+                icon: 'domain',
+                colorScheme: 'purple',
+                feature: '@employee/Settings/DepartmentGroupType',
+                action: 'write',
               },
             ],
           },

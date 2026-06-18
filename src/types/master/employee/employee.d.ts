@@ -69,5 +69,13 @@ declare namespace Master {
     }
 
     type EmployeeGroupItem = Data.WithId<EmployeeGroupForm>;
+
+    interface DepartmentGroupTypeForm {
+      name: string;
+      code: string;
+      isActive: boolean;
+    }
+
+    type DepartmentGroupTypeItem = Data.WithId<DepartmentGroupTypeForm>;
   }
 }
