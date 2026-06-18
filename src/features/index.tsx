@@ -1,6 +1,7 @@
 import { ProtectedRoute } from 'auth';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import MainLayout from 'shared/components/layout/MainLayout';
+import { UniversityLoader } from 'shared/components/progress';
 import AdmissionPortal from './admission-portal';
 import AffiliationManagementSystem from './affiliation-management-system';
 import CareerAdvancement from './career-advancement';
@@ -16,11 +17,7 @@ export default function Features() {
       <Route path="public/*" element={<div>Public Page Placeholder</div>} />
       <Route
         path="callback"
-        element={
-          <div className="flex items-center justify-center min-h-screen">
-            <p>Completing sign-in...</p>
-          </div>
-        }
+        element={<UniversityLoader text="Completing sign-in..." />}
       />
       <Route path="admission-portal/*" element={<AdmissionPortal />} />
       <Route
