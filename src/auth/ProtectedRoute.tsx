@@ -21,5 +21,5 @@ export const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({
     return <>{children}</>;
   }
 
-  return null;
+  return <UniversityLoader text="Redirecting to login portal..." />;
 };
