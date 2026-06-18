@@ -28,8 +28,6 @@ export interface AcademicDto {
   programmeName: string;
   specialisationId: number;
   specialisationName: string;
-  previousInstitutionType: string;
-  previousInstitutionCgpa: number;
   priorEducations: PriorEducationApiEntry[];
 }
 
@@ -121,8 +119,6 @@ export interface ApplicationFormData {
   degreeLevel: string;
   programOfStudy: any;
   specialisation: string;
-  previousInstitutionType: string;
-  previousInstitutionCgpa: number | null;
 
   priorEducations: PriorEducationEntry[];
 

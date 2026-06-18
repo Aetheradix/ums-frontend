@@ -78,8 +78,6 @@ const STEP_FIELDS: Record<number, (keyof ApplicationFormData)[]> = {
     'degreeLevel',
     'programOfStudy',
     'specialisation',
-    'previousInstitutionType',
-    'previousInstitutionCgpa',
     'priorEducations',
   ],
   4: [
@@ -262,8 +260,6 @@ export default function ApplicationForm() {
               'id',
               'name'
             ),
-            previousInstitutionType: data.previousInstitutionType,
-            previousInstitutionCgpa: Number(data.previousInstitutionCgpa),
             priorEducations,
           },
           address: {

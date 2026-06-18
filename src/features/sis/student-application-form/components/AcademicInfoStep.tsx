@@ -4,7 +4,6 @@ import {
   type Control,
   type UseFormSetValue,
 } from 'react-hook-form';
-import { NumberBox, TextBox } from 'shared/components/forms';
 import SelectAcademicYearSession from 'features/components/SelectAcademicYearSession';
 import SelectDegreeLevel from 'features/components/SelectDegreeLevel';
 import SelectProgramme from 'features/components/SelectProgramme';
@@ -88,24 +87,6 @@ export default function AcademicInfoStep({
             required
           />
           <SelectSpecialisation {...register('specialisation')} required />
-          <TextBox
-            label="Previous Institution Type"
-            placeholder="e.g. School, College, University"
-            {...register('previousInstitutionType')}
-            maxLength={15}
-            required
-          />
-          <NumberBox
-            label="Previous Institution CGPA"
-            placeholder="Enter CGPA (0–10)"
-            {...register('previousInstitutionCgpa')}
-            min={0}
-            max={10}
-            minFractionDigits={0}
-            maxFractionDigits={2}
-            useGrouping={false}
-            required
-          />
         </FormGrid>
       </FormCard>
 

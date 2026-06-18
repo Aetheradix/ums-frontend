@@ -68,8 +68,6 @@ const schema = validation.create<ApplicationFormData>(o => ({
   degreeLevel: o.any().required(),
   programOfStudy: o.any().required(),
   specialisation: o.any().required(),
-  previousInstitutionType: o.string().required().max(15),
-  previousInstitutionCgpa: o.number().required().min(0).max(10),
 
   priorEducations: o
     .array()
