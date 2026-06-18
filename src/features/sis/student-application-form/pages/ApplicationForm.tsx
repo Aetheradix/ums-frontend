@@ -1,15 +1,16 @@
 import { useCallback, useState } from 'react';
 import { FormProvider } from 'react-hook-form';
 import { ToastService } from 'services';
-import { FormPage, Stepper } from 'shared/new-components';
 import { Button } from 'shared/components/buttons';
-import { useCreateApplicationMutation } from '../queries';
-import { useApplicationForm } from '../components/form.hook';
-import BasicInfoStep from '../components/BasicInfoStep';
-import FatherInfoStep from '../components/FatherInfoStep';
-import MotherInfoStep from '../components/MotherInfoStep';
+import { FormPage, Stepper } from 'shared/new-components';
 import AcademicInfoStep from '../components/AcademicInfoStep';
 import AddressInfoStep from '../components/AddressInfoStep';
+import BasicInfoStep from '../components/BasicInfoStep';
+import ChoiceFillingStep from '../components/ChoiceFillingStep';
+import FatherInfoStep from '../components/FatherInfoStep';
+import { useApplicationForm } from '../components/form.hook';
+import MotherInfoStep from '../components/MotherInfoStep';
+import { useCreateApplicationMutation } from '../queries';
 import type {
   ApplicationFormData,
   CreateApplicationCommand,
@@ -17,22 +18,22 @@ import type {
 } from '../types';
 
 // Import all required query hooks for dropdown mapping
-import { useAcademicYearsQuery } from 'features/master/other/academic-year/queries';
-import { useProgrammesQuery } from 'features/master/other/programme/queries';
-import { useCastesQuery } from 'features/master/hr/caste/queries';
-import { useDegreeLevelsQuery } from 'features/master/other/degree-level/queries';
-import { useSpecialisationsQuery } from 'features/master/other/specialisation/queries';
-import { useGenderQuery } from 'features/master/other/gender/queries';
-import { useResidencyStatusesQuery } from 'features/master/other/residency-status/queries';
-import { useNationalitiesQuery } from 'features/master/other/nationality/queries';
-import { useAddressTypeQuery } from 'features/master/other/address-type/queries';
-import { useStatesQuery } from 'features/master/location/state/queries';
-import { useDivisionsQuery } from 'features/master/location/division/queries';
-import { useDistrictsQuery } from 'features/master/location/district/queries';
-import { useTehsilsQuery } from 'features/master/location/tehsil/queries';
-import { useBlocksQuery } from 'features/master/location/block/queries';
 import { useDesignationsQuery } from 'features/master/faculty/designation/queries';
+import { useCastesQuery } from 'features/master/hr/caste/queries';
+import { useBlocksQuery } from 'features/master/location/block/queries';
+import { useDistrictsQuery } from 'features/master/location/district/queries';
+import { useDivisionsQuery } from 'features/master/location/division/queries';
+import { useStatesQuery } from 'features/master/location/state/queries';
+import { useTehsilsQuery } from 'features/master/location/tehsil/queries';
+import { useAcademicYearsQuery } from 'features/master/other/academic-year/queries';
+import { useAddressTypeQuery } from 'features/master/other/address-type/queries';
+import { useDegreeLevelsQuery } from 'features/master/other/degree-level/queries';
+import { useGenderQuery } from 'features/master/other/gender/queries';
+import { useNationalitiesQuery } from 'features/master/other/nationality/queries';
 import { useOccupationTypeQuery } from 'features/master/other/occupation/queries';
+import { useProgrammesQuery } from 'features/master/other/programme/queries';
+import { useResidencyStatusesQuery } from 'features/master/other/residency-status/queries';
+import { useSpecialisationsQuery } from 'features/master/other/specialisation/queries';
 import { useProgrammeModeOfEducationsQuery } from 'features/master/subject/programme-mode-of-education/queries';
 
 const STEPS = [
@@ -40,6 +41,7 @@ const STEPS = [
   { label: "Father's Details" },
   { label: "Mother's Details" },
   { label: 'Academic Info' },
+  { label: 'Choice Filling' },
   { label: 'Address Info' },
 ];
 
@@ -80,7 +82,8 @@ const STEP_FIELDS: Record<number, (keyof ApplicationFormData)[]> = {
     'specialisation',
     'priorEducations',
   ],
-  4: [
+  4: ['choiceFilling'],
+  5: [
     'addressType',
     'country',
     'state',
@@ -280,6 +283,7 @@ export default function ApplicationForm() {
             landmark: data.landmark,
             zipcode: Number(data.zipcode),
           },
+          choices: data.choiceFilling || [],
         };
 
         const result = await mutateAsync(payload);
@@ -344,6 +348,9 @@ export default function ApplicationForm() {
               />
             )}
             {activeStep === 4 && (
+              <ChoiceFillingStep control={control} setValue={setValue} />
+            )}
+            {activeStep === 5 && (
               <AddressInfoStep
                 register={register}
                 control={control}

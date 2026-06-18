@@ -90,6 +90,12 @@ const schema = validation.create<ApplicationFormData>(o => ({
   addressLine2: o.string().required().max(150),
   landmark: o.string().required().max(40),
   zipcode: o.number().required().max(2147483647),
+  choiceFilling: o.array().items(o.any()).min(1).required().messages({
+    'array.min':
+      'Please lock at least one choice before proceeding to the next step.',
+    'any.required':
+      'Please lock at least one choice before proceeding to the next step.',
+  }),
 }));
 
 export function useApplicationForm() {
