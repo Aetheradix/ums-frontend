@@ -2,7 +2,7 @@ import { useAppForm } from 'shared/hooks/form';
 import validation from 'shared/utils/validation';
 
 const schema = validation.create<UserManagement.UserForm>(o => ({
-  userName: o.string().required().label('User Name'),
+  userName: o.string().required().pattern(/^\S+$/).label('User Name'),
   firstName: o.string().required().label('First Name'),
   lastName: o.string().required().label('Last Name'),
   email: o.string().required().email().label('Email'),
