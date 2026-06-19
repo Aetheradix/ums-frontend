@@ -452,7 +452,8 @@ export const menuConfig: Menu.MenuItem[] = [
       {
         label: 'CMS Management',
         slug: 'cms-management',
-        description: 'Manage website content including courses, departments, faculty, news, downloads, gallery, facilities, stats, and notices.',
+        description:
+          'Manage website content including courses, departments, faculty, news, downloads, gallery, facilities, stats, and notices.',
         path: '/home/sub-menu/cms-management',
         icon: 'web',
         colorScheme: 'blue',
@@ -550,6 +551,16 @@ export const menuConfig: Menu.MenuItem[] = [
             icon: 'person_add',
             colorScheme: 'red',
             feature: '@employee-management/quick-onboarding',
+            action: 'write',
+          },
+          {
+            label: 'Full Onboarding',
+            slug: 'full-onboarding',
+            description: 'Full employee onboarding form.',
+            path: '/employee-management/full-onboarding',
+            icon: 'person_add',
+            colorScheme: 'red',
+            feature: '@employee-management/full-onboarding',
             action: 'write',
           },
           {

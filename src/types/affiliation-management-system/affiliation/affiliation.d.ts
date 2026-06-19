@@ -2,7 +2,7 @@ declare namespace AffiliationMaster {
   interface ProgrammeFeeForm {
     programmeId: number;
     programmeName?: string;
-    fixedDepositAmount: number;
+    securityDepositAmount: number;
     affiliationFee: number;
     inspectionFee: number;
     otherFee: number;

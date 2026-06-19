@@ -7,14 +7,19 @@ declare namespace AffiliationManagementSystem {
     districtId: number;
     telephoneNo: string;
     collegeEmail: string;
-    collegeCategory: string;
-    collegeType: string;
+    collegeCategoryId: number;
+    collegeTypeId: number;
     accommodationType: string;
     collegeArea: string;
     availableFacilities: Record<number, boolean>;
     otherFacilities?: { facilityName: string }[];
     applicationNumber?: string;
     isSubmitted?: boolean;
+    transactionId?: string;
+    transactionDate?: string | null;
+    totalFees?: number;
+    feeStructure?: string;
+    isFeePaid?: boolean;
   }
 
   export interface AffiliationOtherDetailsForm {
@@ -48,16 +53,16 @@ declare namespace AffiliationManagementSystem {
   export interface CollegeRegistrationListItem {
     collegeRegistrationId: number;
     collegeName: string;
-    collegeCategory: string;
-    collegeType: string;
+    collegeCategoryId: number;
+    collegeTypeId: number;
     collegeArea: string;
     isActive: boolean;
   }
   export interface CollegeRegistrationApprovalItem {
     collegeRegistrationId: number;
     collegeName: string;
-    collegeCategory: string;
-    collegeType: string;
+    collegeCategoryId: number;
+    collegeTypeId: number;
     collegeArea: string;
     approvalStatus: number;
     rejectionReason?: string;
@@ -81,7 +86,7 @@ declare namespace AffiliationManagementSystem {
   export interface ProgrammeFeeItem {
     programmeFeeId: number;
     programmeId: number;
-    fixedDepositAmount: number;
+    securityDepositAmount: number;
     affiliationFee: number;
     inspectionFee: number;
     otherFee: number | null;
@@ -96,8 +101,8 @@ declare namespace AffiliationManagementSystem {
     districtId: number;
     telephoneNo: string;
     collegeEmail: string;
-    collegeCategory: string;
-    collegeType: string;
+    collegeCategoryId: number;
+    collegeTypeId: number;
     accommodationType: string;
     collegeCode: string;
     districtName: string;
@@ -105,6 +110,11 @@ declare namespace AffiliationManagementSystem {
     numberOfClassRooms: number;
     deficiencyEarlierRaisedByCommittee: boolean;
     availableFacilities: string[];
+    transactionId?: string;
+    transactionDate?: string;
+    totalFees?: number;
+    feeStructure?: string;
+    isFeePaid?: boolean;
     otherDetail?: {
       principalDirectorName: string;
       principalMobileNo: string;

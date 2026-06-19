@@ -194,14 +194,14 @@ export default function CollegeRegistrationStep({
         <SelectCollegeCategory
           label="College Category"
           defaultOptionText="Select college category"
-          {...register('collegeCategory')}
+          {...register('collegeCategoryId')}
           required
         />
 
         <SelectCollegeType
           label="College Type"
           defaultOptionText="Select college type"
-          {...register('collegeType')}
+          {...register('collegeTypeId')}
           required
         />
 
