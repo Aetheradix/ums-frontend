@@ -318,6 +318,15 @@ export const menuConfig: Menu.MenuItem[] = [
             feature: '@master/College/CollegeCategory',
             action: 'write',
           },
+          {
+            label: 'NOC Type',
+            description: 'Manage NOC Type',
+            path: '/master/college/noc-type',
+            icon: 'school',
+            colorScheme: 'indigo',
+            feature: '@master/College/NocType',
+            action: 'write',
+          },
         ],
       },
       {
@@ -452,7 +461,8 @@ export const menuConfig: Menu.MenuItem[] = [
       {
         label: 'CMS Management',
         slug: 'cms-management',
-        description: 'Manage website content including courses, departments, faculty, news, downloads, gallery, facilities, stats, and notices.',
+        description:
+          'Manage website content including courses, departments, faculty, news, downloads, gallery, facilities, stats, and notices.',
         path: '/home/sub-menu/cms-management',
         icon: 'web',
         colorScheme: 'blue',
@@ -906,6 +916,14 @@ export const menuConfig: Menu.MenuItem[] = [
     description: 'Classes • Grades • Advising • Resources',
     children: [
       {
+        label: 'College Profile',
+        slug: 'college-profile',
+        description: 'Manage college profile information.',
+        path: '/affiliation-management-system/college-profile',
+        icon: 'domain',
+        colorScheme: 'blue',
+      },
+      {
         label: 'College Registration',
         slug: 'college-registration',
         description: 'Manage college registration processes.',
@@ -979,6 +997,16 @@ export const menuConfig: Menu.MenuItem[] = [
             icon: 'money',
             colorScheme: 'blue',
             feature: '@master/Affiliation/ProgrammeFee',
+            action: 'read',
+          },
+          {
+            label: 'NOC Type',
+            slug: 'noc-type',
+            description: 'Manage NOC Type',
+            path: '/affiliation-management-system/affiliation-settings/noc-type',
+            icon: 'school',
+            colorScheme: 'indigo',
+            feature: '@master/College/NocType',
             action: 'read',
           },
         ],

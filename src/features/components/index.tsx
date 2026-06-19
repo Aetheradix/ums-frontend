@@ -10,6 +10,7 @@ import SelectAccommodationType from './SelectAccommodationType';
 import SelectCollegeArea from './SelectCollegeArea';
 import SelectDeficiencyStatus from './SelectDeficiencyStatus';
 import SelectYesNo from './SelectYesNo';
+import SelectNocType from './SelectNocType';
 
 export {
   ActionButtons,
@@ -24,4 +25,5 @@ export {
   SelectCollegeArea,
   SelectDeficiencyStatus,
   SelectYesNo,
+  SelectNocType,
 };

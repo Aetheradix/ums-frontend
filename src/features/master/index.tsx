@@ -1,6 +1,7 @@
 import { Route, Routes } from 'react-router';
 import CollegeCategory from './college/college-category';
 import CollegeType from './college/college-type';
+import NocType from './college/noc-type';
 import ActionOption from './employee/settings/action-option';
 import ActionOptionReason from './employee/settings/action-option-reason';
 import DocumentOption from './employee/settings/document-option';
@@ -68,6 +69,7 @@ export default function Master() {
       <Route path="college/*">
         <Route path="college-type/*" element={<CollegeType />} />
         <Route path="college-category/*" element={<CollegeCategory />} />
+        <Route path="noc-type/*" element={<NocType />} />
       </Route>
 
       <Route path="other/*">
