@@ -915,6 +915,8 @@ export const menuConfig: Menu.MenuItem[] = [
     icon: 'groups',
     colorScheme: 'red',
     description: 'Classes • Grades • Advising • Resources',
+    path: '/home/sub-menu/affiliation-management-system',
+    navigationStyle: 'sidebar',
     children: [
       {
         label: 'College Registration',
