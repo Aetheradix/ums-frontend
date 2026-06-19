@@ -27,10 +27,10 @@ declare namespace EmployeeManagement {
   export interface QuickOnboardingItem extends QuickOnboardingBase {
     employeeId: number;
     fullName: string;
-    employeeNatureName: string;
-    organizationUnitName: string;
-    postName: string;
-    subjectSpecializationName: string;
+    employeeNature: string;
+    organizationUnit: string;
+    post: string;
+    subjectSpecialization: string;
     isActive: boolean;
   }
 
@@ -67,7 +67,7 @@ declare namespace EmployeeManagement {
     middleName: string;
     lastName: string;
     gender: string;
-    appointedCategory: string;
+    casteId: number;
     mobileNumber: string;
     officialEmail: string;
     dateOfBirth: Date;

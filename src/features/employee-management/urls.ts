@@ -35,7 +35,6 @@ export const fullOnboardingUrls = (base: string) => {
 
   return {
     root: prefix,
-    list: prefix,
     create: `${prefix}/create`,
   };
 };

@@ -20,10 +20,7 @@ export default function OrganizationTab({ data }: OrganizationTabProps) {
         </div>
 
         <div className="employee-profile-info-grid">
-          <InfoItem
-            label="Organization Unit"
-            value={data.organizationUnitName}
-          />
+          <InfoItem label="Organization Unit" value={data.organizationUnit} />
           <InfoItem label="Department" value="N/A" />
           <InfoItem label="Reporting To" value="N/A" />
           <InfoItem label="Location" value="N/A" />

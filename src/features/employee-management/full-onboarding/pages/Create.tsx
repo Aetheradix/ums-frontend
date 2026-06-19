@@ -1,8 +1,7 @@
 import { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ToastService } from 'services';
-import { Card } from 'shared/components/panels';
-import Page from 'shared/components/panels/Page';
+import { FormPage } from 'shared/new-components';
 import FullOnboardingForm from '../components/FullOnboardingForm';
 import { useCreateFullOnboardingMutation } from '../queries';
 
@@ -31,10 +30,11 @@ export default function Create() {
   }
 
   return (
-    <Page header="Full Onboarding">
-      <Card>
-        <FullOnboardingForm onSubmit={handleSubmit} isSaving={isPending} />
-      </Card>
-    </Page>
+    <FormPage
+      title="Full Onboarding"
+      description="Complete employee onboarding and registration form."
+    >
+      <FullOnboardingForm onSubmit={handleSubmit} isSaving={isPending} />
+    </FormPage>
   );
 }
