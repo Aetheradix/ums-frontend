@@ -38,6 +38,9 @@ const schema = validation.create<SIS.StudentAdditionalInformationForm>(o => ({
       otherwise: o.required(),
     }),
   profilePhotoUrl: o.string().allow('', null).optional(),
+  collegeTypeId: o.number().optional(),
+  collegeRegistrationId: o.number().optional(),
+  parentUniversity: o.string().allow('', null).optional(),
 }));
 
 export function useStudentAdditionalInformationForm(
