@@ -1,26 +1,20 @@
-import { useCallback, useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ToastService } from 'services';
+import { Button } from 'shared/components/buttons';
+import { FormWizard } from 'shared/components/forms';
+import type { WizardStep } from 'shared/components/forms/FormWizard';
 import { FormPage } from 'shared/new-components';
 import { uploadCollegeDocuments } from '../api';
-import {
-  STEP_FIELDS,
-  useCollegeApplicationForm,
-} from '../components/form.hook';
-import { useCreateCollegeRegistrationMutation } from '../queries';
 import AffiliationOtherDetailsStep from '../components/AffiliationOtherDetailsStep';
 import CollegeCourseDetailStep from '../components/CollegeCourseDetailStep';
 import CollegeEnclosureStep from '../components/CollegeEnclosureStep';
 import CollegeRegistrationStep from '../components/CollegeRegistrationStep';
 import DraftSuccessDialog from '../components/DraftSuccessDialog';
-import FormStepperActions from '../components/FormStepperActions';
-import FormStepperSidebar, {
-  REGISTRATION_STEPS,
-} from '../components/FormStepperSidebar';
-import './Create.css';
+import { useCollegeApplicationForm } from '../components/form.hook';
+import { useCreateCollegeRegistrationMutation } from '../queries';
 
 export default function Create() {
-  const [activeStep, setActiveStep] = useState(0);
   const [isUploading, setIsUploading] = useState(false);
   const [showDraftDialog, setShowDraftDialog] = useState(false);
   const [draftAppNumber, setDraftAppNumber] = useState('');
@@ -68,62 +62,45 @@ export default function Create() {
     }
   );
 
-  const handleNext = useCallback(async () => {
-    const fields = STEP_FIELDS[activeStep];
-    const isValid = await trigger(fields);
-
-    if (isValid) {
-      setActiveStep(prev => prev + 1);
-    } else {
-      if (activeStep === 2) {
-        ToastService.error('Please add at least one course to proceed.');
-      } else {
-        ToastService.error(
-          'Please fix the validation errors before proceeding.'
-        );
-      }
-    }
-  }, [activeStep, trigger]);
-
-  const handleBack = useCallback(() => {
-    setActiveStep(prev => Math.max(0, prev - 1));
-  }, []);
-
-  const handleStepClick = useCallback(
-    (index: number) => {
-      if (index < activeStep) {
-        setActiveStep(index);
-      }
-    },
-    [activeStep]
-  );
-
-  const renderActiveStep = () => {
-    switch (activeStep) {
-      case 0:
-        return (
-          <CollegeRegistrationStep
-            register={register}
-            control={control}
-            setValue={setValue}
-          />
-        );
-      case 1:
-        return <AffiliationOtherDetailsStep register={register} />;
-      case 2:
-        return <CollegeCourseDetailStep control={control} />;
-      case 3:
-        return (
-          <CollegeEnclosureStep
-            register={register}
-            control={control}
-            setValue={setValue}
-          />
-        );
-      default:
-        return null;
-    }
+  const handleFinalSubmit = async () => {
+    setValue('isSubmitted', true);
+    await onFormSubmit();
   };
+
+  const wizardSteps: WizardStep[] = [
+    {
+      label: 'College Details',
+      icon: 'building',
+      content: (
+        <CollegeRegistrationStep
+          register={register}
+          control={control}
+          setValue={setValue}
+        />
+      ),
+    },
+    {
+      label: 'Management Details',
+      icon: 'user',
+      content: <AffiliationOtherDetailsStep register={register} />,
+    },
+    {
+      label: 'Course Details',
+      icon: 'book',
+      content: <CollegeCourseDetailStep control={control} />,
+    },
+    {
+      label: 'Enclosures',
+      icon: 'folder-open',
+      content: (
+        <CollegeEnclosureStep
+          register={register}
+          control={control}
+          setValue={setValue}
+        />
+      ),
+    },
+  ];
 
   const handleCloseDraftDialog = () => {
     setShowDraftDialog(false);
@@ -136,28 +113,26 @@ export default function Create() {
       title="Application for Affiliation"
       description="Fill in all the required details to submit the affiliation application."
     >
-      <div className="affiliation-create-layout">
-        <FormStepperSidebar
-          activeStep={activeStep}
-          onStepClick={handleStepClick}
-        />
-
-        <section className="affiliation-form-panel">
-          <form onSubmit={onFormSubmit}>
-            <div className="affiliation-form-content">{renderActiveStep()}</div>
-            <FormStepperActions
-              activeStep={activeStep}
-              totalSteps={REGISTRATION_STEPS.length}
-              isPending={isPending}
-              isUploading={isUploading}
-              onBack={handleBack}
-              onNext={handleNext}
-              onSaveDraft={() => setValue('isSubmitted', false)}
-              onFinalSubmit={() => setValue('isSubmitted', true)}
-            />
-          </form>
-        </section>
-      </div>
+      <FormWizard
+        steps={wizardSteps}
+        onComplete={handleFinalSubmit}
+        isSaving={isPending || isUploading}
+        triggerValidation={trigger as (fields: string[]) => Promise<boolean>}
+        onReset={reset}
+        customActions={() => (
+          <Button
+            type="button"
+            label="Save as Draft"
+            variant="outlined"
+            onClick={async () => {
+              setValue('isSubmitted', false);
+              await onFormSubmit();
+            }}
+            disabled={isUploading || isPending}
+            icon="save"
+          />
+        )}
+      />
 
       <DraftSuccessDialog
         visible={showDraftDialog}

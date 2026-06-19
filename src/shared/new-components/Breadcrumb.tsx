@@ -56,6 +56,8 @@ export default function Breadcrumb({ items }: BreadcrumbProps) {
         label = 'Employee Management System';
       } else if (path.toLowerCase() === 'quick-onboarding') {
         label = 'Quick Onboarding';
+      } else if (path.toLowerCase() === 'full-onboarding') {
+        label = 'Full Onboarding';
       } else if (path.toLowerCase() === 'settings') {
         label = 'Settings';
       }
@@ -89,6 +91,8 @@ export default function Breadcrumb({ items }: BreadcrumbProps) {
         toPath = '/home/sub-menu/settings';
       } else if (path.toLowerCase() === 'quick-onboarding') {
         toPath = '/employee-management/quick-onboarding';
+      } else if (path.toLowerCase() === 'full-onboarding') {
+        toPath = '/employee-management/full-onboarding';
       } else if (path.toLowerCase() === 'affiliation-management-system') {
         toPath = '/home/sub-menu/affiliation-management-system';
       } else if (path.toLowerCase() === 'affiliation-settings') {

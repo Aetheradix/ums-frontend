@@ -1,8 +1,8 @@
-import { useCallback, useState } from 'react';
 import { FormProvider } from 'react-hook-form';
 import { ToastService } from 'services';
-import { Button } from 'shared/components/buttons';
-import { FormPage, Stepper } from 'shared/new-components';
+import { FormWizard } from 'shared/components/forms';
+import type { WizardStep } from 'shared/components/forms/FormWizard';
+import { FormPage } from 'shared/new-components';
 import AcademicInfoStep from '../components/AcademicInfoStep';
 import AddressInfoStep from '../components/AddressInfoStep';
 import BasicInfoStep from '../components/BasicInfoStep';
@@ -36,68 +36,6 @@ import { useResidencyStatusesQuery } from 'features/master/other/residency-statu
 import { useSpecialisationsQuery } from 'features/master/other/specialisation/queries';
 import { useProgrammeModeOfEducationsQuery } from 'features/master/subject/programme-mode-of-education/queries';
 
-const STEPS = [
-  { label: 'Basic Info' },
-  { label: "Father's Details" },
-  { label: "Mother's Details" },
-  { label: 'Academic Info' },
-  { label: 'Choice Filling' },
-  { label: 'Address Info' },
-];
-
-/** Fields that belong to each step — used for per-step validation */
-const STEP_FIELDS: Record<number, (keyof ApplicationFormData)[]> = {
-  0: [
-    'firstName',
-    'lastName',
-    'email',
-    'phone',
-    'gender',
-    'caste',
-    'dateOfBirth',
-    'age',
-    'residencyStatus',
-    'ethnicity',
-    'nationality',
-  ],
-  1: [
-    'fatherName',
-    'fatherOccupation',
-    'fatherDesignation',
-    'fatherAnnualIncome',
-    'fatherContactNumber',
-  ],
-  2: [
-    'motherName',
-    'motherOccupation',
-    'motherDesignation',
-    'motherAnnualIncome',
-    'motherContactNumber',
-  ],
-  3: [
-    'academicSession',
-    'programme',
-    'degreeLevel',
-    'programOfStudy',
-    'specialisation',
-    'priorEducations',
-  ],
-  4: ['choiceFilling'],
-  5: [
-    'addressType',
-    'country',
-    'state',
-    'division',
-    'district',
-    'tehsil',
-    'block',
-    'addressLine1',
-    'addressLine2',
-    'landmark',
-    'zipcode',
-  ],
-};
-
 function formatDate(date: Date): string {
   const year = date.getFullYear();
   const month = String(date.getMonth() + 1).padStart(2, '0');
@@ -117,7 +55,6 @@ function lookupText(
 }
 
 export default function ApplicationForm() {
-  const [activeStep, setActiveStep] = useState(0);
   const { mutateAsync, isPending } = useCreateApplicationMutation();
 
   const { methods, register } = useApplicationForm();
@@ -290,7 +227,6 @@ export default function ApplicationForm() {
         if (result) {
           ToastService.success('Application submitted successfully.');
           reset();
-          setActiveStep(0);
         }
       } catch {
         ToastService.error('Failed to submit application.');
@@ -302,94 +238,66 @@ export default function ApplicationForm() {
     }
   );
 
-  const handleNext = useCallback(async () => {
-    const fields = STEP_FIELDS[activeStep];
-    const isValid = await trigger(fields);
-    if (isValid) setActiveStep(prev => prev + 1);
-  }, [activeStep, trigger]);
-
-  const handleBack = useCallback(() => {
-    setActiveStep(prev => Math.max(0, prev - 1));
-  }, []);
-
-  const handleStepClick = useCallback(
-    (index: number) => {
-      if (index < activeStep) setActiveStep(index);
+  const wizardSteps: WizardStep[] = [
+    {
+      label: 'Basic Info',
+      icon: 'user',
+      content: <BasicInfoStep register={register} />,
     },
-    [activeStep]
-  );
-
-  const isLastStep = activeStep === STEPS.length - 1;
+    {
+      label: "Father's Details",
+      icon: 'users',
+      content: <FatherInfoStep register={register} />,
+    },
+    {
+      label: "Mother's Details",
+      icon: 'users',
+      content: <MotherInfoStep register={register} />,
+    },
+    {
+      label: 'Academic Info',
+      icon: 'book',
+      content: (
+        <AcademicInfoStep
+          register={register}
+          control={control}
+          setValue={setValue}
+          errors={formState.errors}
+        />
+      ),
+    },
+    {
+      label: 'Choice Filling',
+      icon: 'list',
+      content: <ChoiceFillingStep control={control} setValue={setValue} />,
+    },
+    {
+      label: 'Address Info',
+      icon: 'map-marker',
+      content: (
+        <AddressInfoStep
+          register={register}
+          control={control}
+          setValue={setValue}
+        />
+      ),
+    },
+  ];
 
   return (
     <FormPage
       title="Student Application Form"
       description="Fill in all the required details to submit your application."
     >
-      <Stepper
-        steps={STEPS}
-        activeStep={activeStep}
-        onStepClick={handleStepClick}
-      />
-
       {/* FormProvider makes form context available to PriorEducationCard via useFormContext() */}
       <FormProvider {...methods}>
-        <form onSubmit={onFormSubmit}>
-          <div className="flex flex-col gap-6 mb-6">
-            {activeStep === 0 && <BasicInfoStep register={register} />}
-            {activeStep === 1 && <FatherInfoStep register={register} />}
-            {activeStep === 2 && <MotherInfoStep register={register} />}
-            {activeStep === 3 && (
-              <AcademicInfoStep
-                register={register}
-                control={control}
-                setValue={setValue}
-                errors={formState.errors}
-              />
-            )}
-            {activeStep === 4 && (
-              <ChoiceFillingStep control={control} setValue={setValue} />
-            )}
-            {activeStep === 5 && (
-              <AddressInfoStep
-                register={register}
-                control={control}
-                setValue={setValue}
-              />
-            )}
-          </div>
-
-          {/* Navigation */}
-          <div className="form-actions-container form-actions-right">
-            {activeStep > 0 && (
-              <Button
-                key="back-button"
-                label="Back"
-                type="button"
-                onClick={handleBack}
-                icon="arrow-left"
-                variant="outlined"
-              />
-            )}
-            {!isLastStep ? (
-              <Button
-                key="next-button"
-                label="Next"
-                type="button"
-                onClick={handleNext}
-                icon="arrow-right"
-              />
-            ) : (
-              <Button
-                key="save-button"
-                label="Save"
-                type="submit"
-                icon="save"
-                isLoading={isPending}
-              />
-            )}
-          </div>
-        </form>
+        <FormWizard
+          steps={wizardSteps}
+          onComplete={onFormSubmit as () => void}
+          isSaving={isPending}
+          triggerValidation={trigger as (fields: string[]) => Promise<boolean>}
+          onReset={reset}
+        />
       </FormProvider>
     </FormPage>
   );

@@ -2,23 +2,23 @@ import { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ToastService } from 'services';
 import { FormPage } from 'shared/new-components';
-import QuickOnboardingForm from '../components/QuickOnboardingForm';
-import { useCreateQuickOnboardingMutation } from '../queries';
+import FullOnboardingForm from '../components/FullOnboardingForm';
+import { useCreateFullOnboardingMutation } from '../queries';
 
 export default function Create() {
   const navigate = useNavigate();
-  const { mutateAsync, isPending } = useCreateQuickOnboardingMutation();
+  const { mutateAsync, isPending } = useCreateFullOnboardingMutation();
 
   const handleBack = useCallback(() => {
     navigate('/employee-management/manage-employees');
   }, [navigate]);
 
-  async function handleSubmit(data: EmployeeManagement.QuickOnboardingForm) {
+  async function handleSubmit(data: EmployeeManagement.FullOnboardingForm) {
     try {
       const result = await mutateAsync(data);
 
       if (result) {
-        ToastService.success('Employee registered successfully.');
+        ToastService.success('Employee onboarded successfully.');
         handleBack();
       }
     } catch (err) {
@@ -30,14 +30,10 @@ export default function Create() {
 
   return (
     <FormPage
-      title="Quick Onboarding"
-      description="Quick employee onboarding and registration form."
+      title="Full Onboarding"
+      description="Complete employee onboarding and registration form."
     >
-      <QuickOnboardingForm
-        onSubmit={handleSubmit}
-        onCancel={handleBack}
-        isSaving={isPending}
-      />
+      <FullOnboardingForm onSubmit={handleSubmit} isSaving={isPending} />
     </FormPage>
   );
 }
