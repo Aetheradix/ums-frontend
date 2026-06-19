@@ -20,12 +20,11 @@ export default function Create() {
       if (result) {
         ToastService.success('Employee onboarded successfully.');
         handleBack();
-      } else {
-        ToastService.error('Failed to onboard employee.');
       }
-    } catch (err: unknown) {
-      const errorMessage = err instanceof Error ? err.message : String(err);
-      ToastService.error(errorMessage || 'Failed to onboard employee.');
+    } catch (err) {
+      ToastService.error(
+        err instanceof Error ? err.message : 'Failed to register employee.'
+      );
     }
   }
 

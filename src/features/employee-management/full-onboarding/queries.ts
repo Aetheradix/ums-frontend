@@ -1,14 +1,7 @@
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { createFullOnboarding, getAllFullOnboarding } from './api';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { createFullOnboarding } from './api';
 
 const queryKey = ['@employees/full-onboarding'];
-
-export function useGetAllFullOnboardingQuery() {
-  return useQuery({
-    queryKey: queryKey,
-    queryFn: async () => await getAllFullOnboarding(),
-  });
-}
 
 export function useCreateFullOnboardingMutation() {
   const queryClient = useQueryClient();

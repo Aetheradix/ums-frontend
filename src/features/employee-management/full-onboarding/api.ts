@@ -11,12 +11,3 @@ export async function createFullOnboarding(
 
   return !error ? data : undefined;
 }
-
-export async function getAllFullOnboarding() {
-  const { error, data } =
-    await ApiService.get<EmployeeManagement.FullOnboardingItem[]>(
-      fullOnboardingUrl
-    );
-
-  return !error ? data : [];
-}
