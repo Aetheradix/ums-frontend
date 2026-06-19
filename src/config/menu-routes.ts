@@ -5,7 +5,7 @@ import { hasPermission } from 'shared/utils/permissionCheck';
 export const menuConfig: Menu.MenuItem[] = [
   {
     label: 'Core Administrative Services',
-    slug: 'core-administrative-services',
+    slug: 'master-data',
     category: 'Administrative',
     icon: 'school',
     colorScheme: 'red',
@@ -452,7 +452,8 @@ export const menuConfig: Menu.MenuItem[] = [
       {
         label: 'CMS Management',
         slug: 'cms-management',
-        description: 'Manage website content including courses, departments, faculty, news, downloads, gallery, facilities, stats, and notices.',
+        description:
+          'Manage website content including courses, departments, faculty, news, downloads, gallery, facilities, stats, and notices.',
         path: '/home/sub-menu/cms-management',
         icon: 'web',
         colorScheme: 'blue',
