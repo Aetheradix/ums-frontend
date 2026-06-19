@@ -158,25 +158,29 @@ const schema =
       societyRegistrationDate: o.date().required(),
       isOtherInstitutionRunning: o
         .boolean()
+        .valid(true, false)
         .required()
-        .messages({ 'boolean.base': 'Required' }),
+        .messages({ 'boolean.base': 'Required', 'any.required': 'Required' }),
 
       // Step 3 — Course Details
       courses: o
         .array()
         .items(
-          o.object().keys({
-            collegeCourseDetailId: o.number().optional(),
-            registrationId: o.number().optional(),
-            courseId: o
-              .number()
-              .required()
-              .messages({ 'number.base': 'Required' }),
-            subjectIds: o.array().items(o.number()).min(1).required(),
-            totalAmount: o.number().optional(),
-            isFeePaid: o.boolean().optional(),
-            paymentDate: o.string().allow('', null).optional(),
-          })
+          o
+            .object()
+            .keys({
+              collegeCourseDetailId: o.number().optional(),
+              registrationId: o.number().optional(),
+              courseId: o
+                .number()
+                .required()
+                .messages({ 'number.base': 'Required' }),
+              subjectIds: o.array().items(o.number()).min(1).required(),
+              totalAmount: o.number().optional(),
+              isFeePaid: o.boolean().optional(),
+              paymentDate: o.string().allow('', null).optional(),
+            })
+            .unknown(true)
         )
         .min(1)
         .required()
@@ -186,19 +190,26 @@ const schema =
         }),
 
       // Step 4 — Enclosures
-      nocFile: pdfFileValidator(o).required(),
-      affidavitFile: pdfFileValidator(o).required(),
+      nocFile: pdfFileValidator(o).optional(),
+      affidavitFile: pdfFileValidator(o).optional(),
       regularAuthorityFile: pdfFileValidator(o).optional().allow(null),
     })
   );
 
 export function useCollegeApplicationForm() {
-  const { register, control, handleSubmit, reset, trigger, setValue } =
-    useAppForm<AffiliationManagementSystem.CollegeApplicationFormData>({
-      resolver: validation.resolver(schema),
-      mode: 'onChange',
-      defaultValues: {},
-    });
+  const {
+    register,
+    control,
+    handleSubmit,
+    reset,
+    trigger,
+    setValue,
+    resetField,
+  } = useAppForm<AffiliationManagementSystem.CollegeApplicationFormData>({
+    resolver: validation.resolver(schema),
+    mode: 'onChange',
+    defaultValues: {},
+  });
 
   return {
     register,
@@ -207,5 +218,6 @@ export function useCollegeApplicationForm() {
     reset,
     trigger,
     setValue,
+    resetField,
   };
 }
