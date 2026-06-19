@@ -1,3 +1,4 @@
+import React from 'react';
 import { ProtectedRoute } from 'auth';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import MainLayout from 'shared/components/layout/MainLayout';
@@ -10,10 +11,52 @@ import Home from './home';
 import Master from './master';
 import Settings from './settings';
 import Sis from './sis';
+import PublicPortalLayout from './public-portal/layout/PublicPortalLayout';
+
+const PublicHome = React.lazy(() => import('./public-portal/pages/Home'));
+const PublicSolutions = React.lazy(
+  () => import('./public-portal/pages/Solutions')
+);
+const PublicAbout = React.lazy(() => import('./public-portal/pages/About'));
+const PublicContact = React.lazy(() => import('./public-portal/pages/Contact'));
 
 export default function Features() {
   return (
     <Routes>
+      {/* Public Marketing Landing Pages */}
+      <Route
+        path="/"
+        element={
+          <PublicPortalLayout>
+            <PublicHome />
+          </PublicPortalLayout>
+        }
+      />
+      <Route
+        path="solutions"
+        element={
+          <PublicPortalLayout>
+            <PublicSolutions />
+          </PublicPortalLayout>
+        }
+      />
+      <Route
+        path="about"
+        element={
+          <PublicPortalLayout>
+            <PublicAbout />
+          </PublicPortalLayout>
+        }
+      />
+      <Route
+        path="contact"
+        element={
+          <PublicPortalLayout>
+            <PublicContact />
+          </PublicPortalLayout>
+        }
+      />
+
       <Route path="public/*" element={<div>Public Page Placeholder</div>} />
       <Route
         path="callback"
