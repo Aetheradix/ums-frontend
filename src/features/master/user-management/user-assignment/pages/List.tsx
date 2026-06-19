@@ -1,5 +1,5 @@
 import type { OverlayPanel } from 'primereact/overlaypanel';
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useMemo, useRef, useState } from 'react';
 import { ToastService } from 'services';
 import { Button } from 'shared/components/buttons';
 import { Loader } from 'shared/components/progress';
@@ -15,6 +15,7 @@ import '../../components/RoleSplitLayout.css';
 import UserAssignmentForm from '../components/UserAssignmentForm';
 import {
   useCreateUserAssignmentMutation,
+  useDeleteUserAssignmentMutation,
   useUpdateUserAssignmentMutation,
   useUserAssignmentsQuery,
 } from '../queries';
@@ -27,26 +28,13 @@ type PopupState =
 
 export default function List() {
   const { data, isLoading } = useUserAssignmentsQuery();
+  const { mutateAsync: deleteAssignment } = useDeleteUserAssignmentMutation();
 
   const editOverlayRef = useRef<OverlayPanel>(null);
-  const editButtonRef = useRef<HTMLButtonElement | null>(null);
 
   const [popup, setPopup] = useState<PopupState>({ mode: 'closed' });
   const [selectedRole, setSelectedRole] =
     useState<UserManagement.UserRoleList | null>(null);
-
-  useEffect(() => {
-    if (!selectedRole && data && data.length > 0) {
-      const firstRoleName = data[0].roleName;
-
-      setSelectedRole({
-        id: firstRoleName,
-        name: firstRoleName,
-        description: '',
-        isActive: true,
-      } as UserManagement.UserRoleList);
-    }
-  }, [data, selectedRole]);
 
   const filteredAssignments = useMemo(() => {
     if (!selectedRole) return [];
@@ -61,30 +49,26 @@ export default function List() {
     setPopup({ mode: 'closed' });
   }, []);
 
-  const handleEditAssignmentClick = (
-    item: UserManagement.UserAssignmentList,
-    event: React.MouseEvent<HTMLButtonElement>
+  const handleDeleteAssignment = async (
+    item: UserManagement.UserAssignmentList
   ) => {
-    const target = event.currentTarget;
-    editButtonRef.current = target;
-
-    setPopup({ mode: 'edit', item });
-
-    setTimeout(() => {
-      editOverlayRef.current?.toggle(event, target);
-    }, 0);
-  };
-
-  const handleDeleteAssignment = (_item: UserManagement.UserAssignmentList) => {
-    // TODO: connect delete user assignment API when available
-    ToastService.error('Delete user assignment API is not connected yet.');
+    if (
+      !window.confirm(
+        `Are you sure you want to remove "${item.userName}" from role "${item.roleName}"?`
+      )
+    )
+      return;
+    try {
+      const ok = await deleteAssignment(item);
+      if (ok) ToastService.success('User assignment deleted successfully.');
+      else ToastService.error('Failed to delete user assignment.');
+    } catch {
+      ToastService.error('Failed to delete user assignment.');
+    }
   };
 
   return (
-    <FormPage
-      title="User Assignments"
-      description="Manage user assignments in the system."
-    >
+    <FormPage title="User Assignments">
       <FormCard>
         <div className="role-split-layout">
           <RoleSidePanel
@@ -94,12 +78,6 @@ export default function List() {
 
           <div className="role-main-panel">
             {isLoading ? <Loader /> : undefined}
-
-            <div className="role-main-header">
-              <div>
-                <h3 className="role-main-title">User Assignments</h3>
-              </div>
-            </div>
 
             <InlineCreatePanel
               visible={popup.mode === 'create'}
@@ -121,7 +99,7 @@ export default function List() {
             ) : (
               <GridPanel
                 data={filteredAssignments}
-                emptyMessage={`No user assignments found for ${selectedRole?.name}.`}
+                emptyMessage={`No Records found.`}
                 columns={[
                   { field: 'userName', header: 'User' },
                   { field: 'roleName', header: 'Role' },
@@ -132,18 +110,6 @@ export default function List() {
                     width: '120px',
                     cell: (item: UserManagement.UserAssignmentList) => (
                       <div className="grid-row-actions-center">
-                        <button
-                          type="button"
-                          className="grid-action-icon-btn grid-action-edit-btn"
-                          aria-label="Edit user assignment"
-                          title="Edit"
-                          onClick={event =>
-                            handleEditAssignmentClick(item, event)
-                          }
-                        >
-                          <i className="pi pi-pencil" />
-                        </button>
-
                         <button
                           type="button"
                           className="grid-action-icon-btn grid-action-delete-btn"

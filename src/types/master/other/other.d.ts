@@ -200,5 +200,7 @@ declare namespace Master {
       id: string;
       text: string;
     }
+
+    type AppointedCategoryItems = Data.DataItem<string>;
   }
 }

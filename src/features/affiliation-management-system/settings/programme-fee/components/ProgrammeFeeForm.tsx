@@ -22,9 +22,9 @@ export default function ProgrammeFeeForm(props: ProgrammeFeeFormProps) {
         <SelectProgramme {...register('programmeId')} />
 
         <TextBox
-          label="Fixed Deposit Amount"
-          placeholder="Enter Fixed Deposit Amount"
-          {...register('fixedDepositAmount')}
+          label="Security Deposit Amount"
+          placeholder="Enter Security Deposit Amount"
+          {...register('securityDepositAmount')}
           required
         />
 

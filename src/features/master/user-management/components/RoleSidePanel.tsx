@@ -5,6 +5,7 @@ import { Loader } from 'shared/components/progress';
 import RoleForm from '../role/components/RoleForm';
 import {
   useCreateUserRoleMutation,
+  useDeleteUserRoleMutation,
   useUpdateUserRoleMutation,
   useUserRoleQuery,
   useUserRolesQuery,
@@ -26,6 +27,7 @@ export default function RoleSidePanel({
   onRoleSelect,
 }: RoleSidePanelProps) {
   const { data, isLoading } = useUserRolesQuery();
+  const { mutateAsync: deleteRole } = useDeleteUserRoleMutation();
 
   const [search, setSearch] = useState('');
   const [panelMode, setPanelMode] = useState<RolePanelMode>({
@@ -36,9 +38,16 @@ export default function RoleSidePanel({
     setPanelMode({ mode: 'closed' });
   }, []);
 
-  const handleDeleteRole = () => {
-    // TODO: connect delete role API when available
-    ToastService.error('Delete role API is not connected yet.');
+  const handleDeleteRole = async (role: UserManagement.UserRoleList) => {
+    if (!window.confirm(`Are you sure you want to delete role "${role.name}"?`))
+      return;
+    try {
+      const ok = await deleteRole(role.id);
+      if (ok) ToastService.success('Role deleted successfully.');
+      else ToastService.error('Failed to delete role.');
+    } catch {
+      ToastService.error('Failed to delete role.');
+    }
   };
 
   const filteredRoles = useMemo(() => {
@@ -186,7 +195,7 @@ export default function RoleSidePanel({
                     title="Delete role"
                     onClick={event => {
                       event.stopPropagation();
-                      handleDeleteRole();
+                      handleDeleteRole(role);
                     }}
                   >
                     <i className="pi pi-trash" />

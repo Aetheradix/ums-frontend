@@ -1,13 +1,31 @@
-import { useAppForm } from 'shared/hooks/form';
+import { useForm, type Path } from 'react-hook-form';
 import validation from 'shared/utils/validation';
 import type { ApplicationFormData } from '../types';
 
+const priorEducationEntrySchema = validation.create<any>(o => ({
+  educationLevel: o.string().required(),
+  institutionName: o.string().required().max(150),
+  boardOrUniversity: o.string().required().max(150),
+  passingYear: o
+    .number()
+    .required()
+    .min(1900)
+    .max(new Date().getFullYear() + 1),
+  percentage: o.number().allow(null).min(0).max(100).optional(),
+  cgpa: o.number().allow(null).min(0).max(10).optional(),
+  subjectsOrStream: o.string().required().max(100),
+  documentType: o.string().required().max(50),
+  documentFile: o.any().optional().allow(null),
+  documentId: o.string().required().messages({
+    'string.empty': 'Please upload a marksheet or certificate for this entry.',
+    'any.required': 'Please upload a marksheet or certificate for this entry.',
+  }),
+}));
+
 const schema = validation.create<ApplicationFormData>(o => ({
-  // Top-level
   academicSession: o.any().required(),
   programme: o.any().required(),
 
-  // Basic Info
   firstName: o.string().required().max(45),
   middleName: o.string().allow('', null).optional().max(45),
   lastName: o.string().required().max(45),
@@ -16,9 +34,7 @@ const schema = validation.create<ApplicationFormData>(o => ({
     .string()
     .required()
     .pattern(/^[0-9]{10}$/)
-    .messages({
-      'string.pattern.base': 'Phone number must be 10 digits',
-    }),
+    .messages({ 'string.pattern.base': 'Phone number must be 10 digits' }),
   gender: o.any().required(),
   caste: o.any().required(),
   dateOfBirth: o.date().required(),
@@ -49,14 +65,20 @@ const schema = validation.create<ApplicationFormData>(o => ({
   ethnicity: o.string().required().max(20),
   nationality: o.any().required(),
 
-  // Academic
   degreeLevel: o.any().required(),
   programOfStudy: o.any().required(),
   specialisation: o.any().required(),
-  previousInstitutionType: o.string().required().max(15),
-  previousInstitutionCgpa: o.number().required().min(0).max(10),
 
-  // Address
+  priorEducations: o
+    .array()
+    .items(priorEducationEntrySchema)
+    .min(1)
+    .required()
+    .messages({
+      'array.min': 'At least one prior education record is required.',
+      'any.required': 'At least one prior education record is required.',
+    }),
+
   addressType: o.any().required(),
   country: o.string().required().max(20),
   state: o.any().required(),
@@ -68,20 +90,27 @@ const schema = validation.create<ApplicationFormData>(o => ({
   addressLine2: o.string().required().max(150),
   landmark: o.string().required().max(40),
   zipcode: o.number().required().max(2147483647),
+  choiceFilling: o.array().items(o.any()).min(1).required().messages({
+    'array.min':
+      'Please lock at least one choice before proceeding to the next step.',
+    'any.required':
+      'Please lock at least one choice before proceeding to the next step.',
+  }),
 }));
 
 export function useApplicationForm() {
-  const { register, handleSubmit, reset, control, trigger, getValues } =
-    useAppForm<ApplicationFormData>({
-      resolver: validation.resolver(schema),
-    });
+  const methods = useForm<ApplicationFormData>({
+    mode: 'onSubmit',
+    resolver: validation.resolver(schema),
+    defaultValues: {
+      priorEducations: [],
+    },
+    shouldFocusError: false,
+  });
 
-  return {
-    register,
-    handleSubmit,
-    reset,
-    control,
-    trigger,
-    getValues,
-  };
+  function register(key: Path<ApplicationFormData>) {
+    return { control: methods.control, name: key };
+  }
+
+  return { methods, register };
 }

@@ -26,13 +26,18 @@ const schema = validation.create<EmployeeManagement.QuickOnboardingForm>(o => ({
 
   firstName: o.string().required().max(50).label('First Name'),
 
-  middleName: o.string().allow('').max(50).label('Middle Name'),
+  middleName: o
+    .string()
+    .allow('', null)
+    .optional()
+    .max(50)
+    .label('Middle Name'),
 
   lastName: o.string().required().max(50).label('Last Name'),
 
   gender: o.string().required().label('Gender'),
 
-  appointedCategory: o.string().required().max(15).label('Appointed Category'),
+  casteId: o.number().required().min(1).label('Category'),
 
   mobileNumber: o
     .string()
@@ -51,54 +56,22 @@ const schema = validation.create<EmployeeManagement.QuickOnboardingForm>(o => ({
   dateOfBirth: o.date().required().label('Date of Birth'),
 
   // Employee Code
-  employeeCodeSelection: o.string().required().label('Employee Code Selection'),
-
-  employeeCode: o
-    .string()
-    .max(50)
-    .label('Employee Code')
-    .when('employeeCodeSelection', {
-      is: 'Manual',
-      then: o.string().required(),
-      otherwise: o.string().allow(''),
-    }),
+  employeeCode: o.string().required().max(50).label('Employee Code'),
 }));
 
 export function useQuickOnboardingForm(
   submitCallback: Forms.SubmitFunc<EmployeeManagement.QuickOnboardingForm>,
   fetchData?: Forms.FetchDataFunc<EmployeeManagement.QuickOnboardingForm>
 ) {
-  const { register, control, handleSubmit, reset, setValue, watch } =
+  const { register, handleSubmit, reset, setValue, watch } =
     useAppForm<EmployeeManagement.QuickOnboardingForm>({
-      defaultValues: fetchData || {
-        employeeType: '',
-        employeeNatureId: null,
-        organizationUnitId: null,
-        postId: null,
-        designationId: null,
-        seniorityRank: '',
-        subjectSpecializationId: null,
-
-        salutation: '',
-        firstName: '',
-        middleName: '',
-        lastName: '',
-        gender: '',
-        appointedCategory: '',
-        mobileNumber: '',
-        officialEmail: '',
-        dateOfBirth: null,
-
-        employeeCodeSelection: 'AutoGenerate',
-        employeeCode: '',
-      },
+      defaultValues: fetchData,
 
       resolver: validation.resolver(schema),
     });
 
   return {
     register,
-    control,
     handleSubmit: handleSubmit(submitCallback),
     reset,
     setValue,

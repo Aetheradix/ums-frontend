@@ -10,13 +10,9 @@ import { useEffect, useRef } from 'react';
 import type { Control, Path, UseFormSetValue } from 'react-hook-form';
 import { Controller, useFieldArray, useWatch } from 'react-hook-form';
 import { Button } from 'shared/components/buttons';
-import {
-  CheckboxList,
-  DatePicker,
-  TextArea,
-  TextBox,
-} from 'shared/components/forms';
+import { DatePicker, TextArea, TextBox } from 'shared/components/forms';
 import { FormCard, FormGrid } from 'shared/new-components';
+import '../pages/Create.css';
 
 interface CollegeRegistrationStepProps {
   register: (
@@ -27,6 +23,7 @@ interface CollegeRegistrationStepProps {
   };
   control: Control<AffiliationManagementSystem.CollegeApplicationFormData>;
   setValue: UseFormSetValue<AffiliationManagementSystem.CollegeApplicationFormData>;
+  isEdit?: boolean;
 }
 
 const getFacilityIcon = (facilityName: string) => {
@@ -48,6 +45,7 @@ export default function CollegeRegistrationStep({
   register,
   control,
   setValue,
+  isEdit = false,
 }: CollegeRegistrationStepProps) {
   const { data: facilityData } = useAvailableFacilitiesQuery();
 
@@ -111,12 +109,21 @@ export default function CollegeRegistrationStep({
       icon="building"
     >
       <FormGrid columns={3}>
+        {isEdit && (
+          <TextBox
+            label="Application Number"
+            placeholder="Application number"
+            {...register('applicationNumber')}
+            readOnly
+          />
+        )}
         <TextBox
           label="College Code"
           placeholder="College code"
           {...register('collegeCode')}
           maxLength={15}
           required
+          readOnly={isEdit}
         />
         <Controller
           control={control}
@@ -183,14 +190,14 @@ export default function CollegeRegistrationStep({
         <SelectCollegeCategory
           label="College Category"
           defaultOptionText="Select college category"
-          {...register('collegeCategory')}
+          {...register('collegeCategoryId')}
           required
         />
 
         <SelectCollegeType
           label="College Type"
           defaultOptionText="Select college type"
-          {...register('collegeType')}
+          {...register('collegeTypeId')}
           required
         />
 
@@ -206,95 +213,101 @@ export default function CollegeRegistrationStep({
           {...register('accommodationType')}
           required
         />
+      </FormGrid>
 
-        <div className="affiliation-grid-full affiliation-facility-section">
-          <div className="affiliation-facility-header-row">
-            <h4>Available Facilities</h4>
+      {/* ── Available Facilities (own full-width row) ── */}
+      <div className="affiliation-facility-section">
+        <div className="affiliation-facility-header-row">
+          <h4>Available Facilities</h4>
 
-            <p className="affiliation-facility-note">
-              <i className="pi pi-info-circle" />
-              <span>
-                <strong>Note:</strong> If any of your available facilities are
-                not listed, please select the “Other” option and add them.
-              </span>
-            </p>
-          </div>
-
-          <CheckboxList
-            name="availableFacilities"
-            control={control}
-            options={facilityOptions}
-            getLabel={opt => opt.facilityName}
-            getValue={opt => opt.id}
-            columns={4}
-            className="affiliation-facility-list"
-            itemClassName="affiliation-facility-item"
-            renderOption={opt => (
-              <div className="affiliation-facility-content">
-                <div className="affiliation-facility-left">
-                  <span className="affiliation-facility-icon-box">
-                    <i className={opt.icon} />
-                  </span>
-
-                  <span className="affiliation-facility-text">
-                    {opt.facilityName}
-                  </span>
-                </div>
-              </div>
-            )}
-          />
+          <p className="affiliation-facility-note">
+            <i className="pi pi-info-circle" />
+            <span>
+              <strong>Note:</strong> If any of your available facilities are not
+              listed, please select the &quot;Other&quot; option and add them.
+            </span>
+          </p>
         </div>
 
-        {isOtherSelected && (
-          <div className="affiliation-grid-full">
-            <div className="affiliation-other-facility-panel">
-              <div className="affiliation-other-facility-header">
-                <h4>Add Other Facilities</h4>
-
-                <Button
-                  type="button"
-                  variant="outlined"
-                  icon="plus"
-                  label="Add More"
-                  onClick={() => append({ facilityName: '' })}
-                />
+        <Controller
+          control={control}
+          name="availableFacilities"
+          render={({ field }) => {
+            const selected: Record<number, boolean> = field.value || {};
+            return (
+              <div className="affiliation-facility-grid">
+                {facilityOptions.map(opt => {
+                  const isChecked = !!selected[opt.id];
+                  return (
+                    <button
+                      key={opt.id}
+                      type="button"
+                      aria-pressed={isChecked}
+                      className={`affiliation-facility-card${isChecked ? ' is-selected' : ''}`}
+                      onClick={() =>
+                        field.onChange({ ...selected, [opt.id]: !isChecked })
+                      }
+                    >
+                      <span className="afc-check">
+                        {isChecked && <i className="pi pi-check" />}
+                      </span>
+                      <span className="afc-icon">
+                        <i className={opt.icon} />
+                      </span>
+                      <span className="afc-label">{opt.facilityName}</span>
+                    </button>
+                  );
+                })}
               </div>
+            );
+          }}
+        />
+      </div>
 
-              <div className="affiliation-other-facility-body">
-                {fields.map((field, index) => (
-                  <div
-                    key={field.id}
-                    className="affiliation-other-facility-row"
-                  >
-                    <label className="affiliation-other-facility-label">
-                      Other Facility {index + 1}
-                      <span>*</span>
-                    </label>
+      {isOtherSelected && (
+        <div className="affiliation-other-facility-panel">
+          <div className="affiliation-other-facility-header">
+            <h4>Add Other Facilities</h4>
 
-                    <div className="affiliation-other-facility-input-wrap">
-                      <TextBox
-                        placeholder="Enter facility name"
-                        {...register(
-                          `otherFacilities.${index}.facilityName` as const
-                        )}
-                        required
-                      />
-
-                      <Button
-                        type="button"
-                        variant="text"
-                        className="affiliation-other-facility-delete"
-                        icon="trash"
-                        onClick={() => handleRemoveOtherFacility(index)}
-                      />
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
+            <Button
+              type="button"
+              variant="outlined"
+              icon="plus"
+              label="Add More"
+              onClick={() => append({ facilityName: '' })}
+            />
           </div>
-        )}
-      </FormGrid>
+
+          <div className="affiliation-other-facility-body">
+            {fields.map((field, index) => (
+              <div key={field.id} className="affiliation-other-facility-row">
+                <label className="affiliation-other-facility-label">
+                  Other Facility {index + 1}
+                  <span>*</span>
+                </label>
+
+                <div className="affiliation-other-facility-input-wrap">
+                  <TextBox
+                    placeholder="Enter facility name"
+                    {...register(
+                      `otherFacilities.${index}.facilityName` as const
+                    )}
+                    required
+                  />
+
+                  <Button
+                    type="button"
+                    variant="text"
+                    className="affiliation-other-facility-delete"
+                    icon="trash"
+                    onClick={() => handleRemoveOtherFacility(index)}
+                  />
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
     </FormCard>
   );
 }
