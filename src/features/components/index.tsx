@@ -11,6 +11,7 @@ import SelectCollegeArea from './SelectCollegeArea';
 import SelectDeficiencyStatus from './SelectDeficiencyStatus';
 import SelectYesNo from './SelectYesNo';
 import SelectDepartmentGroupType from './SelectDepartmentGroupType';
+import SelectDepartmentGroup from './SelectDepartmentGroup';
 
 export {
   ActionButtons,
@@ -26,4 +27,5 @@ export {
   SelectDeficiencyStatus,
   SelectYesNo,
   SelectDepartmentGroupType,
+  SelectDepartmentGroup,
 };
