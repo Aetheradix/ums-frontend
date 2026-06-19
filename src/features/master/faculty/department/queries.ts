@@ -3,6 +3,7 @@ import {
   createDepartment,
   getDepartment,
   getDepartments,
+  getDepartmentsByGroup,
   patchDepartmentStatus,
   updateDepartment,
 } from './api';
@@ -16,6 +17,20 @@ export function useDepartmentsQuery() {
   });
 
   return { data, isLoading };
+}
+
+export function useDepartmentsByGroupQuery(departmentGroupId?: number) {
+  const {
+    data = [],
+    isLoading,
+    refetch,
+  } = useQuery({
+    queryKey: [...QUERY_KEY, 'by-group', departmentGroupId],
+    queryFn: () => getDepartmentsByGroup(departmentGroupId!),
+    enabled: !!departmentGroupId,
+  });
+
+  return { data, isLoading, refetch };
 }
 
 export function useCreateDepartmentMutation() {

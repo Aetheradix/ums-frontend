@@ -14,6 +14,20 @@ export async function getDepartmentGroups() {
   })) as Master.Employee.DepartmentGroupItem[];
 }
 
+export async function getDepartmentGroupsByGroupType(
+  departmentGroupTypeId: number
+) {
+  const result = await ApiService.getList<any>(
+    `${DEPARTMENT_GROUP_URL}/by-type/${departmentGroupTypeId}`
+  );
+  if (!result) return [];
+
+  return result.map(item => ({
+    ...item,
+    id: item.departmentGroupId,
+  })) as Master.Employee.DepartmentGroupItem[];
+}
+
 export async function getDepartmentGroup(id: number) {
   const { data } = await ApiService.get<any>(`${DEPARTMENT_GROUP_URL}/${id}`);
   if (!data) return undefined;

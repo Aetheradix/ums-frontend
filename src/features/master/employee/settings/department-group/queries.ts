@@ -3,6 +3,7 @@ import {
   createDepartmentGroup,
   getDepartmentGroup,
   getDepartmentGroups,
+  getDepartmentGroupsByGroupType,
   patchDepartmentGroupStatus,
   updateDepartmentGroup,
 } from './api';
@@ -16,6 +17,22 @@ export function useDepartmentGroupsQuery() {
   });
 
   return { data, isLoading };
+}
+
+export function useDepartmentGroupsByGroupTypeQuery(
+  departmentGroupTypeId?: number
+) {
+  const {
+    data = [],
+    isLoading,
+    refetch,
+  } = useQuery({
+    queryKey: [...QUERY_KEY, 'by-type', departmentGroupTypeId],
+    queryFn: () => getDepartmentGroupsByGroupType(departmentGroupTypeId!),
+    enabled: !!departmentGroupTypeId,
+  });
+
+  return { data, isLoading, refetch };
 }
 
 export function useCreateDepartmentGroupMutation() {

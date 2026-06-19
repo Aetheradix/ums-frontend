@@ -12,6 +12,9 @@ import SelectDeficiencyStatus from './SelectDeficiencyStatus';
 import SelectYesNo from './SelectYesNo';
 import SelectDepartmentGroupType from './SelectDepartmentGroupType';
 import SelectDepartmentGroup from './SelectDepartmentGroup';
+import SelectDesignationByEmployeeType from './SelectDesignationByEmployeeType';
+import SelectDepartmentGroupByGroupType from './SelectDepartmentGroupByGroupType';
+import SelectDepartmentByGroup from './SelectDepartmentByGroup';
 
 export {
   ActionButtons,
@@ -28,4 +31,7 @@ export {
   SelectYesNo,
   SelectDepartmentGroupType,
   SelectDepartmentGroup,
+  SelectDesignationByEmployeeType,
+  SelectDepartmentGroupByGroupType,
+  SelectDepartmentByGroup,
 };

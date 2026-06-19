@@ -3,6 +3,7 @@ import {
   createDesignation,
   getDesignation,
   getDesignations,
+  getDesignationsByEmployeeType,
   deleteDesignation,
   updateDesignation,
   patchDesignationStatus,
@@ -18,6 +19,20 @@ export function useDesignationsQuery() {
   } = useQuery({
     queryKey: QUERY_KEY,
     queryFn: getDesignations,
+  });
+
+  return { data, isLoading, refetch };
+}
+
+export function useDesignationsByEmployeeTypeQuery(employeeType?: string) {
+  const {
+    data = [],
+    isLoading,
+    refetch,
+  } = useQuery({
+    queryKey: [...QUERY_KEY, 'by-employee-type', employeeType],
+    queryFn: () => getDesignationsByEmployeeType(employeeType!),
+    enabled: !!employeeType,
   });
 
   return { data, isLoading, refetch };

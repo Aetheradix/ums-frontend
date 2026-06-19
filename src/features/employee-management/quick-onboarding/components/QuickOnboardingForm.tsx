@@ -1,11 +1,11 @@
 import SelectCaste from 'features/components/SelectCaste';
 import SelectDesignation from 'features/components/SelectDesignation';
+import SelectEmployeeType from 'features/components/SelectEmployeeType';
 import SelectGender from 'features/components/SelectGender';
 import SelectNatureOfEmployment from 'features/components/SelectNatureOfEmployment';
 import SelectOrganizationUnit from 'features/components/SelectOrganizationUnit';
 import SelectPost from 'features/components/SelectPost';
 import SelectSalutation from 'features/components/SelectSalutation';
-import SelectServiceCadre from 'features/components/SelectServiceCadre';
 import SelectSubjectSpecialization from 'features/components/SelectSubjectSpecialization';
 import { Button } from 'shared/components/buttons';
 import { DatePicker, TextBox } from 'shared/components/forms';
@@ -90,7 +90,7 @@ export default function QuickOnboardingForm(props: Props) {
 
         <FormCard title="Employee Information" icon="briefcase">
           <FormGrid columns={3}>
-            <SelectServiceCadre
+            <SelectEmployeeType
               {...register('employeeType')}
               label="Employee Type"
               required
