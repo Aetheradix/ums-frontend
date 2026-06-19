@@ -35,16 +35,16 @@ export default function List() {
               {
                 header: 'Action',
                 sortable: false,
-                cell: (item: EmployeeManagement.EmployeeBasicInfoDto) => (
+                cell: (item: EmployeeManagement.QuickOnboardingItem) => (
                   <GridActionButtons
                     onView={() =>
                       navigate(
-                        `/employee-management/manage-employees/${item.id}`
+                        `/employee-management/manage-employees/${item.employeeId}`
                       )
                     }
                     onEdit={() =>
                       navigate(
-                        `/employee-management/manage-employees/${item.id}/edit`
+                        `/employee-management/manage-employees/${item.employeeId}/edit`
                       )
                     }
                     onDelete={() => {}}

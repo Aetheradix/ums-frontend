@@ -554,6 +554,16 @@ export const menuConfig: Menu.MenuItem[] = [
             action: 'write',
           },
           {
+            label: 'Full Onboarding',
+            slug: 'full-onboarding',
+            description: 'Full employee onboarding form.',
+            path: '/employee-management/full-onboarding',
+            icon: 'person_add',
+            colorScheme: 'red',
+            feature: '@employee-management/full-onboarding',
+            action: 'write',
+          },
+          {
             label: 'Manage Employee',
             slug: 'manage-employees',
             description: 'Manage and view employees list.',

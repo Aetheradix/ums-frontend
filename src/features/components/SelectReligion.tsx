@@ -1,39 +1,28 @@
-import { useBlocksQuery } from 'features/master/location/block/queries';
+import { useReligionsQuery } from 'features/master/hr/religion/queries';
 import type { FieldValues } from 'react-hook-form';
 import { DropDownList } from 'shared/components/forms';
 
-interface SelectBlockProps<
+interface SelectReligionProps<
   T extends FieldValues,
 > extends Controls.FormProps<T> {
   label?: string;
   disabled?: boolean;
-  tehsilId?: number | string | null;
 }
 
-export default function SelectBlock<T extends FieldValues>({
+export default function SelectReligion<T extends FieldValues>({
   defaultOptionText,
-  label = 'Block',
-  tehsilId,
+  label = 'Religion',
   ...props
-}: SelectBlockProps<T> &
+}: SelectReligionProps<T> &
   Controls.InputBlockProps & { defaultOptionText?: string }) {
-  const { data, isLoading } = useBlocksQuery();
-
+  const { data, isLoading } = useReligionsQuery();
   const activeData =
-    data?.filter((item: Master.BlockItem) => item.isActive === true) || [];
-
-  const filteredData =
-    tehsilId !== undefined
-      ? activeData.filter(
-          (item: Master.BlockItem) => String(item.tehsilId) === String(tehsilId)
-        )
-      : activeData;
-
-  const isDisabled = tehsilId !== undefined ? !tehsilId : props.disabled;
+    data?.filter((item: Master.HR.ReligionItem) => item.isActive === true) ||
+    [];
 
   return (
     <DropDownList
-      data={filteredData}
+      data={activeData}
       loading={isLoading}
       textField="name"
       valueField="id"
@@ -47,7 +36,6 @@ export default function SelectBlock<T extends FieldValues>({
           : defaultOptionText
       }
       {...props}
-      disabled={isDisabled}
     />
   );
 }

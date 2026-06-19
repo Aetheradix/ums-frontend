@@ -1,7 +1,35 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { createCollegeRegistration, updateCollegeRegistration } from './api';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import {
+  createCollegeRegistration,
+  updateCollegeRegistration,
+  getCollegeRegistrations,
+  getCollegesByCollegeType,
+} from './api';
 
 const QUERY_KEY = ['@affiliation/college-registration'];
+
+export function useAllCollegeRegistrationsQuery() {
+  const {
+    data = [],
+    isLoading,
+    refetch,
+  } = useQuery({
+    queryKey: QUERY_KEY,
+    queryFn: getCollegeRegistrations,
+  });
+
+  return { data, isLoading, refetch };
+}
+
+export function useCollegesByCollegeTypeQuery(collegeTypeId?: number) {
+  const { data = [], isLoading } = useQuery({
+    queryKey: [...QUERY_KEY, 'by-college-type', collegeTypeId],
+    queryFn: () => getCollegesByCollegeType(collegeTypeId!),
+    enabled: !!collegeTypeId,
+  });
+
+  return { data, isLoading };
+}
 
 export function useCreateCollegeRegistrationMutation() {
   const queryClient = useQueryClient();
