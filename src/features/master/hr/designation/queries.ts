@@ -31,11 +31,7 @@ export function useCreateDesignationMutation() {
 
     onSuccess(data) {
       if (!data) return;
-
-      const result =
-        queryClient.getQueryData<Master.HR.DesignationItem[]>(QUERY_KEY) ?? [];
-
-      queryClient.setQueryData(QUERY_KEY, [...result, data]);
+      queryClient.invalidateQueries({ queryKey: QUERY_KEY });
     },
   });
 }
@@ -54,6 +50,7 @@ export function useDesignationQuery(id: number) {
         name: data.name,
         code: data.code,
         sequenceNumber: data.sequenceNumber,
+        employeeType: data.employeeType,
       };
     },
   });
@@ -66,36 +63,9 @@ export function useUpdateDesignationMutation(id: number) {
     mutationFn: async (data: Master.HR.DesignationForm) =>
       await updateDesignation(id, data),
 
-    onSuccess(success, formData) {
+    onSuccess(success) {
       if (!success) return;
-
-      const result =
-        queryClient.getQueryData<Master.HR.DesignationItem[]>(QUERY_KEY) ?? [];
-
-      const index = result.findIndex(item => item.id === id);
-      if (index === -1) return;
-
-      const existing = result[index];
-
-      const itemToReplace: Master.HR.DesignationItem = {
-        id,
-        classId: formData.classId,
-        postId: formData.postId,
-        designationTypeId: formData.designationTypeId,
-        name: formData.name,
-        code: formData.code,
-        sequenceNumber: formData.sequenceNumber,
-        isActive: existing?.isActive ?? true,
-      };
-
-      const updatedItems = [
-        ...result.slice(0, index),
-        itemToReplace,
-        ...result.slice(index + 1),
-      ];
-
-      queryClient.setQueryData(QUERY_KEY, updatedItems);
-      queryClient.setQueryData([...QUERY_KEY, id], formData);
+      queryClient.invalidateQueries({ queryKey: QUERY_KEY });
     },
   });
 }
@@ -126,25 +96,9 @@ export function useDesignationActiveStatusMutation() {
     mutationFn: async (data: { id: number; isActive: boolean }) =>
       await patchDesignationStatus(data.id),
 
-    onSuccess(success, variables) {
+    onSuccess(success) {
       if (!success) return;
-
-      const result =
-        queryClient.getQueryData<Master.HR.DesignationItem[]>(QUERY_KEY) ?? [];
-
-      const index = result.findIndex(item => item.id === variables.id);
-      if (index === -1) return;
-
-      const updatedItem = {
-        ...result[index],
-        isActive: variables.isActive,
-      };
-
-      queryClient.setQueryData(QUERY_KEY, [
-        ...result.slice(0, index),
-        updatedItem,
-        ...result.slice(index + 1),
-      ]);
+      queryClient.invalidateQueries({ queryKey: QUERY_KEY });
     },
   });
 }
