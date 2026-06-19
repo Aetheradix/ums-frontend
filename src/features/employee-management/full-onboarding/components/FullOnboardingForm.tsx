@@ -108,11 +108,7 @@ export default function FullOnboardingForm(props: Props) {
 
               <SelectGender {...register('gender')} required />
 
-              <SelectCaste
-                {...register('appointedCategory')}
-                label="Category"
-                required
-              />
+              <SelectCaste {...register('casteId')} label="Caste" required />
 
               <TextBox
                 {...register('mobileNumber')}
@@ -264,14 +260,14 @@ export default function FullOnboardingForm(props: Props) {
                 {...register('alternateMobileNumber')}
                 label="Alternate Mobile"
                 placeholder="Enter alternate mobile"
-                maxLength={100}
+                maxLength={10}
               />
 
               <TextBox
                 {...register('officePhoneNumber')}
                 label="Office Phone"
                 placeholder="Enter office phone"
-                maxLength={100}
+                maxLength={10}
               />
 
               <TextBox
@@ -312,7 +308,7 @@ export default function FullOnboardingForm(props: Props) {
                 {...register('emergencyPhoneNumber')}
                 label="Emergency Mobile"
                 placeholder="Enter emergency phone"
-                maxLength={100}
+                maxLength={10}
                 required
               />
             </FormGrid>

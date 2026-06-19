@@ -8,7 +8,7 @@ const schema = validation.create<EmployeeManagement.FullOnboardingForm>(o => ({
   middleName: o.string().allow('').max(50).label('Middle Name'),
   lastName: o.string().required().max(50).label('Last Name'),
   gender: o.string().required().label('Gender'),
-  appointedCategory: o.string().required().max(15).label('Appointed Category'),
+  casteId: o.number().required().min(1).label('Caste'),
   mobileNumber: o
     .string()
     .required()
@@ -53,7 +53,8 @@ const schema = validation.create<EmployeeManagement.FullOnboardingForm>(o => ({
   alternateMobileNumber: o
     .string()
     .allow('')
-    .max(100)
+    .length(10)
+    .pattern(/^\d{10}$/)
     .label('Alternate Mobile'),
   officePhoneNumber: o.string().allow('').max(100).label('Office Phone'),
   emergencyContactName: o
