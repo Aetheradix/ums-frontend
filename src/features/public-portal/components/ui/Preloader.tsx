@@ -20,7 +20,7 @@ export default function Preloader({ onComplete }: PreloaderProps) {
   useEffect(() => {
     const fallbackTimer = setTimeout(() => {
       handleVideoEnd();
-    }, 15000); // 15 seconds max wait
+    }, 5000); // 5 seconds max wait
 
     return () => clearTimeout(fallbackTimer);
   }, []);
@@ -28,7 +28,7 @@ export default function Preloader({ onComplete }: PreloaderProps) {
   return (
     <div
       className={clsx(
-        'fixed inset-0 z-[999999] bg-navy flex items-center justify-center transition-opacity duration-700 ease-in-out',
+        'fixed inset-0 z-999999 bg-navy flex items-center justify-center transition-opacity duration-700 ease-in-out',
         isFading ? 'opacity-0 pointer-events-none' : 'opacity-100'
       )}
     >
@@ -38,6 +38,7 @@ export default function Preloader({ onComplete }: PreloaderProps) {
         muted
         playsInline
         onEnded={handleVideoEnd}
+        onError={handleVideoEnd}
         className="w-full h-full object-contain md:object-cover scale-105"
       />
 

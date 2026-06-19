@@ -11,7 +11,9 @@ import Home from './home';
 import Master from './master';
 import Settings from './settings';
 import Sis from './sis';
-import PublicPortalLayout from './public-portal/layout/PublicPortalLayout';
+import PublicPortalLayout, {
+  PublicRouteWrapper,
+} from './public-portal/layout/PublicPortalLayout';
 
 const PublicHome = React.lazy(() => import('./public-portal/pages/Home'));
 const PublicSolutions = React.lazy(
@@ -28,7 +30,9 @@ export default function Features() {
         path="/"
         element={
           <PublicPortalLayout>
-            <PublicHome />
+            <PublicRouteWrapper>
+              <PublicHome />
+            </PublicRouteWrapper>
           </PublicPortalLayout>
         }
       />
@@ -36,7 +40,9 @@ export default function Features() {
         path="solutions"
         element={
           <PublicPortalLayout>
-            <PublicSolutions />
+            <PublicRouteWrapper>
+              <PublicSolutions />
+            </PublicRouteWrapper>
           </PublicPortalLayout>
         }
       />
@@ -44,7 +50,9 @@ export default function Features() {
         path="about"
         element={
           <PublicPortalLayout>
-            <PublicAbout />
+            <PublicRouteWrapper>
+              <PublicAbout />
+            </PublicRouteWrapper>
           </PublicPortalLayout>
         }
       />
@@ -52,7 +60,9 @@ export default function Features() {
         path="contact"
         element={
           <PublicPortalLayout>
-            <PublicContact />
+            <PublicRouteWrapper>
+              <PublicContact />
+            </PublicRouteWrapper>
           </PublicPortalLayout>
         }
       />

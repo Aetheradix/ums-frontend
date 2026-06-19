@@ -4,17 +4,19 @@ import './UniversityLoader.css';
 interface UniversityLoaderProps {
   type?: 'full' | 'relative';
   text?: string;
+  bgTransparent?: boolean;
 }
 
 export default function UniversityLoader({
   type = 'full',
   text = 'Loading UMS Portal...',
+  bgTransparent = false,
 }: UniversityLoaderProps) {
   return (
     <div
       className={`page-loader-container ${
         type === 'relative' ? 'relative-loader' : ''
-      }`}
+      } ${bgTransparent ? 'bg-transparent' : ''}`}
     >
       <div className="page-loader-wrapper">
         <div className="page-loader-ring">

@@ -145,7 +145,7 @@ export default function GovernanceExcellence() {
   return (
     <section
       id="governance"
-      className="relative w-full py-4 md:py-16 bg-sky-50 overflow-hidden border-y border-sky-100 flex items-center min-h-[360px]"
+      className="relative w-full py-4 md:py-20 bg-sky-50 overflow-hidden border-y border-sky-100 flex items-center min-h-[360px]"
     >
       {/* Background glow effects */}
       <div className="absolute top-1/2 left-1/4 -translate-x-1/2 -translate-y-1/2 w-full max-w-2xl h-4/5 bg-blue-light/10 rounded-full blur-[120px] pointer-events-none z-0" />
@@ -159,7 +159,7 @@ export default function GovernanceExcellence() {
           loading="lazy"
         />
         {/* Soft sky-blue fade on the right of the left image to blend with center background */}
-        <div className="absolute inset-y-0 right-0 w-20 bg-gradient-to-l from-sky-50 via-sky-50/10 to-transparent z-10" />
+        <div className="absolute inset-y-0 right-0 w-20 bg-linear-to-l from-sky-50 via-sky-50/10 to-transparent z-10" />
       </div>
 
       {/* Main Content Area (Spans full width, on desktop occupies left ~70% to leave room for right building) */}
@@ -171,15 +171,15 @@ export default function GovernanceExcellence() {
               <span className="inline-block px-3 py-1 bg-blue-light text-[#1D4ED8] text-[10px] font-black uppercase tracking-[0.2em] rounded-md mb-3 border border-blue/10">
                 OUR STRENGTH
               </span>
-              <h2 className="font-display text-xl sm:text-3xl font-black text-navy leading-[1.25]">
+              <h2 className="font-display text-xl sm:text-3xl font-black text-navy leading-tight">
                 Governance <span className="text-[#1D4ED8]">Excellence</span>
               </h2>
             </div>
 
             {/* Trust Badges */}
             <div className="flex flex-row items-center gap-1.5 sm:gap-3 overflow-x-auto no-scrollbar py-1 w-full">
-              <div className="flex items-center gap-1 sm:gap-2 px-1.5 py-1 sm:px-2.5 sm:py-1.5 bg-gradient-to-r from-emerald-50 to-teal-50 backdrop-blur-md rounded-md sm:rounded-xl border border-emerald-200/60 shadow-[0_2px_8px_rgba(16,185,129,0.1)] hover:shadow-md hover:-translate-y-0.5 transition-all duration-300">
-                <div className="w-5 h-5 sm:w-7 sm:h-7 rounded-sm sm:rounded-lg bg-emerald-100 flex items-center justify-center border border-emerald-200/60 flex-shrink-0">
+              <div className="flex items-center gap-1 sm:gap-2 px-1.5 py-1 sm:px-2.5 sm:py-1.5 bg-linear-to-r from-emerald-50 to-teal-50 backdrop-blur-md rounded-md sm:rounded-xl border border-emerald-200/60 shadow-[0_2px_8px_rgba(16,185,129,0.1)] hover:shadow-md hover:-translate-y-0.5 transition-all duration-300">
+                <div className="w-5 h-5 sm:w-7 sm:h-7 rounded-sm sm:rounded-lg bg-emerald-100 flex items-center justify-center border border-emerald-200/60 shrink-0">
                   <svg
                     className="w-3 h-3 sm:w-4 sm:h-4 text-emerald-600"
                     fill="none"
@@ -204,8 +204,8 @@ export default function GovernanceExcellence() {
                 </div>
               </div>
 
-              <div className="flex items-center gap-1 sm:gap-2 px-1.5 py-1 sm:px-2.5 sm:py-1.5 bg-gradient-to-r from-indigo-50 to-violet-50 backdrop-blur-md rounded-md sm:rounded-xl border border-indigo-200/60 shadow-[0_2px_8px_rgba(99,102,241,0.1)] hover:shadow-md hover:-translate-y-0.5 transition-all duration-300">
-                <div className="w-5 h-5 sm:w-7 sm:h-7 rounded-sm sm:rounded-lg bg-indigo-100 flex items-center justify-center border border-indigo-200/60 flex-shrink-0">
+              <div className="flex items-center gap-1 sm:gap-2 px-1.5 py-1 sm:px-2.5 sm:py-1.5 bg-linear-to-r from-indigo-50 to-violet-50 backdrop-blur-md rounded-md sm:rounded-xl border border-indigo-200/60 shadow-[0_2px_8px_rgba(99,102,241,0.1)] hover:shadow-md hover:-translate-y-0.5 transition-all duration-300">
+                <div className="w-5 h-5 sm:w-7 sm:h-7 rounded-sm sm:rounded-lg bg-indigo-100 flex items-center justify-center border border-indigo-200/60 shrink-0">
                   <svg
                     className="w-3 h-3 sm:w-4 sm:h-4 text-indigo-600"
                     fill="none"
@@ -230,8 +230,8 @@ export default function GovernanceExcellence() {
                 </div>
               </div>
 
-              <div className="flex items-center gap-1 sm:gap-2 px-1.5 py-1 sm:px-2.5 sm:py-1.5 bg-gradient-to-r from-amber-50 to-orange-50 backdrop-blur-md rounded-md sm:rounded-xl border border-amber-200/60 shadow-[0_2px_8px_rgba(245,158,11,0.1)] hover:shadow-md hover:-translate-y-0.5 transition-all duration-300">
-                <div className="w-5 h-5 sm:w-7 sm:h-7 rounded-sm sm:rounded-lg bg-amber-100 flex items-center justify-center border border-amber-200/60 flex-shrink-0">
+              <div className="flex items-center gap-1 sm:gap-2 px-1.5 py-1 sm:px-2.5 sm:py-1.5 bg-linear-to-r from-amber-50 to-orange-50 backdrop-blur-md rounded-md sm:rounded-xl border border-amber-200/60 shadow-[0_2px_8px_rgba(245,158,11,0.1)] hover:shadow-md hover:-translate-y-0.5 transition-all duration-300">
+                <div className="w-5 h-5 sm:w-7 sm:h-7 rounded-sm sm:rounded-lg bg-amber-100 flex items-center justify-center border border-amber-200/60 shrink-0">
                   <svg
                     className="w-3 h-3 sm:w-4 sm:h-4 text-amber-600"
                     fill="none"
@@ -263,7 +263,7 @@ export default function GovernanceExcellence() {
             {governanceCards.map((card, index) => (
               <div
                 key={index}
-                className={`group rounded-xl p-2 md:p-4 border transition-all duration-300 flex flex-col items-center justify-center text-center gap-1.5 md:gap-3.5 cursor-pointer w-full h-[88px] md:w-[112px] md:h-[132px] lg:w-[124px] lg:h-[144px] md:flex-shrink-0 shadow-[0_4px_16px_rgba(15,23,42,0.05)] hover:shadow-lg hover:-translate-y-0.5 ${card.bgColor} ${card.borderColor}`}
+                className={`group rounded-xl p-2 md:p-4 border transition-all duration-300 flex flex-col items-center justify-center text-center gap-1.5 md:gap-3.5 cursor-pointer w-full h-[88px] md:w-[112px] md:h-[132px] lg:w-[124px] lg:h-[144px] md:shrink-0 shadow-[0_4px_16px_rgba(15,23,42,0.05)] hover:shadow-lg hover:-translate-y-0.5 ${card.bgColor} ${card.borderColor}`}
               >
                 <div
                   className={`w-8 h-8 md:w-12 md:h-12 rounded-lg md:rounded-xl flex items-center justify-center transition-all duration-300 ${card.iconBgColor}`}
@@ -284,12 +284,12 @@ export default function GovernanceExcellence() {
       </div>
 
       {/* Right-aligned Dome Building Image */}
-      <div className="absolute top-0 right-0 bottom-0 w-[34%] lg:w-[32%] xl:w-[38%] hidden md:block select-none pointer-events-none z-0">
+      <div className="absolute top-0 right-0 bottom-0 w-[34%] lg:w-[45%] xl:w-[50%] hidden md:block select-none pointer-events-none z-0">
         {/* Sky-blue fade overlay on the left of the image to blend perfectly with the center background */}
-        <div className="absolute inset-y-0 left-0 w-40 bg-gradient-to-r from-sky-50 via-sky-50/98 to-transparent z-10" />
+        <div className="absolute inset-y-0 left-0 w-40 bg-linear-to-r from-sky-50 via-sky-50/98 to-transparent z-10" />
         <img
           src="/UniversitySection.png"
-          className="w-full h-full object-cover object-right mix-blend-multiply"
+          className="w-full h-full object-cover object-left mix-blend-multiply"
           alt="Governance Dome"
           loading="lazy"
         />

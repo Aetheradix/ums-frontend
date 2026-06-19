@@ -37,7 +37,7 @@ export default function Navbar() {
   return (
     <nav
       className={clsx(
-        'fixed top-0 left-0 w-full z-[100] transition-all duration-500 navbar',
+        'fixed top-0 left-0 w-full z-100 transition-all duration-500 navbar',
         isScrolled || isLightPage
           ? 'bg-white/80 backdrop-blur-xl h-16 md:h-20 shadow-lg border-b border-border/50'
           : 'bg-transparent h-20 md:h-28'

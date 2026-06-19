@@ -86,6 +86,9 @@
   --breakpoint-xs: 480px;
 
   --color-navy: #0f172a;
+  --color-blue: #3b82f6;
+  --color-blue-light: #eff6ff;
+  --color-blue-dark: #1d4ed8;
   --color-surface: #f8fafc;
   --color-muted: #64748b;
   --color-border: #e2e8f0;
@@ -871,7 +874,7 @@ body {
 ========================= */
 
 .p-button {
-  @apply relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-md border border-slate-300 px-4! py-[0.7rem]! !text-[0.9rem] leading-none text-black transition-all duration-300;
+  @apply relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-md border border-slate-300 px-4! py-[0.7rem]! text-[0.9rem]! leading-none text-black transition-all duration-300;
 }
 
 /* Button text */
@@ -1895,6 +1898,15 @@ body {
 /* ============================================================
    15. SCOPED OCTAGON THEME STYLES (Marketing Site)
 ============================================================ */
+html.public-portal-active,
+body.public-portal-active {
+  height: auto !important;
+  min-height: 100% !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  user-select: auto !important;
+}
+
 .octagon-theme {
   font-family: var(--font-inter);
   background: #ffffff;
