@@ -1,5 +1,5 @@
 import React, { Suspense, useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import useLenis from '../hooks/useLenis';
 import useScrollReveal from '../hooks/useScrollReveal';
 import useGSAPAnimations from '../hooks/useGSAPAnimations';
@@ -26,11 +26,19 @@ export default function PublicPortalLayout({
   children: React.ReactNode;
 }) {
   const { pathname } = useLocation();
+  const navigate = useNavigate();
   const [showPreloader, setShowPreloader] = useState(() => {
     return !sessionStorage.getItem('octagon_intro_seen');
   });
 
   useLenis();
+
+  useEffect(() => {
+    if (sessionStorage.getItem('just_logged_out') === 'true') {
+      sessionStorage.removeItem('just_logged_out');
+      navigate('/home');
+    }
+  }, [navigate]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -65,6 +73,10 @@ export default function PublicPortalLayout({
     setShowPreloader(false);
     sessionStorage.setItem('octagon_intro_seen', 'true');
   };
+
+  if (sessionStorage.getItem('just_logged_out') === 'true') {
+    return <UniversityLoader bgTransparent={true} text="Redirecting..." />;
+  }
 
   return (
     <div className="octagon-theme min-h-screen relative bg-white text-navy selection:bg-blue-100 selection:text-blue-700">

@@ -150,6 +150,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   };
 
   const logout = async () => {
+    sessionStorage.setItem('just_logged_out', 'true');
     await userManager.signoutRedirect();
   };
 
