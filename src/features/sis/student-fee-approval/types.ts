@@ -9,8 +9,6 @@ export interface StudentApplicationPayload {
     programmeName: string;
     specialisationId: number;
     specialisationName: string;
-    previousInstitutionType: string;
-    previousInstitutionCgpa: number;
   };
   basicInfo: {
     firstName: string;

@@ -3,6 +3,19 @@ import { formatDatesInPayload } from 'shared/utils/dateUtils';
 
 const COLLEGE_REGISTRATION_URL = `college-affiliation/registration`;
 
+export async function getCollegeRegistrations() {
+  return ApiService.getList<AffiliationManagementSystem.CollegeRegistrationListItem>(
+    COLLEGE_REGISTRATION_URL
+  );
+}
+
+export async function getCollegesByCollegeType(collegeTypeId: number) {
+  const { data } = await ApiService.get<
+    { registrationId: number; collegeName: string; collegeTypeId: number }[]
+  >(`${COLLEGE_REGISTRATION_URL}/college-type/${collegeTypeId}`);
+  return data;
+}
+
 function buildApiPayload(
   form: AffiliationManagementSystem.CollegeApplicationFormData,
   documentIds: { documentId: string; documentType: string }[]

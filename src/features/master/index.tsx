@@ -34,12 +34,12 @@ import SchemeCategory from './schemes/scheme-category';
 import SchemeType from './schemes/scheme-type';
 import Subject from './subject';
 
+import CmsManagement from '../cms-management';
 import EmployeeGroup from './employee/settings/employee-group';
 import SeparationReasonType from './employee/settings/separation-reason-type';
 import DepartmentGroupType from './employee/settings/department-group-type';
 import DepartmentGroup from './employee/settings/department-group';
 import UserManagement from './user-management';
-import CmsManagement from '../cms-management';
 
 export default function Master() {
   return (

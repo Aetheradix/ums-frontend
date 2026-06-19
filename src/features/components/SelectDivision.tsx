@@ -7,21 +7,34 @@ interface SelectDivisionProps<
 > extends Controls.FormProps<T> {
   label?: string;
   disabled?: boolean;
+  stateId?: number | string | null;
 }
 
 export default function SelectDivision<T extends FieldValues>({
   defaultOptionText,
   label = 'Division',
+  stateId,
   ...props
 }: SelectDivisionProps<T> &
   Controls.InputBlockProps & { defaultOptionText?: string }) {
   const { data, isLoading } = useDivisionsQuery();
+
   const activeData =
     data?.filter((item: Master.DivisionItem) => item.isActive === true) || [];
 
+  const filteredData =
+    stateId !== undefined
+      ? activeData.filter(
+          (item: Master.DivisionItem) =>
+            String(item.stateId) === String(stateId)
+        )
+      : activeData;
+
+  const isDisabled = stateId !== undefined ? !stateId : props.disabled;
+
   return (
     <DropDownList
-      data={activeData}
+      data={filteredData}
       loading={isLoading}
       textField="name"
       valueField="id"
@@ -35,6 +48,7 @@ export default function SelectDivision<T extends FieldValues>({
           : defaultOptionText
       }
       {...props}
+      disabled={isDisabled}
     />
   );
 }
