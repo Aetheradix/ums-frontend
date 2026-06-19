@@ -26,13 +26,18 @@ const schema = validation.create<EmployeeManagement.QuickOnboardingForm>(o => ({
 
   firstName: o.string().required().max(50).label('First Name'),
 
-  middleName: o.string().allow('').max(50).label('Middle Name'),
+  middleName: o
+    .string()
+    .allow('', null)
+    .optional()
+    .max(50)
+    .label('Middle Name'),
 
   lastName: o.string().required().max(50).label('Last Name'),
 
   gender: o.string().required().label('Gender'),
 
-  appointedCategory: o.string().required().max(15).label('Appointed Category'),
+  casteId: o.number().required().min(1).label('Category'),
 
   mobileNumber: o
     .string()
@@ -58,7 +63,7 @@ export function useQuickOnboardingForm(
   submitCallback: Forms.SubmitFunc<EmployeeManagement.QuickOnboardingForm>,
   fetchData?: Forms.FetchDataFunc<EmployeeManagement.QuickOnboardingForm>
 ) {
-  const { register, control, handleSubmit, reset, setValue, watch } =
+  const { register, handleSubmit, reset, setValue, watch } =
     useAppForm<EmployeeManagement.QuickOnboardingForm>({
       defaultValues: fetchData,
 
@@ -67,7 +72,6 @@ export function useQuickOnboardingForm(
 
   return {
     register,
-    control,
     handleSubmit: handleSubmit(submitCallback),
     reset,
     setValue,

@@ -33,7 +33,7 @@ export default function EmploymentTab({ data }: EmploymentTabProps) {
             />
           )}
           <InfoItem label="Seniority Rank" value={data.seniorityRank} />
-          <InfoItem label="Appointed Category" value={data.appointedCategory} />
+          <InfoItem label="Appointed Category" value={data.casteId} />
         </div>
       </section>
     </div>

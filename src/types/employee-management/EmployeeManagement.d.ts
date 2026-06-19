@@ -1,55 +1,40 @@
 declare namespace EmployeeManagement {
-  export interface QuickOnboardingForm {
-    employeeId?: number;
-
-    // Employee Information
+  interface QuickOnboardingBase {
     employeeType: string;
-    employeeNatureId: number;
-    organizationUnitId: number;
-    postId: number;
-    designationId: number;
     seniorityRank: string;
-    subjectSpecializationId: number;
-
-    // Personal Information
     salutation: string;
     firstName: string;
-    middleName: string;
+    middleName?: string;
     lastName: string;
     gender: string;
-    appointedCategory: string;
+    casteId: number;
     mobileNumber: string;
     officialEmail: string;
     dateOfBirth: Date;
     employeeCode: string;
   }
 
-  export interface EmployeeBasicInfoDto {
-    id: number;
-    employeeCode: string;
-    fullName: string;
-    gender: string;
-    employeeNature: string;
-    organizationUnit: string;
-    post: string;
-    subjectSpecialization: string;
-    mobileNumber: string;
-    officialEmail: string;
+  interface QuickOnboardingForm extends QuickOnboardingBase {
+    employeeNatureId: number;
+    organizationUnitId: number;
+    postId: number;
+    designationId: number;
+    subjectSpecializationId: number;
   }
 
-  export interface EmployeeDto extends QuickOnboardingForm {
-    id: number;
-    name: string;
-    employeeNature?: string;
-    organizationUnit?: string;
-    post?: string;
-    subjectSpecialization?: string;
-    isActive?: boolean;
+  interface QuickOnboardingItem extends QuickOnboardingBase {
+    employeeId: number;
+    fullName: string;
+    employeeNatureName: string;
+    organizationUnitName: string;
+    postName: string;
+    subjectSpecializationName: string;
+    isActive: boolean;
   }
 
   // ── Full Onboarding Types ──
 
-  export interface AddressForm {
+  interface AddressForm {
     addressType: string;
     addressLine1: string;
     addressLine2: string;
@@ -62,7 +47,7 @@ declare namespace EmployeeManagement {
     pinCode: string;
   }
 
-  export interface QualificationForm {
+  interface QualificationForm {
     qualificationId: number;
     university: string;
     board: string;
@@ -71,13 +56,13 @@ declare namespace EmployeeManagement {
     grade: string;
   }
 
-  export interface FullOnboardingBase {
+  interface FullOnboardingBase {
     // Quick Core fields
     employeeType: string;
     seniorityRank: string;
     salutation: string;
     firstName: string;
-    middleName: string;
+    middleName?: string;
     lastName: string;
     gender: string;
     appointedCategory: string;
@@ -109,7 +94,7 @@ declare namespace EmployeeManagement {
     passportValidity: Date;
   }
 
-  export interface FullOnboardingForm extends FullOnboardingBase {
+  interface FullOnboardingForm extends FullOnboardingBase {
     employeeId?: number;
     employeeNatureId: number;
     organizationUnitId: number;
@@ -125,7 +110,7 @@ declare namespace EmployeeManagement {
     isSameAsCurrentAddress: boolean;
   }
 
-  export interface FullOnboardingItem extends FullOnboardingBase {
+  interface FullOnboardingItem extends FullOnboardingBase {
     employeeId: number;
     fullName: string;
     employeeNatureName: string;
