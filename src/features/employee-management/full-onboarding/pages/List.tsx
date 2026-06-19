@@ -39,12 +39,12 @@ export default function List() {
                   <GridActionButtons
                     onView={() =>
                       navigate(
-                        `/employee-management/manage-employees/${item.fullOnboardingId}`
+                        `/employee-management/manage-employees/${item.employeeId}`
                       )
                     }
                     onEdit={() =>
                       navigate(
-                        `/employee-management/manage-employees/${item.fullOnboardingId}/edit`
+                        `/employee-management/manage-employees/${item.employeeId}/edit`
                       )
                     }
                     onDelete={() => {}}
@@ -55,25 +55,15 @@ export default function List() {
             searchBox
             searchPlaceholder="Search by code, name, gender, nature, organization unit, post, specialization..."
             actionButtons={
-              <>
-                <Button
-                  label="Export"
-                  icon="download"
-                  variant="outlined"
-                  size="small"
-                  onClick={() => {}}
-                />
-
-                <Button
-                  label="Add Employee"
-                  icon="plus"
-                  variant="primary"
-                  size="small"
-                  onClick={() =>
-                    navigate('/employee-management/full-onboarding/create')
-                  }
-                />
-              </>
+              <Button
+                label="Add Employee"
+                icon="plus"
+                variant="primary"
+                size="small"
+                onClick={() =>
+                  navigate('/employee-management/full-onboarding/create')
+                }
+              />
             }
           />
         </div>

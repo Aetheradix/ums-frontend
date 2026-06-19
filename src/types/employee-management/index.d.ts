@@ -126,7 +126,7 @@ declare namespace EmployeeManagement {
   }
 
   export interface FullOnboardingItem extends FullOnboardingBase {
-    fullOnboardingId: number;
+    employeeId: number;
     fullName: string;
     employeeNatureName: string;
     organizationUnitName: string;

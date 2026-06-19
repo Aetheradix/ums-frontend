@@ -1,6 +1,5 @@
-import { TabPanel, TabView } from 'primereact/tabview';
 import type { ReactNode } from 'react';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Button, ButtonPanel } from 'shared/components/buttons';
 import './FormWizard.css';
 
@@ -35,7 +34,7 @@ export default function FormWizard({
   const [maxTabReached, setMaxTabReached] = useState(
     isEdit ? steps.length - 1 : 0
   );
-  const tabRefs = React.useRef<(HTMLDivElement | null)[]>([]);
+  const tabRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   useEffect(() => {
     if (isEdit) {
@@ -122,68 +121,87 @@ export default function FormWizard({
     if (onKeyDown) onKeyDown(e);
   };
 
+  const progressPct =
+    steps.length > 1
+      ? (Math.max(maxTabReached, activeIndex) / (steps.length - 1)) * 100
+      : 100;
+
   return (
-    <form onKeyDown={handleKeyDown} key={formKey}>
-      <div className="wizard-steps-container">
-        <div className="wizard-progress-track">
+    <form onKeyDown={handleKeyDown} key={formKey} className="wizard-form">
+      {/* ── Stepper header ── */}
+      <div className="wizard-stepper">
+        {/* Background progress track */}
+        <div className="wizard-track">
           <div
-            className="wizard-progress-fill"
-            style={{ width: `${(maxTabReached / (steps.length - 1)) * 100}%` }}
+            className="wizard-track-fill"
+            style={{ width: `${progressPct}%` }}
           />
         </div>
 
         {steps.map((step, idx) => {
           const isActive = idx === activeIndex;
-          const isCompleted = idx < activeIndex || idx <= maxTabReached;
-          const isDisabled = idx > maxTabReached;
+          const isCompleted = idx < activeIndex;
+          const isAccessible = idx <= maxTabReached;
+
+          let stateClass = '';
+          if (isActive) stateClass = 'wz-active';
+          else if (isCompleted) stateClass = 'wz-completed';
+          else if (!isAccessible) stateClass = 'wz-locked';
+
+          const iconName = step.icon
+            ? step.icon.startsWith('pi ')
+              ? step.icon
+              : `pi-${step.icon}`
+            : 'pi-circle';
 
           return (
             <button
               key={idx}
               type="button"
-              disabled={isDisabled}
+              disabled={!isAccessible}
               onClick={() => handleStepClick(idx)}
-              className={`wizard-step ${isActive ? 'active' : ''} ${isCompleted && !isActive ? 'completed' : ''}`}
+              className={`wizard-step-btn ${stateClass}`}
+              aria-current={isActive ? 'step' : undefined}
             >
-              <div className="wizard-step-circle">
-                <i
-                  className={
-                    step.icon
-                      ? step.icon.startsWith('pi ')
-                        ? step.icon
-                        : `pi pi-${step.icon}`
-                      : 'pi pi-circle'
-                  }
-                />
+              <div className="wz-badge">
+                {isCompleted ? (
+                  <i className="pi pi-check" />
+                ) : (
+                  <i className={`pi ${iconName}`} />
+                )}
               </div>
-              <span className="wizard-step-label">{step.label}</span>
+              <span className="wz-label">{step.label}</span>
             </button>
           );
         })}
       </div>
 
-      <TabView
-        activeIndex={activeIndex}
-        onTabChange={e => setActiveIndex(e.index)}
-      >
+      {/* ── Step content — only the active panel is mounted ── */}
+      <div className="wizard-body">
         {steps.map((step, idx) => (
-          <TabPanel key={idx} header={step.label}>
-            <div
-              className="wizard-tab-content"
-              ref={el => {
-                tabRefs.current[idx] = el;
-              }}
-            >
-              {step.content}
-            </div>
-          </TabPanel>
+          <div
+            key={idx}
+            ref={el => {
+              tabRefs.current[idx] = el;
+            }}
+            className={`wizard-panel ${idx === activeIndex ? 'wz-panel-active' : 'wz-panel-hidden'}`}
+            aria-hidden={idx !== activeIndex}
+          >
+            {step.content}
+          </div>
         ))}
-      </TabView>
+      </div>
 
-      <div className="wizard-footer-wrapper">
+      {/* ── Footer ── */}
+      <div className="wizard-footer">
         <ButtonPanel>
-          <div className="wizard-footer-container">
-            <div className="wizard-footer-actions flex items-center gap-3">
+          <div className="wizard-footer-inner">
+            <div className="wizard-footer-left">
+              <span className="wizard-step-counter">
+                Step {activeIndex + 1} of {steps.length}
+              </span>
+            </div>
+            <div className="wizard-footer-right">
               {activeIndex > 0 && (
                 <Button
                   type="button"

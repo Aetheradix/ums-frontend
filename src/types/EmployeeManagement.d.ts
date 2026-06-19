@@ -25,7 +25,7 @@ declare namespace EmployeeManagement {
   }
 
   export interface QuickOnboardingItem extends QuickOnboardingBase {
-    quickOnboardingId: number;
+    employeeId: number;
     fullName: string;
     employeeNatureName: string;
     organizationUnitName: string;
@@ -113,7 +113,7 @@ declare namespace EmployeeManagement {
   }
 
   export interface FullOnboardingItem extends FullOnboardingBase {
-    fullOnboardingId: number;
+    employeeId: number;
     fullName: string;
     employeeNatureName: string;
     organizationUnitName: string;

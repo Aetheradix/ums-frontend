@@ -39,12 +39,12 @@ export default function List() {
                   <GridActionButtons
                     onView={() =>
                       navigate(
-                        `/employee-management/manage-employees/${item.quickOnboardingId}`
+                        `/employee-management/manage-employees/${item.employeeId}`
                       )
                     }
                     onEdit={() =>
                       navigate(
-                        `/employee-management/manage-employees/${item.quickOnboardingId}/edit`
+                        `/employee-management/manage-employees/${item.employeeId}/edit`
                       )
                     }
                     onDelete={() => {}}

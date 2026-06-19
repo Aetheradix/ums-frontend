@@ -560,7 +560,7 @@ export const menuConfig: Menu.MenuItem[] = [
             path: '/employee-management/full-onboarding',
             icon: 'person_add',
             colorScheme: 'red',
-            feature: '@EmployeeManagement/FullOnboarding',
+            feature: '@employee-management/full-onboarding',
             action: 'write',
           },
           {
