@@ -7,8 +7,6 @@ const schema = validation.create<EmployeeManagement.QuickOnboardingForm>(o => ({
 
   employeeNatureId: o.number().required().min(1).label('Nature of Employment'),
 
-  organizationUnitId: o.number().required().min(1).label('Organization Unit'),
-
   postId: o.number().required().min(1).label('Post'),
 
   designationId: o.number().required().min(1).label('Designation'),
@@ -20,6 +18,16 @@ const schema = validation.create<EmployeeManagement.QuickOnboardingForm>(o => ({
     .required()
     .min(1)
     .label('Subject Specialization'),
+
+  collegeTypeId: o.number().optional().min(1).label('College Type'),
+  registrationId: o.number().optional().min(1).label('College Name'),
+  departmentGroupTypeId: o
+    .number()
+    .optional()
+    .min(1)
+    .label('Department Group Type'),
+  departmentGroupId: o.number().optional().min(1).label('Department Group'),
+  departmentId: o.number().optional().min(1).label('Department'),
 
   // Personal Information
   salutation: o.string().required().max(15).label('Salutation'),
@@ -63,7 +71,7 @@ export function useQuickOnboardingForm(
   submitCallback: Forms.SubmitFunc<EmployeeManagement.QuickOnboardingForm>,
   fetchData?: Forms.FetchDataFunc<EmployeeManagement.QuickOnboardingForm>
 ) {
-  const { register, handleSubmit, reset, setValue, watch } =
+  const { register, handleSubmit, reset, setValue, watch, control } =
     useAppForm<EmployeeManagement.QuickOnboardingForm>({
       defaultValues: fetchData,
 
@@ -76,5 +84,6 @@ export function useQuickOnboardingForm(
     reset,
     setValue,
     watch,
+    control,
   };
 }

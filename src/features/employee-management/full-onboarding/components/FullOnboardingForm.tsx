@@ -9,7 +9,6 @@ import SelectGender from 'features/components/SelectGender';
 import SelectMaritalStatus from 'features/components/SelectMaritalStatus';
 import SelectNationality from 'features/components/SelectNationality';
 import SelectNatureOfEmployment from 'features/components/SelectNatureOfEmployment';
-import SelectOrganizationUnit from 'features/components/SelectOrganizationUnit';
 import SelectPost from 'features/components/SelectPost';
 import SelectRelationshipTypes from 'features/components/SelectRelationshipTypes';
 import SelectReligion from 'features/components/SelectReligion';
@@ -146,12 +145,6 @@ export default function FullOnboardingForm(props: Props) {
               <SelectNatureOfEmployment
                 {...register('employeeNatureId')}
                 label="Nature of Employment"
-                required
-              />
-
-              <SelectOrganizationUnit
-                {...register('organizationUnitId')}
-                label="Organization Unit"
                 required
               />
 

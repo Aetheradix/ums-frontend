@@ -8,7 +8,7 @@ interface OrganizationTabProps {
   data: EmployeeProfileData;
 }
 
-export default function OrganizationTab({ data }: OrganizationTabProps) {
+export default function OrganizationTab({}: OrganizationTabProps) {
   return (
     <div className="employee-profile-card-grid">
       <section className="employee-profile-info-card">
@@ -20,7 +20,6 @@ export default function OrganizationTab({ data }: OrganizationTabProps) {
         </div>
 
         <div className="employee-profile-info-grid">
-          <InfoItem label="Organization Unit" value={data.organizationUnit} />
           <InfoItem label="Department" value="N/A" />
           <InfoItem label="Reporting To" value="N/A" />
           <InfoItem label="Location" value="N/A" />

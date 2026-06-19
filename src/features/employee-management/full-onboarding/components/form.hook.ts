@@ -24,7 +24,6 @@ const schema = validation.create<EmployeeManagement.FullOnboardingForm>(o => ({
   dateOfBirth: o.date().required().label('Date of Birth'),
   employeeType: o.string().required().max(50).label('Employee Type'),
   employeeNatureId: o.number().required().min(1).label('Nature of Employment'),
-  organizationUnitId: o.number().required().min(1).label('Organization Unit'),
   postId: o.number().required().min(1).label('Post'),
   designationId: o.number().required().min(1).label('Designation'),
   subjectSpecializationId: o
