@@ -916,14 +916,6 @@ export const menuConfig: Menu.MenuItem[] = [
     description: 'Classes • Grades • Advising • Resources',
     children: [
       {
-        label: 'College Profile',
-        slug: 'college-profile',
-        description: 'Manage college profile information.',
-        path: '/affiliation-management-system/college-profile',
-        icon: 'domain',
-        colorScheme: 'blue',
-      },
-      {
         label: 'College Registration',
         slug: 'college-registration',
         description: 'Manage college registration processes.',
@@ -942,6 +934,14 @@ export const menuConfig: Menu.MenuItem[] = [
             // action: 'read',
           },
         ],
+      },
+      {
+        label: 'College Profile',
+        slug: 'college-profile',
+        description: 'Manage college profile information.',
+        path: '/affiliation-management-system/college-profile',
+        icon: 'domain',
+        colorScheme: 'blue',
       },
       {
         label: 'Draft College Registration',
