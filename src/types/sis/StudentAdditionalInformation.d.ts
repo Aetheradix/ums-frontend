@@ -25,5 +25,8 @@ declare namespace SIS {
     languagePreferance?: string;
     profilePhoto: File | null;
     profilePhotoUrl?: string; // For previewing existing photo
+    collegeTypeId?: number;
+    collegeRegistrationId?: number;
+    parentUniversity?: string;
   }
 }

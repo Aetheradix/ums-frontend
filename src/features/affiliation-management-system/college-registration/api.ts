@@ -9,6 +9,13 @@ export async function getCollegeRegistrations() {
   );
 }
 
+export async function getCollegesByCollegeType(collegeTypeId: number) {
+  const { data } = await ApiService.get<
+    { registrationId: number; collegeName: string; collegeTypeId: number }[]
+  >(`${COLLEGE_REGISTRATION_URL}/college-type/${collegeTypeId}`);
+  return data;
+}
+
 function buildApiPayload(
   form: AffiliationManagementSystem.CollegeApplicationFormData,
   documentIds: { documentId: string; documentType: string }[]
