@@ -16,32 +16,27 @@
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  padding: 20px 32px 18px;
+  padding: 24px 32px 18px;
   margin-bottom: 0;
-  background: #ffffff;
-  border: 1px solid #ede9f9;
-  border-bottom: none;
-  border-radius: 12px 12px 0 0;
+  background: transparent;
+  border: none;
   gap: 0;
 }
 
 /* Connecting line that runs behind the badges */
 .wizard-track {
   position: absolute;
-  top: 36px; /* vertically centred with badge */
-  left: calc(32px + 22px); /* left edge + half badge width */
-  right: calc(32px + 22px); /* mirror on right */
-  height: 2px;
-  background: #ede9f9;
+  top: 38px; /* vertically centred with badge (assuming badge is 32px) */
+  left: calc(32px + 16px); /* left edge + half badge width */
+  right: calc(32px + 16px); /* mirror on right */
+  height: 1px;
+  background: #e5e7eb;
   border-radius: 2px;
   z-index: 0;
 }
 
 .wizard-track-fill {
-  height: 100%;
-  background: linear-gradient(90deg, #7c3aed 0%, #a78bfa 100%);
-  border-radius: 2px;
-  transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  display: none;
 }
 
 /* ── Individual step button ── */
@@ -51,7 +46,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 8px;
+  gap: 12px;
   flex: 1;
   padding: 0;
   border: none;
@@ -63,36 +58,35 @@
 
 .wizard-step-btn:disabled {
   cursor: not-allowed;
-  opacity: 0.45;
 }
 
 /* ── Badge circle ── */
 .wz-badge {
-  width: 44px;
-  height: 44px;
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 16px;
-  font-weight: 700;
-  border: 2px solid #ddd6fe;
+  font-size: 12px;
+  font-weight: 500;
+  border: 1px solid #e5e7eb;
   background: #ffffff;
-  color: #9ca3af;
-  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  color: #6b7280;
+  transition: all 0.25s ease;
+  box-shadow: none;
 }
 
 .wz-badge i {
-  font-size: 15px;
+  font-size: 14px;
   transition: transform 0.2s ease;
 }
 
 /* ── Step label ── */
 .wz-label {
-  font-size: 11.5px;
+  font-size: 13px;
   font-weight: 500;
-  color: #9ca3af;
+  color: #6b7280;
   text-align: center;
   line-height: 1.3;
   letter-spacing: 0.01em;
@@ -100,65 +94,59 @@
   transition:
     color 0.2s ease,
     font-weight 0.2s ease;
-  max-width: 90px;
+  max-width: 120px;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
 /* ── Hover on unlocked steps ── */
 .wizard-step-btn:not(:disabled):hover .wz-badge {
-  border-color: #a78bfa;
-  color: #7c3aed;
-  transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(124, 58, 237, 0.15);
+  border-color: #111827;
+  color: #111827;
+  transform: none;
+  box-shadow: none;
 }
 
 .wizard-step-btn:not(:disabled):hover .wz-label {
-  color: #7c3aed;
+  color: #111827;
 }
 
 /* ── Active step ── */
 .wizard-step-btn.wz-active .wz-badge {
-  background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
-  border-color: #7c3aed;
+  background: #111827;
+  border-color: #111827;
   color: #ffffff;
-  transform: translateY(-3px);
-  box-shadow:
-    0 0 0 4px rgba(124, 58, 237, 0.15),
-    0 8px 20px rgba(124, 58, 237, 0.35);
-}
-
-.wizard-step-btn.wz-active .wz-badge i {
-  transform: scale(1.1);
+  transform: none;
+  box-shadow: none;
 }
 
 .wizard-step-btn.wz-active .wz-label {
-  color: #7c3aed;
-  font-weight: 700;
+  color: #111827;
+  font-weight: 600;
 }
 
 /* ── Completed step ── */
 .wizard-step-btn.wz-completed .wz-badge {
-  background: #f5f3ff;
-  border-color: #7c3aed;
-  color: #7c3aed;
-  box-shadow: 0 2px 8px rgba(124, 58, 237, 0.1);
+  background: #ffffff;
+  border-color: #111827;
+  color: #111827;
+  box-shadow: none;
 }
 
 .wizard-step-btn.wz-completed .wz-label {
-  color: #6d28d9;
-  font-weight: 600;
+  color: #111827;
+  font-weight: 500;
 }
 
 /* ── Locked step ── */
 .wizard-step-btn.wz-locked .wz-badge {
-  background: #fafafa;
+  background: #ffffff;
   border-color: #e5e7eb;
-  color: #d1d5db;
+  color: #9ca3af;
 }
 
 .wizard-step-btn.wz-locked .wz-label {
-  color: #d1d5db;
+  color: #9ca3af;
 }
 
 /* ══════════════════════════════════════════════════
@@ -166,8 +154,8 @@
    ══════════════════════════════════════════════════ */
 .wizard-body {
   background: #ffffff;
-  border: 1px solid #ede9f9;
-  border-top: 2px solid #7c3aed;
+  border: 1px solid #e5e7eb;
+  border-top: 2px solid #111827;
   border-bottom: none;
   border-radius: 0;
   min-height: 420px;
@@ -204,11 +192,12 @@
   overflow-x: hidden;
   padding-right: 6px;
   scrollbar-width: thin;
-  scrollbar-color: #ddd6fe transparent;
+  scrollbar-color: #d1d5db transparent;
 }
 
 .wizard-panel > *::-webkit-scrollbar {
-  width: 5px;
+  width: 6px;
+  height: 6px;
 }
 
 .wizard-panel > *::-webkit-scrollbar-track {
@@ -216,8 +205,13 @@
 }
 
 .wizard-panel > *::-webkit-scrollbar-thumb {
-  background: #ddd6fe;
-  border-radius: 4px;
+  background: #e5e7eb;
+  border-radius: 10px;
+  transition: background 0.2s;
+}
+
+.wizard-panel > *::-webkit-scrollbar-thumb:hover {
+  background: #9ca3af;
 }
 
 /* ══════════════════════════════════════════════════
@@ -225,8 +219,8 @@
    ══════════════════════════════════════════════════ */
 .wizard-footer {
   background: #ffffff;
-  border: 1px solid #ede9f9;
-  border-top: 1px solid #f3f0ff;
+  border: 1px solid #e5e7eb;
+  border-top: 1px solid #f3f4f6;
   border-radius: 0 0 12px 12px;
 }
 
@@ -259,86 +253,88 @@
 /* ══════════════════════════════════════════════════
    DARK MODE
    ══════════════════════════════════════════════════ */
+/* ══════════════════════════════════════════════════
+   DARK MODE
+   ══════════════════════════════════════════════════ */
 .dark .wizard-stepper {
-  background: #131124;
-  border-color: rgba(167, 139, 250, 0.12);
+  background: #1f2937;
+  border-color: #374151;
 }
 
 .dark .wizard-track {
-  background: #2d2a45;
-}
-
-.dark .wizard-track-fill {
-  background: linear-gradient(90deg, #7c3aed 0%, #a78bfa 100%);
+  background: #374151;
 }
 
 .dark .wz-badge {
-  background: #1b192e;
-  border-color: #2d2a45;
-  color: #6b7280;
+  background: #1f2937;
+  border-color: #374151;
+  color: #9ca3af;
 }
 
 .dark .wz-label {
-  color: #6b7280;
+  color: #9ca3af;
 }
 
 .dark .wizard-step-btn:not(:disabled):hover .wz-badge {
-  border-color: #7c3aed;
-  color: #c084fc;
-  box-shadow: 0 6px 16px rgba(124, 58, 237, 0.25);
+  border-color: #f3f4f6;
+  color: #f3f4f6;
+  box-shadow: none;
 }
 
 .dark .wizard-step-btn:not(:disabled):hover .wz-label {
-  color: #c084fc;
+  color: #f3f4f6;
 }
 
 .dark .wizard-step-btn.wz-active .wz-badge {
-  background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
-  border-color: #7c3aed;
-  box-shadow:
-    0 0 0 4px rgba(124, 58, 237, 0.25),
-    0 8px 24px rgba(124, 58, 237, 0.5);
+  background: #f3f4f6;
+  border-color: #f3f4f6;
+  color: #111827;
+  box-shadow: none;
 }
 
 .dark .wizard-step-btn.wz-active .wz-label {
-  color: #c084fc;
+  color: #f3f4f6;
 }
 
 .dark .wizard-step-btn.wz-completed .wz-badge {
-  background: rgba(124, 58, 237, 0.15);
-  border-color: #7c3aed;
-  color: #c084fc;
+  background: #1f2937;
+  border-color: #f3f4f6;
+  color: #f3f4f6;
 }
 
 .dark .wizard-step-btn.wz-completed .wz-label {
-  color: #a78bfa;
+  color: #f3f4f6;
 }
 
 .dark .wizard-step-btn.wz-locked .wz-badge {
-  background: #1b192e;
-  border-color: #2d2a45;
-  color: #4b4869;
-}
-
-.dark .wizard-step-btn.wz-locked .wz-label {
-  color: #4b4869;
-}
-
-.dark .wizard-body {
-  background: #131124;
-  border-color: rgba(167, 139, 250, 0.12);
-  border-top-color: #7c3aed;
-}
-
-.dark .wizard-footer {
-  background: #131124;
-  border-color: rgba(167, 139, 250, 0.12);
-}
-
-.dark .wizard-step-counter {
+  background: #1f2937;
+  border-color: #374151;
   color: #6b7280;
 }
 
+.dark .wizard-step-btn.wz-locked .wz-label {
+  color: #6b7280;
+}
+
+.dark .wizard-body {
+  background: #1f2937;
+  border-color: #374151;
+  border-top-color: #f3f4f6;
+}
+
+.dark .wizard-footer {
+  background: #1f2937;
+  border-color: #374151;
+}
+
+.dark .wizard-step-counter {
+  color: #9ca3af;
+}
+
 .dark .wizard-panel > *::-webkit-scrollbar-thumb {
-  background: #2d2a45;
+  background: #4b5563;
+}
+
+.dark .wizard-panel > *::-webkit-scrollbar-thumb:hover {
+  background: #6b7280;
 }

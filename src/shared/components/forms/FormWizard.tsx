@@ -18,6 +18,7 @@ interface FormWizardProps {
   onKeyDown?: (e: React.KeyboardEvent<HTMLFormElement>) => void;
   triggerValidation?: (fields: string[]) => Promise<boolean>;
   onReset?: () => void;
+  customActions?: (activeIndex: number, isLastStep: boolean) => ReactNode;
 }
 
 export default function FormWizard({
@@ -29,6 +30,7 @@ export default function FormWizard({
   onKeyDown,
   triggerValidation,
   onReset,
+  customActions,
 }: FormWizardProps) {
   const [activeIndex, setActiveIndex] = useState(0);
   const [maxTabReached, setMaxTabReached] = useState(
@@ -212,6 +214,8 @@ export default function FormWizard({
                   disabled={isSaving}
                 />
               )}
+              {customActions &&
+                customActions(activeIndex, activeIndex === steps.length - 1)}
               <Button
                 type="button"
                 label="Reset"
