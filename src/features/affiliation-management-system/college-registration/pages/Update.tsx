@@ -13,6 +13,7 @@ import CollegeRegistrationStep from '../components/CollegeRegistrationStep';
 import DraftSuccessDialog from '../components/DraftSuccessDialog';
 import { useCollegeApplicationForm } from '../components/form.hook';
 import { useUpdateCollegeRegistrationMutation } from '../queries';
+import './Create.css';
 
 export default function Update() {
   const [isUploading, setIsUploading] = useState(false);
