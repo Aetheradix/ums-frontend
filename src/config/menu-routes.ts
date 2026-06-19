@@ -5,7 +5,7 @@ import { hasPermission } from 'shared/utils/permissionCheck';
 export const menuConfig: Menu.MenuItem[] = [
   {
     label: 'Core Administrative Services',
-    slug: 'core-administrative-services',
+    slug: 'master-data',
     category: 'Administrative',
     icon: 'school',
     colorScheme: 'red',

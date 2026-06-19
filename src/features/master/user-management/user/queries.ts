@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { createUser, getUser, getUsers, updateUser } from './api';
+import { createUser, deleteUser, getUser, getUsers, updateUser } from './api';
 
 const queryKey = ['@user-management/users'];
 
@@ -31,6 +31,17 @@ export function useUpdateUserMutation(id: string) {
       if (!data) return;
       queryClient.invalidateQueries({ queryKey: queryKey });
       queryClient.invalidateQueries({ queryKey: [...queryKey, id] });
+    },
+  });
+}
+
+export function useDeleteUserMutation() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async (id: string) => await deleteUser(id),
+    onSuccess(data) {
+      if (!data) return;
+      queryClient.invalidateQueries({ queryKey: queryKey });
     },
   });
 }
