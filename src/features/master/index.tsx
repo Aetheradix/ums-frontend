@@ -37,6 +37,7 @@ import Subject from './subject';
 import EmployeeGroup from './employee/settings/employee-group';
 import SeparationReasonType from './employee/settings/separation-reason-type';
 import DepartmentGroupType from './employee/settings/department-group-type';
+import DepartmentGroup from './employee/settings/department-group';
 import UserManagement from './user-management';
 import CmsManagement from '../cms-management';
 
@@ -121,6 +122,7 @@ export default function Master() {
             path="department-group-type/*"
             element={<DepartmentGroupType />}
           />
+          <Route path="department-group/*" element={<DepartmentGroup />} />
         </Route>
       </Route>
     </Routes>

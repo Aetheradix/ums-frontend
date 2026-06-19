@@ -77,5 +77,15 @@ declare namespace Master {
     }
 
     type DepartmentGroupTypeItem = Data.WithId<DepartmentGroupTypeForm>;
+
+    interface DepartmentGroupForm {
+      departmentGroupTypeId: number;
+      departmentGroupTypeName?: string;
+      name: string;
+      code: string;
+      isActive: boolean;
+    }
+
+    type DepartmentGroupItem = Data.WithId<DepartmentGroupForm>;
   }
 }

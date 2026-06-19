@@ -4,6 +4,7 @@ import { actionOptionReasonUrls } from './employee/settings/action-option-reason
 import { actionOptionUrls } from './employee/settings/action-option/urls';
 import { employeeGroupUrls } from './employee/settings/employee-group/urls';
 import { departmentGroupTypeUrls } from './employee/settings/department-group-type/urls';
+import { departmentGroupUrls } from './employee/settings/department-group/urls';
 import { employmentNatureUrls } from './employee/settings/nature-of-employment/urls';
 import { organizationUnitUrls } from './employee/settings/organization-unit/urls';
 import { subjectSpecializationUrls } from './employee/settings/subject-specialization/urls';
@@ -84,4 +85,5 @@ export const masterUrls = {
   travelPurpose: travelPurposeUrls(`${baseUrl}/employee/settings`),
   employeeGroup: employeeGroupUrls(`${baseUrl}/employee/settings`),
   departmentGroupType: departmentGroupTypeUrls(`${baseUrl}/employee/settings`),
+  departmentGroup: departmentGroupUrls(`${baseUrl}/employee/settings`),
 };
