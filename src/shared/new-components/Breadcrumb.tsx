@@ -21,7 +21,9 @@ export default function Breadcrumb({ items }: BreadcrumbProps) {
     }
 
     const paths = location.pathname.split('/').filter(x => x);
-    const generatedItems: BreadcrumbItem[] = [{ label: 'Home', to: '/' }];
+    const generatedItems: BreadcrumbItem[] = [
+      { label: 'Home', to: '/home/menu' },
+    ];
     let currentPath = '';
 
     paths.forEach(path => {
