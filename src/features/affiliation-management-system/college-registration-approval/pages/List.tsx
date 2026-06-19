@@ -107,7 +107,11 @@ export default function List() {
           data={data}
           searchBox
           searchPlaceholder="Search colleges..."
-          searchFields={['collegeName', 'collegeCategory', 'applicationNumber']}
+          searchFields={[
+            'collegeName',
+            'collegeCategoryId',
+            'applicationNumber',
+          ]}
           emptyMessage="No college registration approvals found."
           className="registration-approval-grid"
           columns={[
@@ -121,7 +125,7 @@ export default function List() {
               header: 'College Name',
             },
             {
-              field: 'collegeCategory',
+              field: 'collegeCategoryId',
               header: 'Category',
             },
             {
@@ -308,11 +312,11 @@ export default function List() {
                 />
                 <PreviewField
                   label="College Category"
-                  value={previewData.collegeCategory}
+                  value={previewData.collegeCategoryId}
                 />
                 <PreviewField
                   label="College Type"
-                  value={previewData.collegeType}
+                  value={previewData.collegeTypeId}
                 />
                 <PreviewField
                   label="College Area"

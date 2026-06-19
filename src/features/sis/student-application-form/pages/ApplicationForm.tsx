@@ -1,33 +1,39 @@
 import { useCallback, useState } from 'react';
+import { FormProvider } from 'react-hook-form';
 import { ToastService } from 'services';
-import { FormPage, Stepper } from 'shared/new-components';
 import { Button } from 'shared/components/buttons';
-import { useCreateApplicationMutation } from '../queries';
-import { useApplicationForm } from '../components/form.hook';
-import BasicInfoStep from '../components/BasicInfoStep';
-import FatherInfoStep from '../components/FatherInfoStep';
-import MotherInfoStep from '../components/MotherInfoStep';
+import { FormPage, Stepper } from 'shared/new-components';
 import AcademicInfoStep from '../components/AcademicInfoStep';
 import AddressInfoStep from '../components/AddressInfoStep';
-import type { ApplicationFormData, CreateApplicationCommand } from '../types';
+import BasicInfoStep from '../components/BasicInfoStep';
+import ChoiceFillingStep from '../components/ChoiceFillingStep';
+import FatherInfoStep from '../components/FatherInfoStep';
+import { useApplicationForm } from '../components/form.hook';
+import MotherInfoStep from '../components/MotherInfoStep';
+import { useCreateApplicationMutation } from '../queries';
+import type {
+  ApplicationFormData,
+  CreateApplicationCommand,
+  PriorEducationApiEntry,
+} from '../types';
 
 // Import all required query hooks for dropdown mapping
-import { useAcademicYearsQuery } from 'features/master/other/academic-year/queries';
-import { useProgrammesQuery } from 'features/master/other/programme/queries';
-import { useCastesQuery } from 'features/master/hr/caste/queries';
-import { useDegreeLevelsQuery } from 'features/master/other/degree-level/queries';
-import { useSpecialisationsQuery } from 'features/master/other/specialisation/queries';
-import { useGenderQuery } from 'features/master/other/gender/queries';
-import { useResidencyStatusesQuery } from 'features/master/other/residency-status/queries';
-import { useNationalitiesQuery } from 'features/master/other/nationality/queries';
-import { useAddressTypeQuery } from 'features/master/other/address-type/queries';
-import { useStatesQuery } from 'features/master/location/state/queries';
-import { useDivisionsQuery } from 'features/master/location/division/queries';
-import { useDistrictsQuery } from 'features/master/location/district/queries';
-import { useTehsilsQuery } from 'features/master/location/tehsil/queries';
-import { useBlocksQuery } from 'features/master/location/block/queries';
 import { useDesignationsQuery } from 'features/master/faculty/designation/queries';
+import { useCastesQuery } from 'features/master/hr/caste/queries';
+import { useBlocksQuery } from 'features/master/location/block/queries';
+import { useDistrictsQuery } from 'features/master/location/district/queries';
+import { useDivisionsQuery } from 'features/master/location/division/queries';
+import { useStatesQuery } from 'features/master/location/state/queries';
+import { useTehsilsQuery } from 'features/master/location/tehsil/queries';
+import { useAcademicYearsQuery } from 'features/master/other/academic-year/queries';
+import { useAddressTypeQuery } from 'features/master/other/address-type/queries';
+import { useDegreeLevelsQuery } from 'features/master/other/degree-level/queries';
+import { useGenderQuery } from 'features/master/other/gender/queries';
+import { useNationalitiesQuery } from 'features/master/other/nationality/queries';
 import { useOccupationTypeQuery } from 'features/master/other/occupation/queries';
+import { useProgrammesQuery } from 'features/master/other/programme/queries';
+import { useResidencyStatusesQuery } from 'features/master/other/residency-status/queries';
+import { useSpecialisationsQuery } from 'features/master/other/specialisation/queries';
 import { useProgrammeModeOfEducationsQuery } from 'features/master/subject/programme-mode-of-education/queries';
 
 const STEPS = [
@@ -35,6 +41,7 @@ const STEPS = [
   { label: "Father's Details" },
   { label: "Mother's Details" },
   { label: 'Academic Info' },
+  { label: 'Choice Filling' },
   { label: 'Address Info' },
 ];
 
@@ -73,10 +80,10 @@ const STEP_FIELDS: Record<number, (keyof ApplicationFormData)[]> = {
     'degreeLevel',
     'programOfStudy',
     'specialisation',
-    'previousInstitutionType',
-    'previousInstitutionCgpa',
+    'priorEducations',
   ],
-  4: [
+  4: ['choiceFilling'],
+  5: [
     'addressType',
     'country',
     'state',
@@ -98,7 +105,6 @@ function formatDate(date: Date): string {
   return `${year}-${month}-${day}`;
 }
 
-/** Helper to lookup display text corresponding to a selected ID */
 function lookupText(
   value: string | number | undefined | null,
   list: any[] | undefined,
@@ -106,7 +112,7 @@ function lookupText(
   textField: string = 'name'
 ): string {
   if (value === null || value === undefined) return '';
-  const item = list?.find(item => String(item[idField]) === String(value));
+  const item = list?.find(i => String(i[idField]) === String(value));
   return item ? String(item[textField]) : String(value);
 }
 
@@ -114,10 +120,10 @@ export default function ApplicationForm() {
   const [activeStep, setActiveStep] = useState(0);
   const { mutateAsync, isPending } = useCreateApplicationMutation();
 
-  // Initialize form hook at the top to avoid Temporal Dead Zone (TDZ) reference errors
-  const { register, handleSubmit, reset, trigger } = useApplicationForm();
+  const { methods, register } = useApplicationForm();
+  const { handleSubmit, reset, trigger, control, setValue, formState } =
+    methods;
 
-  // Load all master lists for translation of selected IDs to text labels
   const { data: academicYears } = useAcademicYearsQuery();
   const { data: programmes } = useProgrammesQuery();
   const { data: castes } = useCastesQuery();
@@ -136,14 +142,10 @@ export default function ApplicationForm() {
   const { data: occupations } = useOccupationTypeQuery();
   const { data: programModes } = useProgrammeModeOfEducationsQuery();
 
-  // Define Form Submission action using handleSubmit from react-hook-form
   const onFormSubmit = handleSubmit(
     async (data: ApplicationFormData) => {
       try {
         const programmeId = Number(data.programme);
-        const genderId = Number(data.gender);
-        const residencyId = Number(data.residencyStatus);
-        const nationalityId = Number(data.nationality);
         const casteId = Number(data.caste);
         const degreeLevelId = Number(data.degreeLevel);
         const specialisationId = Number(data.specialisation);
@@ -158,6 +160,21 @@ export default function ApplicationForm() {
         const motherOccId = Number(data.motherOccupation);
         const motherDesId = Number(data.motherDesignation);
         const programOfStudyId = Number(data.programOfStudy);
+        const nationalityId = Number(data.nationality);
+
+        const priorEducations: PriorEducationApiEntry[] = (
+          data.priorEducations ?? []
+        ).map(e => ({
+          educationLevel: e.educationLevel,
+          institutionName: e.institutionName,
+          boardOrUniversity: e.boardOrUniversity,
+          passingYear: Number(e.passingYear),
+          percentage: e.percentage != null ? Number(e.percentage) : null,
+          cgpa: e.cgpa != null ? Number(e.cgpa) : null,
+          subjectsOrStream: e.subjectsOrStream,
+          documentType: e.documentType,
+          documentId: e.documentId ?? null,
+        }));
 
         const payload: CreateApplicationCommand = {
           academicSession: lookupText(
@@ -174,7 +191,7 @@ export default function ApplicationForm() {
             lastName: data.lastName,
             email: data.email,
             phone: data.phone,
-            gender: lookupText(genderId, genders, 'id', 'text'),
+            gender: lookupText(Number(data.gender), genders, 'id', 'text'),
             casteId,
             casteName: lookupText(casteId, castes, 'id', 'name'),
             dateOfBirth: data.dateOfBirth ? formatDate(data.dateOfBirth) : '',
@@ -210,7 +227,7 @@ export default function ApplicationForm() {
             motherAnnualIncome: Number(data.motherAnnualIncome),
             motherContactNumber: data.motherContactNumber,
             residencyStatus: lookupText(
-              residencyId,
+              Number(data.residencyStatus),
               residencyStatuses,
               'id',
               'text'
@@ -246,8 +263,7 @@ export default function ApplicationForm() {
               'id',
               'name'
             ),
-            previousInstitutionType: data.previousInstitutionType,
-            previousInstitutionCgpa: Number(data.previousInstitutionCgpa),
+            priorEducations,
           },
           address: {
             addressType: lookupText(addressTypeId, addressTypes, 'id', 'text'),
@@ -267,6 +283,7 @@ export default function ApplicationForm() {
             landmark: data.landmark,
             zipcode: Number(data.zipcode),
           },
+          choices: data.choiceFilling || [],
         };
 
         const result = await mutateAsync(payload);
@@ -288,9 +305,7 @@ export default function ApplicationForm() {
   const handleNext = useCallback(async () => {
     const fields = STEP_FIELDS[activeStep];
     const isValid = await trigger(fields);
-    if (isValid) {
-      setActiveStep(prev => prev + 1);
-    }
+    if (isValid) setActiveStep(prev => prev + 1);
   }, [activeStep, trigger]);
 
   const handleBack = useCallback(() => {
@@ -299,9 +314,7 @@ export default function ApplicationForm() {
 
   const handleStepClick = useCallback(
     (index: number) => {
-      if (index < activeStep) {
-        setActiveStep(index);
-      }
+      if (index < activeStep) setActiveStep(index);
     },
     [activeStep]
   );
@@ -313,54 +326,71 @@ export default function ApplicationForm() {
       title="Student Application Form"
       description="Fill in all the required details to submit your application."
     >
-      {/* Stepper */}
       <Stepper
         steps={STEPS}
         activeStep={activeStep}
         onStepClick={handleStepClick}
       />
 
-      {/* Step Content */}
-      <form onSubmit={onFormSubmit}>
-        <div className="flex flex-col gap-6 mb-6">
-          {activeStep === 0 && <BasicInfoStep register={register} />}
-          {activeStep === 1 && <FatherInfoStep register={register} />}
-          {activeStep === 2 && <MotherInfoStep register={register} />}
-          {activeStep === 3 && <AcademicInfoStep register={register} />}
-          {activeStep === 4 && <AddressInfoStep register={register} />}
-        </div>
+      {/* FormProvider makes form context available to PriorEducationCard via useFormContext() */}
+      <FormProvider {...methods}>
+        <form onSubmit={onFormSubmit}>
+          <div className="flex flex-col gap-6 mb-6">
+            {activeStep === 0 && <BasicInfoStep register={register} />}
+            {activeStep === 1 && <FatherInfoStep register={register} />}
+            {activeStep === 2 && <MotherInfoStep register={register} />}
+            {activeStep === 3 && (
+              <AcademicInfoStep
+                register={register}
+                control={control}
+                setValue={setValue}
+                errors={formState.errors}
+              />
+            )}
+            {activeStep === 4 && (
+              <ChoiceFillingStep control={control} setValue={setValue} />
+            )}
+            {activeStep === 5 && (
+              <AddressInfoStep
+                register={register}
+                control={control}
+                setValue={setValue}
+              />
+            )}
+          </div>
 
-        {/* Navigation Buttons */}
-        <div className="form-actions-container form-actions-right">
-          {activeStep > 0 && (
-            <Button
-              key="back-button"
-              label="Back"
-              type="button"
-              onClick={handleBack}
-              icon="arrow-left"
-              variant="outlined"
-            />
-          )}
-          {!isLastStep ? (
-            <Button
-              key="next-button"
-              label="Next"
-              type="button"
-              onClick={handleNext}
-              icon="arrow-right"
-            />
-          ) : (
-            <Button
-              key="save-button"
-              label="Save"
-              type="submit"
-              icon="save"
-              isLoading={isPending}
-            />
-          )}
-        </div>
-      </form>
+          {/* Navigation */}
+          <div className="form-actions-container form-actions-right">
+            {activeStep > 0 && (
+              <Button
+                key="back-button"
+                label="Back"
+                type="button"
+                onClick={handleBack}
+                icon="arrow-left"
+                variant="outlined"
+              />
+            )}
+            {!isLastStep ? (
+              <Button
+                key="next-button"
+                label="Next"
+                type="button"
+                onClick={handleNext}
+                icon="arrow-right"
+              />
+            ) : (
+              <Button
+                key="save-button"
+                label="Save"
+                type="submit"
+                icon="save"
+                isLoading={isPending}
+              />
+            )}
+          </div>
+        </form>
+      </FormProvider>
     </FormPage>
   );
 }

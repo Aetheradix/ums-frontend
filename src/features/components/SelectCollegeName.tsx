@@ -1,33 +1,31 @@
-import { useCollegeTypesQuery } from 'features/master/college/college-type/queries';
+import { useCollegesByCollegeTypeQuery } from 'features/affiliation-management-system/college-registration/queries';
 import type { FieldValues } from 'react-hook-form';
 import { DropDownList } from 'shared/components/forms';
 
-interface SelectCollegeTypeProps<
+interface SelectCollegeNameProps<
   T extends FieldValues,
 > extends Controls.FormProps<T> {
+  collegeTypeId?: number;
   label?: string;
   disabled?: boolean;
 }
 
-export default function SelectCollegeType<T extends FieldValues>({
+export default function SelectCollegeName<T extends FieldValues>({
+  collegeTypeId,
   defaultOptionText,
-  label = 'College Type',
+  label = 'College Name',
   ...props
-}: SelectCollegeTypeProps<T> &
+}: SelectCollegeNameProps<T> &
   Controls.InputBlockProps & { defaultOptionText?: string }) {
-  const { data, isLoading } = useCollegeTypesQuery();
-  const activeData =
-    data?.filter(
-      (item: CollegeMaster.CollegeTypeItem) => item.isActive === true
-    ) || [];
+  const { data, isLoading } = useCollegesByCollegeTypeQuery(collegeTypeId);
 
   return (
     <DropDownList
-      data={activeData}
+      data={data}
       loading={isLoading}
-      textField="name"
-      valueField="id"
-      optionValue="id"
+      textField="collegeName"
+      valueField="registrationId"
+      optionValue="registrationId"
       label={label}
       required={true}
       defaultOptionText={defaultOptionText}
