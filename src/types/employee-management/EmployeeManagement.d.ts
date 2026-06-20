@@ -21,6 +21,7 @@ declare namespace EmployeeManagement {
     subjectSpecializationId: number;
     collegeTypeId?: number;
     registrationId?: number;
+    parentUniversityName?: string | null;
     departmentGroupTypeId?: number;
     departmentGroupId?: number;
     departmentId?: number;

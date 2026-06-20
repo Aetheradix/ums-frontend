@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useAppForm } from 'shared/hooks/form';
 import validation from 'shared/utils/validation';
 
@@ -20,7 +21,24 @@ const schema = validation.create<EmployeeManagement.QuickOnboardingForm>(o => ({
     .label('Subject Specialization'),
 
   collegeTypeId: o.number().optional().min(1).label('College Type'),
-  registrationId: o.number().optional().min(1).label('College Name'),
+  registrationId: o
+    .number()
+    .label('College Name')
+    .when('collegeTypeId', {
+      is: o.number().valid(17, 18),
+      then: o.number().required().min(1),
+      otherwise: o.number().optional().allow(null),
+    }),
+
+  parentUniversityName: o
+    .string()
+    .label('Parent University Name')
+    .when('collegeTypeId', {
+      is: o.number().valid(15, 16),
+      then: o.string().required(),
+      otherwise: o.string().optional().allow('', null),
+    }),
+
   departmentGroupTypeId: o
     .number()
     .optional()
@@ -77,6 +95,24 @@ export function useQuickOnboardingForm(
 
       resolver: validation.resolver(schema),
     });
+
+  const collegeTypeId = watch('collegeTypeId');
+
+  useEffect(() => {
+    if (collegeTypeId === 15 || collegeTypeId === 16) {
+      setValue('registrationId', undefined as any, { shouldValidate: true });
+      setValue('parentUniversityName', 'DAVV', {
+        shouldDirty: true,
+        shouldValidate: true,
+      });
+    } else if (collegeTypeId === 17 || collegeTypeId === 18) {
+      setValue('parentUniversityName', null as any, { shouldValidate: true });
+      setValue('registrationId', undefined as any, { shouldValidate: true });
+    } else {
+      setValue('parentUniversityName', null as any, { shouldValidate: true });
+      setValue('registrationId', undefined as any, { shouldValidate: true });
+    }
+  }, [collegeTypeId, setValue]);
 
   return {
     register,

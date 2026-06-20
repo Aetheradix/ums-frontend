@@ -104,13 +104,23 @@ export default function QuickOnboardingForm(props: Props) {
               defaultOptionText="Select College Type"
             />
 
-            <SelectCollegeName
-              name="registrationId"
-              control={control}
-              collegeTypeId={collegeTypeId}
-              label="College Name"
-              defaultOptionText="Select College Name"
-            />
+            {(collegeTypeId === 17 || collegeTypeId === 18) && (
+              <SelectCollegeName
+                name="registrationId"
+                control={control}
+                collegeTypeId={collegeTypeId}
+                label="College Name"
+                defaultOptionText="Select College Name"
+              />
+            )}
+
+            {(collegeTypeId === 15 || collegeTypeId === 16) && (
+              <TextBox
+                name="parentUniversityName"
+                control={control}
+                label="Parent University Name"
+              />
+            )}
 
             <SelectDepartmentGroupType
               name="departmentGroupTypeId"
