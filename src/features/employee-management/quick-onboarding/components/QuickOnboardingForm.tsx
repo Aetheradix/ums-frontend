@@ -26,8 +26,10 @@ interface Props {
 }
 
 export default function QuickOnboardingForm(props: Props) {
-  const { register, handleSubmit, reset, watch, control } =
-    useQuickOnboardingForm(props.onSubmit, props.initialData);
+  const { register, handleSubmit, reset, watch } = useQuickOnboardingForm(
+    props.onSubmit,
+    props.initialData
+  );
 
   const employeeType = watch('employeeType');
   const collegeTypeId = watch('collegeTypeId');
@@ -96,11 +98,10 @@ export default function QuickOnboardingForm(props: Props) {
           </FormGrid>
         </FormCard>
 
-        <FormCard title="Placement / Posting Information" icon="building">
+        <FormCard title="Department Allocation" icon="building">
           <FormGrid columns={3}>
             <SelectCollegeType
-              name="collegeTypeId"
-              control={control}
+              {...register('collegeTypeId')}
               label="College Type"
               defaultOptionText="Select College Type"
             />
@@ -108,8 +109,7 @@ export default function QuickOnboardingForm(props: Props) {
             {(collegeTypeId === COLLEGE_TYPES.AFFILIATED_COLLEGE ||
               collegeTypeId === COLLEGE_TYPES.AUTONOMOUS_COLLEGE) && (
               <SelectCollegeName
-                name="registrationId"
-                control={control}
+                {...register('registrationId')}
                 collegeTypeId={collegeTypeId}
                 label="College Name"
                 defaultOptionText="Select College Name"
@@ -119,30 +119,26 @@ export default function QuickOnboardingForm(props: Props) {
             {(collegeTypeId === COLLEGE_TYPES.UNIVERSITY_ADMINISTRATION ||
               collegeTypeId === COLLEGE_TYPES.MAIN_CAMPUS_UTDS) && (
               <TextBox
-                name="parentUniversityName"
-                control={control}
+                {...register('parentUniversityName')}
                 label="Parent University Name"
               />
             )}
 
             <SelectDepartmentGroupType
-              name="departmentGroupTypeId"
-              control={control}
+              {...register('departmentGroupTypeId')}
               label="Department Group Type"
               defaultOptionText="Select Department Group Type"
             />
 
             <SelectDepartmentGroupByGroupType
-              name="departmentGroupId"
-              control={control}
+              {...register('departmentGroupId')}
               departmentGroupTypeId={departmentGroupTypeId}
               label="Department Group"
               defaultOptionText="Select Department Group"
             />
 
             <SelectDepartmentByGroup
-              name="departmentId"
-              control={control}
+              {...register('departmentId')}
               departmentGroupId={departmentGroupId}
               label="Department"
               defaultOptionText="Select Department"
@@ -158,8 +154,7 @@ export default function QuickOnboardingForm(props: Props) {
               required
             />
             <SelectDesignationByEmployeeType
-              name="designationId"
-              control={control}
+              {...register('designationId')}
               employeeType={employeeType}
               label="Designation"
               defaultOptionText="Select Designation"
