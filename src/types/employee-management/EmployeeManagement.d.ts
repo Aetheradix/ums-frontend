@@ -16,17 +16,21 @@ declare namespace EmployeeManagement {
 
   interface QuickOnboardingForm extends QuickOnboardingBase {
     employeeNatureId: number;
-    organizationUnitId: number;
     postId: number;
     designationId: number;
     subjectSpecializationId: number;
+    collegeTypeId?: number;
+    registrationId?: number;
+    parentUniversityName?: string | null;
+    departmentGroupTypeId?: number;
+    departmentGroupId?: number;
+    departmentId?: number;
   }
 
   interface QuickOnboardingItem extends QuickOnboardingBase {
     employeeId: number;
     fullName: string;
     employeeNature: string;
-    organizationUnit: string;
     post: string;
     subjectSpecialization: string;
     isActive: boolean;
@@ -97,7 +101,6 @@ declare namespace EmployeeManagement {
   interface FullOnboardingForm extends FullOnboardingBase {
     employeeId?: number;
     employeeNatureId: number;
-    organizationUnitId: number;
     postId: number;
     designationId: number;
     subjectSpecializationId: number;
@@ -108,13 +111,18 @@ declare namespace EmployeeManagement {
     currentAddress: AddressForm;
     permanentAddress: AddressForm;
     isSameAsCurrentAddress: boolean;
+    collegeTypeId?: number;
+    registrationId?: number;
+    parentUniversityName?: string | null;
+    departmentGroupTypeId?: number;
+    departmentGroupId?: number;
+    departmentId?: number;
   }
 
   interface FullOnboardingItem extends FullOnboardingBase {
     employeeId: number;
     fullName: string;
     employeeNatureName: string;
-    organizationUnitName: string;
     postName: string;
     designationName: string;
     subjectSpecializationName: string;
