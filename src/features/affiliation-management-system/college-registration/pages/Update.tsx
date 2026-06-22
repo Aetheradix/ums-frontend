@@ -219,9 +219,9 @@ export default function Update() {
   };
 
   const handlePayNow = () => {
-    navigate(
-      `/payment-management/college-affiliation/${paymentDetails.transactionId}`
-    );
+    navigate('/payment-management/college-affiliation/receipt', {
+      state: { receiptData: paymentDetails },
+    });
   };
 
   if (!draftData) return null;

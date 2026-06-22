@@ -133,7 +133,7 @@ const schema =
         .optional(),
       applicationNumber: o.string().optional(),
       isSubmitted: o.boolean().optional(),
-      transactionId: o.string().optional(),
+      transactionId: o.number().optional(),
       transactionDate: o.string().allow('', null).optional(),
       totalFees: o.number().optional(),
       feeStructure: o.string().optional(),
