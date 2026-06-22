@@ -57,7 +57,6 @@ export default function OverviewTab({ data }: OverviewTabProps) {
         </div>
 
         <div className="employee-profile-info-grid">
-          <InfoItem label="Organization Unit" value={data.organizationUnit} />
           <InfoItem label="Department" value="N/A" />
           <InfoItem label="Reporting To" value="N/A" />
           <InfoItem label="Location" value="N/A" />

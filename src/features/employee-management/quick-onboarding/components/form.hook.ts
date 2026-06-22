@@ -1,13 +1,13 @@
+import { useEffect } from 'react';
 import { useAppForm } from 'shared/hooks/form';
 import validation from 'shared/utils/validation';
+import { COLLEGE_TYPES } from 'shared/constant';
 
 const schema = validation.create<EmployeeManagement.QuickOnboardingForm>(o => ({
   // Employee Information
   employeeType: o.string().required().max(50).label('Employee Type'),
 
   employeeNatureId: o.number().required().min(1).label('Nature of Employment'),
-
-  organizationUnitId: o.number().required().min(1).label('Organization Unit'),
 
   postId: o.number().required().min(1).label('Post'),
 
@@ -20,6 +20,43 @@ const schema = validation.create<EmployeeManagement.QuickOnboardingForm>(o => ({
     .required()
     .min(1)
     .label('Subject Specialization'),
+
+  collegeTypeId: o.number().optional().min(1).label('College Type'),
+  registrationId: o
+    .number()
+    .label('College Name')
+    .when('collegeTypeId', {
+      is: o
+        .number()
+        .valid(
+          COLLEGE_TYPES.AFFILIATED_COLLEGE,
+          COLLEGE_TYPES.AUTONOMOUS_COLLEGE
+        ),
+      then: o.number().required().min(1),
+      otherwise: o.number().optional().allow(null),
+    }),
+
+  parentUniversityName: o
+    .string()
+    .label('Parent University Name')
+    .when('collegeTypeId', {
+      is: o
+        .number()
+        .valid(
+          COLLEGE_TYPES.UNIVERSITY_ADMINISTRATION,
+          COLLEGE_TYPES.MAIN_CAMPUS_UTDS
+        ),
+      then: o.string().required(),
+      otherwise: o.string().optional().allow('', null),
+    }),
+
+  departmentGroupTypeId: o
+    .number()
+    .optional()
+    .min(1)
+    .label('Department Group Type'),
+  departmentGroupId: o.number().optional().min(1).label('Department Group'),
+  departmentId: o.number().optional().min(1).label('Department'),
 
   // Personal Information
   salutation: o.string().required().max(15).label('Salutation'),
@@ -63,12 +100,36 @@ export function useQuickOnboardingForm(
   submitCallback: Forms.SubmitFunc<EmployeeManagement.QuickOnboardingForm>,
   fetchData?: Forms.FetchDataFunc<EmployeeManagement.QuickOnboardingForm>
 ) {
-  const { register, handleSubmit, reset, setValue, watch } =
+  const { register, handleSubmit, reset, setValue, watch, control } =
     useAppForm<EmployeeManagement.QuickOnboardingForm>({
       defaultValues: fetchData,
 
       resolver: validation.resolver(schema),
     });
+
+  const collegeTypeId = watch('collegeTypeId');
+
+  useEffect(() => {
+    if (
+      collegeTypeId === COLLEGE_TYPES.UNIVERSITY_ADMINISTRATION ||
+      collegeTypeId === COLLEGE_TYPES.MAIN_CAMPUS_UTDS
+    ) {
+      setValue('registrationId', undefined, { shouldValidate: true });
+      setValue('parentUniversityName', 'DAVV', {
+        shouldDirty: true,
+        shouldValidate: true,
+      });
+    } else if (
+      collegeTypeId === COLLEGE_TYPES.AFFILIATED_COLLEGE ||
+      collegeTypeId === COLLEGE_TYPES.AUTONOMOUS_COLLEGE
+    ) {
+      setValue('parentUniversityName', null, { shouldValidate: true });
+      setValue('registrationId', undefined, { shouldValidate: true });
+    } else {
+      setValue('parentUniversityName', null, { shouldValidate: true });
+      setValue('registrationId', undefined, { shouldValidate: true });
+    }
+  }, [collegeTypeId, setValue]);
 
   return {
     register,
@@ -76,5 +137,6 @@ export function useQuickOnboardingForm(
     reset,
     setValue,
     watch,
+    control,
   };
 }

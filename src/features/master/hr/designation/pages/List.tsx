@@ -48,6 +48,7 @@ export default function List() {
             },
             { field: 'name', header: 'Name' },
             { field: 'code', header: 'Code' },
+            { field: 'employeeType', header: 'Employee Type' },
             { field: 'sequenceNumber', header: 'Sequence' },
             {
               field: 'isActive',
