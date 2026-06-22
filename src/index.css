@@ -1528,6 +1528,25 @@ body {
   .no-print {
     display: none !important;
   }
+
+  /* Global Printable Panel Logic */
+  body:has(.print-fullscreen-panel) * {
+    visibility: hidden;
+  }
+  body:has(.print-fullscreen-panel) .print-fullscreen-panel,
+  body:has(.print-fullscreen-panel) .print-fullscreen-panel * {
+    visibility: visible !important;
+  }
+  body:has(.print-fullscreen-panel) .print-fullscreen-panel {
+    position: absolute !important;
+    left: 0 !important;
+    top: 0 !important;
+    width: 100vw !important;
+    border: none !important;
+    box-shadow: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
 }
 
 /* ============================================================
