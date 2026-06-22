@@ -4,6 +4,8 @@ import CheckboxList from './CheckBoxList';
 import DatePicker from './DatePicker';
 import DropDownList from './DropDownList';
 import FileUpload from './FileUpload';
+import FormSubSection from './FormSubSection';
+import FormWizard from './FormWizard';
 import InputBlock from './InputBlock';
 import MaskedBox from './MaskedBox';
 import MultiSelectList from './MultiSelectList';
@@ -21,6 +23,8 @@ export {
   DatePicker,
   DropDownList,
   FileUpload,
+  FormSubSection,
+  FormWizard,
   InputBlock,
   MaskedBox,
   MultiSelectList,

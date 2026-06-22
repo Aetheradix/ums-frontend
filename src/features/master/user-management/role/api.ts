@@ -31,3 +31,8 @@ export async function updateUserRole(
   const { error } = await ApiService.put(url, data);
   return !error;
 }
+
+export async function deleteUserRole(id: string): Promise<boolean> {
+  const { error } = await ApiService.del(`${ROLE_URL}/${id}`);
+  return !error;
+}

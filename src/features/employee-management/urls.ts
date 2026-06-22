@@ -30,9 +30,19 @@ export const settingsUrls = (base: string) => {
   };
 };
 
+export const fullOnboardingUrls = (base: string) => {
+  const prefix = `${base}/full-onboarding`;
+
+  return {
+    root: prefix,
+    create: `${prefix}/create`,
+  };
+};
+
 export const employeeManagementUrls = {
   root: baseUrl,
 
   quickOnboarding: quickOnboardingUrls(baseUrl),
+  fullOnboarding: fullOnboardingUrls(baseUrl),
   settings: settingsUrls(baseUrl),
 };

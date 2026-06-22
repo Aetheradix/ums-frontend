@@ -13,6 +13,7 @@ import {
 import UserForm from '../components/UserForm';
 import {
   useCreateUserMutation,
+  useDeleteUserMutation,
   useUpdateUserMutation,
   useUserQuery,
   useUsersQuery,
@@ -23,12 +24,14 @@ type PopupState = { mode: 'closed' } | { mode: 'edit'; id: string };
 
 export default function List() {
   const { data, isLoading } = useUsersQuery();
+  const { mutateAsync: deleteUser } = useDeleteUserMutation();
 
   const editOverlayRef = useRef<OverlayPanel>(null);
   const editButtonRef = useRef<HTMLButtonElement | null>(null);
 
   const [popup, setPopup] = useState<PopupState>({ mode: 'closed' });
   const [showCreatePanel, setShowCreatePanel] = useState(false);
+  const [clearSearchCount, setClearSearchCount] = useState(0);
 
   const closeEditOverlay = useCallback(() => {
     editOverlayRef.current?.hide();
@@ -51,8 +54,20 @@ export default function List() {
     }, 0);
   };
 
-  const handleRemove = (_user: UserManagement.UserList) => {
-    // TODO: connect delete/remove user API when available
+  const handleRemove = async (user: UserManagement.UserList) => {
+    if (
+      !window.confirm(
+        `Are you sure you want to delete user "${user.userName}"?`
+      )
+    )
+      return;
+    try {
+      const ok = await deleteUser(user.id);
+      if (ok) ToastService.success('User deleted successfully.');
+      else ToastService.error('Failed to delete user.');
+    } catch {
+      ToastService.error('Failed to delete user.');
+    }
   };
 
   return (
@@ -65,7 +80,10 @@ export default function List() {
         title="Create User"
         onClose={() => setShowCreatePanel(false)}
       >
-        <CreateUserContent onClose={() => setShowCreatePanel(false)} />
+        <CreateUserContent
+          onClose={() => setShowCreatePanel(false)}
+          onSuccess={() => setClearSearchCount(c => c + 1)}
+        />
       </InlineCreatePanel>
       <FormCard>
         {isLoading ? <Loader /> : undefined}
@@ -73,6 +91,7 @@ export default function List() {
           data={data ?? []}
           onEdit={handleEditClick}
           onRemove={handleRemove}
+          clearSearch={clearSearchCount}
           columns={[
             {
               cell: (_, option) => <span>{option.rowIndex + 1}</span>,
@@ -145,7 +164,13 @@ export default function List() {
 }
 
 /* ── Inline Create Content ── */
-function CreateUserContent({ onClose }: { onClose: () => void }) {
+function CreateUserContent({
+  onClose,
+  onSuccess,
+}: {
+  onClose: () => void;
+  onSuccess: () => void;
+}) {
   const { mutateAsync, isPending } = useCreateUserMutation();
 
   async function handleSubmit(data: UserManagement.UserForm) {
@@ -153,6 +178,7 @@ function CreateUserContent({ onClose }: { onClose: () => void }) {
       const result = await mutateAsync(data);
       if (result) {
         ToastService.success('User created successfully.');
+        onSuccess();
         onClose();
       }
     } catch {

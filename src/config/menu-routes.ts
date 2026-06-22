@@ -5,7 +5,7 @@ import { hasPermission } from 'shared/utils/permissionCheck';
 export const menuConfig: Menu.MenuItem[] = [
   {
     label: 'Core Administrative Services',
-    slug: 'core-administrative-services',
+    slug: 'master-data',
     category: 'Administrative',
     icon: 'school',
     colorScheme: 'red',
@@ -563,6 +563,16 @@ export const menuConfig: Menu.MenuItem[] = [
             action: 'write',
           },
           {
+            label: 'Full Onboarding',
+            slug: 'full-onboarding',
+            description: 'Full employee onboarding form.',
+            path: '/employee-management/full-onboarding',
+            icon: 'person_add',
+            colorScheme: 'red',
+            feature: '@employee-management/full-onboarding',
+            action: 'write',
+          },
+          {
             label: 'Manage Employee',
             slug: 'manage-employees',
             description: 'Manage and view employees list.',
@@ -914,6 +924,8 @@ export const menuConfig: Menu.MenuItem[] = [
     icon: 'groups',
     colorScheme: 'red',
     description: 'Classes • Grades • Advising • Resources',
+    path: '/home/sub-menu/affiliation-management-system',
+    navigationStyle: 'sidebar',
     children: [
       {
         label: 'College Registration',

@@ -1,11 +1,11 @@
 import { ApiService } from 'services';
-import { EMPLOYEE_REGISTRATION_URL } from './urls';
+import { quickOnboardingUrl } from './urls';
 
-export async function createEmployeeRegistration(
+export async function createQuickOnboarding(
   form: EmployeeManagement.QuickOnboardingForm
 ) {
   const { error, data } = await ApiService.post<number>(
-    EMPLOYEE_REGISTRATION_URL,
+    quickOnboardingUrl,
     form
   );
 
