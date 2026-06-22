@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
+import { COLLEGE_TYPES } from 'shared/constant';
 import { useAppForm } from 'shared/hooks/form';
 import validation from 'shared/utils/validation';
-import { COLLEGE_TYPES } from 'shared/constant';
 
 const schema = validation.create<EmployeeManagement.QuickOnboardingForm>(o => ({
   // Employee Information
@@ -100,7 +100,7 @@ export function useQuickOnboardingForm(
   submitCallback: Forms.SubmitFunc<EmployeeManagement.QuickOnboardingForm>,
   fetchData?: Forms.FetchDataFunc<EmployeeManagement.QuickOnboardingForm>
 ) {
-  const { register, handleSubmit, reset, setValue, watch, control } =
+  const { register, handleSubmit, reset, setValue, watch } =
     useAppForm<EmployeeManagement.QuickOnboardingForm>({
       defaultValues: fetchData,
 
@@ -137,6 +137,5 @@ export function useQuickOnboardingForm(
     reset,
     setValue,
     watch,
-    control,
   };
 }
