@@ -10,7 +10,6 @@ function buildApiPayload(
     applicationNo: form.applicationNo,
     modeOfAffiliation: form.modeOfAffiliation,
     nameOfCollegeSociety: form.nameOfCollegeSociety,
-    collegeStatus: form.collegeStatus,
     formFee: Number(form.formFee),
 
     nocDetails: (form.nocDetails ?? []).map(noc => ({
@@ -22,7 +21,6 @@ function buildApiPayload(
 
     infrastructure: {
       totalLandAreaOwned: form.totalLandAreaOwned,
-      buildingOwnershipStatus: form.buildingOwnershipStatus,
       totalNumberOfBuildings: Number(form.totalNumberOfBuildings || 0),
       physicalEducationFacility: form.physicalEducationFacility,
       hostelFacilityAvailable: form.hostelFacilityAvailable,

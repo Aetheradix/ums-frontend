@@ -1,7 +1,7 @@
 import { SelectYesNo } from 'features/components';
 import type { Control, Path } from 'react-hook-form';
 import { useWatch } from 'react-hook-form';
-import { DropDownList, TextBox } from 'shared/components/forms';
+import { TextBox } from 'shared/components/forms';
 import { FormCard, FormGrid } from 'shared/new-components';
 
 interface InfrastructureStepProps {
@@ -13,12 +13,6 @@ interface InfrastructureStepProps {
   };
   control: Control<AffiliationManagementSystem.CollegeProfileWizardData>;
 }
-
-const OWNERSHIP_STATUSES = [
-  { id: 'Owned', name: 'Owned' },
-  { id: 'Rented', name: 'Rented' },
-  { id: 'Leased', name: 'Leased' },
-];
 
 export default function InfrastructureStep({
   register,
@@ -41,17 +35,6 @@ export default function InfrastructureStep({
           placeholder="e.g. 5 Acres, Owned"
           {...register('totalLandAreaOwned')}
           maxLength={255}
-          required
-        />
-
-        <DropDownList
-          data={OWNERSHIP_STATUSES}
-          textField="name"
-          valueField="id"
-          optionValue="id"
-          label="Building Ownership Status"
-          placeholder="Select Status"
-          {...register('buildingOwnershipStatus')}
           required
         />
 

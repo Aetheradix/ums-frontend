@@ -9,12 +9,10 @@ export const STEP_FIELDS: Record<
     'applicationNo',
     'modeOfAffiliation',
     'nameOfCollegeSociety',
-    'collegeStatus',
     'nocDetails',
   ],
   1: [
     'totalLandAreaOwned',
-    'buildingOwnershipStatus',
     'totalNumberOfBuildings',
     'physicalEducationFacility',
     'hostelFacilityAvailable',
@@ -46,7 +44,6 @@ const schema =
         .messages({
           [keys.string.pattern]: 'Name of College/Society must be in English',
         }),
-      collegeStatus: o.string().required().max(50),
       formFee: o.any().optional(),
 
       nocDetails: o
@@ -63,7 +60,6 @@ const schema =
 
       // Step 2 - Physical Infrastructure
       totalLandAreaOwned: o.string().required().max(255),
-      buildingOwnershipStatus: o.string().required().max(100),
       totalNumberOfBuildings: o.string().required().max(50),
       physicalEducationFacility: o.string().required().max(500),
       hostelFacilityAvailable: o.string().required().max(10),

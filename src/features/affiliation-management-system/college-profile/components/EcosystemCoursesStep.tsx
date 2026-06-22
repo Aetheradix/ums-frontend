@@ -1,6 +1,8 @@
 import SelectDegreeLevel from 'features/components/SelectDegreeLevel';
 import SelectDepartment from 'features/components/SelectDepartment';
 import SelectProgramModeOfEducation from 'features/components/SelectProgramModeOfEducation';
+import { useDegreeLevelsQuery } from 'features/master/other/degree-level/queries';
+import { useProgrammeModeOfEducationsQuery } from 'features/master/subject/programme-mode-of-education/queries';
 import type { Control, Path } from 'react-hook-form';
 import { useFieldArray } from 'react-hook-form';
 import { Button } from 'shared/components/buttons';
@@ -16,20 +18,6 @@ interface EcosystemCoursesStepProps {
   };
   control: Control<AffiliationManagementSystem.CollegeProfileWizardData>;
 }
-
-const REGULATORY_MODES = [
-  { id: 'Regular', name: 'Regular' },
-  { id: 'Distance', name: 'Distance' },
-  { id: 'Online', name: 'Online' },
-];
-
-const COURSE_LEVELS = [
-  { id: 'UG', name: 'UG' },
-  { id: 'PG', name: 'PG' },
-  { id: 'PhD', name: 'PhD' },
-  { id: 'Diploma', name: 'Diploma' },
-  { id: 'Certificate', name: 'Certificate' },
-];
 
 const DURATIONS = [
   { id: '1 Year', name: '1 Year' },
@@ -51,6 +39,13 @@ export default function EcosystemCoursesStep({
   register,
   control,
 }: EcosystemCoursesStepProps) {
+  const { data: modeData } = useProgrammeModeOfEducationsQuery();
+  const activeModes = modeData.filter(item => item.isActive);
+
+  const { data: levelData } = useDegreeLevelsQuery();
+  const activeLevels = (levelData as Master.Other.DegreeLevelItem[]).filter(
+    item => item.isActive
+  );
   const {
     fields: existingFields,
     append: appendExisting,
@@ -83,8 +78,8 @@ export default function EcosystemCoursesStep({
             variant="outlined"
             onClick={() =>
               appendExisting({
-                regulatoryMode: 'Regular',
-                courseLevel: 'UG',
+                regulatoryMode: '',
+                courseLevel: '',
                 facultyDeptId: 0,
                 programmeName: '',
                 durationYears: '3 Years',
@@ -130,10 +125,10 @@ export default function EcosystemCoursesStep({
                       style={{ minWidth: '150px' }}
                     >
                       <DropDownList
-                        data={REGULATORY_MODES}
+                        data={activeModes}
                         textField="name"
-                        valueField="id"
-                        optionValue="id"
+                        valueField="name"
+                        optionValue="name"
                         label=""
                         placeholder="Select Mode"
                         {...register(
@@ -148,10 +143,10 @@ export default function EcosystemCoursesStep({
                       style={{ minWidth: '140px' }}
                     >
                       <DropDownList
-                        data={COURSE_LEVELS}
+                        data={activeLevels}
                         textField="name"
-                        valueField="id"
-                        optionValue="id"
+                        valueField="name"
+                        optionValue="name"
                         label=""
                         placeholder="Select Level"
                         {...register(
@@ -172,6 +167,7 @@ export default function EcosystemCoursesStep({
                           `existingPrograms.${index}.facultyDeptId` as const
                         )}
                         required
+                        {...({ appendTo: document.body } as any)}
                       />
                     </td>
                     <td
@@ -305,6 +301,7 @@ export default function EcosystemCoursesStep({
                           `proposedPrograms.${index}.regulatoryModelId` as const
                         )}
                         required
+                        {...({ appendTo: document.body } as any)}
                       />
                     </td>
                     <td
@@ -318,6 +315,7 @@ export default function EcosystemCoursesStep({
                           `proposedPrograms.${index}.courseLevelId` as const
                         )}
                         required
+                        {...({ appendTo: document.body } as any)}
                       />
                     </td>
                     <td
@@ -331,6 +329,7 @@ export default function EcosystemCoursesStep({
                           `proposedPrograms.${index}.facultyDeptId` as const
                         )}
                         required
+                        {...({ appendTo: document.body } as any)}
                       />
                     </td>
                     <td

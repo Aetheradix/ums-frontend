@@ -2,12 +2,7 @@ import SelectNocType from 'features/components/SelectNocType';
 import type { Control, Path } from 'react-hook-form';
 import { Controller, useFieldArray } from 'react-hook-form';
 import { Button } from 'shared/components/buttons';
-import {
-  DatePicker,
-  DropDownList,
-  RadioButtonList,
-  TextBox,
-} from 'shared/components/forms';
+import { DatePicker, DropDownList, TextBox } from 'shared/components/forms';
 import { FormCard, FormGrid } from 'shared/new-components';
 
 interface InstitutionalNocStepProps {
@@ -75,19 +70,7 @@ export default function InstitutionalNocStep({
             placeholder="Select Mode of Affiliation"
             {...register('modeOfAffiliation')}
             required
-          />
-
-          <RadioButtonList
-            control={control}
-            name="collegeStatus"
-            label="College Status"
-            required
-            variant="vertical"
-            optionLayout="horizontal"
-            options={[
-              { label: 'New College', value: 'New College' },
-              { label: 'Old College', value: 'Old College' },
-            ]}
+            appendTo={document.body}
           />
         </FormGrid>
       </FormCard>

@@ -18,7 +18,6 @@ declare namespace AffiliationManagementSystem {
     applicationNo: string;
     modeOfAffiliation: string;
     nameOfCollegeSociety: string;
-    collegeStatus: string;
     formFee: number;
     nocDetails: CollegeNocDetailForm[];
     documents: CollegeProfileDocumentForm[];
@@ -26,7 +25,6 @@ declare namespace AffiliationManagementSystem {
 
   export interface PhysicalInfrastructureForm {
     totalLandAreaOwned: string;
-    buildingOwnershipStatus: string;
     totalNumberOfBuildings: string;
     physicalEducationFacility: string;
     hostelFacilityAvailable: string;
