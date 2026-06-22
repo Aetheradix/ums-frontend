@@ -113,6 +113,7 @@ declare namespace EmployeeManagement {
     isSameAsCurrentAddress: boolean;
     collegeTypeId?: number;
     registrationId?: number;
+    parentUniversityName?: string | null;
     departmentGroupTypeId?: number;
     departmentGroupId?: number;
     departmentId?: number;
