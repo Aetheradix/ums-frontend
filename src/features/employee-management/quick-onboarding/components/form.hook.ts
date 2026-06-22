@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useAppForm } from 'shared/hooks/form';
 import validation from 'shared/utils/validation';
+import { COLLEGE_TYPES } from 'shared/constant';
 
 const schema = validation.create<EmployeeManagement.QuickOnboardingForm>(o => ({
   // Employee Information
@@ -25,7 +26,12 @@ const schema = validation.create<EmployeeManagement.QuickOnboardingForm>(o => ({
     .number()
     .label('College Name')
     .when('collegeTypeId', {
-      is: o.number().valid(17, 18),
+      is: o
+        .number()
+        .valid(
+          COLLEGE_TYPES.AFFILIATED_COLLEGE,
+          COLLEGE_TYPES.AUTONOMOUS_COLLEGE
+        ),
       then: o.number().required().min(1),
       otherwise: o.number().optional().allow(null),
     }),
@@ -34,7 +40,12 @@ const schema = validation.create<EmployeeManagement.QuickOnboardingForm>(o => ({
     .string()
     .label('Parent University Name')
     .when('collegeTypeId', {
-      is: o.number().valid(15, 16),
+      is: o
+        .number()
+        .valid(
+          COLLEGE_TYPES.UNIVERSITY_ADMINISTRATION,
+          COLLEGE_TYPES.MAIN_CAMPUS_UTDS
+        ),
       then: o.string().required(),
       otherwise: o.string().optional().allow('', null),
     }),
@@ -99,18 +110,24 @@ export function useQuickOnboardingForm(
   const collegeTypeId = watch('collegeTypeId');
 
   useEffect(() => {
-    if (collegeTypeId === 15 || collegeTypeId === 16) {
-      setValue('registrationId', undefined as any, { shouldValidate: true });
+    if (
+      collegeTypeId === COLLEGE_TYPES.UNIVERSITY_ADMINISTRATION ||
+      collegeTypeId === COLLEGE_TYPES.MAIN_CAMPUS_UTDS
+    ) {
+      setValue('registrationId', undefined, { shouldValidate: true });
       setValue('parentUniversityName', 'DAVV', {
         shouldDirty: true,
         shouldValidate: true,
       });
-    } else if (collegeTypeId === 17 || collegeTypeId === 18) {
-      setValue('parentUniversityName', null as any, { shouldValidate: true });
-      setValue('registrationId', undefined as any, { shouldValidate: true });
+    } else if (
+      collegeTypeId === COLLEGE_TYPES.AFFILIATED_COLLEGE ||
+      collegeTypeId === COLLEGE_TYPES.AUTONOMOUS_COLLEGE
+    ) {
+      setValue('parentUniversityName', null, { shouldValidate: true });
+      setValue('registrationId', undefined, { shouldValidate: true });
     } else {
-      setValue('parentUniversityName', null as any, { shouldValidate: true });
-      setValue('registrationId', undefined as any, { shouldValidate: true });
+      setValue('parentUniversityName', null, { shouldValidate: true });
+      setValue('registrationId', undefined, { shouldValidate: true });
     }
   }, [collegeTypeId, setValue]);
 

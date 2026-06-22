@@ -13,6 +13,7 @@ import SelectSalutation from 'features/components/SelectSalutation';
 import SelectSubjectSpecialization from 'features/components/SelectSubjectSpecialization';
 import { Button } from 'shared/components/buttons';
 import { DatePicker, TextBox } from 'shared/components/forms';
+import { COLLEGE_TYPES } from 'shared/constant';
 import { FormCard, FormGrid } from 'shared/new-components';
 import { useQuickOnboardingForm } from './form.hook';
 
@@ -104,7 +105,8 @@ export default function QuickOnboardingForm(props: Props) {
               defaultOptionText="Select College Type"
             />
 
-            {(collegeTypeId === 17 || collegeTypeId === 18) && (
+            {(collegeTypeId === COLLEGE_TYPES.AFFILIATED_COLLEGE ||
+              collegeTypeId === COLLEGE_TYPES.AUTONOMOUS_COLLEGE) && (
               <SelectCollegeName
                 name="registrationId"
                 control={control}
@@ -114,7 +116,8 @@ export default function QuickOnboardingForm(props: Props) {
               />
             )}
 
-            {(collegeTypeId === 15 || collegeTypeId === 16) && (
+            {(collegeTypeId === COLLEGE_TYPES.UNIVERSITY_ADMINISTRATION ||
+              collegeTypeId === COLLEGE_TYPES.MAIN_CAMPUS_UTDS) && (
               <TextBox
                 name="parentUniversityName"
                 control={control}
@@ -154,6 +157,13 @@ export default function QuickOnboardingForm(props: Props) {
               label="Employee Type"
               required
             />
+            <SelectDesignationByEmployeeType
+              name="designationId"
+              control={control}
+              employeeType={employeeType}
+              label="Designation"
+              defaultOptionText="Select Designation"
+            />
 
             <SelectNatureOfEmployment
               {...register('employeeNatureId')}
@@ -162,14 +172,6 @@ export default function QuickOnboardingForm(props: Props) {
             />
 
             <SelectPost {...register('postId')} required />
-
-            <SelectDesignationByEmployeeType
-              name="designationId"
-              control={control}
-              employeeType={employeeType}
-              label="Designation"
-              defaultOptionText="Select Designation"
-            />
 
             <TextBox
               {...register('seniorityRank')}
