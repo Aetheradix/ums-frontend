@@ -1,14 +1,19 @@
 import SelectCaste from 'features/components/SelectCaste';
-import SelectDesignation from 'features/components/SelectDesignation';
+import SelectCollegeName from 'features/components/SelectCollegeName';
+import SelectCollegeType from 'features/components/SelectCollegeType';
+import SelectDepartmentByGroup from 'features/components/SelectDepartmentByGroup';
+import SelectDepartmentGroupByGroupType from 'features/components/SelectDepartmentGroupByGroupType';
+import SelectDepartmentGroupType from 'features/components/SelectDepartmentGroupType';
+import SelectDesignationByEmployeeType from 'features/components/SelectDesignationByEmployeeType';
+import SelectEmployeeType from 'features/components/SelectEmployeeType';
 import SelectGender from 'features/components/SelectGender';
 import SelectNatureOfEmployment from 'features/components/SelectNatureOfEmployment';
-import SelectOrganizationUnit from 'features/components/SelectOrganizationUnit';
 import SelectPost from 'features/components/SelectPost';
 import SelectSalutation from 'features/components/SelectSalutation';
-import SelectServiceCadre from 'features/components/SelectServiceCadre';
 import SelectSubjectSpecialization from 'features/components/SelectSubjectSpecialization';
 import { Button } from 'shared/components/buttons';
 import { DatePicker, TextBox } from 'shared/components/forms';
+import { COLLEGE_TYPES } from 'shared/constant';
 import { FormCard, FormGrid } from 'shared/new-components';
 import { useQuickOnboardingForm } from './form.hook';
 
@@ -21,10 +26,13 @@ interface Props {
 }
 
 export default function QuickOnboardingForm(props: Props) {
-  const { register, handleSubmit, reset } = useQuickOnboardingForm(
-    props.onSubmit,
-    props.initialData
-  );
+  const { register, handleSubmit, reset, watch, control } =
+    useQuickOnboardingForm(props.onSubmit, props.initialData);
+
+  const employeeType = watch('employeeType');
+  const collegeTypeId = watch('collegeTypeId');
+  const departmentGroupTypeId = watch('departmentGroupTypeId');
+  const departmentGroupId = watch('departmentGroupId');
 
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-6">
@@ -88,12 +96,73 @@ export default function QuickOnboardingForm(props: Props) {
           </FormGrid>
         </FormCard>
 
+        <FormCard title="Placement / Posting Information" icon="building">
+          <FormGrid columns={3}>
+            <SelectCollegeType
+              name="collegeTypeId"
+              control={control}
+              label="College Type"
+              defaultOptionText="Select College Type"
+            />
+
+            {(collegeTypeId === COLLEGE_TYPES.AFFILIATED_COLLEGE ||
+              collegeTypeId === COLLEGE_TYPES.AUTONOMOUS_COLLEGE) && (
+              <SelectCollegeName
+                name="registrationId"
+                control={control}
+                collegeTypeId={collegeTypeId}
+                label="College Name"
+                defaultOptionText="Select College Name"
+              />
+            )}
+
+            {(collegeTypeId === COLLEGE_TYPES.UNIVERSITY_ADMINISTRATION ||
+              collegeTypeId === COLLEGE_TYPES.MAIN_CAMPUS_UTDS) && (
+              <TextBox
+                name="parentUniversityName"
+                control={control}
+                label="Parent University Name"
+              />
+            )}
+
+            <SelectDepartmentGroupType
+              name="departmentGroupTypeId"
+              control={control}
+              label="Department Group Type"
+              defaultOptionText="Select Department Group Type"
+            />
+
+            <SelectDepartmentGroupByGroupType
+              name="departmentGroupId"
+              control={control}
+              departmentGroupTypeId={departmentGroupTypeId}
+              label="Department Group"
+              defaultOptionText="Select Department Group"
+            />
+
+            <SelectDepartmentByGroup
+              name="departmentId"
+              control={control}
+              departmentGroupId={departmentGroupId}
+              label="Department"
+              defaultOptionText="Select Department"
+            />
+          </FormGrid>
+        </FormCard>
+
         <FormCard title="Employee Information" icon="briefcase">
           <FormGrid columns={3}>
-            <SelectServiceCadre
+            <SelectEmployeeType
               {...register('employeeType')}
               label="Employee Type"
               required
+            />
+            <SelectDesignationByEmployeeType
+              name="designationId"
+              control={control}
+              employeeType={employeeType}
+              label="Designation"
+              defaultOptionText="Select Designation"
             />
 
             <SelectNatureOfEmployment
@@ -102,15 +171,7 @@ export default function QuickOnboardingForm(props: Props) {
               required
             />
 
-            <SelectOrganizationUnit
-              {...register('organizationUnitId')}
-              label="Organization Unit"
-              required
-            />
-
             <SelectPost {...register('postId')} required />
-
-            <SelectDesignation {...register('designationId')} required />
 
             <TextBox
               {...register('seniorityRank')}
