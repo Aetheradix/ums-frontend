@@ -34,7 +34,7 @@ export default function List() {
               {
                 header: 'Action',
                 sortable: false,
-                cell: (item: EmployeeManagement.QuickOnboardingItem) => (
+                cell: (item: EmployeeManagement.ManageEmployeeItem) => (
                   <GridActionButtons
                     onView={() =>
                       navigate(

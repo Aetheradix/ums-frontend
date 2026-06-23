@@ -36,6 +36,16 @@ declare namespace EmployeeManagement {
     isActive: boolean;
   }
 
+  // ── List of all Employee ──
+  interface ManageEmployeeItem extends QuickOnboardingBase {
+    employeeId: number;
+    fullName: string;
+    employeeNature: string;
+    post: string;
+    subjectSpecialization: string;
+    isActive: boolean;
+  }
+
   // ── Full Onboarding Types ──
 
   interface AddressForm {
