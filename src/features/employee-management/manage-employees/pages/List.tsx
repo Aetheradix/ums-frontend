@@ -27,14 +27,13 @@ export default function List() {
               },
               { field: 'employeeCode', header: 'Employee Code' },
               { field: 'fullName', header: 'Name' },
-              { field: 'gender', header: 'Gender' },
               { field: 'employeeNature', header: 'Nature' },
               { field: 'post', header: 'Post' },
               { field: 'subjectSpecialization', header: 'Specialization' },
               {
                 header: 'Action',
                 sortable: false,
-                cell: (item: EmployeeManagement.QuickOnboardingItem) => (
+                cell: (item: EmployeeManagement.ManageEmployeeItem) => (
                   <GridActionButtons
                     onView={() =>
                       navigate(
