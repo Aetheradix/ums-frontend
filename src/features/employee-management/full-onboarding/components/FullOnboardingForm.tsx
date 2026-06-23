@@ -227,6 +227,7 @@ export default function FullOnboardingForm(props: Props) {
                 label="Seniority Rank"
                 placeholder="Enter seniority rank"
                 maxLength={20}
+                required
               />
 
               <TextBox
@@ -392,7 +393,7 @@ export default function FullOnboardingForm(props: Props) {
                 {...register('uanNumber')}
                 label="UAN / PF Number"
                 placeholder="Enter UAN"
-                maxLength={100}
+                maxLength={12}
               />
 
               <TextBox
@@ -406,7 +407,7 @@ export default function FullOnboardingForm(props: Props) {
                 {...register('passportNumber')}
                 label="Passport Number"
                 placeholder="Enter passport number"
-                maxLength={100}
+                maxLength={8}
               />
 
               <DatePicker
@@ -462,6 +463,7 @@ export default function FullOnboardingForm(props: Props) {
               <SelectDivision
                 {...register('currentAddress.divisionId')}
                 label="Division"
+                required
               />
 
               <SelectDistrict
@@ -473,11 +475,13 @@ export default function FullOnboardingForm(props: Props) {
               <SelectTehsil
                 {...register('currentAddress.tehsilId')}
                 label="Tehsil"
+                required
               />
 
               <SelectBlock
                 {...register('currentAddress.blockId')}
                 label="Block"
+                required
               />
 
               <TextBox
