@@ -14,6 +14,7 @@ import SelectMaritalStatus from 'features/components/SelectMaritalStatus';
 import SelectNationality from 'features/components/SelectNationality';
 import SelectNatureOfEmployment from 'features/components/SelectNatureOfEmployment';
 import SelectPost from 'features/components/SelectPost';
+import SelectQualification from 'features/components/SelectQualification';
 import SelectRelationshipTypes from 'features/components/SelectRelationshipTypes';
 import SelectReligion from 'features/components/SelectReligion';
 import SelectSalutation from 'features/components/SelectSalutation';
@@ -21,7 +22,6 @@ import SelectState from 'features/components/SelectState';
 import SelectSubjectSpecialization from 'features/components/SelectSubjectSpecialization';
 import SelectTehsil from 'features/components/SelectTehsil';
 import SelectYesNo from 'features/components/SelectYesNo';
-import SelectQualification from 'features/components/SelectQualification';
 import { COLLEGE_TYPES } from 'shared/constant';
 
 import SelectDesignationByEmployeeType from 'features/components/SelectDesignationByEmployeeType';
@@ -145,7 +145,7 @@ export default function FullOnboardingForm(props: Props) {
             </FormGrid>
           </FormCard>
 
-          <FormCard title="Placement / Posting Information" icon="building">
+          <FormCard title="Department Allocation" icon="building">
             <FormGrid columns={3}>
               <SelectCollegeType
                 {...register('collegeTypeId')}
