@@ -34,8 +34,11 @@ import SchemeCategory from './schemes/scheme-category';
 import SchemeType from './schemes/scheme-type';
 import Subject from './subject';
 
+import CmsManagement from '../cms-management';
 import EmployeeGroup from './employee/settings/employee-group';
 import SeparationReasonType from './employee/settings/separation-reason-type';
+import DepartmentGroupType from './employee/settings/department-group-type';
+import DepartmentGroup from './employee/settings/department-group';
 import UserManagement from './user-management';
 
 export default function Master() {
@@ -44,6 +47,7 @@ export default function Master() {
       <Route path="user-management/*" element={<UserManagement />} />
       <Route path="location/*" element={<Location />} />
       <Route path="subject/*" element={<Subject />} />
+      <Route path="cms-management/*" element={<CmsManagement />} />
 
       <Route path="faculty-management/*">
         <Route path="office-type/*" element={<OfficeType />} />
@@ -114,6 +118,11 @@ export default function Master() {
           />
           <Route path="travel-purpose/*" element={<TravelPurpose />} />
           <Route path="employee-group/*" element={<EmployeeGroup />} />
+          <Route
+            path="department-group-type/*"
+            element={<DepartmentGroupType />}
+          />
+          <Route path="department-group/*" element={<DepartmentGroup />} />
         </Route>
       </Route>
     </Routes>

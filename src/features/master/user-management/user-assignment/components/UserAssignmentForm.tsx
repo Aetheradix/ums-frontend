@@ -21,13 +21,13 @@ export default function UserAssignmentForm(props: UserAssignmentFormProps) {
   return (
     <form onSubmit={handleSubmit}>
       <FormGrid columns={props.columns ?? 4}>
+        <SelectDomain required {...register('domain')} />
+        <SelectRoles required {...register('roleName')} />
         <SelectUsers
           required
           disabled={props.isEditMode}
           {...register('userId')}
         />
-        <SelectRoles required {...register('roleName')} />
-        <SelectDomain required {...register('domain')} />
       </FormGrid>
 
       <FormActions

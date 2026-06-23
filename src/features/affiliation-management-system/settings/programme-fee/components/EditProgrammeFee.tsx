@@ -23,7 +23,7 @@ export default function EditProgrammeFee({
   const DEFAULT: AffiliationMaster.ProgrammeFeeForm = {
     programmeId: 0,
     programmeName: '',
-    fixedDepositAmount: 0,
+    securityDepositAmount: 0,
     affiliationFee: 0,
     inspectionFee: 0,
     otherFee: 0,

@@ -29,22 +29,21 @@ export default function List() {
               { field: 'fullName', header: 'Name' },
               { field: 'gender', header: 'Gender' },
               { field: 'employeeNature', header: 'Nature' },
-              { field: 'organizationUnit', header: 'Org. Unit' },
               { field: 'post', header: 'Post' },
               { field: 'subjectSpecialization', header: 'Specialization' },
               {
                 header: 'Action',
                 sortable: false,
-                cell: (item: EmployeeManagement.EmployeeBasicInfoDto) => (
+                cell: (item: EmployeeManagement.QuickOnboardingItem) => (
                   <GridActionButtons
                     onView={() =>
                       navigate(
-                        `/employee-management/manage-employees/${item.id}`
+                        `/employee-management/manage-employees/${item.employeeId}`
                       )
                     }
                     onEdit={() =>
                       navigate(
-                        `/employee-management/manage-employees/${item.id}/edit`
+                        `/employee-management/manage-employees/${item.employeeId}/edit`
                       )
                     }
                     onDelete={() => {}}
@@ -53,7 +52,7 @@ export default function List() {
               },
             ]}
             searchBox
-            searchPlaceholder="Search by code, name, gender, nature, organization unit, post, specialization..."
+            searchPlaceholder="Search by code, name, gender, nature, post, specialization..."
             actionButtons={
               <>
                 <Button
