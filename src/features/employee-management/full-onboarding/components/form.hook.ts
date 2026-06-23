@@ -9,23 +9,60 @@ const schema = validation.create<EmployeeManagement.FullOnboardingForm>(o => {
     addressLine1: o.string().required().max(255).label('Address Line 1'),
     addressLine2: o.string().allow('', null).max(255).label('Address Line 2'),
     city: o.string().required().max(100).label('City'),
-    stateId: o.number().required().min(1).label('State'),
-    divisionId: o.number().required().min(1).label('Division'),
-    districtId: o.number().required().min(1).label('District'),
-    tehsilId: o.number().required().min(1).label('Tehsil'),
-    blockId: o.number().required().min(1).label('Block'),
+    stateId: o
+      .number()
+      .required()
+      .min(1)
+      .label('State')
+      .messages({ 'number.min': 'Required', 'number.base': 'Required' }),
+    divisionId: o
+      .number()
+      .required()
+      .min(1)
+      .label('Division')
+      .messages({ 'number.min': 'Required', 'number.base': 'Required' }),
+    districtId: o
+      .number()
+      .required()
+      .min(1)
+      .label('District')
+      .messages({ 'number.min': 'Required', 'number.base': 'Required' }),
+    tehsilId: o
+      .number()
+      .required()
+      .min(1)
+      .label('Tehsil')
+      .messages({ 'number.min': 'Required', 'number.base': 'Required' }),
+    blockId: o
+      .number()
+      .required()
+      .min(1)
+      .label('Block')
+      .messages({ 'number.min': 'Required', 'number.base': 'Required' }),
     pinCode: o.string().required().max(10).label('PIN Code'),
   });
 
   const qualificationSchema = o.object({
-    qualificationId: o.number().required().min(1).label('Qualification Name'),
+    qualificationId: o
+      .number()
+      .required()
+      .min(1)
+      .label('Qualification Name')
+      .messages({
+        'number.min': 'Required',
+        'number.base': 'Required',
+      }),
     university: o.string().required().max(200).label('University'),
     board: o.string().allow('', null).max(200).label('Board'),
     yearOfPassing: o
       .number()
       .required()
+      .min(1950)
       .max(new Date().getFullYear())
-      .label('Year of Passing'),
+      .label('Year of Passing')
+      .messages({
+        'number.base': 'Required',
+      }),
     percentage: o.number().allow('', null).label('Percentage'),
     grade: o.string().allow('', null).max(10).label('Grade'),
   });
@@ -156,7 +193,11 @@ const schema = validation.create<EmployeeManagement.FullOnboardingForm>(o => {
 
     // ── Step 3: Address ──
     currentAddress: addressSchema.required(),
-    permanentAddress: addressSchema.required(),
+    permanentAddress: o.any().when('isSameAsCurrentAddress', {
+      is: true,
+      then: o.any().optional(),
+      otherwise: addressSchema.required(),
+    }),
     isSameAsCurrentAddress: o.boolean().optional(),
 
     // ── Step 4: Qualifications ──
