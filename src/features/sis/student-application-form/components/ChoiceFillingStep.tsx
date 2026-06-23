@@ -76,19 +76,19 @@ export default function ChoiceFillingStep({
 
     const d = districts?.find((x: any) => String(x.id) === String(districtId));
     const ct = collegeTypes?.find(
-      (x: any) => String(x.name) === String(collegeTypeName)
+      (x: any) => String(x.id) === String(collegeTypeName)
     );
     const cc = collegeCategories?.find(
-      (x: any) => String(x.name) === String(collegeCategoryName)
+      (x: any) => String(x.id) === String(collegeCategoryName)
     );
 
     const newChoices = colleges.map((c: any) => ({
       districtId: Number(districtId),
       districtName: d?.name || '',
       collegeTypeId: ct ? Number(ct.id) : 0,
-      collegeTypeName: collegeTypeName,
+      collegeTypeName: ct ? ct.name : '',
       collegeCategoryId: cc ? Number(cc.id) : 0,
-      collegeCategoryName: collegeCategoryName,
+      collegeCategoryName: cc ? cc.name : '',
       collegeRegistrationId: c.collegeRegistrationId || c.id,
       collegeName: c.collegeName || c.name,
     }));

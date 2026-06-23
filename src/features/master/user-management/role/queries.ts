@@ -1,6 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import {
   createUserRole,
+  deleteUserRole,
   getUserRole,
   getUserRoles,
   updateUserRole,
@@ -37,6 +38,17 @@ export function useUpdateUserRoleMutation(id: string) {
       if (!data) return;
       queryClient.invalidateQueries({ queryKey: queryKey });
       queryClient.invalidateQueries({ queryKey: [...queryKey, id] });
+    },
+  });
+}
+
+export function useDeleteUserRoleMutation() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async (id: string) => await deleteUserRole(id),
+    onSuccess(data) {
+      if (!data) return;
+      queryClient.invalidateQueries({ queryKey: queryKey });
     },
   });
 }

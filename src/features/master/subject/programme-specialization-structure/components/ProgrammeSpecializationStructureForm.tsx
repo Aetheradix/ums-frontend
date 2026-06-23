@@ -1,5 +1,6 @@
 import SelectCourseMode from 'features/components/SelectProgramModeOfEducation';
 import SelectProgramme from 'features/components/SelectProgramme';
+import SelectSemester from 'features/components/SelectSemester';
 import SelectSpecialisation from 'features/components/SelectSpecialisation';
 import SelectSubject from 'features/components/SelectSubject';
 import { TextBox } from 'shared/components/forms';
@@ -18,7 +19,7 @@ interface ProgrammeSpecializationStructureFormProps {
 export default function ProgrammeSpecializationStructureForm(
   props: ProgrammeSpecializationStructureFormProps
 ) {
-  const { register, handleSubmit, reset } =
+  const { register, control, handleSubmit, reset } =
     useProgrammeSpecializationStructureForm(props.onSubmit, props.fetchData);
 
   return (
@@ -33,12 +34,10 @@ export default function ProgrammeSpecializationStructureForm(
           {...register('modeOfEducationId')}
           label="Mode of Education"
         />
-        <TextBox
+        <SelectSemester
+          name="semesterName"
+          control={control}
           label="Semester Name"
-          placeholder="Enter Semester Name (e.g. Semester I)"
-          {...register('semesterName')}
-          maxLength={50}
-          required
         />
         <SelectSubject {...register('subjectId')} label="Subject" />
         <TextBox

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Grid } from '../components/grid';
 import './GridPanel.css';
 
@@ -21,6 +21,7 @@ interface GridPanelProps<T> extends Controls.GridProps<T> {
   sortField?: string | null;
   sortOrder?: number | null;
   emptyMessage?: string;
+  clearSearch?: number;
 }
 
 export default function GridPanel<T>({
@@ -41,9 +42,14 @@ export default function GridPanel<T>({
   onFilter,
   sortField,
   sortOrder,
+  clearSearch,
   ...rest
 }: GridPanelProps<T>) {
   const [internalGlobalFilter, setInternalGlobalFilter] = useState('');
+
+  useEffect(() => {
+    if (clearSearch) setInternalGlobalFilter('');
+  }, [clearSearch]);
 
   const currentGlobalFilter = rest.globalFilter ?? internalGlobalFilter;
 

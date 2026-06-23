@@ -44,7 +44,9 @@ export default function Breadcrumb({ items }: BreadcrumbProps) {
         .map(word => word.charAt(0).toUpperCase() + word.slice(1))
         .join(' ');
 
-      if (path.toLowerCase() === 'location') {
+      if (path.toLowerCase() === 'master') {
+        label = 'Core Administrative Services';
+      } else if (path.toLowerCase() === 'location') {
         label = 'Location Management';
       } else if (path.toLowerCase() === 'faculty-management') {
         label = 'Faculty Admin';
@@ -80,13 +82,16 @@ export default function Breadcrumb({ items }: BreadcrumbProps) {
       } else if (path.toLowerCase() === 'college') {
         toPath = '/home/sub-menu/college';
       } else if (path.toLowerCase() === 'employee') {
-        toPath = '/home/sub-menu/employee-management-system';
+        toPath = '/home/sub-menu/employee-management';
       } else if (path.toLowerCase() === 'settings') {
         toPath = '/home/sub-menu/settings';
       } else if (path.toLowerCase() === 'grant') {
         toPath = '/home/sub-menu/grant';
-      } else if (path.toLowerCase() === 'schemes') {
-        toPath = '/home/sub-menu/schemes';
+      } else if (
+        path.toLowerCase() === 'scheme' ||
+        path.toLowerCase() === 'schemes'
+      ) {
+        toPath = '/home/sub-menu/scheme';
       } else if (path.toLowerCase() === 'employee-management') {
         toPath = '/home/sub-menu/employee-management';
       } else if (path.toLowerCase() === 'settings') {
@@ -99,6 +104,8 @@ export default function Breadcrumb({ items }: BreadcrumbProps) {
         toPath = '/home/sub-menu/affiliation-management-system';
       } else if (path.toLowerCase() === 'affiliation-settings') {
         toPath = '/home/sub-menu/affiliation-settings';
+      } else if (path.toLowerCase() === 'user-management') {
+        toPath = '/home/sub-menu/user-management';
       }
 
       generatedItems.push({

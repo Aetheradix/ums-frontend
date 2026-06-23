@@ -1,5 +1,5 @@
-import React from 'react';
 import { ProtectedRoute } from 'auth';
+import React from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import MainLayout from 'shared/components/layout/MainLayout';
 import { UniversityLoader } from 'shared/components/progress';
@@ -9,11 +9,12 @@ import CareerAdvancement from './career-advancement';
 import EmployeeManagement from './employee-management';
 import Home from './home';
 import Master from './master';
-import Settings from './settings';
-import Sis from './sis';
+import PaymentManagement from './payment-management';
 import PublicPortalLayout, {
   PublicRouteWrapper,
 } from './public-portal/layout/PublicPortalLayout';
+import Settings from './settings';
+import Sis from './sis';
 
 const PublicHome = React.lazy(() => import('./public-portal/pages/Home'));
 const PublicSolutions = React.lazy(
@@ -99,6 +100,10 @@ export default function Features() {
                       <Route
                         path="employee-management/*"
                         element={<EmployeeManagement />}
+                      />
+                      <Route
+                        path="payment-management/*"
+                        element={<PaymentManagement />}
                       />
                     </Routes>
                   </MainLayout>
