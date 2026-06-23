@@ -16,10 +16,13 @@ const priorEducationEntrySchema = validation.create<any>(o => ({
   subjectsOrStream: o.string().required().max(100),
   documentType: o.string().required().max(50),
   documentFile: o.any().optional().allow(null),
-  documentId: o.string().required().messages({
-    'string.empty': 'Please upload a marksheet or certificate for this entry.',
-    'any.required': 'Please upload a marksheet or certificate for this entry.',
-  }),
+  // TODO: Re-enable document upload as mandatory after 2-3 days.
+  // To revert, replace the line below with:
+  //   documentId: o.string().required().messages({
+  //     'string.empty': 'Please upload a marksheet or certificate for this entry.',
+  //     'any.required': 'Please upload a marksheet or certificate for this entry.',
+  //   }),
+  documentId: o.string().optional().allow('', null),
 }));
 
 const schema = validation.create<ApplicationFormData>(o => ({
