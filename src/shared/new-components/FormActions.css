@@ -25,9 +25,9 @@
 
 /* Reset Button (Grey) */
 .form-actions-container button[type='reset'] {
-  background-color: var(--color-gray-100) !important;
-  border-color: var(--color-gray-200) !important;
-  color: var(--color-gray-900) !important;
+  /* background-color: var(--color-gray-100) !important; */
+  border-color: var(--primary-color) !important;
+  color: var(--primary-color) !important;
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
 }
 
@@ -39,8 +39,8 @@
 
 /* Submit Button (Black) */
 .form-actions-container button[type='submit'] {
-  background-color: var(--color-gray-900) !important;
-  border-color: var(--color-gray-900) !important;
+  background-color: var(--primary-color) !important;
+  border-color: var(--primary-color) !important;
   color: var(--color-white) !important;
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
 }

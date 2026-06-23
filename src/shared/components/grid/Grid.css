@@ -204,7 +204,7 @@
 
 .dark .p-datatable-thead > tr > th {
   @apply border-b;
-  background-color: var(--dark-header-bg) !important;
+  background-color: var(--color-black) !important;
   color: var(--white) !important;
   border-color: var(--dark-border);
 }

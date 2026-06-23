@@ -20,7 +20,7 @@
   --color-gray-900: #18181b;
 
   /* Brand */
-  --color-primary: var(--color-black);
+  --color-primary: #002069;
   --color-primary-hover: #1e56be;
   --color-primary-shadow: #041c8a;
 
@@ -195,7 +195,7 @@
   --toast-shadow: rgba(0, 0, 0, 0.1);
 
   /* Dark Theme */
-  --dark-bg: var(--color-primary);
+  --dark-bg: var(--color-black);
 
   --dark-surface: #121214;
   --dark-surface-hover: var(--color-gray-900);
@@ -215,12 +215,12 @@
   --dark-button-bg: var(--dark-border);
   --dark-button-hover: var(--color-gray-700);
 
-  --dark-header-bg: var(--color-primary);
+  --dark-header-bg: var(--color-black);
 
-  --dark-navbar-bg: var(--color-primary);
+  --dark-navbar-bg: var(--color-black);
   --dark-navbar-border: var(--dark-border);
 
-  --dark-dropdown-bg: var(--color-primary);
+  --dark-dropdown-bg: var(--color-black);
   --dark-dropdown-border: var(--dark-border);
   --dark-dropdown-shadow: rgba(0, 0, 0, 0.7);
 

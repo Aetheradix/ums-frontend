@@ -16,7 +16,7 @@
 
 /* ── Variants ── */
 .button-variant-primary {
-  @apply !border-black !bg-black !text-white;
+  @apply !border-[var(--primary-color)] !bg-[var(--primary-color)] !text-white;
 }
 
 .button-variant-primary i,
@@ -45,12 +45,12 @@
 }
 
 .button-variant-outlined {
-  @apply !w-auto !border !border-zinc-900 !bg-transparent !text-zinc-900;
+  @apply !w-auto !border !border-[var(--primary-color)] !bg-transparent !text-[var(--primary-color)];
 }
 
 .button-variant-outlined i,
 .button-variant-outlined .p-button-icon {
-  @apply !text-zinc-900;
+  @apply !text-[var(--primary-color)];
 }
 
 .button-variant-text {
