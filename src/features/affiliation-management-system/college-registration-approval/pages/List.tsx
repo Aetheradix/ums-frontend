@@ -1,17 +1,11 @@
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import { Button } from 'shared/components/buttons';
-import GridActionButtons from 'shared/components/grid/GridActionButtons';
 import { Loader } from 'shared/components/progress';
 import {
   FormCard,
-  FormGrid,
   FormPage,
   FormPopup,
   GridPanel,
-  PreviewField,
-  PreviewSection,
-  PreviewSummary,
-  StatusBadge,
 } from 'shared/new-components';
 import { formatDate } from 'shared/utils/dateUtils';
 import { useRegistrationApprovalForm } from '../components/form.hook';
@@ -20,7 +14,6 @@ import {
   useCollegeRegistrationApprovalsQuery,
   useCollegeRegistrationByIdQuery,
 } from '../queries';
-import './RegistrationApproval.css';
 
 type ApprovalItem = AffiliationManagementSystem.CollegeRegistrationApprovalItem;
 
@@ -29,25 +22,6 @@ const APPROVAL_STATUS_LABEL: Record<number, string> = {
   2: 'Approved',
   3: 'Rejected',
 };
-
-type ApprovalStatusVariant = 'pending' | 'approved' | 'rejected' | 'neutral';
-
-function getStatusLabel(status?: number) {
-  return status ? (APPROVAL_STATUS_LABEL[status] ?? 'Pending') : 'Pending';
-}
-
-function getStatusVariant(status?: number): ApprovalStatusVariant {
-  switch (status) {
-    case 1:
-      return 'pending';
-    case 2:
-      return 'approved';
-    case 3:
-      return 'rejected';
-    default:
-      return 'neutral';
-  }
-}
 
 export default function List() {
   const { data, isLoading } = useCollegeRegistrationApprovalsQuery();
@@ -68,33 +42,6 @@ export default function List() {
   const { data: previewData, isLoading: isPreviewLoading } =
     useCollegeRegistrationByIdQuery(previewId);
 
-  const selectedApproval = useMemo(
-    () => data.find(item => item.collegeRegistrationId === previewId),
-    [data, previewId]
-  );
-
-  const isSelectedApprovalPending = selectedApproval?.approvalStatus === 1;
-
-  const handleClosePreview = () => {
-    setPreviewId(null);
-  };
-
-  const handleApproveFromPreview = async () => {
-    if (previewId === null) return;
-
-    const id = previewId;
-    handleClosePreview();
-    await handleApprove(id);
-  };
-
-  const handleRejectFromPreview = () => {
-    if (previewId === null) return;
-
-    const id = previewId;
-    handleClosePreview();
-    handleOpenReject(id);
-  };
-
   return (
     <FormPage
       title="College Registration Approvals"
@@ -105,29 +52,14 @@ export default function List() {
 
         <GridPanel
           data={data}
-          searchBox
-          searchPlaceholder="Search colleges..."
-          searchFields={[
-            'collegeName',
-            'collegeCategoryId',
-            'applicationNumber',
-          ]}
-          emptyMessage="No college registration approvals found."
-          className="registration-approval-grid"
           columns={[
             {
               cell: (_, option) => <span>{option.rowIndex + 1}</span>,
-              width: '60px',
-              sortable: false,
+              width: '30px',
             },
-            {
-              field: 'collegeName',
-              header: 'College Name',
-            },
-            {
-              field: 'collegeCategoryId',
-              header: 'Category',
-            },
+            { field: 'collegeName', header: 'College Name' },
+            { field: 'collegeCategory', header: 'Category' },
+
             {
               field: 'applicationNumber',
               header: 'Application Number',
@@ -142,50 +74,62 @@ export default function List() {
                 <span>{formatDate(item.createdOn)}</span>
               ),
             },
+
+            {
+              header: 'Preview',
+              sortable: false,
+              cell: (item: ApprovalItem) => (
+                <Button
+                  label="Preview"
+                  variant="text"
+                  className="border shadow-sm rounded-md"
+                  onClick={() => setPreviewId(item.collegeRegistrationId)}
+                />
+              ),
+            },
+
             {
               field: 'approvalStatus',
               header: 'Approval Status',
               cell: (item: ApprovalItem) => (
-                <div className="registration-status-cell">
-                  <StatusBadge
-                    label={getStatusLabel(item.approvalStatus)}
-                    variant={getStatusVariant(item.approvalStatus)}
-                  />
-
-                  {item.approvalStatus === 3 && item.rejectionReason && (
-                    <span className="registration-rejection-reason">
-                      {item.rejectionReason}
-                    </span>
-                  )}
-                </div>
+                <span>
+                  {APPROVAL_STATUS_LABEL[item.approvalStatus] ?? 'Pending'}
+                  {item.approvalStatus === 3 && item.rejectionReason
+                    ? ` — ${item.rejectionReason}`
+                    : ''}
+                </span>
               ),
             },
+
             {
               header: 'Actions',
               sortable: false,
-              width: '140px',
               cell: (item: ApprovalItem) => {
-                const isApprovalPending = item.approvalStatus === 1;
+                if (item.approvalStatus !== 1) {
+                  return <span>-</span>;
+                }
 
                 return (
-                  <GridActionButtons
-                    onView={() => setPreviewId(item.collegeRegistrationId)}
-                    viewTooltip="Preview"
-                    onApprove={
-                      isApprovalPending
-                        ? () => handleApprove(item.collegeRegistrationId)
-                        : undefined
-                    }
-                    onReject={
-                      isApprovalPending
-                        ? () => handleOpenReject(item.collegeRegistrationId)
-                        : undefined
-                    }
-                  />
+                  <>
+                    <Button
+                      label="Approve"
+                      variant="primary"
+                      onClick={() => handleApprove(item.collegeRegistrationId)}
+                    />
+
+                    <Button
+                      label="Reject"
+                      variant="outlined"
+                      onClick={() =>
+                        handleOpenReject(item.collegeRegistrationId)
+                      }
+                    />
+                  </>
                 );
               },
             },
           ]}
+          searchBox
         />
       </FormCard>
 
@@ -200,287 +144,239 @@ export default function List() {
 
       <FormPopup
         visible={previewId !== null}
-        onHide={handleClosePreview}
+        onHide={() => setPreviewId(null)}
         title="Registration Preview"
         subtitle="Detailed view of the college registration data."
-        size="xl"
-        className="registration-preview-popup"
-        bodyClassName="registration-preview-body"
-        footer={
-          <>
-            <Button
-              label="Close"
-              variant="outlined"
-              onClick={handleClosePreview}
-            />
-
-            {isSelectedApprovalPending && (
-              <>
-                <Button
-                  label="Reject"
-                  icon="times"
-                  variant="danger"
-                  disabled={isPending}
-                  onClick={handleRejectFromPreview}
-                />
-
-                <Button
-                  label="Approve"
-                  icon="check"
-                  variant="primary"
-                  isLoading={isPending}
-                  onClick={handleApproveFromPreview}
-                />
-              </>
-            )}
-          </>
-        }
       >
         {isPreviewLoading ? (
           <Loader />
         ) : previewData ? (
-          <div className="registration-preview-content">
-            <PreviewSummary
-              items={[
-                {
-                  label: 'College Name',
-                  value: previewData.collegeName,
-                  icon: 'building',
-                },
-                {
-                  label: 'Application Number',
-                  value: selectedApproval?.applicationNumber,
-                  icon: 'file',
-                },
-                {
-                  label: 'Submitted Date',
-                  value: selectedApproval?.createdOn
-                    ? formatDate(selectedApproval.createdOn)
-                    : undefined,
-                  icon: 'calendar',
-                },
-                {
-                  label: 'Approval Status',
-                  value: (
-                    <StatusBadge
-                      label={getStatusLabel(selectedApproval?.approvalStatus)}
-                      variant={getStatusVariant(
-                        selectedApproval?.approvalStatus
-                      )}
-                    />
-                  ),
-                  icon: 'check-circle',
-                },
-              ]}
-            />
-
-            <PreviewSection
-              step={1}
-              title="College Details"
-              subtitle="Basic registration and contact information."
-            >
-              <FormGrid columns={3}>
-                <PreviewField
-                  label="College Code"
-                  value={previewData.collegeCode}
-                />
-                <PreviewField
-                  label="Establishment Year"
-                  value={previewData.establishmentYearId}
-                />
-                <PreviewField
-                  label="College Name"
-                  value={previewData.collegeName}
-                />
-                <PreviewField
-                  label="District"
-                  value={previewData.districtName}
-                />
-                <PreviewField
-                  label="College Address"
-                  value={previewData.collegeAddress}
-                  fullWidth
-                />
-                <PreviewField
-                  label="Telephone No."
-                  value={previewData.telephoneNo}
-                />
-                <PreviewField
-                  label="College Email"
-                  value={previewData.collegeEmail}
-                  breakWord
-                />
-                <PreviewField
-                  label="College Category"
-                  value={previewData.collegeCategoryId}
-                />
-                <PreviewField
-                  label="College Type"
-                  value={previewData.collegeTypeId}
-                />
-                <PreviewField
-                  label="College Area"
-                  value={previewData.collegeArea}
-                />
-                <PreviewField
-                  label="Accommodation Type"
-                  value={previewData.accommodationType}
-                />
-                <PreviewField
-                  label="Number of Classrooms"
-                  value={previewData.numberOfClassRooms}
-                />
-                <PreviewField
-                  label="Any Deficiency"
-                  value={
-                    previewData.deficiencyEarlierRaisedByCommittee
+          <div className="flex flex-col gap-4 max-h-[60vh] overflow-y-auto pr-2">
+            <div className="bg-gray-50 p-4 rounded-md border border-gray-200">
+              <h3 className="font-semibold text-lg border-b pb-2 mb-4 text-gray-800">
+                College Details
+              </h3>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-4 gap-x-6">
+                <div>
+                  <span className="block text-sm text-gray-500">
+                    College Code
+                  </span>
+                  <span className="font-medium text-gray-900">
+                    {previewData.collegeCode || 'N/A'}
+                  </span>
+                </div>
+                <div>
+                  <span className="block text-sm text-gray-500">
+                    Establishment Year
+                  </span>
+                  <span className="font-medium text-gray-900">
+                    {(previewData as any).establishmentYear ||
+                      previewData.establishmentYearId ||
+                      'N/A'}
+                  </span>
+                </div>
+                <div>
+                  <span className="block text-sm text-gray-500">
+                    College Name
+                  </span>
+                  <span className="font-medium text-gray-900">
+                    {previewData.collegeName || 'N/A'}
+                  </span>
+                </div>
+                <div>
+                  <span className="block text-sm text-gray-500">
+                    College Address
+                  </span>
+                  <span className="font-medium text-gray-900">
+                    {previewData.collegeAddress || 'N/A'}
+                  </span>
+                </div>
+                <div>
+                  <span className="block text-sm text-gray-500">
+                    Telephone No.
+                  </span>
+                  <span className="font-medium text-gray-900">
+                    {previewData.telephoneNo || 'N/A'}
+                  </span>
+                </div>
+                <div className="break-all">
+                  <span className="block text-sm text-gray-500">
+                    College Email
+                  </span>
+                  <span className="font-medium text-gray-900">
+                    {previewData.collegeEmail || 'N/A'}
+                  </span>
+                </div>
+                <div>
+                  <span className="block text-sm text-gray-500">
+                    College Category
+                  </span>
+                  <span className="font-medium text-gray-900">
+                    {previewData.collegeCategory || 'N/A'}
+                  </span>
+                </div>
+                <div>
+                  <span className="block text-sm text-gray-500">
+                    College Type
+                  </span>
+                  <span className="font-medium text-gray-900">
+                    {previewData.collegeType || 'N/A'}
+                  </span>
+                </div>
+                <div>
+                  <span className="block text-sm text-gray-500">
+                    College Area
+                  </span>
+                  <span className="font-medium text-gray-900">
+                    {previewData.collegeArea || 'N/A'}
+                  </span>
+                </div>
+                <div>
+                  <span className="block text-sm text-gray-500">
+                    Accommodation Type
+                  </span>
+                  <span className="font-medium text-gray-900">
+                    {previewData.accommodationType || 'N/A'}
+                  </span>
+                </div>
+                <div>
+                  <span className="block text-sm text-gray-500">
+                    Any Deficiency
+                  </span>
+                  <span className="font-medium text-gray-900">
+                    {(previewData as any).deficiencyEarlierRaisedByCommittee
                       ? 'Yes'
-                      : 'No'
-                  }
-                />
-                <PreviewField
-                  label="Available Facilities"
-                  value={
-                    previewData.availableFacilities?.length
-                      ? previewData.availableFacilities.join(', ')
-                      : undefined
-                  }
-                  fullWidth
-                />
-              </FormGrid>
-            </PreviewSection>
+                      : 'No'}
+                  </span>
+                </div>
+              </div>
+            </div>
 
             {previewData.otherDetail && (
-              <PreviewSection
-                step={2}
-                title="Other Details"
-                subtitle="Principal, society, and registration information."
-              >
-                <FormGrid columns={3}>
-                  <PreviewField
-                    label="Principal Name"
-                    value={previewData.otherDetail.principalDirectorName}
-                  />
-                  <PreviewField
-                    label="Mobile No."
-                    value={previewData.otherDetail.principalMobileNo}
-                  />
-                  <PreviewField
-                    label="Email"
-                    value={previewData.otherDetail.principalEmail}
-                    breakWord
-                  />
-                  <PreviewField
-                    label="Society Name"
-                    value={previewData.otherDetail.societyName}
-                  />
-                  <PreviewField
-                    label="Secretary Name"
-                    value={previewData.otherDetail.secretaryName}
-                  />
-                  <PreviewField
-                    label="Society Registration No."
-                    value={previewData.otherDetail.societyRegistrationNo}
-                  />
-                  <PreviewField
-                    label="Society Date of Registration"
-                    value={
-                      previewData.otherDetail.societyRegistrationDate
-                        ? formatDate(
+              <div className="mt-4 bg-gray-50 p-4 rounded-md border border-gray-200">
+                <h3 className="font-semibold text-lg border-b pb-2 mb-4 text-gray-800">
+                  Other Details
+                </h3>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-4 gap-x-6">
+                  <div>
+                    <span className="block text-sm text-gray-500">
+                      Principal Name
+                    </span>
+                    <span className="font-medium text-gray-900">
+                      {previewData.otherDetail.principalDirectorName || 'N/A'}
+                    </span>
+                  </div>
+                  <div>
+                    <span className="block text-sm text-gray-500">
+                      Mobile No.
+                    </span>
+                    <span className="font-medium text-gray-900">
+                      {previewData.otherDetail.principalMobileNo || 'N/A'}
+                    </span>
+                  </div>
+                  <div className="break-all">
+                    <span className="block text-sm text-gray-500">Email</span>
+                    <span className="font-medium text-gray-900">
+                      {previewData.otherDetail.principalEmail || 'N/A'}
+                    </span>
+                  </div>
+                  <div>
+                    <span className="block text-sm text-gray-500">
+                      Society Name
+                    </span>
+                    <span className="font-medium text-gray-900">
+                      {previewData.otherDetail.societyName || 'N/A'}
+                    </span>
+                  </div>
+                  <div>
+                    <span className="block text-sm text-gray-500">
+                      Secretary Name
+                    </span>
+                    <span className="font-medium text-gray-900">
+                      {previewData.otherDetail.secretaryName || 'N/A'}
+                    </span>
+                  </div>
+                  <div>
+                    <span className="block text-sm text-gray-500">
+                      Society Registration No.
+                    </span>
+                    <span className="font-medium text-gray-900">
+                      {previewData.otherDetail.societyRegistrationNo || 'N/A'}
+                    </span>
+                  </div>
+                  <div>
+                    <span className="block text-sm text-gray-500">
+                      Society Date of Registration
+                    </span>
+                    <span className="font-medium text-gray-900">
+                      {previewData.otherDetail.societyRegistrationDate
+                        ? new Date(
                             previewData.otherDetail.societyRegistrationDate
-                          )
-                        : undefined
-                    }
-                  />
-                  <PreviewField
-                    label="Other Institution Running"
-                    value={
-                      previewData.otherDetail.isOtherInstitutionRunning
-                        ? 'Yes'
-                        : 'No'
-                    }
-                  />
-                </FormGrid>
-              </PreviewSection>
+                          ).toLocaleDateString()
+                        : 'N/A'}
+                    </span>
+                  </div>
+                </div>
+              </div>
             )}
 
-            <PreviewSection
-              step={3}
-              title="Course Details"
-              subtitle="Programme fee mapping and payment information."
-            >
-              <GridPanel
-                data={previewData.courseDetails ?? []}
-                pagination={false}
-                emptyMessage="No course details available."
-                columns={[
-                  {
-                    field: 'collegeCourseDetailId',
-                    header: 'Course Detail ID',
-                  },
-                  {
-                    field: 'programmeFeesMappingId',
-                    header: 'Programme/Fees Mapping ID',
-                  },
-                  {
-                    field: 'totalAmount',
-                    header: 'Total Amount',
-                    cell: course => <span>₹{course.totalAmount}</span>,
-                  },
-                  {
-                    field: 'isFeePaid',
-                    header: 'Fee Paid',
-                    cell: course => (
-                      <span>{course.isFeePaid ? 'Yes' : 'No'}</span>
-                    ),
-                  },
-                ]}
-              />
-            </PreviewSection>
-
-            <PreviewSection
-              step={4}
-              title="Enclosures"
-              subtitle="Documents submitted with the registration."
-            >
-              {previewData.documents?.length ? (
-                <div className="registration-document-list">
-                  {previewData.documents?.map(document => (
-                    <div
-                      key={document.collegeAffiliationDocumentId}
-                      className="registration-document-item"
-                    >
-                      <span className="registration-document-icon">
-                        <i className="pi pi-file" />
-                      </span>
-
-                      <div className="registration-document-content">
-                        <p className="registration-document-title">
-                          {document.documentType || 'Document'}
-                        </p>
-
-                        {/* <p className="registration-document-id">
-                          {document.documentId || 'N/A'}
-                        </p> */}
-                      </div>
-
-                      {/* <button
-                        type="button"
-                        className="registration-document-download"
-                        aria-label={`Download ${document.documentType || 'document'}`}
-                        title="Download document"
-                      >
-                        <i className="pi pi-download" />
-                      </button> */}
-                    </div>
-                  ))}
+            {previewData.courseDetails &&
+              previewData.courseDetails.length > 0 && (
+                <div className="mt-4">
+                  <h3 className="font-bold mb-2">Course Details</h3>
+                  <table className="w-full text-left">
+                    <thead>
+                      <tr>
+                        <th className="border-b p-2">Course Detail ID</th>
+                        <th className="border-b p-2">
+                          Programme/Fees Mapping ID
+                        </th>
+                        <th className="border-b p-2">Total Amount</th>
+                        <th className="border-b p-2">Fee Paid</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {previewData.courseDetails.map(course => (
+                        <tr key={course.collegeCourseDetailId}>
+                          <td className="border-b p-2">
+                            {course.collegeCourseDetailId}
+                          </td>
+                          <td className="border-b p-2">
+                            {course.programmeFeesMappingId}
+                          </td>
+                          <td className="border-b p-2">
+                            ₹{course.totalAmount}
+                          </td>
+                          <td className="border-b p-2">
+                            {course.isFeePaid ? 'Yes' : 'No'}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
                 </div>
-              ) : (
-                <p className="registration-empty-text">
-                  No documents available.
-                </p>
               )}
-            </PreviewSection>
+
+            {previewData.documents && previewData.documents.length > 0 && (
+              <div className="mt-4">
+                <h3 className="font-bold mb-2">Enclosures (Documents)</h3>
+                <ul className="list-disc pl-5">
+                  {previewData.documents.map(doc => (
+                    <li key={doc.collegeAffiliationDocumentId}>
+                      <span>{doc.documentType || 'Document'}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
+            <div className="flex justify-end mt-4">
+              <Button
+                label="Close"
+                variant="outlined"
+                onClick={() => setPreviewId(null)}
+              />
+            </div>
           </div>
         ) : (
           <p>No preview data available.</p>

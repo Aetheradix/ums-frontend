@@ -38,13 +38,3 @@ export async function updateUserAssignment(
   const { error } = await ApiService.put(USER_ASSIGNMENT_URL, data);
   return !error;
 }
-
-export async function deleteUserAssignment(
-  userId: string,
-  roleName: string,
-  domain: string
-): Promise<boolean> {
-  const url = `${USER_ASSIGNMENT_URL}/${encodeURIComponent(userId)}/${encodeURIComponent(roleName)}/${encodeURIComponent(domain)}`;
-  const { error } = await ApiService.del(url);
-  return !error;
-}

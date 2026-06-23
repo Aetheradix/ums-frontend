@@ -21,7 +21,6 @@ const schema = validation.create<Master.HR.DesignationForm>(o => ({
       [keys.string.pattern]: errors.alphaNumericOnly,
     }),
   sequenceNumber: o.number().required(),
-  employeeType: o.string().required(),
 }));
 
 export function useDesignationForm(

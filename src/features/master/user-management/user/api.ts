@@ -28,8 +28,3 @@ export async function updateUser(
   const { error } = await ApiService.put(url, data);
   return !error;
 }
-
-export async function deleteUser(id: string): Promise<boolean> {
-  const { error } = await ApiService.del(`${USER_URL}/${id}`);
-  return !error;
-}

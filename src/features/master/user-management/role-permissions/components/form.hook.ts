@@ -4,7 +4,7 @@ import validation from 'shared/utils/validation';
 const schema = validation.create<UserManagement.RolePermissionCreate>(o => ({
   roleName: o.string().required().label('Role'),
   domain: o.string().required().label('Domain'),
-  feature: o.array().items(o.string()).min(1).required().label('Feature'),
+  feature: o.string().required().label('Feature'),
   action: o.string().required().label('Action (Right)'),
 }));
 

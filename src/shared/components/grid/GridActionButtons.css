@@ -61,16 +61,6 @@
   @apply !cursor-not-allowed !border-gray-200 !bg-gray-50 !text-gray-300 !opacity-70;
 }
 
-/* Approve */
-.p-button.grid-action-button-approve:hover {
-  @apply !border-green-500 !bg-green-50 !text-green-600;
-}
-
-/* Reject */
-.p-button.grid-action-button-reject:hover {
-  @apply !border-red-500 !bg-red-50 !text-red-600;
-}
-
 /* ==========================================
    Dark Mode
    ========================================== */
@@ -96,12 +86,4 @@
 .dark .p-button.grid-action-button:disabled,
 .dark .p-button.grid-action-button.button-disabled {
   @apply !border-white/[0.08] !bg-white/[0.03] !text-gray-600 !opacity-60;
-}
-
-.dark .p-button.grid-action-button-approve:hover {
-  @apply !border-green-400 !bg-green-500/[0.12] !text-green-400;
-}
-
-.dark .p-button.grid-action-button-reject:hover {
-  @apply !border-red-400 !bg-red-500/[0.12] !text-red-400;
 }

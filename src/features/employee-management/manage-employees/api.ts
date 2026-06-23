@@ -3,7 +3,7 @@ import { EMPLOYEE_BASIC_URL, EMPLOYEE_URL } from './urls';
 
 export async function getBasicEmployees() {
   const { error, data } =
-    await ApiService.get<EmployeeManagement.QuickOnboardingItem[]>(
+    await ApiService.get<EmployeeManagement.EmployeeBasicInfoDto[]>(
       EMPLOYEE_BASIC_URL
     );
 
@@ -11,10 +11,9 @@ export async function getBasicEmployees() {
 }
 
 export async function getEmployeeById(id: number) {
-  const { error, data } =
-    await ApiService.get<EmployeeManagement.QuickOnboardingItem>(
-      `${EMPLOYEE_URL}/${id}`
-    );
+  const { error, data } = await ApiService.get<EmployeeManagement.EmployeeDto>(
+    `${EMPLOYEE_URL}/${id}`
+  );
 
   return !error ? data : undefined;
 }

@@ -3,7 +3,6 @@ import {
   createCollegeRegistration,
   updateCollegeRegistration,
   getCollegeRegistrations,
-  getCollegesByCollegeType,
 } from './api';
 
 const QUERY_KEY = ['@affiliation/college-registration'];
@@ -19,16 +18,6 @@ export function useAllCollegeRegistrationsQuery() {
   });
 
   return { data, isLoading, refetch };
-}
-
-export function useCollegesByCollegeTypeQuery(collegeTypeId?: number) {
-  const { data = [], isLoading } = useQuery({
-    queryKey: [...QUERY_KEY, 'by-college-type', collegeTypeId],
-    queryFn: () => getCollegesByCollegeType(collegeTypeId!),
-    enabled: !!collegeTypeId,
-  });
-
-  return { data, isLoading };
 }
 
 export function useCreateCollegeRegistrationMutation() {

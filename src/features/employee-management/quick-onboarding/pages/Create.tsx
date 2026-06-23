@@ -3,11 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import { ToastService } from 'services';
 import { FormPage } from 'shared/new-components';
 import QuickOnboardingForm from '../components/QuickOnboardingForm';
-import { useCreateQuickOnboardingMutation } from '../queries';
+import { useCreateEmployeeRegistrationMutation } from '../queries';
 
 export default function Create() {
   const navigate = useNavigate();
-  const { mutateAsync, isPending } = useCreateQuickOnboardingMutation();
+  const { mutateAsync, isPending } = useCreateEmployeeRegistrationMutation();
 
   const handleBack = useCallback(() => {
     navigate('/employee-management/manage-employees');
@@ -20,11 +20,12 @@ export default function Create() {
       if (result) {
         ToastService.success('Employee registered successfully.');
         handleBack();
+      } else {
+        ToastService.error('Failed to register employee.');
       }
-    } catch (err) {
-      ToastService.error(
-        err instanceof Error ? err.message : 'Failed to register employee.'
-      );
+    } catch (err: unknown) {
+      const errorMessage = err instanceof Error ? err.message : String(err);
+      ToastService.error(errorMessage || 'Failed to register employee.');
     }
   }
 

@@ -1,7 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import {
   createUserAssignment,
-  deleteUserAssignment,
   getUserAssignmentById,
   getUserAssignments,
   updateUserAssignment,
@@ -41,18 +40,6 @@ export function useUpdateUserAssignmentMutation() {
   return useMutation({
     mutationFn: async (data: UserManagement.UserAssignmentForm) =>
       await updateUserAssignment(data),
-    onSuccess(result) {
-      if (!result) return;
-      queryClient.invalidateQueries({ queryKey: queryKey });
-    },
-  });
-}
-
-export function useDeleteUserAssignmentMutation() {
-  const queryClient = useQueryClient();
-  return useMutation({
-    mutationFn: async (item: UserManagement.UserAssignmentList) =>
-      await deleteUserAssignment(item.userId, item.roleName, item.domain),
     onSuccess(result) {
       if (!result) return;
       queryClient.invalidateQueries({ queryKey: queryKey });

@@ -2,13 +2,12 @@ import { ProtectedRoute } from 'auth';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import MainLayout from 'shared/components/layout/MainLayout';
 import AdmissionPortal from './admission-portal';
-import AffiliationManagementSystem from './affiliation-management-system';
 import CareerAdvancement from './career-advancement';
 import EmployeeManagement from './employee-management';
 import Home from './home';
 import Master from './master';
-import Settings from './settings';
 import Sis from './sis';
+import AffiliationManagementSystem from './affiliation-management-system';
 
 export default function Features() {
   return (
@@ -36,7 +35,6 @@ export default function Features() {
                     <Routes>
                       <Route index element={<Navigate to={'/home'} />} />
                       <Route path="master/*" element={<Master />} />
-                      <Route path="settings/*" element={<Settings />} />
                       <Route path="sis/*" element={<Sis />} />
                       <Route
                         path="affiliation-management-system/*"

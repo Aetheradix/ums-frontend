@@ -60,8 +60,8 @@ export default function List() {
               header: 'Programme Name',
             },
             {
-              field: 'securityDepositAmount',
-              header: 'Security Deposit Amount',
+              field: 'fixedDepositAmount',
+              header: 'Fixed Deposit Amount',
             },
             {
               field: 'affiliationFee',

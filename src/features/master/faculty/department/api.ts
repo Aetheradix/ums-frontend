@@ -8,12 +8,6 @@ export function getDepartments() {
   return ApiService.getList<Master.DepartmentItem>(DEPARTMENT_URL);
 }
 
-export function getDepartmentsByGroup(departmentGroupId: number) {
-  return ApiService.getList<Master.DepartmentItem>(
-    `${DEPARTMENT_URL}/by-group/${departmentGroupId}`
-  );
-}
-
 export async function getDepartment(id: number) {
   const { data } = await ApiService.get<Master.DepartmentItem>(
     `${DEPARTMENT_URL}/${id}`

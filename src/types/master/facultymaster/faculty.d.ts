@@ -35,8 +35,6 @@ declare namespace Master {
     contactNumber: string;
     isActive: boolean;
     officeTypeName?: string;
-    departmentGroupId: number;
-    departmentGroupName?: string;
   }
 
   interface DepartmentForm {
@@ -45,7 +43,6 @@ declare namespace Master {
     officeTypeId: number;
     hodName: string;
     contactNumber: string;
-    departmentGroupId: number;
   }
 
   type DepartmentItem = Data.WithId<Department>;

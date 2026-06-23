@@ -1,1 +1,1 @@
-export const quickOnboardingUrl = 'employees/quick-onboarding';
+export const EMPLOYEE_REGISTRATION_URL = 'employees';

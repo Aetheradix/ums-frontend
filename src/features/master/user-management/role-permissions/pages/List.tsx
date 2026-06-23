@@ -1,5 +1,5 @@
 import type { OverlayPanel } from 'primereact/overlaypanel';
-import { useCallback, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { ToastService } from 'services';
 import { Button } from 'shared/components/buttons';
 import { Loader } from 'shared/components/progress';
@@ -15,7 +15,6 @@ import '../../components/RoleSplitLayout.css';
 import RolePermissionForm from '../components/RolePermissionForm';
 import {
   useCreateRolePermissionMutation,
-  useDeleteRolePermissionMutation,
   useRolePermissionsQuery,
   useUpdateRolePermissionMutation,
 } from '../queries';
@@ -37,7 +36,6 @@ type FeaturePermissionRow = {
 
 export default function List() {
   const { data, isLoading } = useRolePermissionsQuery();
-  const { mutateAsync: deletePermissions } = useDeleteRolePermissionMutation();
 
   const editOverlayRef = useRef<OverlayPanel>(null);
   const editButtonRef = useRef<HTMLButtonElement | null>(null);
@@ -46,6 +44,19 @@ export default function List() {
 
   const [selectedRole, setSelectedRole] =
     useState<UserManagement.UserRoleList | null>(null);
+
+  useEffect(() => {
+    if (!selectedRole && data && data.length > 0) {
+      const firstRoleName = data[0].roleName;
+
+      setSelectedRole({
+        id: firstRoleName,
+        name: firstRoleName,
+        description: '',
+        isActive: true,
+      } as UserManagement.UserRoleList);
+    }
+  }, [data, selectedRole]);
 
   const filteredPermissions = useMemo(() => {
     if (!selectedRole) return [];
@@ -114,19 +125,9 @@ export default function List() {
     }, 0);
   };
 
-  const handleDeletePermission = async (item: FeaturePermissionRow) => {
-    if (
-      !window.confirm(
-        `Are you sure you want to delete permissions for "${item.feature}"?`
-      )
-    )
-      return;
-    try {
-      await deletePermissions(item.items);
-      ToastService.success('Permission deleted successfully.');
-    } catch {
-      ToastService.error('Failed to delete permission.');
-    }
+  const handleDeletePermission = (_item: FeaturePermissionRow) => {
+    // TODO: connect delete role permission API when available
+    ToastService.error('Delete permission API is not connected yet.');
   };
 
   return (
@@ -143,6 +144,12 @@ export default function List() {
 
           <div className="role-main-panel role-permission-main-panel">
             {isLoading ? <Loader /> : undefined}
+
+            <div className="role-main-header">
+              <div>
+                <h3 className="role-main-title">Feature Permissions</h3>
+              </div>
+            </div>
 
             <InlineCreatePanel
               visible={popup.mode === 'create'}
@@ -164,12 +171,8 @@ export default function List() {
             ) : (
               <GridPanel
                 data={featurePermissionRows}
-                emptyMessage={`No Records found`}
+                emptyMessage={`No permissions found for ${selectedRole?.name}.`}
                 columns={[
-                  {
-                    field: 'domain',
-                    header: 'Domain',
-                  },
                   {
                     field: 'feature',
                     header: 'Feature Name',
@@ -189,7 +192,6 @@ export default function List() {
                         type="checkbox"
                         checked={item.read}
                         readOnly
-                        disabled
                         className="role-permission-check"
                       />
                     ),
@@ -204,7 +206,6 @@ export default function List() {
                         type="checkbox"
                         checked={item.write}
                         readOnly
-                        disabled
                         className="role-permission-check"
                       />
                     ),
@@ -342,7 +343,7 @@ function EditRolePermissionContent({
 
   return (
     <RolePermissionForm
-      fetchData={() => Promise.resolve({ ...item, feature: [item.feature] })}
+      fetchData={() => Promise.resolve(item)}
       isSaving={isPending}
       isEditMode
       onSubmit={handleSubmit}

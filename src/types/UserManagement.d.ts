@@ -39,10 +39,7 @@ declare namespace UserManagement {
     domain: string;
     feature: string;
   }
-  interface RolePermissionCreate {
-    roleName: string;
-    domain: string;
-    feature: string[];
+  interface RolePermissionCreate extends RolePermissionBase {
     action: string;
   }
   interface RolePermissionList extends RolePermissionBase {

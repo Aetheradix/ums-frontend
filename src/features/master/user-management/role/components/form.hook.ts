@@ -2,7 +2,7 @@ import { useAppForm } from 'shared/hooks/form';
 import validation from 'shared/utils/validation';
 
 const schema = validation.create<UserManagement.UserRoleForm>(o => ({
-  name: o.string().required().pattern(/^\S+$/).label('Role Name'),
+  name: o.string().required().label('Role Name'),
   description: o.string().required().label('Description'),
   isActive: o.boolean().optional(),
 }));

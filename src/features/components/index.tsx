@@ -10,11 +10,6 @@ import SelectAccommodationType from './SelectAccommodationType';
 import SelectCollegeArea from './SelectCollegeArea';
 import SelectDeficiencyStatus from './SelectDeficiencyStatus';
 import SelectYesNo from './SelectYesNo';
-import SelectDepartmentGroupType from './SelectDepartmentGroupType';
-import SelectDepartmentGroup from './SelectDepartmentGroup';
-import SelectDesignationByEmployeeType from './SelectDesignationByEmployeeType';
-import SelectDepartmentGroupByGroupType from './SelectDepartmentGroupByGroupType';
-import SelectDepartmentByGroup from './SelectDepartmentByGroup';
 
 export {
   ActionButtons,
@@ -29,9 +24,4 @@ export {
   SelectCollegeArea,
   SelectDeficiencyStatus,
   SelectYesNo,
-  SelectDepartmentGroupType,
-  SelectDepartmentGroup,
-  SelectDesignationByEmployeeType,
-  SelectDepartmentGroupByGroupType,
-  SelectDepartmentByGroup,
 };

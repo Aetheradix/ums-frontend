@@ -1,4 +1,3 @@
-import { Controller } from 'react-hook-form';
 import { TextBox } from 'shared/components/forms';
 import { FormActions, FormGrid } from 'shared/new-components';
 import { useUserForm } from './form.hook';
@@ -18,13 +17,7 @@ export default function UserForm({
   isEditMode,
   layout = 'default',
 }: UserFormProps) {
-  const { register, control, handleSubmit, reset, setValue } = useUserForm(
-    onSubmit,
-    fetchData
-  );
-
-  const capitalizeFirst = (value: string) =>
-    value ? value.charAt(0).toUpperCase() + value.slice(1) : value;
+  const { register, handleSubmit, reset } = useUserForm(onSubmit, fetchData);
 
   const isInline = layout === 'inline';
   const isOverlay = layout === 'overlay';
@@ -36,7 +29,6 @@ export default function UserForm({
           label="User Name"
           placeholder="Enter User Name"
           {...register('userName')}
-          maxLength={20}
           required
         />
       </div>
@@ -46,8 +38,6 @@ export default function UserForm({
           label="First Name"
           placeholder="Enter First Name"
           {...register('firstName')}
-          onChange={value => setValue('firstName', capitalizeFirst(value))}
-          maxLength={30}
           required
         />
       </div>
@@ -57,8 +47,6 @@ export default function UserForm({
           label="Last Name"
           placeholder="Enter Last Name"
           {...register('lastName')}
-          onChange={value => setValue('lastName', capitalizeFirst(value))}
-          maxLength={30}
           required
         />
       </div>
@@ -78,17 +66,10 @@ export default function UserForm({
         </label>
 
         <label className="user-status-toggle">
-          <Controller
-            control={control}
-            name="isActive"
-            render={({ field }) => (
-              <input
-                type="checkbox"
-                className="user-status-toggle-input"
-                checked={field.value ?? true}
-                onChange={e => field.onChange(e.target.checked)}
-              />
-            )}
+          <input
+            type="checkbox"
+            className="user-status-toggle-input"
+            {...register('isActive')}
           />
 
           <span className="user-status-toggle-track">

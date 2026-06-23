@@ -1,9 +1,8 @@
-import SelectEmployeeType from 'features/components/SelectEmployeeType';
-import { NumberBox, TextBox } from 'shared/components/forms';
-import { FormActions, FormGrid } from 'shared/new-components';
 import SelectClass from '../../../../components/SelectClass';
-import SelectDesignationType from '../../../../components/SelectDesignationType';
 import SelectPost from '../../../../components/SelectPost';
+import SelectDesignationType from '../../../../components/SelectDesignationType';
+import { TextBox, NumberBox } from 'shared/components/forms';
+import { FormActions, FormGrid } from 'shared/new-components';
 import { useDesignationForm } from './form.hook';
 
 interface DesignationFormProps {
@@ -36,11 +35,6 @@ export default function DesignationForm(props: DesignationFormProps) {
           name="designationTypeId"
           control={control}
           defaultOptionText="Select Designation Type"
-        />
-        <SelectEmployeeType
-          name="employeeType"
-          control={control}
-          defaultOptionText="Select Employee Type"
         />
         <TextBox
           label="Name"

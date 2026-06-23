@@ -36,18 +36,14 @@ export async function getRolePermissions(): Promise<
   return response.data ?? [];
 }
 
-type RolePermissionPayload = {
-  roleName: string;
-  domain: string;
-  feature: string;
-  action: string;
-};
-
-export async function createRolePermission(data: RolePermissionPayload) {
-  const { error, data: result } = await ApiService.post<RolePermissionPayload>(
-    ROLE_PERMISSIONS_URL,
-    data
-  );
+export async function createRolePermission(
+  data: UserManagement.RolePermissionCreate
+) {
+  const { error, data: result } =
+    await ApiService.post<UserManagement.RolePermissionCreate>(
+      ROLE_PERMISSIONS_URL,
+      data
+    );
   return !error ? result : undefined;
 }
 
@@ -55,16 +51,5 @@ export async function updateRolePermission(
   data: UserManagement.RolePermissionUpdate
 ): Promise<boolean> {
   const { error } = await ApiService.put(ROLE_PERMISSIONS_URL, data);
-  return !error;
-}
-
-export async function deleteRolePermission(
-  roleName: string,
-  domain: string,
-  feature: string,
-  action: string
-): Promise<boolean> {
-  const url = `${ROLE_PERMISSIONS_URL}/${encodeURIComponent(roleName)}/${encodeURIComponent(domain)}/${encodeURIComponent(feature)}/${encodeURIComponent(action)}`;
-  const { error } = await ApiService.del(url);
   return !error;
 }

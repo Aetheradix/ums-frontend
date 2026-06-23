@@ -1,23 +1,18 @@
-import SelectCaste from 'features/components/SelectCaste';
-import SelectCollegeName from 'features/components/SelectCollegeName';
-import SelectCollegeType from 'features/components/SelectCollegeType';
-import SelectDepartmentByGroup from 'features/components/SelectDepartmentByGroup';
-import SelectDepartmentGroupByGroupType from 'features/components/SelectDepartmentGroupByGroupType';
-import SelectDepartmentGroupType from 'features/components/SelectDepartmentGroupType';
-import SelectDesignationByEmployeeType from 'features/components/SelectDesignationByEmployeeType';
-import SelectEmployeeType from 'features/components/SelectEmployeeType';
+import SelectAppointedCategory from 'features/components/SelectAppointedCategory';
+import SelectDesignation from 'features/components/SelectDesignation';
 import SelectGender from 'features/components/SelectGender';
 import SelectNatureOfEmployment from 'features/components/SelectNatureOfEmployment';
+import SelectOrganizationUnit from 'features/components/SelectOrganizationUnit';
 import SelectPost from 'features/components/SelectPost';
 import SelectSalutation from 'features/components/SelectSalutation';
+import SelectServiceCadre from 'features/components/SelectServiceCadre';
 import SelectSubjectSpecialization from 'features/components/SelectSubjectSpecialization';
 import { Button } from 'shared/components/buttons';
 import { DatePicker, TextBox } from 'shared/components/forms';
-import { COLLEGE_TYPES } from 'shared/constant';
 import { FormCard, FormGrid } from 'shared/new-components';
 import { useQuickOnboardingForm } from './form.hook';
 
-interface Props {
+interface QuickOnboardingFormProps {
   onSubmit: Forms.SubmitFunc<EmployeeManagement.QuickOnboardingForm>;
   onCancel: VoidFunction;
   isSaving?: boolean;
@@ -25,57 +20,68 @@ interface Props {
   isReadOnly?: boolean;
 }
 
-export default function QuickOnboardingForm(props: Props) {
-  const { register, handleSubmit, reset, watch } = useQuickOnboardingForm(
-    props.onSubmit,
-    props.initialData
+export default function QuickOnboardingForm({
+  onSubmit,
+  onCancel,
+  isSaving = false,
+  initialData,
+  isReadOnly = false,
+}: QuickOnboardingFormProps) {
+  const { control, handleSubmit, reset } = useQuickOnboardingForm(
+    onSubmit,
+    initialData
   );
-
-  const employeeType = watch('employeeType');
-  const collegeTypeId = watch('collegeTypeId');
-  const departmentGroupTypeId = watch('departmentGroupTypeId');
-  const departmentGroupId = watch('departmentGroupId');
 
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-6">
       <fieldset
-        disabled={props.isReadOnly}
+        disabled={isReadOnly}
         className="flex flex-col gap-6 border-none p-0 m-0 min-w-0"
       >
         <FormCard title="Employee Personal Information" icon="user">
           <FormGrid columns={3}>
             <SelectSalutation
-              {...register('salutation')}
+              name="salutation"
               label="Salutation"
+              control={control}
               required
             />
 
             <TextBox
-              {...register('firstName')}
+              control={control}
+              name="firstName"
               label="First Name"
               placeholder="Enter first name"
               required
             />
 
             <TextBox
-              {...register('middleName')}
+              control={control}
+              name="middleName"
               label="Middle Name"
               placeholder="Enter middle name"
             />
 
             <TextBox
-              {...register('lastName')}
+              control={control}
+              name="lastName"
               label="Last Name"
               placeholder="Enter last name"
               required
             />
 
-            <SelectGender {...register('gender')} required />
+            <SelectGender name="gender" control={control} required />
 
-            <SelectCaste {...register('casteId')} label="Category" required />
+            <SelectAppointedCategory
+              name="appointedCategory"
+              label="Appointed Category"
+              control={control}
+              required
+            />
 
             <TextBox
-              {...register('mobileNumber')}
+              control={control}
+              name="mobileNumber"
               label="Mobile Number"
               placeholder="Enter mobile number"
               maxLength={10}
@@ -83,105 +89,69 @@ export default function QuickOnboardingForm(props: Props) {
             />
 
             <TextBox
-              {...register('officialEmail')}
+              control={control}
+              name="officialEmail"
               label="Official Email"
               placeholder="Enter official email"
               required
             />
-
             <DatePicker
-              {...register('dateOfBirth')}
+              control={control}
+              name="dateOfBirth"
               label="Date of Birth"
               placeholder="Select date of birth"
               required
             />
           </FormGrid>
         </FormCard>
-
-        <FormCard title="Department Allocation" icon="building">
-          <FormGrid columns={3}>
-            <SelectCollegeType
-              {...register('collegeTypeId')}
-              label="College Type"
-              defaultOptionText="Select College Type"
-            />
-
-            {(collegeTypeId === COLLEGE_TYPES.AFFILIATED_COLLEGE ||
-              collegeTypeId === COLLEGE_TYPES.AUTONOMOUS_COLLEGE) && (
-              <SelectCollegeName
-                {...register('registrationId')}
-                collegeTypeId={collegeTypeId}
-                label="College Name"
-                defaultOptionText="Select College Name"
-              />
-            )}
-
-            {(collegeTypeId === COLLEGE_TYPES.UNIVERSITY_ADMINISTRATION ||
-              collegeTypeId === COLLEGE_TYPES.MAIN_CAMPUS_UTDS) && (
-              <TextBox
-                {...register('parentUniversityName')}
-                label="Parent University Name"
-              />
-            )}
-
-            <SelectDepartmentGroupType
-              {...register('departmentGroupTypeId')}
-              label="Department Group Type"
-              defaultOptionText="Select Department Group Type"
-            />
-
-            <SelectDepartmentGroupByGroupType
-              {...register('departmentGroupId')}
-              departmentGroupTypeId={departmentGroupTypeId}
-              label="Department Group"
-              defaultOptionText="Select Department Group"
-            />
-
-            <SelectDepartmentByGroup
-              {...register('departmentId')}
-              departmentGroupId={departmentGroupId}
-              label="Department"
-              defaultOptionText="Select Department"
-            />
-          </FormGrid>
-        </FormCard>
-
         <FormCard title="Employee Information" icon="briefcase">
           <FormGrid columns={3}>
-            <SelectEmployeeType
-              {...register('employeeType')}
+            <SelectServiceCadre
+              name="employeeType"
               label="Employee Type"
+              control={control}
               required
-            />
-            <SelectDesignationByEmployeeType
-              {...register('designationId')}
-              employeeType={employeeType}
-              label="Designation"
-              defaultOptionText="Select Designation"
             />
 
             <SelectNatureOfEmployment
-              {...register('employeeNatureId')}
+              name="employeeNatureId"
               label="Nature of Employment"
+              control={control}
               required
             />
 
-            <SelectPost {...register('postId')} required />
+            <SelectOrganizationUnit
+              name="organizationUnitId"
+              label="Organization Unit"
+              control={control}
+              required
+            />
+
+            <SelectPost name="postId" control={control} required />
+
+            <SelectDesignation
+              name="designationId"
+              control={control}
+              required
+            />
 
             <TextBox
-              {...register('seniorityRank')}
+              control={control}
+              name="seniorityRank"
               label="Seniority Rank"
               placeholder="Enter seniority rank"
             />
 
             <SelectSubjectSpecialization
-              {...register('subjectSpecializationId')}
+              name="subjectSpecializationId"
               label="Subject Specialization"
+              control={control}
               required
             />
 
             <TextBox
-              {...register('employeeCode')}
+              control={control}
+              name="employeeCode"
               label="Employee Code"
               placeholder="Enter Employee code"
               required
@@ -192,15 +162,15 @@ export default function QuickOnboardingForm(props: Props) {
 
       <div className="form-actions-container form-actions-right">
         <Button
-          label={props.isReadOnly ? 'Back' : 'Cancel'}
+          label={isReadOnly ? 'Back' : 'Cancel'}
           type="button"
-          onClick={props.onCancel}
-          icon={props.isReadOnly ? 'arrow-left' : 'times'}
+          onClick={onCancel}
+          icon={isReadOnly ? 'arrow-left' : 'times'}
           variant="outlined"
-          disabled={props.isSaving}
+          disabled={isSaving}
         />
 
-        {!props.isReadOnly && (
+        {!isReadOnly && (
           <>
             <Button
               label="Reset"
@@ -208,7 +178,7 @@ export default function QuickOnboardingForm(props: Props) {
               onClick={() => reset()}
               icon="refresh"
               variant="outlined"
-              disabled={props.isSaving}
+              disabled={isSaving}
             />
 
             <Button
@@ -216,7 +186,7 @@ export default function QuickOnboardingForm(props: Props) {
               type="submit"
               icon="check"
               variant="success"
-              isLoading={props.isSaving}
+              isLoading={isSaving}
             />
           </>
         )}

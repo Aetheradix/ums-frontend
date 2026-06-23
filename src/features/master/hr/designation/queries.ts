@@ -3,7 +3,6 @@ import {
   createDesignation,
   getDesignation,
   getDesignations,
-  getDesignationsByEmployeeType,
   deleteDesignation,
   updateDesignation,
   patchDesignationStatus,
@@ -24,20 +23,6 @@ export function useDesignationsQuery() {
   return { data, isLoading, refetch };
 }
 
-export function useDesignationsByEmployeeTypeQuery(employeeType?: string) {
-  const {
-    data = [],
-    isLoading,
-    refetch,
-  } = useQuery({
-    queryKey: [...QUERY_KEY, 'by-employee-type', employeeType],
-    queryFn: () => getDesignationsByEmployeeType(employeeType!),
-    enabled: !!employeeType,
-  });
-
-  return { data, isLoading, refetch };
-}
-
 export function useCreateDesignationMutation() {
   const queryClient = useQueryClient();
   return useMutation({
@@ -46,7 +31,11 @@ export function useCreateDesignationMutation() {
 
     onSuccess(data) {
       if (!data) return;
-      queryClient.invalidateQueries({ queryKey: QUERY_KEY });
+
+      const result =
+        queryClient.getQueryData<Master.HR.DesignationItem[]>(QUERY_KEY) ?? [];
+
+      queryClient.setQueryData(QUERY_KEY, [...result, data]);
     },
   });
 }
@@ -65,7 +54,6 @@ export function useDesignationQuery(id: number) {
         name: data.name,
         code: data.code,
         sequenceNumber: data.sequenceNumber,
-        employeeType: data.employeeType,
       };
     },
   });
@@ -78,9 +66,36 @@ export function useUpdateDesignationMutation(id: number) {
     mutationFn: async (data: Master.HR.DesignationForm) =>
       await updateDesignation(id, data),
 
-    onSuccess(success) {
+    onSuccess(success, formData) {
       if (!success) return;
-      queryClient.invalidateQueries({ queryKey: QUERY_KEY });
+
+      const result =
+        queryClient.getQueryData<Master.HR.DesignationItem[]>(QUERY_KEY) ?? [];
+
+      const index = result.findIndex(item => item.id === id);
+      if (index === -1) return;
+
+      const existing = result[index];
+
+      const itemToReplace: Master.HR.DesignationItem = {
+        id,
+        classId: formData.classId,
+        postId: formData.postId,
+        designationTypeId: formData.designationTypeId,
+        name: formData.name,
+        code: formData.code,
+        sequenceNumber: formData.sequenceNumber,
+        isActive: existing?.isActive ?? true,
+      };
+
+      const updatedItems = [
+        ...result.slice(0, index),
+        itemToReplace,
+        ...result.slice(index + 1),
+      ];
+
+      queryClient.setQueryData(QUERY_KEY, updatedItems);
+      queryClient.setQueryData([...QUERY_KEY, id], formData);
     },
   });
 }
@@ -111,9 +126,25 @@ export function useDesignationActiveStatusMutation() {
     mutationFn: async (data: { id: number; isActive: boolean }) =>
       await patchDesignationStatus(data.id),
 
-    onSuccess(success) {
+    onSuccess(success, variables) {
       if (!success) return;
-      queryClient.invalidateQueries({ queryKey: QUERY_KEY });
+
+      const result =
+        queryClient.getQueryData<Master.HR.DesignationItem[]>(QUERY_KEY) ?? [];
+
+      const index = result.findIndex(item => item.id === variables.id);
+      if (index === -1) return;
+
+      const updatedItem = {
+        ...result[index],
+        isActive: variables.isActive,
+      };
+
+      queryClient.setQueryData(QUERY_KEY, [
+        ...result.slice(0, index),
+        updatedItem,
+        ...result.slice(index + 1),
+      ]);
     },
   });
 }

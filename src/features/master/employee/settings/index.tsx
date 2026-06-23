@@ -8,7 +8,6 @@ import OrganizationUnit from './organization-unit';
 import SeparationReasonType from './separation-reason-type';
 import SubjectSpecialization from './subject-specialization';
 import TravelPurpose from './travel-purpose';
-import DepartmentGroupType from './department-group-type';
 
 export default function Settings() {
   return (
@@ -26,7 +25,6 @@ export default function Settings() {
 
       <Route path="travel-purpose" element={<TravelPurpose />} />
       <Route path="employee-group" element={<EmployeeGroup />} />
-      <Route path="department-group-type" element={<DepartmentGroupType />} />
     </Routes>
   );
 }

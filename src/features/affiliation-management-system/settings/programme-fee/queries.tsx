@@ -28,7 +28,7 @@ export function useProgrammeFeeQuery(programmeFeeId: number) {
       return {
         programmeId: data.programmeId,
         programmeName: data.programmeName,
-        securityDepositAmount: data.securityDepositAmount,
+        fixedDepositAmount: data.fixedDepositAmount,
         affiliationFee: data.affiliationFee,
         inspectionFee: data.inspectionFee,
         otherFee: data.otherFee,
@@ -86,7 +86,7 @@ export function useUpdateProgrammeFeeMutation(programmeFeeId: number) {
         programmeFeeId,
         programmeId: existing.programmeId,
         programmeName: formData.programmeName,
-        securityDepositAmount: formData.securityDepositAmount,
+        fixedDepositAmount: formData.fixedDepositAmount,
         affiliationFee: formData.affiliationFee,
         inspectionFee: formData.inspectionFee,
         otherFee: formData.otherFee,

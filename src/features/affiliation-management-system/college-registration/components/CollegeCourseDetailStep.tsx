@@ -24,7 +24,7 @@ const getCourseFees = (
     return {
       affiliationFee: 0,
       inspectionFee: 0,
-      sdAmount: 0,
+      fdAmount: 0,
       courseType: '',
       courseCode: '',
     };
@@ -37,7 +37,7 @@ const getCourseFees = (
     programmeFeeId: fee?.programmeFeeId || 0,
     affiliationFee: fee?.affiliationFee || 0,
     inspectionFee: fee?.inspectionFee || 0,
-    sdAmount: fee?.securityDepositAmount || 0,
+    fdAmount: fee?.fixedDepositAmount || 0,
     courseType: selectedProgramme?.degreeLevelName || 'TEMPORARY',
     courseCode: courseName || 'OTHER',
   };
@@ -125,7 +125,7 @@ export default function CollegeCourseDetailStep({
         totalAmount:
           currentFees.affiliationFee +
           currentFees.inspectionFee +
-          currentFees.sdAmount,
+          currentFees.fdAmount,
         isFeePaid: false,
         paymentDate: '',
       });
@@ -174,7 +174,7 @@ export default function CollegeCourseDetailStep({
       courseType: fees.courseType,
       course: fees.courseCode,
       subjects: subjectNames,
-      sdAmount: fees.sdAmount,
+      fdAmount: fees.fdAmount,
       affiliationFee: fees.affiliationFee,
       inspectionFee: fees.inspectionFee,
     };
@@ -241,9 +241,9 @@ export default function CollegeCourseDetailStep({
 
               <div className="course-fee-content">
                 <h4>FD Amount</h4>
-                <strong>₹{currentFees.sdAmount} /-</strong>
+                <strong>₹{currentFees.fdAmount} /-</strong>
                 <p>
-                  An FD of ₹{currentFees.sdAmount} /- will be payable for new
+                  An FD of ₹{currentFees.fdAmount} /- will be payable for new
                   courses.
                 </p>
               </div>
@@ -288,9 +288,9 @@ export default function CollegeCourseDetailStep({
                 header: 'Subjects',
               },
               {
-                field: 'sdAmount',
-                header: 'Security Amount',
-                cell: row => <span>₹{row.sdAmount}</span>,
+                field: 'fdAmount',
+                header: 'FD Amount',
+                cell: row => <span>₹{row.fdAmount}</span>,
               },
               {
                 field: 'affiliationFee',

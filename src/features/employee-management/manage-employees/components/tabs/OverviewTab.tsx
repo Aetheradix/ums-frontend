@@ -39,12 +39,10 @@ export default function OverviewTab({ data }: OverviewTabProps) {
           <InfoItem label="Employee Type" value={data.employeeType} />
           <InfoItem label="Nature of Employment" value={data.employeeNature} />
           <InfoItem label="Post" value={data.post} />
-          {data.subjectSpecialization && (
-            <InfoItem
-              label="Subject / Specialization"
-              value={data.subjectSpecialization}
-            />
-          )}
+          <InfoItem
+            label="Subject Specialization"
+            value={data.subjectSpecialization}
+          />
         </div>
       </section>
 
@@ -57,6 +55,7 @@ export default function OverviewTab({ data }: OverviewTabProps) {
         </div>
 
         <div className="employee-profile-info-grid">
+          <InfoItem label="Organization Unit" value={data.organizationUnit} />
           <InfoItem label="Department" value="N/A" />
           <InfoItem label="Reporting To" value="N/A" />
           <InfoItem label="Location" value="N/A" />

@@ -3,11 +3,11 @@ import validation from 'shared/utils/validation';
 
 const schema = validation.create<AffiliationMaster.ProgrammeFeeForm>(o => ({
   programmeId: o.number().required().label('Programme'),
-  securityDepositAmount: o
+  fixedDepositAmount: o
     .number()
     .required()
     .min(0)
-    .label('Security Deposit Amount'),
+    .label('Fixed Deposit Amount'),
   affiliationFee: o.number().required().min(0).label('Affiliation Fee'),
   inspectionFee: o.number().required().min(0).label('Inspection Fee'),
   otherFee: o.number().required().min(0).label('Other Fee'),

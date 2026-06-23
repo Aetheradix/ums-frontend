@@ -1,18 +1,18 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { createQuickOnboarding } from './api';
+import { createEmployeeRegistration } from './api';
 
-const queryKey = ['@employees/quick-onboarding'];
+const QUERY_KEY = ['@employees'];
 
-export function useCreateQuickOnboardingMutation() {
+export function useCreateEmployeeRegistrationMutation() {
   const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: async (data: EmployeeManagement.QuickOnboardingForm) =>
-      await createQuickOnboarding(data),
+      await createEmployeeRegistration(data),
 
     onSuccess() {
       queryClient.invalidateQueries({
-        queryKey: queryKey,
+        queryKey: QUERY_KEY,
       });
     },
   });

@@ -15,17 +15,12 @@ export const STEP_FIELDS: Record<
     'districtId',
     'telephoneNo',
     'collegeEmail',
-    'collegeCategoryId',
-    'collegeTypeId',
+    'collegeCategory',
+    'collegeType',
     'accommodationType',
     'collegeArea',
     'availableFacilities',
     'otherFacilities',
-    'transactionId',
-    'transactionDate',
-    'totalFees',
-    'feeStructure',
-    'isFeePaid',
   ],
   1: [
     'principalDirectorName',
@@ -104,14 +99,16 @@ const schema =
         .messages({
           'string.email': 'Please enter a valid email address',
         }),
-      collegeCategoryId: o
-        .number()
+      collegeCategory: o
+        .string()
         .required()
-        .messages({ 'number.base': 'Required' }),
-      collegeTypeId: o
-        .number()
+        .max(50)
+        .messages({ 'string.base': 'Required' }),
+      collegeType: o
+        .string()
         .required()
-        .messages({ 'number.base': 'Required' }),
+        .max(50)
+        .messages({ 'string.base': 'Required' }),
       accommodationType: o
         .string()
         .required()
@@ -133,11 +130,6 @@ const schema =
         .optional(),
       applicationNumber: o.string().optional(),
       isSubmitted: o.boolean().optional(),
-      transactionId: o.string().optional(),
-      transactionDate: o.string().allow('', null).optional(),
-      totalFees: o.number().optional(),
-      feeStructure: o.string().optional(),
-      isFeePaid: o.boolean().optional(),
 
       // Step 2 — College Affiliation
       affiliationId: o.number().optional(),
