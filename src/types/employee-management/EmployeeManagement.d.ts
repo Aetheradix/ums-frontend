@@ -27,18 +27,10 @@ declare namespace EmployeeManagement {
     departmentId?: number;
   }
 
-  interface QuickOnboardingItem extends QuickOnboardingBase {
-    employeeId: number;
-    fullName: string;
-    employeeNature: string;
-    post: string;
-    subjectSpecialization: string;
-    isActive: boolean;
-  }
-
   // ── List of all Employee ──
   interface ManageEmployeeItem extends QuickOnboardingBase {
     employeeId: number;
+    employeeCode: string;
     fullName: string;
     employeeNature: string;
     post: string;

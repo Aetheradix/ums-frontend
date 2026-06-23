@@ -12,7 +12,7 @@ export async function getBasicEmployees() {
 
 export async function getEmployeeById(id: number) {
   const { error, data } =
-    await ApiService.get<EmployeeManagement.QuickOnboardingItem>(
+    await ApiService.get<EmployeeManagement.ManageEmployeeItem>(
       `${EMPLOYEE_URL}/${id}`
     );
 
