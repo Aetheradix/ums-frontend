@@ -15,7 +15,7 @@ declare namespace AffiliationManagementSystem {
     otherFacilities?: { facilityName: string }[];
     applicationNumber?: string;
     isSubmitted?: boolean;
-    transactionId?: string;
+    transactionId?: number;
     transactionDate?: string | null;
     totalFees?: number;
     feeStructure?: string;
@@ -110,11 +110,12 @@ declare namespace AffiliationManagementSystem {
     numberOfClassRooms: number;
     deficiencyEarlierRaisedByCommittee: boolean;
     availableFacilities: string[];
-    transactionId?: string;
+    transactionId?: number;
     transactionDate?: string;
     totalFees?: number;
     feeStructure?: string;
     isFeePaid?: boolean;
+    applicationNumber?: string;
     otherDetail?: {
       principalDirectorName: string;
       principalMobileNo: string;

@@ -8,6 +8,7 @@ import { ToastService } from 'services';
 import { Button } from 'shared/components/buttons';
 import { MultiSelectList } from 'shared/components/forms';
 import { FormCard, FormGrid, GridPanel } from 'shared/new-components';
+import { useEffect } from 'react';
 import './CollegeCourseDetailStep.css';
 
 interface CollegeCourseDetailStepProps {
@@ -25,6 +26,7 @@ const getCourseFees = (
       affiliationFee: 0,
       inspectionFee: 0,
       sdAmount: 0,
+      securityDepositAmount: 0,
       courseType: '',
       courseCode: '',
     };
@@ -38,6 +40,7 @@ const getCourseFees = (
     affiliationFee: fee?.affiliationFee || 0,
     inspectionFee: fee?.inspectionFee || 0,
     sdAmount: fee?.securityDepositAmount || 0,
+    securityDepositAmount: fee?.securityDepositAmount || 0,
     courseType: selectedProgramme?.degreeLevelName || 'TEMPORARY',
     courseCode: courseName || 'OTHER',
   };
@@ -77,6 +80,33 @@ export default function CollegeCourseDetailStep({
   const activeSubjects = subjects.filter(item => item.isActive);
 
   const activeProgrammeFees = programmeFeesData.filter(item => item.isActive);
+
+  // Safely recalculate and sync totalAmount for existing courses with latest activeProgrammeFees
+  useEffect(() => {
+    if (
+      activeProgrammeFees.length === 0 ||
+      programmes.length === 0 ||
+      fields.length === 0
+    )
+      return;
+
+    fields.forEach((field, index) => {
+      const fees = getCourseFees(
+        field.courseId!,
+        '',
+        activeProgrammeFees,
+        programmes
+      );
+      const calculatedTotal =
+        (fees.affiliationFee || 0) +
+        (fees.inspectionFee || 0) +
+        (fees.securityDepositAmount || 0);
+
+      if (field.totalAmount !== calculatedTotal) {
+        update(index, { ...field, totalAmount: calculatedTotal });
+      }
+    });
+  }, [activeProgrammeFees, programmes]);
 
   const selectedCourse = programmes.find(p => p.id === Number(tempCourseId));
   const currentFees = getCourseFees(
@@ -125,7 +155,7 @@ export default function CollegeCourseDetailStep({
         totalAmount:
           currentFees.affiliationFee +
           currentFees.inspectionFee +
-          currentFees.sdAmount,
+          currentFees.securityDepositAmount,
         isFeePaid: false,
         paymentDate: '',
       });
@@ -175,6 +205,7 @@ export default function CollegeCourseDetailStep({
       course: fees.courseCode,
       subjects: subjectNames,
       sdAmount: fees.sdAmount,
+      securityDepositAmount: fees.securityDepositAmount,
       affiliationFee: fees.affiliationFee,
       inspectionFee: fees.inspectionFee,
     };
@@ -240,11 +271,11 @@ export default function CollegeCourseDetailStep({
               </span>
 
               <div className="course-fee-content">
-                <h4>FD Amount</h4>
-                <strong>₹{currentFees.sdAmount} /-</strong>
+                <h4>Security Deposit</h4>
+                <strong>₹{currentFees.securityDepositAmount} /-</strong>
                 <p>
-                  An FD of ₹{currentFees.sdAmount} /- will be payable for new
-                  courses.
+                  A security deposit of ₹{currentFees.securityDepositAmount} /-
+                  will be payable for new courses.
                 </p>
               </div>
             </div>
@@ -288,9 +319,9 @@ export default function CollegeCourseDetailStep({
                 header: 'Subjects',
               },
               {
-                field: 'sdAmount',
+                field: 'securityDepositAmount',
                 header: 'Security Amount',
-                cell: row => <span>₹{row.sdAmount}</span>,
+                cell: row => <span>₹{row.securityDepositAmount}</span>,
               },
               {
                 field: 'affiliationFee',
