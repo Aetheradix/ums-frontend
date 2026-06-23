@@ -33,6 +33,7 @@ import { useNationalitiesQuery } from 'features/master/other/nationality/queries
 import { useOccupationTypeQuery } from 'features/master/other/occupation/queries';
 import { useProgrammesQuery } from 'features/master/other/programme/queries';
 import { useResidencyStatusesQuery } from 'features/master/other/residency-status/queries';
+import { useSemesterQuery } from 'features/master/other/semester/queries';
 import { useSpecialisationsQuery } from 'features/master/other/specialisation/queries';
 import { useProgrammeModeOfEducationsQuery } from 'features/master/subject/programme-mode-of-education/queries';
 
@@ -80,6 +81,8 @@ const STEP_FIELDS: Record<number, (keyof ApplicationFormData)[]> = {
     'degreeLevel',
     'programOfStudy',
     'specialisation',
+    'semester',
+    'subjects',
     'priorEducations',
   ],
   4: ['choiceFilling'],
@@ -141,6 +144,7 @@ export default function ApplicationForm() {
   const { data: designations } = useDesignationsQuery();
   const { data: occupations } = useOccupationTypeQuery();
   const { data: programModes } = useProgrammeModeOfEducationsQuery();
+  const { data: semesters } = useSemesterQuery();
 
   const onFormSubmit = handleSubmit(
     async (data: ApplicationFormData) => {
@@ -263,6 +267,13 @@ export default function ApplicationForm() {
               'id',
               'name'
             ),
+            semesterName:
+              lookupText(data.semester, semesters, 'id', 'text') ||
+              data.semester,
+            selectedSubjects: (data.subjects ?? []).map(sub => ({
+              subjectId: Number(sub.subjectId || sub.id),
+              subjectName: sub.subjectName,
+            })),
             priorEducations,
           },
           address: {
