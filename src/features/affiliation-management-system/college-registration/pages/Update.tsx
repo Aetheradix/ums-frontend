@@ -111,13 +111,13 @@ export default function Update() {
         const isFinalSubmit = submitTypeRef.current === 'FINAL';
         data.isSubmitted = isFinalSubmit;
 
-        setIsUploading(true);
-        const documentIds = await uploadCollegeDocuments(
-          data.nocFile,
-          data.affidavitFile,
-          data.regularAuthorityFile
-        );
-        setIsUploading(false);
+        // setIsUploading(true);
+        // const documentIds = await uploadCollegeDocuments(
+        //   data.nocFile,
+        //   data.affidavitFile,
+        //   data.regularAuthorityFile
+        // );
+        // setIsUploading(false);
 
         if (!registrationId) {
           ToastService.error('Registration ID is missing. Cannot update.');
@@ -127,7 +127,7 @@ export default function Update() {
         const result = await updateMutate({
           id: registrationId,
           data,
-          documentIds,
+          documentIds: [],
         });
 
         if (result) {

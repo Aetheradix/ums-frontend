@@ -93,7 +93,6 @@ export default function CollegeEnclosureStep({
               accept=".pdf"
               mode="file"
               uploadNote="PDF format only, maximum size 250 KB"
-              required
             />
 
             <FileUpload
@@ -103,7 +102,6 @@ export default function CollegeEnclosureStep({
               accept=".pdf"
               mode="file"
               uploadNote="PDF format only, maximum size 250 KB"
-              required
             />
 
             <FileUpload

@@ -46,15 +46,15 @@ export default function Create() {
         const isFinalSubmit = submitTypeRef.current === 'FINAL';
         data.isSubmitted = isFinalSubmit;
 
-        setIsUploading(true);
-        const documentIds = await uploadCollegeDocuments(
-          data.nocFile,
-          data.affidavitFile,
-          data.regularAuthorityFile
-        );
-        setIsUploading(false);
+        // setIsUploading(true);
+        // const documentIds = await uploadCollegeDocuments(
+        //   data.nocFile,
+        //   data.affidavitFile,
+        //   data.regularAuthorityFile
+        // );
+        // setIsUploading(false);
 
-        const result = await createMutate({ data, documentIds });
+        const result = await createMutate({ data, documentIds: [] });
 
         if (result) {
           if (data.isSubmitted === false) {
