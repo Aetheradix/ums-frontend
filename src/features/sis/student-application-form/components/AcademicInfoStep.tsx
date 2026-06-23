@@ -1,19 +1,22 @@
-import { useCallback } from 'react';
-import {
-  useFieldArray,
-  type Control,
-  type UseFormSetValue,
-} from 'react-hook-form';
+import { useQuery } from '@tanstack/react-query';
 import SelectAcademicYearSession from 'features/components/SelectAcademicYearSession';
 import SelectDegreeLevel from 'features/components/SelectDegreeLevel';
 import SelectProgramme from 'features/components/SelectProgramme';
-import SelectSpecialisation from 'features/components/SelectSpecialisation';
 import SelectCourseMode from 'features/components/SelectProgramModeOfEducation';
+import SelectSemester from 'features/components/SelectSemester';
+import SelectSpecialisation from 'features/components/SelectSpecialisation';
+import { useCallback, useEffect } from 'react';
+import {
+  useFieldArray,
+  useWatch,
+  type Control,
+  type UseFormSetValue,
+} from 'react-hook-form';
+import MultiSelectList from 'shared/components/forms/MultiSelectList';
 import { FormCard, FormGrid } from 'shared/new-components';
-import PriorEducationCard, { EDUCATION_LEVELS } from './PriorEducationCard';
+import { getSubjectsByFilter } from '../api';
 import type { ApplicationFormData, PriorEducationEntry } from '../types';
-
-// ─── Props ───────────────────────────────────────────────────────────────────
+import PriorEducationCard, { EDUCATION_LEVELS } from './PriorEducationCard';
 
 interface AcademicInfoStepProps {
   register: (key: keyof ApplicationFormData) => any;
@@ -21,8 +24,6 @@ interface AcademicInfoStepProps {
   setValue: UseFormSetValue<ApplicationFormData>;
   errors?: any;
 }
-
-// ─── Default entry factory ───────────────────────────────────────────────────
 
 function createEntry(level: string): PriorEducationEntry {
   const levelConf = EDUCATION_LEVELS.find(l => l.value === level);
@@ -41,17 +42,43 @@ function createEntry(level: string): PriorEducationEntry {
   };
 }
 
-// ─── Component ───────────────────────────────────────────────────────────────
-
 export default function AcademicInfoStep({
   register,
   control,
+  setValue,
   errors,
 }: AcademicInfoStepProps) {
   const { fields, append, remove } = useFieldArray({
     control,
     name: 'priorEducations',
     keyName: 'fieldId',
+  });
+
+  const programme = useWatch({ control, name: 'programme' });
+  const specialisation = useWatch({ control, name: 'specialisation' });
+  const programOfStudy = useWatch({ control, name: 'programOfStudy' });
+  const semester = useWatch({ control, name: 'semester' });
+
+  useEffect(() => {
+    setValue('subjects', []);
+  }, [programme, specialisation, programOfStudy, semester, setValue]);
+
+  const { data: pssSubjects = [], isFetching: isSubjectsLoading } = useQuery({
+    queryKey: [
+      '@academic/subjects-by-filter',
+      programme,
+      specialisation,
+      programOfStudy,
+      semester,
+    ],
+    queryFn: () =>
+      getSubjectsByFilter(
+        Number(programme),
+        Number(specialisation),
+        Number(programOfStudy),
+        String(semester)
+      ),
+    enabled: !!(programme && specialisation && programOfStudy && semester),
   });
 
   const handleAdd = useCallback(
@@ -65,9 +92,6 @@ export default function AcademicInfoStep({
 
   return (
     <>
-      {/* ══════════════════════════════════════════════
-          Section 1 — Applying For
-          ══════════════════════════════════════════ */}
       <FormCard
         title="Applying For"
         icon="send"
@@ -87,6 +111,21 @@ export default function AcademicInfoStep({
             required
           />
           <SelectSpecialisation {...register('specialisation')} required />
+          <SelectSemester {...register('semester')} required />
+
+          {programme && specialisation && programOfStudy && semester ? (
+            <div className="col-span-full mt-4">
+              <MultiSelectList
+                label="Subjects"
+                name="subjects"
+                control={control}
+                data={pssSubjects}
+                textField="subjectName"
+                loading={isSubjectsLoading}
+                required
+              />
+            </div>
+          ) : null}
         </FormGrid>
       </FormCard>
 
