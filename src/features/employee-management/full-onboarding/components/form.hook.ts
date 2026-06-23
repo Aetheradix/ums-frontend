@@ -105,7 +105,7 @@ const schema = validation.create<EmployeeManagement.FullOnboardingForm>(o => {
     employeeCode: o.string().required().max(50).label('Employee Code'),
     dateOfJoining: o.date().required().label('Date of Joining'),
 
-    collegeTypeId: o.number().optional().min(1).label('College Type'),
+    collegeTypeId: o.number().required().min(1).label('College Type'),
     registrationId: o
       .number()
       .label('College Name')
@@ -135,11 +135,11 @@ const schema = validation.create<EmployeeManagement.FullOnboardingForm>(o => {
 
     departmentGroupTypeId: o
       .number()
-      .optional()
+      .required()
       .min(1)
       .label('Department Group Type'),
-    departmentGroupId: o.number().optional().min(1).label('Department Group'),
-    departmentId: o.number().optional().min(1).label('Department'),
+    departmentGroupId: o.number().required().min(1).label('Department Group'),
+    departmentId: o.number().required().min(1).label('Department'),
 
     // ── Step 2: Extended ──
     bloodGroup: o.string().required().max(5).label('Blood Group'),
