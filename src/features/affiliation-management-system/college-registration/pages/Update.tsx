@@ -5,7 +5,7 @@ import { Button } from 'shared/components/buttons';
 import { FormWizard } from 'shared/components/forms';
 import type { WizardStep } from 'shared/components/forms/FormWizard';
 import { FormPage } from 'shared/new-components';
-import { uploadCollegeDocuments } from '../api';
+// import { uploadCollegeDocuments } from '../api';
 import AffiliationOtherDetailsStep from '../components/AffiliationOtherDetailsStep';
 import CollegeCourseDetailStep from '../components/CollegeCourseDetailStep';
 import CollegeEnclosureStep from '../components/CollegeEnclosureStep';
