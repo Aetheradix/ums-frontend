@@ -55,7 +55,9 @@ async function requestFormData<T>(
     const user = await AuthService.getUser();
     const token = user?.access_token;
     const response = await fetch(`${apiRoot}${url}`, {
-      method: method,
+      // Uppercase the method: fetch() does NOT normalise PATCH, so 'patch' goes out
+      // lowercase and strict proxies (nginx) reject it with a 400 before it reaches the API.
+      method: method.toUpperCase(),
       body: formData,
       credentials: 'include',
       headers: {
@@ -94,7 +96,9 @@ async function request<T>(
     const user = await AuthService.getUser();
     const token = user?.access_token;
     const response = await fetch(`${apiRoot}${url}`, {
-      method: method,
+      // Uppercase the method: fetch() does NOT normalise PATCH, so 'patch' goes out
+      // lowercase and strict proxies (nginx) reject it with a 400 before it reaches the API.
+      method: method.toUpperCase(),
       body: body ? JSON.stringify(body) : undefined,
       credentials: 'include',
       headers: {
@@ -150,7 +154,9 @@ async function getFile(url: string, body?: unknown) {
     };
 
     const response = await fetch(`${apiRoot}${url}`, {
-      method: method,
+      // Uppercase the method: fetch() does NOT normalise PATCH, so 'patch' goes out
+      // lowercase and strict proxies (nginx) reject it with a 400 before it reaches the API.
+      method: method.toUpperCase(),
       credentials: 'include',
       headers: headers,
       body: body ? JSON.stringify(body) : undefined,
