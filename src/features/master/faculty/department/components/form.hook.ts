@@ -20,6 +20,7 @@ const schema = validation.create<Master.DepartmentForm>(o => ({
   officeTypeId: o.number().required(),
   hodName: o.string().required(),
   contactNumber: o.string().required(),
+  departmentGroupId: o.number().required(),
 }));
 
 export function useDepartmentForm(

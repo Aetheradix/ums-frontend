@@ -14,7 +14,7 @@ declare namespace AffiliationManagementSystem {
     collegeArea: string;
     applicationNumber?: string;
     availableFacilitiesOther?: string;
-    transactionId?: string;
+    transactionId?: number;
     transactionDate?: string;
     totalFees?: number;
     feeStructure?: string;

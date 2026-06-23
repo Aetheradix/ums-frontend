@@ -27,3 +27,32 @@ export async function uploadPriorEducationDocument(
   }
   return null;
 }
+
+export async function getSubjectsByFilter(
+  programmeId: number,
+  specializationId: number,
+  modeOfEducationId: number,
+  semesterName: string
+) {
+  const query = new URLSearchParams({
+    programmeId: String(programmeId),
+    specializationId: String(specializationId),
+    modeOfEducationId: String(modeOfEducationId),
+    semesterName: semesterName,
+  }).toString();
+
+  const { error, data } = await ApiService.get<
+    {
+      id: number;
+      subjectId: number;
+      subjectName: string;
+      subjectCode: string;
+      lectureStructure: number | null;
+      tutorialStructure: number | null;
+      practicalStructure: number | null;
+      totalCredits: number;
+    }[]
+  >(`master/programme-specialization-structures/by-filter?${query}`);
+
+  return !error ? data : [];
+}

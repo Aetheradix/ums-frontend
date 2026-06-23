@@ -107,16 +107,7 @@ export default function FeePayment({ token }: FeePaymentProps) {
             </div>
           </div>
 
-          {!status?.hasSubjectsSelected ? (
-            <div className="p-6 bg-yellow-50 text-yellow-800 rounded-lg border border-yellow-200 text-center">
-              <i className="pi pi-exclamation-triangle text-2xl mb-3 block"></i>
-              <h3 className="font-bold mb-1">Subjects Not Selected</h3>
-              <p className="text-sm">
-                You must complete your subject selection before you can pay the
-                college fee.
-              </p>
-            </div>
-          ) : status.isFeePaid ? (
+          {status?.isFeePaid ? (
             <div className="p-8 bg-green-50 text-green-800 rounded-lg border border-green-200 text-center flex flex-col items-center">
               <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-4">
                 <i className="pi pi-check text-3xl text-green-600"></i>

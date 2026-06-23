@@ -18,6 +18,7 @@ export default function EditDesignation({ id, onClose }: EditProps) {
     name: '',
     code: '',
     sequenceNumber: 0,
+    employeeType: '',
     isActive: true,
   };
 

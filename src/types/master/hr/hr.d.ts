@@ -40,12 +40,13 @@ declare namespace Master.HR {
 
   // Designation
   interface DesignationForm {
-    classId: string | number;
-    postId: string | number;
-    designationTypeId: string | number;
+    classId: number;
+    postId: number;
+    designationTypeId: number;
     name: string;
     code: string;
     sequenceNumber: number;
+    employeeType: string;
     isActive: boolean;
   }
   type DesignationItem = Data.WithId<DesignationForm>;

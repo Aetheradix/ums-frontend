@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ToastService } from 'services';
 import { Button } from 'shared/components/buttons';
@@ -11,7 +11,11 @@ import CollegeCourseDetailStep from '../components/CollegeCourseDetailStep';
 import CollegeEnclosureStep from '../components/CollegeEnclosureStep';
 import CollegeRegistrationStep from '../components/CollegeRegistrationStep';
 import DraftSuccessDialog from '../components/DraftSuccessDialog';
-import { useCollegeApplicationForm } from '../components/form.hook';
+import PaymentConfirmationDialog from '../components/PaymentConfirmationDialog';
+import {
+  useCollegeApplicationForm,
+  STEP_FIELDS,
+} from '../components/form.hook';
 import { useCreateCollegeRegistrationMutation } from '../queries';
 import './Create.css';
 
@@ -19,17 +23,29 @@ export default function Create() {
   const [isUploading, setIsUploading] = useState(false);
   const [showDraftDialog, setShowDraftDialog] = useState(false);
   const [draftAppNumber, setDraftAppNumber] = useState('');
+  const [paymentDetails, setPaymentDetails] = useState<any>(null);
+  const submitTypeRef = useRef<'DRAFT' | 'FINAL'>('DRAFT');
 
   const navigate = useNavigate();
   const { mutateAsync: createMutate, isPending } =
     useCreateCollegeRegistrationMutation();
 
-  const { register, control, handleSubmit, reset, trigger, setValue } =
-    useCollegeApplicationForm();
+  const {
+    register,
+    control,
+    handleSubmit,
+    reset,
+    trigger,
+    setValue,
+    resetField,
+  } = useCollegeApplicationForm();
 
   const onFormSubmit = handleSubmit(
     async data => {
       try {
+        const isFinalSubmit = submitTypeRef.current === 'FINAL';
+        data.isSubmitted = isFinalSubmit;
+
         setIsUploading(true);
         const documentIds = await uploadCollegeDocuments(
           data.nocFile,
@@ -48,8 +64,26 @@ export default function Create() {
             ToastService.success(
               'College Registration submitted successfully.'
             );
-            reset();
-            navigate(-1);
+            if (result.paymentTransactionId) {
+              setPaymentDetails({
+                collegeName: data.collegeName,
+                collegeCode: data.collegeCode,
+                applicationNumber: result.applicationNumber,
+                totalAmount:
+                  data.totalFees ||
+                  (data.courses ?? []).reduce(
+                    (acc: number, course: any) =>
+                      acc + (course.totalAmount || 0),
+                    0
+                  ),
+                email: data.collegeEmail,
+                date: new Date().toLocaleDateString(),
+                transactionId: result.paymentTransactionId,
+              });
+            } else {
+              reset();
+              navigate(-1);
+            }
           }
         }
       } catch {
@@ -57,13 +91,13 @@ export default function Create() {
         ToastService.error('Failed to submit college registration');
       }
     },
-    errors => {
-      console.log('Validation Errors on Save:', errors);
+    () => {
       ToastService.error('Please fix the validation errors in the form.');
     }
   );
 
   const handleFinalSubmit = async () => {
+    submitTypeRef.current = 'FINAL';
     setValue('isSubmitted', true);
     await onFormSubmit();
   };
@@ -109,6 +143,12 @@ export default function Create() {
     navigate(-1);
   };
 
+  const handlePayNow = () => {
+    navigate('/payment-management/college-affiliation/receipt', {
+      state: { receiptData: paymentDetails },
+    });
+  };
+
   return (
     <FormPage
       title="Application for Affiliation"
@@ -119,26 +159,39 @@ export default function Create() {
         onComplete={handleFinalSubmit}
         isSaving={isPending || isUploading}
         triggerValidation={trigger as (fields: string[]) => Promise<boolean>}
-        onReset={reset}
-        customActions={() => (
-          <Button
-            type="button"
-            label="Save as Draft"
-            variant="outlined"
-            onClick={async () => {
-              setValue('isSubmitted', false);
-              await onFormSubmit();
-            }}
-            disabled={isUploading || isPending}
-            icon="save"
-          />
-        )}
+        onResetStep={activeIndex => {
+          const fields = STEP_FIELDS[activeIndex];
+          fields?.forEach(field => resetField(field as any));
+        }}
+        customActions={(_, isLastStep) =>
+          isLastStep ? (
+            <Button
+              type="button"
+              label="Save as Draft"
+              variant="outlined"
+              onClick={async () => {
+                submitTypeRef.current = 'DRAFT';
+                setValue('isSubmitted', false);
+                await onFormSubmit();
+              }}
+              disabled={isUploading || isPending}
+              icon="save"
+            />
+          ) : null
+        }
       />
 
       <DraftSuccessDialog
         visible={showDraftDialog}
         draftAppNumber={draftAppNumber}
         onClose={handleCloseDraftDialog}
+      />
+
+      <PaymentConfirmationDialog
+        visible={!!paymentDetails}
+        onHide={() => setPaymentDetails(null)}
+        onPayNow={handlePayNow}
+        details={paymentDetails}
       />
     </FormPage>
   );
