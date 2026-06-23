@@ -7,17 +7,15 @@ export default function MainHeader() {
     <div className="main-header">
       {/* Left Section */}
       <div className="main-header-left">
-        <div className="main-header-logo">N</div>
-
-        <div>
-          <div className="main-header-title">UMS ERP</div>
-
-          <div className="main-header-subtitle">Workspace OS</div>
-        </div>
+        <img
+          src="/Octagon_Logo.png"
+          alt="Octagon Logo"
+          className="w-10 h-10 object-contain rounded-lg ws-logo-image"
+        />
       </div>
 
       {/* Search */}
-      <div className="main-header-search-wrapper">
+      <div className="main-header-search-wrapper mobile-hidden">
         <div className="main-header-search-box">
           <i className="pi pi-search main-header-search-icon" />
 
