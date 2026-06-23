@@ -51,6 +51,7 @@ export default function List() {
             },
             { field: 'name', header: 'Name' },
             { field: 'code', header: 'Code' },
+            { field: 'departmentGroupName', header: 'Department Group' },
             { field: 'officeTypeName', header: 'Office Type' },
             { field: 'hodName', header: 'Head of Department' },
             { field: 'contactNumber', header: 'Contact Number' },
@@ -128,6 +129,7 @@ function EditContent({ id, onClose }: { id: number; onClose: () => void }) {
     code: '',
     name: '',
     officeTypeId: 0,
+    departmentGroupId: 0,
     hodName: '',
     contactNumber: '',
   };

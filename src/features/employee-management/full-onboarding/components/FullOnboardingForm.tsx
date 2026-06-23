@@ -1,25 +1,31 @@
 import SelectBlock from 'features/components/SelectBlock';
 import SelectBloodGroup from 'features/components/SelectBloodGroup';
 import SelectCaste from 'features/components/SelectCaste';
+import SelectCollegeName from 'features/components/SelectCollegeName';
+import SelectCollegeType from 'features/components/SelectCollegeType';
 import SelectDegreeLevel from 'features/components/SelectDegreeLevel';
-import SelectDesignation from 'features/components/SelectDesignation';
+import SelectDepartmentByGroup from 'features/components/SelectDepartmentByGroup';
+import SelectDepartmentGroupByGroupType from 'features/components/SelectDepartmentGroupByGroupType';
+import SelectDepartmentGroupType from 'features/components/SelectDepartmentGroupType';
 import SelectDistrict from 'features/components/SelectDistrict';
 import SelectDivision from 'features/components/SelectDivision';
 import SelectGender from 'features/components/SelectGender';
 import SelectMaritalStatus from 'features/components/SelectMaritalStatus';
 import SelectNationality from 'features/components/SelectNationality';
 import SelectNatureOfEmployment from 'features/components/SelectNatureOfEmployment';
-import SelectOrganizationUnit from 'features/components/SelectOrganizationUnit';
 import SelectPost from 'features/components/SelectPost';
+import SelectQualification from 'features/components/SelectQualification';
 import SelectRelationshipTypes from 'features/components/SelectRelationshipTypes';
 import SelectReligion from 'features/components/SelectReligion';
 import SelectSalutation from 'features/components/SelectSalutation';
-import SelectServiceCadre from 'features/components/SelectServiceCadre';
 import SelectState from 'features/components/SelectState';
 import SelectSubjectSpecialization from 'features/components/SelectSubjectSpecialization';
 import SelectTehsil from 'features/components/SelectTehsil';
 import SelectYesNo from 'features/components/SelectYesNo';
+import { COLLEGE_TYPES } from 'shared/constant';
 
+import SelectDesignationByEmployeeType from 'features/components/SelectDesignationByEmployeeType';
+import SelectEmployeeType from 'features/components/SelectEmployeeType';
 import {
   DatePicker,
   FormWizard,
@@ -43,6 +49,10 @@ export default function FullOnboardingForm(props: Props) {
 
   const isSameAsCurrentAddress = watch('isSameAsCurrentAddress');
   const qualifications = watch('qualifications') || [];
+  const collegeTypeId = watch('collegeTypeId');
+  const departmentGroupTypeId = watch('departmentGroupTypeId');
+  const departmentGroupId = watch('departmentGroupId');
+  const employeeType = watch('employeeType');
 
   const handleSameAddressToggle = (checked: boolean) => {
     setValue('isSameAsCurrentAddress', checked);
@@ -135,12 +145,67 @@ export default function FullOnboardingForm(props: Props) {
             </FormGrid>
           </FormCard>
 
+          <FormCard title="Department Allocation" icon="building">
+            <FormGrid columns={3}>
+              <SelectCollegeType
+                {...register('collegeTypeId')}
+                label="College Type"
+                defaultOptionText="Select College Type"
+              />
+
+              {(collegeTypeId === COLLEGE_TYPES.AFFILIATED_COLLEGE ||
+                collegeTypeId === COLLEGE_TYPES.AUTONOMOUS_COLLEGE) && (
+                <SelectCollegeName
+                  {...register('registrationId')}
+                  collegeTypeId={collegeTypeId}
+                  label="College Name"
+                  defaultOptionText="Select College Name"
+                />
+              )}
+
+              {(collegeTypeId === COLLEGE_TYPES.UNIVERSITY_ADMINISTRATION ||
+                collegeTypeId === COLLEGE_TYPES.MAIN_CAMPUS_UTDS) && (
+                <TextBox
+                  {...register('parentUniversityName')}
+                  label="Parent University Name"
+                />
+              )}
+
+              <SelectDepartmentGroupType
+                {...register('departmentGroupTypeId')}
+                label="Department Group Type"
+                defaultOptionText="Select Department Group Type"
+              />
+
+              <SelectDepartmentGroupByGroupType
+                {...register('departmentGroupId')}
+                departmentGroupTypeId={departmentGroupTypeId}
+                label="Department Group"
+                defaultOptionText="Select Department Group"
+              />
+
+              <SelectDepartmentByGroup
+                {...register('departmentId')}
+                departmentGroupId={departmentGroupId}
+                label="Department"
+                defaultOptionText="Select Department"
+              />
+            </FormGrid>
+          </FormCard>
+
           <FormCard title="Employment Details" icon="briefcase">
             <FormGrid columns={3}>
-              <SelectServiceCadre
+              <SelectEmployeeType
                 {...register('employeeType')}
                 label="Employee Type"
                 required
+              />
+
+              <SelectDesignationByEmployeeType
+                {...register('designationId')}
+                employeeType={employeeType}
+                label="Designation"
+                defaultOptionText="Select Designation"
               />
 
               <SelectNatureOfEmployment
@@ -149,15 +214,7 @@ export default function FullOnboardingForm(props: Props) {
                 required
               />
 
-              <SelectOrganizationUnit
-                {...register('organizationUnitId')}
-                label="Organization Unit"
-                required
-              />
-
               <SelectPost {...register('postId')} required />
-
-              <SelectDesignation {...register('designationId')} required />
 
               <SelectSubjectSpecialization
                 {...register('subjectSpecializationId')}
@@ -170,6 +227,7 @@ export default function FullOnboardingForm(props: Props) {
                 label="Seniority Rank"
                 placeholder="Enter seniority rank"
                 maxLength={20}
+                required
               />
 
               <TextBox
@@ -335,7 +393,7 @@ export default function FullOnboardingForm(props: Props) {
                 {...register('uanNumber')}
                 label="UAN / PF Number"
                 placeholder="Enter UAN"
-                maxLength={100}
+                maxLength={12}
               />
 
               <TextBox
@@ -349,7 +407,7 @@ export default function FullOnboardingForm(props: Props) {
                 {...register('passportNumber')}
                 label="Passport Number"
                 placeholder="Enter passport number"
-                maxLength={100}
+                maxLength={8}
               />
 
               <DatePicker
@@ -405,6 +463,7 @@ export default function FullOnboardingForm(props: Props) {
               <SelectDivision
                 {...register('currentAddress.divisionId')}
                 label="Division"
+                required
               />
 
               <SelectDistrict
@@ -416,11 +475,13 @@ export default function FullOnboardingForm(props: Props) {
               <SelectTehsil
                 {...register('currentAddress.tehsilId')}
                 label="Tehsil"
+                required
               />
 
               <SelectBlock
                 {...register('currentAddress.blockId')}
                 label="Block"
+                required
               />
 
               <TextBox
@@ -535,7 +596,7 @@ export default function FullOnboardingForm(props: Props) {
               icon="graduation-cap"
             >
               <FormGrid columns={3}>
-                <SelectDegreeLevel
+                <SelectQualification
                   {...register(`qualifications.${index}.qualificationId`)}
                   label="Qualification Name"
                   required

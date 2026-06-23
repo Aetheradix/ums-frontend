@@ -1,3 +1,4 @@
+import { Controller } from 'react-hook-form';
 import { TextBox } from 'shared/components/forms';
 import { FormActions, FormGrid } from 'shared/new-components';
 import { useRoleForm } from './form.hook';
@@ -12,7 +13,7 @@ interface RoleFormProps {
 }
 
 export default function RoleForm(props: RoleFormProps) {
-  const { register, handleSubmit, reset } = useRoleForm(
+  const { register, control, handleSubmit, reset } = useRoleForm(
     props.onSubmit,
     props.fetchData
   );
@@ -38,10 +39,17 @@ export default function RoleForm(props: RoleFormProps) {
           <label className="role-status-field-label">Status</label>
 
           <label className="role-status-toggle">
-            <input
-              type="checkbox"
-              className="role-status-toggle-input"
-              {...register('isActive')}
+            <Controller
+              control={control}
+              name="isActive"
+              render={({ field }) => (
+                <input
+                  type="checkbox"
+                  className="role-status-toggle-input"
+                  checked={field.value ?? true}
+                  onChange={e => field.onChange(e.target.checked)}
+                />
+              )}
             />
 
             <span className="role-status-toggle-track">

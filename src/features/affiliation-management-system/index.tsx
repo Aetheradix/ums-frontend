@@ -5,9 +5,8 @@ import { Route, Routes } from 'react-router';
 import CollegeProfile from './college-profile';
 import CollegeRegistration from './college-registration';
 import CollegeRegistrationApproval from './college-registration-approval';
-import ProgrammeFee from './settings/programme-fee';
-
 import DraftRegistrationRequest from './draft-registration-request';
+import ProgrammeFee from './settings/programme-fee';
 
 export default function AffiliationManagementSystem() {
   return (

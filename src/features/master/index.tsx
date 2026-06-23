@@ -38,6 +38,8 @@ import Subject from './subject';
 import CmsManagement from '../cms-management';
 import EmployeeGroup from './employee/settings/employee-group';
 import SeparationReasonType from './employee/settings/separation-reason-type';
+import DepartmentGroupType from './employee/settings/department-group-type';
+import DepartmentGroup from './employee/settings/department-group';
 import UserManagement from './user-management';
 
 export default function Master() {
@@ -118,6 +120,11 @@ export default function Master() {
           />
           <Route path="travel-purpose/*" element={<TravelPurpose />} />
           <Route path="employee-group/*" element={<EmployeeGroup />} />
+          <Route
+            path="department-group-type/*"
+            element={<DepartmentGroupType />}
+          />
+          <Route path="department-group/*" element={<DepartmentGroup />} />
         </Route>
       </Route>
     </Routes>

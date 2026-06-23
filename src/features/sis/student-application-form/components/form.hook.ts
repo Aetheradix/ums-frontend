@@ -68,6 +68,11 @@ const schema = validation.create<ApplicationFormData>(o => ({
   degreeLevel: o.any().required(),
   programOfStudy: o.any().required(),
   specialisation: o.any().required(),
+  semester: o.any().required(),
+  subjects: o.array().items(o.any()).min(1).required().messages({
+    'array.min': 'Please select at least one subject.',
+    'any.required': 'Please select at least one subject.',
+  }),
 
   priorEducations: o
     .array()
@@ -104,6 +109,8 @@ export function useApplicationForm() {
     resolver: validation.resolver(schema),
     defaultValues: {
       priorEducations: [],
+      semester: '',
+      subjects: [],
     },
     shouldFocusError: false,
   });
