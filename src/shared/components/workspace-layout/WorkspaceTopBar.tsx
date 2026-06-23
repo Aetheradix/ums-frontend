@@ -4,7 +4,7 @@ import './WorkspaceLayout.css';
 const TopBar: React.FC = () => (
   <div className="ws-topbar">
     <div className="ws-topbar-inner">
-      <span>UMS Enterprises</span>
+      <span>Octagone ERP</span>
       <div>
         <span>Help Center</span>
         <span className="ws-topbar-dot">·</span>

@@ -2,7 +2,7 @@
 
 .ws-header {
   @apply border-b border-slate-200 py-3
-  bg-(--bg-white);
+  bg-(--bg-white) sticky top-0 z-50;
 }
 
 /* .ws-header-inner {
@@ -49,7 +49,7 @@
 }
 
 .ws-header-actions {
-  @apply flex items-center gap-6 max-md:order-2 max-md:gap-3;
+  @apply flex items-center gap-6 max-md:order-2 max-md:gap-3 max-md:ml-auto;
 }
 
 .ws-action-icons {
@@ -150,4 +150,14 @@
 
 .dark .ws-dropdown-item:hover i {
   @apply text-white;
+}
+
+.dark .ws-logo-image {
+  filter: brightness(0) invert(1);
+}
+
+@media (max-width: 768px) {
+  .mobile-hidden {
+    display: none !important;
+  }
 }

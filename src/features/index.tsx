@@ -1,27 +1,77 @@
 import { ProtectedRoute } from 'auth';
+import React from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import MainLayout from 'shared/components/layout/MainLayout';
+import { UniversityLoader } from 'shared/components/progress';
 import AdmissionPortal from './admission-portal';
 import AffiliationManagementSystem from './affiliation-management-system';
 import CareerAdvancement from './career-advancement';
 import EmployeeManagement from './employee-management';
 import Home from './home';
 import Master from './master';
+import PaymentManagement from './payment-management';
+import PublicPortalLayout, {
+  PublicRouteWrapper,
+} from './public-portal/layout/PublicPortalLayout';
 import Settings from './settings';
 import Sis from './sis';
-import PaymentManagement from './payment-management';
+
+const PublicHome = React.lazy(() => import('./public-portal/pages/Home'));
+const PublicSolutions = React.lazy(
+  () => import('./public-portal/pages/Solutions')
+);
+const PublicAbout = React.lazy(() => import('./public-portal/pages/About'));
+const PublicContact = React.lazy(() => import('./public-portal/pages/Contact'));
 
 export default function Features() {
   return (
     <Routes>
+      {/* Public Marketing Landing Pages */}
+      <Route
+        path="/"
+        element={
+          <PublicPortalLayout>
+            <PublicRouteWrapper>
+              <PublicHome />
+            </PublicRouteWrapper>
+          </PublicPortalLayout>
+        }
+      />
+      <Route
+        path="solutions"
+        element={
+          <PublicPortalLayout>
+            <PublicRouteWrapper>
+              <PublicSolutions />
+            </PublicRouteWrapper>
+          </PublicPortalLayout>
+        }
+      />
+      <Route
+        path="about"
+        element={
+          <PublicPortalLayout>
+            <PublicRouteWrapper>
+              <PublicAbout />
+            </PublicRouteWrapper>
+          </PublicPortalLayout>
+        }
+      />
+      <Route
+        path="contact"
+        element={
+          <PublicPortalLayout>
+            <PublicRouteWrapper>
+              <PublicContact />
+            </PublicRouteWrapper>
+          </PublicPortalLayout>
+        }
+      />
+
       <Route path="public/*" element={<div>Public Page Placeholder</div>} />
       <Route
         path="callback"
-        element={
-          <div className="flex items-center justify-center min-h-screen">
-            <p>Completing sign-in...</p>
-          </div>
-        }
+        element={<UniversityLoader text="Completing sign-in..." />}
       />
       <Route path="admission-portal/*" element={<AdmissionPortal />} />
       <Route

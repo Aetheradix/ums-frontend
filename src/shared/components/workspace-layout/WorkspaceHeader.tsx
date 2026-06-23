@@ -72,17 +72,15 @@ const Header: React.FC = () => {
       <div className="ws-header-inner">
         {/* Logo */}
         <div className="ws-logo-section">
-          <div className="ws-logo-box">N</div>
-
-          <div className="ws-logo-text">
-            <span className="ws-logo-title">UMS ERP</span>
-
-            <span className="ws-logo-subtitle">Workspace OS</span>
-          </div>
+          <img
+            src="/Octagon_Logo.png"
+            alt="Octagon Logo"
+            className="w-40 max-md:w-32 p-1 object-contain rounded-lg ws-logo-image"
+          />
         </div>
 
         {/* Search */}
-        <div className="ws-search-section">
+        <div className="ws-search-section mobile-hidden">
           <div className="ws-search-container">
             <i className="pi pi-search ws-search-icon" />
 
@@ -107,12 +105,12 @@ const Header: React.FC = () => {
             </div>
 
             {/* Help */}
-            <div className="ws-icon-btn">
+            <div className="ws-icon-btn mobile-hidden">
               <i className="pi pi-question-circle" />
             </div>
 
             {/* Notification */}
-            <div className="ws-notif-btn">
+            <div className="ws-notif-btn mobile-hidden">
               <i className="pi pi-bell" />
 
               <span className="ws-badge">1</span>
