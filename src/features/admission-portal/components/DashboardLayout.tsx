@@ -1,5 +1,10 @@
-import { Route, Routes, useNavigate, useLocation } from 'react-router-dom';
-import SubjectSelection from '../pages/SubjectSelection';
+import {
+  Route,
+  Routes,
+  useNavigate,
+  useLocation,
+  Navigate,
+} from 'react-router-dom';
 import FeePayment from '../pages/FeePayment';
 
 interface DashboardLayoutProps {
@@ -15,11 +20,6 @@ export default function DashboardLayout({
   const location = useLocation();
 
   const tabs = [
-    {
-      path: '/admission-portal/subject-selection',
-      label: 'Subject Selection',
-      icon: 'pi-book',
-    },
     {
       path: '/admission-portal/fee-payment',
       label: 'College Fee Payment',
@@ -84,10 +84,10 @@ export default function DashboardLayout({
       <div className="flex-1 bg-[#fafafa]">
         <div className="max-w-7xl mx-auto px-6 py-6">
           <Routes>
-            <Route index element={<SubjectSelection token={token} />} />
+            <Route index element={<FeePayment token={token} />} />
             <Route
               path="subject-selection"
-              element={<SubjectSelection token={token} />}
+              element={<Navigate to="../fee-payment" replace />}
             />
             <Route path="fee-payment" element={<FeePayment token={token} />} />
           </Routes>

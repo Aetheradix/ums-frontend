@@ -6,7 +6,7 @@ import { SelectYesNo } from 'features/components';
 
 interface AffiliationOtherDetailsStepProps {
   register: (
-    key: Path<AffiliationManagementSystem.CollegeApplicationFormData>
+    name: Path<AffiliationManagementSystem.CollegeApplicationFormData>
   ) => {
     control: Control<AffiliationManagementSystem.CollegeApplicationFormData>;
     name: Path<AffiliationManagementSystem.CollegeApplicationFormData>;
@@ -84,6 +84,7 @@ export default function AffiliationOtherDetailsStep({
             placeholder="Select society registration date"
             {...register('societyRegistrationDate')}
             required
+            maxDate={new Date()}
           />
 
           <div className="affiliation-grid-span-2">

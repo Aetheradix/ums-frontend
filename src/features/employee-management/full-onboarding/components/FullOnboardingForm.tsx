@@ -145,7 +145,7 @@ export default function FullOnboardingForm(props: Props) {
             </FormGrid>
           </FormCard>
 
-          <FormCard title="Placement / Posting Information" icon="building">
+          <FormCard title="Department Allocation" icon="building">
             <FormGrid columns={3}>
               <SelectCollegeType
                 {...register('collegeTypeId')}

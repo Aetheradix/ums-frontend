@@ -33,8 +33,73 @@ import { useNationalitiesQuery } from 'features/master/other/nationality/queries
 import { useOccupationTypeQuery } from 'features/master/other/occupation/queries';
 import { useProgrammesQuery } from 'features/master/other/programme/queries';
 import { useResidencyStatusesQuery } from 'features/master/other/residency-status/queries';
+import { useSemesterQuery } from 'features/master/other/semester/queries';
 import { useSpecialisationsQuery } from 'features/master/other/specialisation/queries';
 import { useProgrammeModeOfEducationsQuery } from 'features/master/subject/programme-mode-of-education/queries';
+
+const STEPS = [
+  { label: 'Basic Info' },
+  { label: "Father's Details" },
+  { label: "Mother's Details" },
+  { label: 'Academic Info' },
+  { label: 'Choice Filling' },
+  { label: 'Address Info' },
+];
+
+/** Fields that belong to each step — used for per-step validation */
+const STEP_FIELDS: Record<number, (keyof ApplicationFormData)[]> = {
+  0: [
+    'firstName',
+    'lastName',
+    'email',
+    'phone',
+    'gender',
+    'caste',
+    'dateOfBirth',
+    'age',
+    'residencyStatus',
+    'ethnicity',
+    'nationality',
+  ],
+  1: [
+    'fatherName',
+    'fatherOccupation',
+    'fatherDesignation',
+    'fatherAnnualIncome',
+    'fatherContactNumber',
+  ],
+  2: [
+    'motherName',
+    'motherOccupation',
+    'motherDesignation',
+    'motherAnnualIncome',
+    'motherContactNumber',
+  ],
+  3: [
+    'academicSession',
+    'programme',
+    'degreeLevel',
+    'programOfStudy',
+    'specialisation',
+    'semester',
+    'subjects',
+    'priorEducations',
+  ],
+  4: ['choiceFilling'],
+  5: [
+    'addressType',
+    'country',
+    'state',
+    'division',
+    'district',
+    'tehsil',
+    'block',
+    'addressLine1',
+    'addressLine2',
+    'landmark',
+    'zipcode',
+  ],
+};
 
 function formatDate(date: Date): string {
   const year = date.getFullYear();
@@ -78,6 +143,7 @@ export default function ApplicationForm() {
   const { data: designations } = useDesignationsQuery();
   const { data: occupations } = useOccupationTypeQuery();
   const { data: programModes } = useProgrammeModeOfEducationsQuery();
+  const { data: semesters } = useSemesterQuery();
 
   const onFormSubmit = handleSubmit(
     async (data: ApplicationFormData) => {
@@ -200,6 +266,13 @@ export default function ApplicationForm() {
               'id',
               'name'
             ),
+            semesterName:
+              lookupText(data.semester, semesters, 'id', 'text') ||
+              data.semester,
+            selectedSubjects: (data.subjects ?? []).map(sub => ({
+              subjectId: Number(sub.subjectId || sub.id),
+              subjectName: sub.subjectName,
+            })),
             priorEducations,
           },
           address: {

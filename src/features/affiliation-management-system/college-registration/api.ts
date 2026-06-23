@@ -32,8 +32,21 @@ function buildApiPayload(
           .join(', ')
       : null;
 
+  const coursesApiPayload = (form.courses ?? []).map(course => ({
+    courseId: course.courseId,
+    subjectIds: course.subjectIds,
+    totalAmount: course.totalAmount ?? 0,
+    isFeePaid: course.isFeePaid ?? false,
+    paymentDate: course.paymentDate || null,
+  }));
+
+  const calculatedTotalFees = coursesApiPayload.reduce(
+    (acc, course) => acc + course.totalAmount,
+    0
+  );
+
   return {
-    establishmentYear: form.establishmentYear,
+    establishmentYear: form.establishmentYear as number,
     collegeCode: form.collegeCode,
     collegeName: form.collegeName,
     collegeAddress: form.collegeAddress,
@@ -48,10 +61,10 @@ function buildApiPayload(
     availableFacilitiesOther: otherFacilitiesText,
     applicationNumber: form.applicationNumber,
     isSubmitted: form.isSubmitted ?? false,
-    transactionId: form.transactionId,
-    transactionDate: form.transactionDate,
-    totalFees: form.totalFees,
-    feeStructure: form.feeStructure,
+    transactionId: form.transactionId || null,
+    transactionDate: form.transactionDate || null,
+    totalFees: form.totalFees || calculatedTotalFees,
+    feeStructure: form.feeStructure || null,
     isFeePaid: form.isFeePaid ?? false,
 
     affiliation: {
@@ -65,13 +78,7 @@ function buildApiPayload(
       isOtherInstitutionRunning: form.isOtherInstitutionRunning ?? false,
     },
 
-    courses: (form.courses ?? []).map(course => ({
-      courseId: course.courseId,
-      subjectIds: course.subjectIds,
-      totalAmount: course.totalAmount ?? 0,
-      isFeePaid: course.isFeePaid ?? false,
-      paymentDate: course.paymentDate || null,
-    })),
+    courses: coursesApiPayload,
 
     documents: documentIds,
   };
@@ -84,10 +91,11 @@ export async function createCollegeRegistration(
   const payload = buildApiPayload(form, documentIds);
   const formattedPayload = formatDatesInPayload(payload);
 
-  const { error, data } = await ApiService.post<{ value: number }>(
-    COLLEGE_REGISTRATION_URL,
-    formattedPayload
-  );
+  const { error, data } = await ApiService.post<{
+    registrationId: number;
+    paymentTransactionId: number;
+    applicationNumber: string;
+  }>(COLLEGE_REGISTRATION_URL, formattedPayload);
 
   return !error ? data : undefined;
 }
@@ -100,10 +108,11 @@ export async function updateCollegeRegistration(
   const payload = buildApiPayload(form, documentIds);
   const formattedPayload = formatDatesInPayload(payload);
 
-  const { error, data } = await ApiService.put<{ value: number }>(
-    `${COLLEGE_REGISTRATION_URL}/${id}`,
-    formattedPayload
-  );
+  const { error, data } = await ApiService.put<{
+    registrationId: number;
+    paymentTransactionId: number;
+    applicationNumber: string;
+  }>(`${COLLEGE_REGISTRATION_URL}/${id}`, formattedPayload);
 
   return !error ? data : undefined;
 }

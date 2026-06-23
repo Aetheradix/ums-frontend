@@ -39,6 +39,8 @@ export interface AcademicDto {
   programmeName: string;
   specialisationId: number;
   specialisationName: string;
+  semesterName: string;
+  selectedSubjects: { subjectId: number; subjectName: string }[];
   priorEducations: PriorEducationApiEntry[];
 }
 
@@ -130,6 +132,8 @@ export interface ApplicationFormData {
   degreeLevel: string;
   programOfStudy: any;
   specialisation: string;
+  semester: string;
+  subjects: { id: number; subjectName: string; subjectId: number }[];
 
   priorEducations: PriorEducationEntry[];
 

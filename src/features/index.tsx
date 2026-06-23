@@ -9,6 +9,7 @@ import Home from './home';
 import Master from './master';
 import Settings from './settings';
 import Sis from './sis';
+import PaymentManagement from './payment-management';
 
 export default function Features() {
   return (
@@ -49,6 +50,10 @@ export default function Features() {
                       <Route
                         path="employee-management/*"
                         element={<EmployeeManagement />}
+                      />
+                      <Route
+                        path="payment-management/*"
+                        element={<PaymentManagement />}
                       />
                     </Routes>
                   </MainLayout>
