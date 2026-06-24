@@ -124,7 +124,7 @@ export default function CollegeCourseDetailStep({
 
     const cId = Number(tempCourseId);
     const existingCourseIndex = fields.findIndex(f => f.courseId === cId);
-    const newSubjectIds = tempSubjects.map((s: any) => Number(s.id));
+    const newSubjectIds = tempSubjects.map((s: { id: string | number }) => Number(s.id));
 
     if (existingCourseIndex >= 0) {
       const existingField = fields[existingCourseIndex];

@@ -158,9 +158,8 @@ const schema =
       societyRegistrationDate: o.date().required(),
       isOtherInstitutionRunning: o
         .boolean()
-        .valid(true, false)
         .required()
-        .messages({ 'boolean.base': 'Required', 'any.required': 'Required' }),
+        .messages({ 'boolean.base': 'Required' }),
 
       // Step 3 — Course Details
       courses: o
@@ -197,27 +196,20 @@ const schema =
   );
 
 export function useCollegeApplicationForm() {
-  const {
-    register,
-    control,
-    handleSubmit,
-    reset,
-    trigger,
-    setValue,
-    resetField,
-  } = useAppForm<AffiliationManagementSystem.CollegeApplicationFormData>({
+  const methods = useAppForm<AffiliationManagementSystem.CollegeApplicationFormData>({
     resolver: validation.resolver(schema),
     mode: 'onChange',
     defaultValues: {},
   });
 
   return {
-    register,
-    control,
-    handleSubmit,
-    reset,
-    trigger,
-    setValue,
-    resetField,
+    methods,
+    register: methods.register,
+    control: methods.control,
+    handleSubmit: methods.handleSubmit,
+    reset: methods.reset,
+    trigger: methods.trigger,
+    setValue: methods.setValue,
+    resetField: methods.resetField,
   };
 }
