@@ -1,7 +1,8 @@
 import { useCallback, useMemo, useState } from 'react';
-import { ToastService } from 'services';
+import { ConfirmService, ToastService } from 'services';
 import { Button } from 'shared/components/buttons';
 import { Loader } from 'shared/components/progress';
+import { StatusBadge } from 'shared/new-components';
 import RoleForm from '../role/components/RoleForm';
 import {
   useCreateUserRoleMutation,
@@ -10,6 +11,7 @@ import {
   useUserRoleQuery,
   useUserRolesQuery,
 } from '../role/queries';
+import { useUserAssignmentsQuery } from '../user-assignment/queries';
 import './RoleSidePanel.css';
 
 type RolePanelMode =
@@ -27,6 +29,7 @@ export default function RoleSidePanel({
   onRoleSelect,
 }: RoleSidePanelProps) {
   const { data, isLoading } = useUserRolesQuery();
+  const { data: assignments } = useUserAssignmentsQuery();
   const { mutateAsync: deleteRole } = useDeleteUserRoleMutation();
 
   const [search, setSearch] = useState('');
@@ -34,13 +37,26 @@ export default function RoleSidePanel({
     mode: 'closed',
   });
 
-  const closePanel = useCallback(() => {
+  const closePanel = useCallback((isSuccess?: boolean) => {
     setPanelMode({ mode: 'closed' });
+    if (isSuccess === true) {
+      setSearch('');
+    }
   }, []);
 
   const handleDeleteRole = async (role: UserManagement.UserRoleList) => {
-    if (!window.confirm(`Are you sure you want to delete role "${role.name}"?`))
+    const isAssigned = assignments?.some(a => a.roleName === role.name);
+    if (isAssigned) {
+      ToastService.warn(
+        'The selected role is currently assigned to one or more users and cannot be deleted.'
+      );
       return;
+    }
+
+    const isConfirmed = await ConfirmService.confirm(
+      `Are you sure you want to delete role "${role.name}"?`
+    );
+    if (!isConfirmed) return;
     try {
       const ok = await deleteRole(role.id);
       if (ok) ToastService.success('Role deleted successfully.');
@@ -51,7 +67,7 @@ export default function RoleSidePanel({
   };
 
   const filteredRoles = useMemo(() => {
-    const roles = data ?? [];
+    const roles = data ? [...data].reverse() : [];
 
     if (!search.trim()) return roles;
 
@@ -99,7 +115,7 @@ export default function RoleSidePanel({
             <button
               type="button"
               className="role-side-close"
-              onClick={closePanel}
+              onClick={() => closePanel()}
               aria-label="Close create role form"
             >
               <i className="pi pi-angle-up" />
@@ -123,7 +139,7 @@ export default function RoleSidePanel({
             <button
               type="button"
               className="role-side-close"
-              onClick={closePanel}
+              onClick={() => closePanel()}
               aria-label="Close edit role form"
             >
               <i className="pi pi-times" />
@@ -171,7 +187,14 @@ export default function RoleSidePanel({
                 </span>
 
                 <span className="role-side-item-content">
-                  <span className="role-side-item-name">{role.name}</span>
+                  <span className="role-side-item-name">
+                    {role.name}
+                    <StatusBadge
+                      className="ml-2"
+                      label={role.isActive ? 'Active' : 'Inactive'}
+                      variant={role.isActive ? 'approved' : 'rejected'}
+                    />
+                  </span>
                 </span>
 
                 <span className="role-side-item-actions">
@@ -214,7 +237,11 @@ export default function RoleSidePanel({
   );
 }
 
-function CreateRoleContent({ onClose }: { onClose: () => void }) {
+function CreateRoleContent({
+  onClose,
+}: {
+  onClose: (isSuccess?: boolean) => void;
+}) {
   const { mutateAsync, isPending } = useCreateUserRoleMutation();
 
   async function handleSubmit(data: UserManagement.UserRoleForm) {
@@ -223,7 +250,7 @@ function CreateRoleContent({ onClose }: { onClose: () => void }) {
 
       if (result) {
         ToastService.success('Role created successfully.');
-        onClose();
+        onClose(true);
       }
     } catch {
       ToastService.error('Failed to create role');
