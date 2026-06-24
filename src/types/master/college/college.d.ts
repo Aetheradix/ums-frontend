@@ -35,4 +35,18 @@ declare namespace CollegeMaster {
       isActive: boolean;
     }
   >;
+
+  interface NocTypeForm {
+    nocTypeName: string;
+  }
+
+  type NocTypeItem = Data.WithId<
+    NocTypeForm & {
+      name: string;
+      isActive: boolean;
+      createdBy?: string;
+      createdOn?: string;
+      ipAddress?: string;
+    }
+  >;
 }

@@ -1,5 +1,6 @@
 import { collegeCategoryUrls } from './college/college-category/urls';
 import { collegeTypeUrls } from './college/college-type/urls';
+import { nocTypeUrls } from './college/noc-type/urls';
 import { actionOptionReasonUrls } from './employee/settings/action-option-reason/urls';
 import { actionOptionUrls } from './employee/settings/action-option/urls';
 import { employeeGroupUrls } from './employee/settings/employee-group/urls';
@@ -61,6 +62,7 @@ export const masterUrls = {
   section: sectionUrls(`${baseUrl}/hr`),
   collegeType: collegeTypeUrls(`${baseUrl}/college`),
   collegeCategory: collegeCategoryUrls(`${baseUrl}/college`),
+  nocType: nocTypeUrls(`${baseUrl}/college`),
   faculty: facultyUrls(`${baseUrl}/faculty-management`),
   degreeLevel: degreeLevelUrls(`${baseUrl}/other`),
   academicYear: academicYearUrls(`${baseUrl}/other`),

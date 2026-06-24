@@ -1,0 +1,210 @@
+@reference "tailwindcss";
+
+/* =========================
+   Create Layout
+========================= */
+
+.affiliation-create-layout {
+  @apply grid items-start gap-5;
+  grid-template-columns: 350px minmax(0, 1fr);
+}
+
+.affiliation-form-panel {
+  @apply min-w-0;
+}
+
+.affiliation-form-actions {
+  @apply flex items-center justify-end gap-3;
+}
+
+/* =========================
+   Left Step Panel
+========================= */
+
+.affiliation-step-panel {
+  @apply top-24 rounded-xl border border-slate-200 bg-white p-4 shadow-sm;
+}
+
+.affiliation-step-panel-header {
+  @apply mb-7 flex gap-3 border-b border-slate-100 pb-5;
+}
+
+.affiliation-step-panel-icon {
+  @apply flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-slate-100 text-black;
+}
+
+.affiliation-step-panel-icon i {
+  @apply text-base;
+}
+
+.affiliation-step-panel-header h3 {
+  @apply m-0 text-base font-semibold text-slate-900;
+}
+
+.affiliation-step-panel-header p {
+  @apply mb-0 mt-1 text-sm leading-5 text-slate-500;
+}
+
+.affiliation-step-list {
+  @apply relative flex flex-col gap-15;
+}
+
+.affiliation-step-list::before {
+  content: '';
+  @apply absolute bottom-8 left-4 top-8 w-px bg-slate-200;
+}
+
+.affiliation-step-item {
+  @apply relative z-1 flex w-full items-center gap-3 rounded-lg bg-transparent px-0 py-2 text-left transition-all duration-200;
+}
+
+.affiliation-step-item:not(:disabled) {
+  @apply cursor-pointer;
+}
+
+.affiliation-step-item:disabled {
+  @apply cursor-default;
+}
+
+.affiliation-step-number {
+  @apply flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-slate-300 bg-white text-sm font-semibold text-slate-700 transition-all duration-200;
+}
+
+.affiliation-step-item.active .affiliation-step-number {
+  @apply border-black bg-black text-white shadow-sm;
+}
+
+.affiliation-step-item.completed .affiliation-step-number {
+  @apply border-black bg-black text-white;
+}
+
+.affiliation-step-content {
+  @apply flex min-w-0 flex-col;
+}
+
+.affiliation-step-content strong {
+  @apply text-sm font-semibold text-slate-800;
+}
+
+.affiliation-step-content small {
+  @apply mt-0.5 text-xs text-slate-500;
+}
+
+.affiliation-step-item.active .affiliation-step-content strong {
+  @apply text-black;
+}
+
+.affiliation-grid-span-2 {
+  @apply col-span-2;
+}
+
+/* =========================
+   Dark Mode
+========================= */
+
+.dark .affiliation-step-panel {
+  background-color: var(--dark-card-bg);
+  border-color: var(--dark-border);
+  box-shadow: none;
+}
+
+.dark .affiliation-step-panel-header {
+  border-color: var(--dark-border);
+}
+
+.dark .affiliation-step-panel-icon {
+  @apply bg-white/[0.08] text-white;
+}
+
+.dark .affiliation-step-panel-header h3 {
+  color: var(--dark-text);
+}
+
+.dark .affiliation-step-panel-header p {
+  color: var(--dark-text-muted);
+}
+
+.dark .affiliation-step-list::before {
+  background-color: var(--dark-border);
+}
+
+.dark .affiliation-step-number {
+  @apply border-white/[0.16] bg-white/[0.04] text-slate-300;
+}
+
+.dark .affiliation-step-item.active .affiliation-step-number,
+.dark .affiliation-step-item.completed .affiliation-step-number {
+  @apply border-white bg-white text-black;
+}
+
+.dark .affiliation-step-content strong {
+  @apply text-slate-300;
+}
+
+.dark .affiliation-step-content small {
+  @apply text-slate-500;
+}
+
+.dark .affiliation-step-item.active .affiliation-step-content strong {
+  @apply text-white;
+}
+
+/* =========================
+   Responsive
+========================= */
+
+@media (max-width: 1024px) {
+  .affiliation-create-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .affiliation-step-panel {
+    @apply static;
+  }
+
+  .affiliation-step-list {
+    @apply grid grid-cols-4 gap-3;
+  }
+
+  .affiliation-step-list::before {
+    @apply hidden;
+  }
+
+  .affiliation-step-item {
+    @apply flex-col items-start rounded-lg border border-slate-200 p-3;
+  }
+
+  .dark .affiliation-step-item {
+    border-color: var(--dark-border);
+  }
+}
+
+@media (max-width: 640px) {
+  .affiliation-step-list {
+    @apply grid-cols-1;
+  }
+
+  .affiliation-form-actions {
+    @apply flex-col-reverse items-stretch;
+  }
+
+  .affiliation-form-actions .p-button {
+    @apply w-full justify-center;
+  }
+}
+
+.noc-table-container table {
+  @apply border-slate-200 rounded-lg overflow-hidden;
+}
+
+.noc-table-container th {
+  @apply bg-slate-50 text-slate-700 font-semibold px-4 py-3 border-b border-slate-200 text-xs tracking-wider;
+}
+
+.noc-table-container td {
+  @apply px-4 py-3 border-b border-slate-100 text-sm align-middle;
+}
+
+.noc-table-container .input-block {
+  margin-bottom: 0 !important;
+}
