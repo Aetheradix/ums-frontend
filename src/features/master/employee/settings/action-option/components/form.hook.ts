@@ -1,10 +1,28 @@
+import { errors } from 'config/errors';
 import { useAppForm } from 'shared/hooks/form';
-import validation from 'shared/utils/validation';
+import validation, { expressions, keys } from 'shared/utils/validation';
 
 const schema = validation.create<Master.Employee.ActionOptionForm>(o => ({
-  name: o.string().required().max(150).label('Action Option Name'),
+  name: o
+    .string()
+    .required()
+    .pattern(expressions.englishOnly)
+    .messages({
+      [keys.string.pattern]: errors.englishOnly,
+    })
+    .min(2)
+    .max(100)
+    .label('Action Option Name'),
 
-  description: o.string().required().max(500).label('Description'),
+  description: o
+    .string()
+    .required()
+    .pattern(expressions.englishOnly)
+    .messages({
+      [keys.string.pattern]: errors.englishOnly,
+    })
+    .max(200)
+    .label('Description'),
 }));
 
 export function useActionOptionForm(

@@ -23,7 +23,7 @@ export default function ActionOptionForm(props: ActionOptionFormProps) {
           subLabel="(In English)"
           placeholder="Enter Action Option Name"
           {...register('name')}
-          maxLength={150}
+          maxLength={100}
           required
         />
 
@@ -32,7 +32,7 @@ export default function ActionOptionForm(props: ActionOptionFormProps) {
           subLabel="(In English)"
           placeholder="Enter Description"
           {...register('description')}
-          maxLength={500}
+          maxLength={200}
           required
         />
       </FormGrid>
