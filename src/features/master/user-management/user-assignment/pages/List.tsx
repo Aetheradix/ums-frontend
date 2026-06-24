@@ -1,6 +1,6 @@
 import type { OverlayPanel } from 'primereact/overlaypanel';
 import { useCallback, useMemo, useRef, useState } from 'react';
-import { ToastService } from 'services';
+import { ConfirmService, ToastService } from 'services';
 import { Button } from 'shared/components/buttons';
 import { Loader } from 'shared/components/progress';
 import {
@@ -52,12 +52,10 @@ export default function List() {
   const handleDeleteAssignment = async (
     item: UserManagement.UserAssignmentList
   ) => {
-    if (
-      !window.confirm(
-        `Are you sure you want to remove "${item.userName}" from role "${item.roleName}"?`
-      )
-    )
-      return;
+    const isConfirmed = await ConfirmService.confirm(
+      `Are you sure you want to remove "${item.userName}" from role "${item.roleName}"?`
+    );
+    if (!isConfirmed) return;
     try {
       const ok = await deleteAssignment(item);
       if (ok) ToastService.success('User assignment deleted successfully.');
@@ -84,7 +82,10 @@ export default function List() {
               title="Create User Assignment"
               onClose={closePopup}
             >
-              <CreateUserAssignmentContent onClose={closePopup} />
+              <CreateUserAssignmentContent
+                onClose={closePopup}
+                selectedRoleName={selectedRole?.name}
+              />
             </InlineCreatePanel>
 
             {!selectedRole ? (
@@ -175,7 +176,13 @@ export default function List() {
 }
 
 /* ── Inline Create Content ── */
-function CreateUserAssignmentContent({ onClose }: { onClose: () => void }) {
+function CreateUserAssignmentContent({
+  onClose,
+  selectedRoleName,
+}: {
+  onClose: () => void;
+  selectedRoleName?: string;
+}) {
   const { mutateAsync, isPending } = useCreateUserAssignmentMutation();
 
   async function handleSubmit(data: UserManagement.UserAssignmentForm) {
@@ -190,7 +197,17 @@ function CreateUserAssignmentContent({ onClose }: { onClose: () => void }) {
     }
   }
 
-  return <UserAssignmentForm onSubmit={handleSubmit} isSaving={isPending} />;
+  return (
+    <UserAssignmentForm
+      onSubmit={handleSubmit}
+      isSaving={isPending}
+      fetchData={
+        selectedRoleName
+          ? () => Promise.resolve({ roleName: selectedRoleName } as any)
+          : undefined
+      }
+    />
+  );
 }
 
 /* ── Inline Edit Content ── */

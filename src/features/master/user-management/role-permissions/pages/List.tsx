@@ -1,6 +1,6 @@
 import type { OverlayPanel } from 'primereact/overlaypanel';
 import { useCallback, useMemo, useRef, useState } from 'react';
-import { ToastService } from 'services';
+import { ConfirmService, ToastService } from 'services';
 import { Button } from 'shared/components/buttons';
 import { Loader } from 'shared/components/progress';
 import {
@@ -43,6 +43,7 @@ export default function List() {
   const editButtonRef = useRef<HTMLButtonElement | null>(null);
 
   const [popup, setPopup] = useState<PopupState>({ mode: 'closed' });
+  const [clearSearch, setClearSearch] = useState<number>();
 
   const [selectedRole, setSelectedRole] =
     useState<UserManagement.UserRoleList | null>(null);
@@ -82,6 +83,7 @@ export default function List() {
       }
 
       if (action === 'write') {
+        row.read = true;
         row.write = true;
       }
     });
@@ -89,7 +91,12 @@ export default function List() {
     return Array.from(featureMap.values());
   }, [filteredPermissions]);
 
-  const closePopup = useCallback(() => setPopup({ mode: 'closed' }), []);
+  const closePopup = useCallback((isSuccess?: boolean) => {
+    setPopup({ mode: 'closed' });
+    if (isSuccess === true) {
+      setClearSearch(Date.now());
+    }
+  }, []);
 
   const closeEditOverlay = useCallback(() => {
     editOverlayRef.current?.hide();
@@ -115,12 +122,10 @@ export default function List() {
   };
 
   const handleDeletePermission = async (item: FeaturePermissionRow) => {
-    if (
-      !window.confirm(
-        `Are you sure you want to delete permissions for "${item.feature}"?`
-      )
-    )
-      return;
+    const isConfirmed = await ConfirmService.confirm(
+      `Are you sure you want to delete permissions for "${item.feature}"?`
+    );
+    if (!isConfirmed) return;
     try {
       await deletePermissions(item.items);
       ToastService.success('Permission deleted successfully.');
@@ -147,9 +152,12 @@ export default function List() {
             <InlineCreatePanel
               visible={popup.mode === 'create'}
               title="Create Role Permission"
-              onClose={closePopup}
+              onClose={() => closePopup()}
             >
-              <CreateRolePermissionContent onClose={closePopup} />
+              <CreateRolePermissionContent
+                onClose={closePopup}
+                selectedRoleName={selectedRole?.name}
+              />
             </InlineCreatePanel>
 
             {!selectedRole ? (
@@ -174,7 +182,7 @@ export default function List() {
                     field: 'feature',
                     header: 'Feature Name',
                     cell: (item: FeaturePermissionRow) => (
-                      <span className="role-permission-feature-name">
+                      <span className="role-permission-feature-name text-left block">
                         {item.feature}
                       </span>
                     ),
@@ -249,6 +257,7 @@ export default function List() {
                     onClick={() => setPopup({ mode: 'create' })}
                   />
                 }
+                clearSearch={clearSearch}
                 searchBox
               />
             )}
@@ -294,7 +303,13 @@ export default function List() {
 }
 
 /* ── Inline Create Content ── */
-function CreateRolePermissionContent({ onClose }: { onClose: () => void }) {
+function CreateRolePermissionContent({
+  onClose,
+  selectedRoleName,
+}: {
+  onClose: (isSuccess?: boolean) => void;
+  selectedRoleName?: string;
+}) {
   const { mutateAsync, isPending } = useCreateRolePermissionMutation();
 
   async function handleSubmit(data: UserManagement.RolePermissionCreate) {
@@ -302,14 +317,24 @@ function CreateRolePermissionContent({ onClose }: { onClose: () => void }) {
       const result = await mutateAsync(data);
       if (result) {
         ToastService.success('Role permission granted successfully.');
-        onClose();
+        onClose(true);
       }
     } catch {
       ToastService.error('Failed to grant role permission');
     }
   }
 
-  return <RolePermissionForm onSubmit={handleSubmit} isSaving={isPending} />;
+  return (
+    <RolePermissionForm
+      onSubmit={handleSubmit}
+      isSaving={isPending}
+      fetchData={
+        selectedRoleName
+          ? () => Promise.resolve({ roleName: selectedRoleName } as any)
+          : undefined
+      }
+    />
+  );
 }
 
 /* ── Inline Edit Content ── */
