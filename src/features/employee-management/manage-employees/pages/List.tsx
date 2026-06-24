@@ -35,11 +35,6 @@ export default function List() {
                 sortable: false,
                 cell: (item: EmployeeManagement.ManageEmployeeItem) => (
                   <GridActionButtons
-                    onView={() =>
-                      navigate(
-                        `/employee-management/manage-employees/${item.employeeId}`
-                      )
-                    }
                     onEdit={() =>
                       navigate(
                         `/employee-management/manage-employees/${item.employeeId}/edit`

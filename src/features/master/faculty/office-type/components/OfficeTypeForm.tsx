@@ -10,10 +10,15 @@ interface OfficeTypeFormProps {
 }
 
 export default function OfficeTypeForm(props: OfficeTypeFormProps) {
-  const { register, handleSubmit, reset } = useOfficeTypeForm(
+  const { register, handleSubmit, reset, setValue } = useOfficeTypeForm(
     props.onSubmit,
     props.fetchData
   );
+
+  const capitalizeWords = (value: string) => {
+    if (!value) return value;
+    return value.replace(/(^\w|\s\w)/g, m => m.toUpperCase());
+  };
 
   return (
     <form onSubmit={handleSubmit}>
@@ -30,6 +35,7 @@ export default function OfficeTypeForm(props: OfficeTypeFormProps) {
           subLabel="(In English)"
           placeholder="Enter Office Type Name"
           {...register('name')}
+          onChange={value => setValue('name', capitalizeWords(value))}
           maxLength={40}
           required
         />

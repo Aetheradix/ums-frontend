@@ -11,10 +11,15 @@ interface SpecialisationFormProps {
 }
 
 export default function SpecialisationForm(props: SpecialisationFormProps) {
-  const { register, handleSubmit, reset } = useSpecialisationForm(
+  const { register, handleSubmit, reset, setValue } = useSpecialisationForm(
     props.onSubmit,
     props.fetchData
   );
+
+  const capitalizeWords = (value: string) => {
+    if (!value) return value;
+    return value.replace(/(^\w|\s\w)/g, m => m.toUpperCase());
+  };
 
   return (
     <form onSubmit={handleSubmit}>
@@ -24,6 +29,7 @@ export default function SpecialisationForm(props: SpecialisationFormProps) {
           subLabel="(In English)"
           placeholder="Enter Specialisation Name"
           {...register('name')}
+          onChange={value => setValue('name', capitalizeWords(value))}
           maxLength={50}
           required
         />

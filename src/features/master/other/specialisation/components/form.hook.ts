@@ -17,7 +17,7 @@ export function useSpecialisationForm(
   submitCallback: Forms.SubmitFunc<Master.Other.SpecialisationForm>,
   defaultValues?: Forms.FetchDataFunc<Master.Other.SpecialisationForm>
 ) {
-  const { register, handleSubmit, reset } =
+  const { register, handleSubmit, reset, setValue } =
     useAppForm<Master.Other.SpecialisationForm>({
       defaultValues: defaultValues,
       resolver: validation.resolver(schema),
@@ -27,5 +27,6 @@ export function useSpecialisationForm(
     register,
     handleSubmit: handleSubmit(submitCallback),
     reset,
+    setValue,
   };
 }

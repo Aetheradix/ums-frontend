@@ -39,7 +39,7 @@ export function useFacultyForm(
   submitCallback: Forms.SubmitFunc<Master.FacultyForm>,
   defaultValues?: Forms.FetchDataFunc<Master.FacultyForm>
 ) {
-  const { register, handleSubmit, reset, control } =
+  const { register, handleSubmit, reset, control, setValue } =
     useAppForm<Master.FacultyForm>({
       defaultValues: defaultValues,
       resolver: validation.resolver(schema),
@@ -50,5 +50,6 @@ export function useFacultyForm(
     handleSubmit: handleSubmit(submitCallback),
     reset,
     control,
+    setValue,
   };
 }

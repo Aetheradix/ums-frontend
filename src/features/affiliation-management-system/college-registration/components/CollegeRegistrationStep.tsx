@@ -150,6 +150,14 @@ export default function CollegeRegistrationStep({
           label="College Name"
           placeholder="College name"
           {...register('collegeName')}
+          onChange={val => {
+            if (!val) return;
+            const formatted = val
+              .split(' ')
+              .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+              .join(' ');
+            setValue('collegeName', formatted);
+          }}
           maxLength={200}
           required
         />
@@ -292,6 +300,15 @@ export default function CollegeRegistrationStep({
                     {...register(
                       `otherFacilities.${index}.facilityName` as const
                     )}
+                    onChange={val => {
+                      const formatted = val
+                        ? val.charAt(0).toUpperCase() + val.slice(1)
+                        : val;
+                      setValue(
+                        `otherFacilities.${index}.facilityName` as const,
+                        formatted
+                      );
+                    }}
                     required
                   />
 
