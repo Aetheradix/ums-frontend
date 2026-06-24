@@ -18,7 +18,7 @@ export function useProgrammeForm(
   submitCallback: Forms.SubmitFunc<Master.Other.ProgrammeForm>,
   defaultValues?: Forms.FetchDataFunc<Master.Other.ProgrammeForm>
 ) {
-  const { register, handleSubmit, reset } =
+  const { register, handleSubmit, reset, setValue } =
     useAppForm<Master.Other.ProgrammeForm>({
       defaultValues: defaultValues,
       resolver: validation.resolver(schema),
@@ -28,5 +28,6 @@ export function useProgrammeForm(
     register,
     handleSubmit: handleSubmit(submitCallback),
     reset,
+    setValue,
   };
 }

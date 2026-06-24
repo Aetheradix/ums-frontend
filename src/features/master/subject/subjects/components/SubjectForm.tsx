@@ -24,6 +24,7 @@ export default function SubjectForm(props: SubjectFormProps) {
           placeholder="Enter Subject Code"
           {...register('subjectCode')}
           maxLength={20}
+          minLength={2}
           required
         />
         <TextBox
@@ -31,7 +32,8 @@ export default function SubjectForm(props: SubjectFormProps) {
           subLabel="(In English)"
           placeholder="Enter Subject Name"
           {...register('subjectName')}
-          maxLength={150}
+          maxLength={200}
+          minLength={2}
           required
         />
         <SelectSubjectCategory {...register('categoryId')} />

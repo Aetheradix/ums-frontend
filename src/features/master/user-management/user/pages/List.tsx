@@ -1,6 +1,6 @@
 import type { OverlayPanel } from 'primereact/overlaypanel';
 import { useCallback, useRef, useState } from 'react';
-import { ToastService } from 'services';
+import { ConfirmService, ToastService } from 'services';
 import { Button } from 'shared/components/buttons';
 import { Loader } from 'shared/components/progress';
 import {
@@ -9,6 +9,7 @@ import {
   FormPage,
   GridPanel,
   InlineCreatePanel,
+  StatusBadge,
 } from 'shared/new-components';
 import UserForm from '../components/UserForm';
 import {
@@ -18,12 +19,14 @@ import {
   useUserQuery,
   useUsersQuery,
 } from '../queries';
+import { useUserAssignmentsQuery } from '../../user-assignment/queries';
 import './UserList.css';
 
 type PopupState = { mode: 'closed' } | { mode: 'edit'; id: string };
 
 export default function List() {
   const { data, isLoading } = useUsersQuery();
+  const { data: assignments } = useUserAssignmentsQuery();
   const { mutateAsync: deleteUser } = useDeleteUserMutation();
 
   const editOverlayRef = useRef<OverlayPanel>(null);
@@ -55,12 +58,18 @@ export default function List() {
   };
 
   const handleRemove = async (user: UserManagement.UserList) => {
-    if (
-      !window.confirm(
-        `Are you sure you want to delete user "${user.userName}"?`
-      )
-    )
+    const isAssigned = assignments?.some(a => a.userId === user.id);
+    if (isAssigned) {
+      ToastService.warn(
+        'The selected user is currently assigned to one or more roles and cannot be deleted.'
+      );
       return;
+    }
+
+    const isConfirmed = await ConfirmService.confirm(
+      `Are you sure you want to delete user "${user.userName}"?`
+    );
+    if (!isConfirmed) return;
     try {
       const ok = await deleteUser(user.id);
       if (ok) ToastService.success('User deleted successfully.');
@@ -106,15 +115,10 @@ export default function List() {
               header: 'Status',
               sortable: false,
               cell: (item: UserManagement.UserList) => (
-                <span
-                  className={
-                    item.isActive
-                      ? 'user-status-badge user-status-active'
-                      : 'user-status-badge user-status-inactive'
-                  }
-                >
-                  {item.isActive ? 'Active' : 'Inactive'}
-                </span>
+                <StatusBadge
+                  label={item.isActive ? 'Active' : 'Inactive'}
+                  variant={item.isActive ? 'approved' : 'rejected'}
+                />
               ),
             },
           ]}

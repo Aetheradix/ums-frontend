@@ -21,11 +21,23 @@ export default function RoleForm(props: RoleFormProps) {
   return (
     <form onSubmit={handleSubmit}>
       <FormGrid columns={props.columns ?? 2}>
-        <TextBox
-          label="Role Name"
-          placeholder="Enter Role Name"
-          {...register('name')}
-          required
+        <Controller
+          control={control}
+          name="name"
+          render={({ field, fieldState }) => (
+            <TextBox
+              label="Role Name"
+              placeholder="Enter Role Name"
+              value={field.value}
+              maxLength={50}
+              onChange={val => {
+                const filtered = val.replace(/[^a-zA-Z0-9 ]/g, '');
+                field.onChange(filtered);
+              }}
+              errorMessage={fieldState.error?.message}
+              required
+            />
+          )}
         />
 
         <TextBox

@@ -10,10 +10,15 @@ interface DegreeLevelFormProps {
 }
 
 export default function DegreeLevelForm(props: DegreeLevelFormProps) {
-  const { register, handleSubmit, reset } = useDegreeLevelForm(
+  const { register, handleSubmit, reset, setValue } = useDegreeLevelForm(
     props.onSubmit,
     props.fetchData
   );
+
+  const capitalizeWords = (value: string) => {
+    if (!value) return value;
+    return value.replace(/(^\w|\s\w)/g, m => m.toUpperCase());
+  };
 
   return (
     <form onSubmit={handleSubmit}>
@@ -23,6 +28,7 @@ export default function DegreeLevelForm(props: DegreeLevelFormProps) {
           subLabel="(In English)"
           placeholder="Enter Degree Level Name"
           {...register('name')}
+          onChange={value => setValue('name', capitalizeWords(value))}
           maxLength={50}
           required
         />

@@ -16,7 +16,7 @@ export function useDegreeLevelForm(
   submitCallback: Forms.SubmitFunc<Master.Other.DegreeLevelForm>,
   defaultValues?: Forms.FetchDataFunc<Master.Other.DegreeLevelForm>
 ) {
-  const { register, control, handleSubmit, reset } =
+  const { register, control, handleSubmit, reset, setValue } =
     useAppForm<Master.Other.DegreeLevelForm>({
       defaultValues: defaultValues,
       resolver: validation.resolver(schema),
@@ -27,5 +27,6 @@ export function useDegreeLevelForm(
     control,
     handleSubmit: handleSubmit(submitCallback),
     reset,
+    setValue,
   };
 }

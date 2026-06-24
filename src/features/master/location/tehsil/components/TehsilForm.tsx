@@ -31,7 +31,7 @@ export default function TehsilForm(props: TehsilFormProps) {
           label="Code"
           placeholder="Enter Tehsil Code"
           {...register('code')}
-          maxLength={5}
+          maxLength={6}
           required
         />
         <SelectDistrict {...register('districtId')} />
