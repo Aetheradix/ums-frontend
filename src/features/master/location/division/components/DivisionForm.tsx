@@ -31,7 +31,7 @@ export default function DivisionForm(props: DivisionFormProps) {
           label="Code"
           placeholder="Enter Division Code"
           {...register('code')}
-          maxLength={5}
+          maxLength={6}
           required
         />
         <SelectState {...register('stateId')} />

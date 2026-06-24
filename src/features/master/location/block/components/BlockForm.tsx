@@ -32,7 +32,7 @@ export default function BlockForm(props: BlockFormProps) {
           label="Code"
           placeholder="Enter Block Code"
           {...register('code')}
-          maxLength={5}
+          maxLength={6}
           required
         />
         <SelectDistrict {...register('districtId')} />

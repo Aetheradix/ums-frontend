@@ -30,7 +30,7 @@ export default function StateForm(props: StateFormProps) {
           label="Code"
           placeholder="Enter State Code"
           {...register('code')}
-          maxLength={5}
+          maxLength={6}
           required
         />
       </FormGrid>

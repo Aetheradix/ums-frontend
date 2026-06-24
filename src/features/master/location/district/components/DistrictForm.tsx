@@ -31,7 +31,7 @@ export default function DistrictForm(props: DistrictFormProps) {
           label="Code"
           placeholder="Enter District Code"
           {...register('code')}
-          maxLength={5}
+          maxLength={6}
           required
         />
         <SelectDivision {...register('divisionId')} />
