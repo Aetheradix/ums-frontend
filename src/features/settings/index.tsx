@@ -1,6 +1,6 @@
 import { Route, Routes } from 'react-router-dom';
-import Settings from './pages/Settings';
-import MyProfile from './pages/my-profile/MyProfile';
+import Settings from './Settings';
+import MyProfile from './my-profile/MyProfile';
 
 export default function SettingsFeature() {
   return (
