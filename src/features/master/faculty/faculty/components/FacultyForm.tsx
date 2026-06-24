@@ -13,10 +13,15 @@ interface FacultyFormProps {
 }
 
 export default function FacultyForm(props: FacultyFormProps) {
-  const { register, handleSubmit, reset, control } = useFacultyForm(
+  const { register, handleSubmit, reset, control, setValue } = useFacultyForm(
     props.onSubmit,
     props.fetchData
   );
+
+  const capitalizeWords = (value: string) => {
+    if (!value) return value;
+    return value.replace(/(^\w|\s\w)/g, m => m.toUpperCase());
+  };
 
   return (
     <form onSubmit={handleSubmit}>
@@ -32,6 +37,7 @@ export default function FacultyForm(props: FacultyFormProps) {
           label="Name"
           placeholder="Enter Faculty Name"
           {...register('name')}
+          onChange={value => setValue('name', capitalizeWords(value))}
           maxLength={100}
           required
         />
@@ -43,6 +49,7 @@ export default function FacultyForm(props: FacultyFormProps) {
           name="joiningDate"
           label="Joining Date"
           placeholder="Select Joining Date"
+          appendTo={document.body}
           required
         />
         <TextBox

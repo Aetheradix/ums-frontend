@@ -1,4 +1,4 @@
-import type { Control, Path } from 'react-hook-form';
+import type { Control, Path, UseFormSetValue } from 'react-hook-form';
 import { DatePicker, TextBox } from 'shared/components/forms';
 import { FormCard, FormGrid } from 'shared/new-components';
 
@@ -11,11 +11,16 @@ interface AffiliationOtherDetailsStepProps {
     control: Control<AffiliationManagementSystem.CollegeApplicationFormData>;
     name: Path<AffiliationManagementSystem.CollegeApplicationFormData>;
   };
+  setValue: UseFormSetValue<AffiliationManagementSystem.CollegeApplicationFormData>;
 }
 
 export default function AffiliationOtherDetailsStep({
   register,
+  setValue,
 }: AffiliationOtherDetailsStepProps) {
+  const capitalizeFirst = (value: string) =>
+    value ? value.charAt(0).toUpperCase() + value.slice(1) : value;
+
   return (
     <>
       <FormCard
@@ -28,6 +33,9 @@ export default function AffiliationOtherDetailsStep({
             label="Principal/Director Name"
             placeholder="Enter principal/director Name"
             {...register('principalDirectorName')}
+            onChange={val =>
+              setValue('principalDirectorName', capitalizeFirst(val))
+            }
             maxLength={100}
             required
           />
@@ -59,6 +67,7 @@ export default function AffiliationOtherDetailsStep({
             label="Society Name"
             placeholder="Enter society name"
             {...register('societyName')}
+            onChange={val => setValue('societyName', capitalizeFirst(val))}
             maxLength={200}
             required
           />
@@ -67,6 +76,7 @@ export default function AffiliationOtherDetailsStep({
             label="Secretary Name"
             placeholder="Enter secretary name"
             {...register('secretaryName')}
+            onChange={val => setValue('secretaryName', capitalizeFirst(val))}
             maxLength={100}
             required
           />
