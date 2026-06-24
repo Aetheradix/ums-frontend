@@ -29,17 +29,20 @@ export default function ProgrammeSpecializationStructureForm(
         <SelectSpecialisation
           {...register('specializationId')}
           label="Specialization"
+          required
         />
         <SelectCourseMode
           {...register('modeOfEducationId')}
           label="Mode of Education"
+          required
         />
         <SelectSemester
           name="semesterName"
           control={control}
           label="Semester Name"
+          required
         />
-        <SelectSubject {...register('subjectId')} label="Subject" />
+        <SelectSubject {...register('subjectId')} label="Subject" required />
         <TextBox
           label="Lecture Structure (Credits)"
           placeholder="Enter Lecture Credits"
