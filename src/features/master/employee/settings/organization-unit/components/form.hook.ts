@@ -1,8 +1,18 @@
+import { errors } from 'config/errors';
 import { useAppForm } from 'shared/hooks/form';
-import validation from 'shared/utils/validation';
+import validation, { expressions, keys } from 'shared/utils/validation';
 
 const schema = validation.create<Master.Employee.OrganizationUnitForm>(o => ({
-  name: o.string().required().max(150).label('Organization Unit Name'),
+  name: o
+    .string()
+    .required()
+    .pattern(expressions.englishOnly)
+    .messages({
+      [keys.string.pattern]: errors.englishOnly,
+    })
+    .min(2)
+    .max(150)
+    .label('Organization Unit Name'),
 }));
 
 export function useOrganizationUnitForm(
