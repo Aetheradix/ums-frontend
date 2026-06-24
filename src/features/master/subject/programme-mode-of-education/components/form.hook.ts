@@ -10,14 +10,18 @@ const schema =
       .pattern(expressions.englishOnly)
       .messages({
         [keys.string.pattern]: errors.englishOnly,
-      }),
+      })
+      .min(2)
+      .max(100),
     code: o
       .string()
       .required()
       .pattern(expressions.alphaNumericOnly)
       .messages({
         [keys.string.pattern]: errors.alphaNumericOnly,
-      }),
+      })
+      .min(2)
+      .max(10),
   }));
 
 export function useProgrammeModeOfEducationForm(

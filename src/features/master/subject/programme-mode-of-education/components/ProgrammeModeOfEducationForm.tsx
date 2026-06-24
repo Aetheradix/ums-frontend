@@ -27,6 +27,7 @@ export default function ProgrammeModeOfEducationForm(
           placeholder="Enter Mode of Education Code"
           {...register('code')}
           maxLength={10}
+          minLength={2}
           required
         />
         <TextBox
@@ -35,6 +36,7 @@ export default function ProgrammeModeOfEducationForm(
           placeholder="Enter Mode of Education Name"
           {...register('name')}
           maxLength={100}
+          minLength={2}
           required
         />
       </FormGrid>
