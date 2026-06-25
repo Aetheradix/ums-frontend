@@ -23,14 +23,16 @@ export function useOfficeTypeForm(
   submitCallback: Forms.SubmitFunc<Master.OfficeTypeForm>,
   defaultValues?: Forms.FetchDataFunc<Master.OfficeTypeForm>
 ) {
-  const { register, handleSubmit, reset } = useAppForm<Master.OfficeTypeForm>({
-    defaultValues: defaultValues,
-    resolver: validation.resolver(schema),
-  });
+  const { register, handleSubmit, reset, setValue } =
+    useAppForm<Master.OfficeTypeForm>({
+      defaultValues: defaultValues,
+      resolver: validation.resolver(schema),
+    });
 
   return {
     register,
     handleSubmit: handleSubmit(submitCallback),
     reset,
+    setValue,
   };
 }

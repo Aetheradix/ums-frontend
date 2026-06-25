@@ -23,6 +23,7 @@ export default function SubjectCategoryForm(props: SubjectCategoryFormProps) {
           placeholder="Enter Subject Category Code"
           {...register('code')}
           maxLength={10}
+          minLength={2}
           required
         />
         <TextBox
@@ -31,6 +32,7 @@ export default function SubjectCategoryForm(props: SubjectCategoryFormProps) {
           placeholder="Enter Subject Category Name"
           {...register('name')}
           maxLength={100}
+          minLength={2}
           required
         />
       </FormGrid>

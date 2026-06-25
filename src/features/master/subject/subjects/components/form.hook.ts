@@ -9,15 +9,19 @@ const schema = validation.create<Master.SubjectMaster.SubjectForm>(o => ({
     .pattern(expressions.englishOnly)
     .messages({
       [keys.string.pattern]: errors.englishOnly,
-    }),
+    })
+    .min(2)
+    .max(200),
   subjectCode: o
     .string()
     .required()
     .pattern(expressions.alphaNumericOnly)
     .messages({
       [keys.string.pattern]: errors.alphaNumericOnly,
-    }),
-  categoryId: o.number().required(),
+    })
+    .min(2)
+    .max(20),
+  categoryId: o.number().required().min(1),
 }));
 
 export function useSubjectForm(

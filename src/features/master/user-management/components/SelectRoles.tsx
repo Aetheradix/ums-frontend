@@ -12,9 +12,10 @@ export default function SelectRoles<T extends FieldValues>({
   disabled?: boolean;
 }) {
   const { data, isLoading } = useUserRolesQuery();
+  const activeRoles = data ? data.filter(r => r.isActive) : [];
   return (
     <DropDownList
-      data={data}
+      data={activeRoles}
       loading={isLoading}
       textField={'name'}
       optionValue={'name'}

@@ -10,6 +10,15 @@ export default function MainLayout({ children }: React.PropsWithChildren) {
   const location = useLocation();
   const navigate = useNavigate();
 
+  // Helper to accurately match paths without partial word collisions
+  const isPathMatch = (tabPath: string, currentPath: string) => {
+    if (!tabPath || !currentPath) return false;
+    if (currentPath === tabPath) return true;
+    if (currentPath.startsWith(`${tabPath}/`)) return true;
+    if (tabPath.startsWith(`${currentPath}/`)) return true;
+    return false;
+  };
+
   // Extract active parent module and children dynamically based on current route
   const activeModuleInfo = useMemo(() => {
     function findParentAndChildren(
@@ -18,11 +27,8 @@ export default function MainLayout({ children }: React.PropsWithChildren) {
     ): { parent: any; children: any[] } | null {
       for (const item of items) {
         if (item.children && item.children.length > 0) {
-          const hasMatchingChild = item.children.some(
-            (child: any) =>
-              child.path &&
-              (currentPath.startsWith(child.path) ||
-                child.path.startsWith(currentPath))
+          const hasMatchingChild = item.children.some((child: any) =>
+            isPathMatch(child.path, currentPath)
           );
           if (hasMatchingChild) {
             return { parent: item, children: item.children };
@@ -51,10 +57,7 @@ export default function MainLayout({ children }: React.PropsWithChildren) {
   // Sync active index based on current path
   const activeIndex = useMemo(() => {
     const path = location.pathname;
-    return masterTabs.findIndex(
-      tab =>
-        tab.path && (path.startsWith(tab.path) || tab.path.startsWith(path))
-    );
+    return masterTabs.findIndex(tab => isPathMatch(tab.path, path));
   }, [location.pathname, masterTabs]);
 
   const handleTabChange = (e: { index: number }) => {

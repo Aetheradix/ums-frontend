@@ -129,7 +129,7 @@ export const menuConfig: Menu.MenuItem[] = [
             path: '/master/subject/programme-mode-of-education',
             icon: 'apartment',
             colorScheme: 'purple',
-            feature: '@master/Subject/ProgrammeModeOfEducation',
+            feature: '@master/Subject/ModeOfEducation',
             action: 'write',
           },
           {

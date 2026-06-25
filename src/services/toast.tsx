@@ -11,6 +11,10 @@ function success(message: string) {
   toastRef?.current?.show({ severity: 'success', detail: message });
 }
 
+function warn(message: string) {
+  toastRef?.current?.show({ severity: 'warn', detail: message });
+}
+
 function error(message: string | string[], title?: string) {
   if (!toastRef || !toastRef.current) {
     return;
@@ -38,4 +42,4 @@ function error(message: string | string[], title?: string) {
   });
 }
 
-export default { setToastRef, success, error };
+export default { setToastRef, success, warn, error };

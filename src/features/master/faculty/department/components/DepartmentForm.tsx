@@ -12,10 +12,15 @@ interface DepartmentFormProps {
 }
 
 export default function DepartmentForm(props: DepartmentFormProps) {
-  const { register, handleSubmit, reset } = useDepartmentForm(
+  const { register, handleSubmit, reset, setValue } = useDepartmentForm(
     props.onSubmit,
     props.fetchData
   );
+
+  const capitalizeWords = (value: string) => {
+    if (!value) return value;
+    return value.replace(/(^\w|\s\w)/g, m => m.toUpperCase());
+  };
 
   return (
     <form onSubmit={handleSubmit}>
@@ -33,6 +38,7 @@ export default function DepartmentForm(props: DepartmentFormProps) {
           subLabel="(In English)"
           placeholder="Enter Department Name"
           {...register('name')}
+          onChange={value => setValue('name', capitalizeWords(value))}
           maxLength={40}
           required
         />
@@ -41,12 +47,17 @@ export default function DepartmentForm(props: DepartmentFormProps) {
           label="Hod Name"
           placeholder="Enter Hod Name"
           {...register('hodName')}
+          onChange={value => setValue('hodName', capitalizeWords(value))}
           required
         />
         <TextBox
           label="Contact Number"
           placeholder="Enter Contact Number"
           {...register('contactNumber')}
+          onChange={value =>
+            setValue('contactNumber', value.replace(/\D/g, ''))
+          }
+          maxLength={15}
           required
         />
       </FormGrid>

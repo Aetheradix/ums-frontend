@@ -11,10 +11,15 @@ interface ProgrammeFormProps {
 }
 
 export default function ProgrammeForm(props: ProgrammeFormProps) {
-  const { register, handleSubmit, reset } = useProgrammeForm(
+  const { register, handleSubmit, reset, setValue } = useProgrammeForm(
     props.onSubmit,
     props.fetchData
   );
+
+  const capitalizeWords = (value: string) => {
+    if (!value) return value;
+    return value.replace(/(^\w|\s\w)/g, m => m.toUpperCase());
+  };
 
   return (
     <form onSubmit={handleSubmit}>
@@ -24,6 +29,7 @@ export default function ProgrammeForm(props: ProgrammeFormProps) {
           subLabel="(In English)"
           placeholder="Enter Programme Name"
           {...register('name')}
+          onChange={value => setValue('name', capitalizeWords(value))}
           maxLength={100}
           required
         />
