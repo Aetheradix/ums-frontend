@@ -13,7 +13,6 @@ const schema = validation.create<UserManagement.UserRoleForm>(o => ({
     })
     .label('Role Name'),
   description: o.string().required().label('Description'),
-  isActive: o.boolean().optional(),
 }));
 
 export function useRoleForm(
@@ -22,9 +21,7 @@ export function useRoleForm(
 ) {
   const { register, control, handleSubmit, reset } =
     useAppForm<UserManagement.UserRoleForm>({
-      defaultValues: defaultValues ?? {
-        isActive: true,
-      },
+      defaultValues: defaultValues,
       resolver: validation.resolver(schema),
     });
 

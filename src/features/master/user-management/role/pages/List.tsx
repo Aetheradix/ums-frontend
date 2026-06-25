@@ -6,24 +6,18 @@ import {
   FormPage,
   FormPopup,
   GridPanel,
-  StatusBadge,
 } from 'shared/new-components';
 import { ConfirmService, ToastService } from 'services';
 import RoleForm from '../components/RoleForm';
 import {
   useCreateUserRoleMutation,
-  useUserRoleQuery,
   useUserRolesQuery,
-  useUpdateUserRoleMutation,
   useDeleteUserRoleMutation,
 } from '../queries';
 import { useUserAssignmentsQuery } from '../../user-assignment/queries';
 import './RoleList.css';
 
-type PopupState =
-  | { mode: 'closed' }
-  | { mode: 'create' }
-  | { mode: 'edit'; id: string };
+type PopupState = { mode: 'closed' } | { mode: 'create' };
 
 export default function List() {
   const { data, isLoading } = useUserRolesQuery();
@@ -71,7 +65,6 @@ export default function List() {
         <GridPanel
           data={sortedData}
           clearSearch={clearSearch}
-          onEdit={role => setPopup({ mode: 'edit', id: role.id })}
           onRemove={handleDeleteRole}
           columns={[
             {
@@ -80,17 +73,6 @@ export default function List() {
             },
             { field: 'name', header: 'Role Name' },
             { field: 'description', header: 'Description' },
-            {
-              field: 'isActive',
-              header: 'Status',
-              sortable: false,
-              cell: (item: UserManagement.UserRoleList) => (
-                <StatusBadge
-                  label={item.isActive ? 'Active' : 'Inactive'}
-                  variant={item.isActive ? 'approved' : 'rejected'}
-                />
-              ),
-            },
           ]}
           toolbar={
             <Button
@@ -112,18 +94,6 @@ export default function List() {
         subtitle="Fill in the details to add a new role."
       >
         <CreateRoleContent onClose={closePopup} />
-      </FormPopup>
-
-      {/* Edit Popup */}
-      <FormPopup
-        visible={popup.mode === 'edit'}
-        onHide={closePopup}
-        title="Edit Role"
-        subtitle="Update the details of the role."
-      >
-        {popup.mode === 'edit' && (
-          <EditRoleContent id={popup.id} onClose={closePopup} />
-        )}
       </FormPopup>
     </FormPage>
   );
@@ -150,39 +120,4 @@ function CreateRoleContent({
   }
 
   return <RoleForm onSubmit={handleSubmit} isSaving={isPending} />;
-}
-
-/* ── Inline Edit Content ── */
-function EditRoleContent({ id, onClose }: { id: string; onClose: () => void }) {
-  const { mutateAsync, isPending } = useUpdateUserRoleMutation(id);
-  const { data, isLoading } = useUserRoleQuery(id);
-
-  const DEFAULT: UserManagement.UserRoleForm = {
-    name: '',
-    description: '',
-    isActive: true,
-  };
-
-  async function handleSubmit(formData: UserManagement.UserRoleForm) {
-    try {
-      const result = await mutateAsync(formData);
-      if (result) {
-        ToastService.success('Role updated successfully.');
-        onClose();
-      }
-    } catch {
-      ToastService.error('Failed to update role');
-    }
-  }
-
-  if (isLoading) return <Loader />;
-
-  return (
-    <RoleForm
-      fetchData={data ?? DEFAULT}
-      isSaving={isPending}
-      isEditMode
-      onSubmit={handleSubmit}
-    />
-  );
 }

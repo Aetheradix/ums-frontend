@@ -1,4 +1,3 @@
-import { Controller } from 'react-hook-form';
 import { TextBox } from 'shared/components/forms';
 import { FormActions, FormGrid } from 'shared/new-components';
 import { useUserForm } from './form.hook';
@@ -18,7 +17,7 @@ export default function UserForm({
   isEditMode,
   layout = 'default',
 }: UserFormProps) {
-  const { register, control, handleSubmit, reset, setValue } = useUserForm(
+  const { register, handleSubmit, reset, setValue } = useUserForm(
     onSubmit,
     fetchData
   );
@@ -70,33 +69,6 @@ export default function UserForm({
           {...register('email')}
           required
         />
-      </div>
-
-      <div className="user-form-status">
-        <label className="user-form-status-label">
-          Status <span className="text-red-500">*</span>
-        </label>
-
-        <label className="user-status-toggle">
-          <Controller
-            control={control}
-            name="isActive"
-            render={({ field }) => (
-              <input
-                type="checkbox"
-                className="user-status-toggle-input"
-                checked={field.value ?? true}
-                onChange={e => field.onChange(e.target.checked)}
-              />
-            )}
-          />
-
-          <span className="user-status-toggle-track">
-            <span className="user-status-toggle-thumb" />
-          </span>
-
-          <span className="user-status-toggle-text">Active</span>
-        </label>
       </div>
     </>
   );

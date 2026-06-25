@@ -8,7 +8,6 @@ interface UserAssignmentFormProps {
   onSubmit: (data: UserManagement.UserAssignmentForm) => Promise<void>;
   fetchData?: Forms.FetchDataFunc<UserManagement.UserAssignmentForm>;
   isSaving?: boolean;
-  isEditMode?: boolean;
   columns?: 1 | 2 | 3 | 4;
 }
 
@@ -23,15 +22,10 @@ export default function UserAssignmentForm(props: UserAssignmentFormProps) {
       <FormGrid columns={props.columns ?? 4}>
         <SelectDomain required {...register('domain')} />
         <SelectRoles required {...register('roleName')} />
-        <SelectUsers
-          required
-          disabled={props.isEditMode}
-          {...register('userId')}
-        />
+        <SelectUsers required {...register('userId')} />
       </FormGrid>
 
       <FormActions
-        isEditMode={props.isEditMode}
         isLoading={props.isSaving}
         onSave={handleSubmit}
         onReset={reset}

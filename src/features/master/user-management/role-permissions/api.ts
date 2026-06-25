@@ -51,13 +51,6 @@ export async function createRolePermission(data: RolePermissionPayload) {
   return !error ? result : undefined;
 }
 
-export async function updateRolePermission(
-  data: UserManagement.RolePermissionUpdate
-): Promise<boolean> {
-  const { error } = await ApiService.put(ROLE_PERMISSIONS_URL, data);
-  return !error;
-}
-
 export async function deleteRolePermission(
   roleName: string,
   domain: string,

@@ -12,7 +12,7 @@ export default function SelectUsers<T extends FieldValues>({
   disabled?: boolean;
 }) {
   const { data, isLoading } = useUsersQuery();
-  const activeUsers = data ? data.filter(u => u.isActive) : [];
+  const activeUsers = data ?? [];
 
   return (
     <DropDownList
