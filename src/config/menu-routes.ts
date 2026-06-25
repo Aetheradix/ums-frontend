@@ -959,6 +959,14 @@ export const menuConfig: Menu.MenuItem[] = [
         ],
       },
       {
+        label: 'Bulk Import',
+        slug: 'bulk-registration',
+        description: 'Bulk import multiple college registrations.',
+        path: '/affiliation-management-system/college-registration/bulk-upload',
+        icon: 'upload',
+        colorScheme: 'purple',
+      },
+      {
         label: 'Draft College Registration',
         slug: 'draft-registration-request',
         description: 'Manage draft college registration processes.',

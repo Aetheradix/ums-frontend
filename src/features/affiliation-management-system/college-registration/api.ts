@@ -134,3 +134,13 @@ export async function uploadCollegeDocuments(
 
   return !error && data ? data : [];
 }
+
+export async function uploadBulkCollegeRegistration(file: File) {
+  const formData = new FormData();
+  formData.append('file', file);
+
+  return ApiService.postFormData<{ message: string; errors?: string[] }>(
+    `${COLLEGE_REGISTRATION_URL}/bulk-upload`,
+    formData
+  );
+}

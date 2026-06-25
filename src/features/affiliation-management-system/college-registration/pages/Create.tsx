@@ -11,6 +11,7 @@ import CollegeEnclosureStep from '../components/CollegeEnclosureStep';
 import CollegeRegistrationStep from '../components/CollegeRegistrationStep';
 import DraftSuccessDialog from '../components/DraftSuccessDialog';
 import PaymentConfirmationDialog from '../components/PaymentConfirmationDialog';
+import { GenericBulkUploadModal } from 'shared/components/forms';
 import {
   STEP_FIELDS,
   useCollegeApplicationForm,
@@ -40,20 +41,14 @@ export default function Create() {
     transactionId: string | number;
   } | null>(null);
   const submitTypeRef = useRef<'DRAFT' | 'FINAL'>('DRAFT');
+  const [showBulkUpload, setShowBulkUpload] = useState(false);
 
   const navigate = useNavigate();
   const { mutateAsync: createMutate, isPending } =
     useCreateCollegeRegistrationMutation();
 
-  const {
-    methods,
-    register,
-    control,
-    handleSubmit,
-    reset,
-    trigger,
-    setValue,
-  } = useCollegeApplicationForm();
+  const { methods, register, control, handleSubmit, reset, trigger, setValue } =
+    useCollegeApplicationForm();
 
   const onFormSubmit = handleSubmit(
     async data => {
@@ -154,6 +149,14 @@ export default function Create() {
     <FormPage
       title="Application for Affiliation"
       description="Fill in all the required details to submit the affiliation application."
+      headerAction={
+        <Button
+          label="Bulk Import"
+          icon="pi pi-upload"
+          variant="outlined"
+          onClick={() => setShowBulkUpload(true)}
+        />
+      }
     >
       <Stepper
         steps={STEPS}
@@ -179,9 +182,7 @@ export default function Create() {
                 setValue={setValue}
               />
             )}
-            {activeStep === 2 && (
-              <CollegeCourseDetailStep control={control} />
-            )}
+            {activeStep === 2 && <CollegeCourseDetailStep control={control} />}
             {activeStep === 3 && (
               <CollegeEnclosureStep
                 register={register}
@@ -250,6 +251,18 @@ export default function Create() {
         onHide={() => setPaymentDetails(null)}
         onPayNow={handlePayNow}
         details={paymentDetails}
+      />
+
+      <GenericBulkUploadModal
+        visible={showBulkUpload}
+        onHide={() => setShowBulkUpload(false)}
+        onSuccess={() => {
+          // You might want to refresh the page or redirect to a list view
+          window.location.reload();
+        }}
+        title="Bulk Import Colleges"
+        uploadApiUrl="/api/affiliation/college-registration/bulk-upload"
+        // templateDownloadUrl="/path/to/template.xlsx"
       />
     </FormPage>
   );

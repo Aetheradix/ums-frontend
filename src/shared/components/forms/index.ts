@@ -6,6 +6,7 @@ import DropDownList from './DropDownList';
 import FileUpload from './FileUpload';
 import FormSubSection from './FormSubSection';
 import FormWizard from './FormWizard';
+import GenericBulkUploadModal from './GenericBulkUploadModal';
 import InputBlock from './InputBlock';
 import MaskedBox from './MaskedBox';
 import MultiSelectList from './MultiSelectList';
@@ -25,6 +26,7 @@ export {
   FileUpload,
   FormSubSection,
   FormWizard,
+  GenericBulkUploadModal,
   InputBlock,
   MaskedBox,
   MultiSelectList,
