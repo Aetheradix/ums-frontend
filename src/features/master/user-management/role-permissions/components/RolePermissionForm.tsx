@@ -9,7 +9,6 @@ interface RolePermissionFormProps {
   onSubmit: (data: UserManagement.RolePermissionCreate) => Promise<void>;
   fetchData?: Forms.FetchDataFunc<UserManagement.RolePermissionCreate>;
   isSaving?: boolean;
-  isEditMode?: boolean;
   columns?: 1 | 2 | 3 | 4;
 }
 
@@ -22,26 +21,13 @@ export default function RolePermissionForm(props: RolePermissionFormProps) {
   return (
     <form onSubmit={handleSubmit}>
       <FormGrid columns={props.columns ?? 4}>
-        <SelectRoles
-          required
-          disabled={props.isEditMode}
-          {...register('roleName')}
-        />
-        <SelectDomain
-          required
-          disabled={props.isEditMode}
-          {...register('domain')}
-        />
-        <SelectFeatures
-          required
-          disabled={props.isEditMode}
-          {...register('feature')}
-        />
+        <SelectRoles required {...register('roleName')} />
+        <SelectDomain required {...register('domain')} />
+        <SelectFeatures required {...register('feature')} />
         <SelectRights required {...register('action')} />
       </FormGrid>
 
       <FormActions
-        isEditMode={props.isEditMode}
         isLoading={props.isSaving}
         onSave={handleSubmit}
         onReset={reset}

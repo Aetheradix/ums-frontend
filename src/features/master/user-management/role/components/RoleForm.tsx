@@ -8,7 +8,6 @@ interface RoleFormProps {
   onSubmit: (data: UserManagement.UserRoleForm) => Promise<void>;
   fetchData?: Forms.FetchDataFunc<UserManagement.UserRoleForm>;
   isSaving?: boolean;
-  isEditMode?: boolean;
   columns?: 1 | 2;
 }
 
@@ -46,35 +45,9 @@ export default function RoleForm(props: RoleFormProps) {
           {...register('description')}
           required
         />
-
-        <div className="role-status-field">
-          <label className="role-status-field-label">Status</label>
-
-          <label className="role-status-toggle">
-            <Controller
-              control={control}
-              name="isActive"
-              render={({ field }) => (
-                <input
-                  type="checkbox"
-                  className="role-status-toggle-input"
-                  checked={field.value ?? true}
-                  onChange={e => field.onChange(e.target.checked)}
-                />
-              )}
-            />
-
-            <span className="role-status-toggle-track">
-              <span className="role-status-toggle-thumb" />
-            </span>
-
-            <span className="role-status-toggle-text">Active</span>
-          </label>
-        </div>
       </FormGrid>
 
       <FormActions
-        isEditMode={props.isEditMode}
         isLoading={props.isSaving}
         onSave={handleSubmit}
         onReset={reset}

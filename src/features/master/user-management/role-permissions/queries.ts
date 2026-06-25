@@ -6,7 +6,6 @@ import {
   getRights,
   getRolePermissionByPolicy,
   getRolePermissions,
-  updateRolePermission,
 } from './api';
 
 const queryKey = ['@user-management/role-permissions'];
@@ -85,18 +84,6 @@ export function useDeleteRolePermissionMutation() {
       return true;
     },
     onSuccess() {
-      queryClient.invalidateQueries({ queryKey: queryKey });
-    },
-  });
-}
-
-export function useUpdateRolePermissionMutation() {
-  const queryClient = useQueryClient();
-  return useMutation({
-    mutationFn: async (data: UserManagement.RolePermissionUpdate) =>
-      await updateRolePermission(data),
-    onSuccess(result) {
-      if (!result) return;
       queryClient.invalidateQueries({ queryKey: queryKey });
     },
   });

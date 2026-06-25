@@ -2,7 +2,6 @@ declare namespace UserManagement {
   interface UserRoleBase {
     name: string;
     description: string;
-    isActive: boolean;
   }
   type UserRoleForm = UserRoleBase;
   interface UserRoleList extends UserRoleBase {
@@ -13,7 +12,6 @@ declare namespace UserManagement {
     firstName: string;
     lastName: string;
     email: string;
-    isActive: boolean;
   }
 
   type UserForm = UserBase;
@@ -48,10 +46,6 @@ declare namespace UserManagement {
   interface RolePermissionList extends RolePermissionBase {
     id: string;
     action: string;
-  }
-  interface RolePermissionUpdate extends RolePermissionBase {
-    oldAction: string;
-    newAction: string;
   }
 
   // User Assignments

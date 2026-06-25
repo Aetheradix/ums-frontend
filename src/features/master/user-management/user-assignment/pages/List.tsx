@@ -1,10 +1,8 @@
-import type { OverlayPanel } from 'primereact/overlaypanel';
-import { useCallback, useMemo, useRef, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { ConfirmService, ToastService } from 'services';
 import { Button } from 'shared/components/buttons';
 import { Loader } from 'shared/components/progress';
 import {
-  ActionOverlay,
   FormCard,
   FormPage,
   GridPanel,
@@ -16,21 +14,15 @@ import UserAssignmentForm from '../components/UserAssignmentForm';
 import {
   useCreateUserAssignmentMutation,
   useDeleteUserAssignmentMutation,
-  useUpdateUserAssignmentMutation,
   useUserAssignmentsQuery,
 } from '../queries';
 import './UserAssignmentList.css';
 
-type PopupState =
-  | { mode: 'closed' }
-  | { mode: 'create' }
-  | { mode: 'edit'; item: UserManagement.UserAssignmentList };
+type PopupState = { mode: 'closed' } | { mode: 'create' };
 
 export default function List() {
   const { data, isLoading } = useUserAssignmentsQuery();
   const { mutateAsync: deleteAssignment } = useDeleteUserAssignmentMutation();
-
-  const editOverlayRef = useRef<OverlayPanel>(null);
 
   const [popup, setPopup] = useState<PopupState>({ mode: 'closed' });
   const [selectedRole, setSelectedRole] =
@@ -43,11 +35,6 @@ export default function List() {
   }, [data, selectedRole]);
 
   const closePopup = useCallback(() => setPopup({ mode: 'closed' }), []);
-
-  const closeEditOverlay = useCallback(() => {
-    editOverlayRef.current?.hide();
-    setPopup({ mode: 'closed' });
-  }, []);
 
   const handleDeleteAssignment = async (
     item: UserManagement.UserAssignmentList
@@ -139,38 +126,6 @@ export default function List() {
           </div>
         </div>
       </FormCard>
-
-      <ActionOverlay
-        ref={editOverlayRef}
-        className="user-assignment-edit-overlay-panel action-overlay-md"
-        dismissable
-        closeOnEscape
-        showCloseIcon={false}
-      >
-        <div className="action-overlay-shell">
-          <div className="action-overlay-header">
-            <h3 className="action-overlay-title">Edit User Assignment</h3>
-
-            <button
-              type="button"
-              className="action-overlay-close"
-              onClick={closeEditOverlay}
-              aria-label="Close edit user assignment overlay"
-            >
-              <i className="pi pi-times" />
-            </button>
-          </div>
-
-          <div className="action-overlay-body">
-            {popup.mode === 'edit' && (
-              <EditUserAssignmentContent
-                item={popup.item}
-                onClose={closeEditOverlay}
-              />
-            )}
-          </div>
-        </div>
-      </ActionOverlay>
     </FormPage>
   );
 }
@@ -206,39 +161,6 @@ function CreateUserAssignmentContent({
           ? () => Promise.resolve({ roleName: selectedRoleName } as any)
           : undefined
       }
-    />
-  );
-}
-
-/* ── Inline Edit Content ── */
-function EditUserAssignmentContent({
-  item,
-  onClose,
-}: {
-  item: UserManagement.UserAssignmentList;
-  onClose: () => void;
-}) {
-  const { mutateAsync, isPending } = useUpdateUserAssignmentMutation();
-
-  async function handleSubmit(formData: UserManagement.UserAssignmentForm) {
-    try {
-      const result = await mutateAsync(formData);
-      if (result) {
-        ToastService.success('User assignment updated successfully.');
-        onClose();
-      }
-    } catch {
-      ToastService.error('Failed to update user assignment');
-    }
-  }
-
-  return (
-    <UserAssignmentForm
-      fetchData={() => Promise.resolve(item)}
-      isSaving={isPending}
-      isEditMode
-      onSubmit={handleSubmit}
-      columns={1}
     />
   );
 }

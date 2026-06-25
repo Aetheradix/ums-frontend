@@ -9,7 +9,6 @@ import {
   FormPage,
   GridPanel,
   InlineCreatePanel,
-  StatusBadge,
 } from 'shared/new-components';
 import UserForm from '../components/UserForm';
 import {
@@ -110,17 +109,6 @@ export default function List() {
             { field: 'firstName', header: 'First Name' },
             { field: 'lastName', header: 'Last Name' },
             { field: 'email', header: 'Email' },
-            {
-              field: 'isActive',
-              header: 'Status',
-              sortable: false,
-              cell: (item: UserManagement.UserList) => (
-                <StatusBadge
-                  label={item.isActive ? 'Active' : 'Inactive'}
-                  variant={item.isActive ? 'approved' : 'rejected'}
-                />
-              ),
-            },
           ]}
           toolbar={
             <Button
@@ -205,7 +193,6 @@ function EditUserContent({ id, onClose }: { id: string; onClose: () => void }) {
     firstName: '',
     lastName: '',
     email: '',
-    isActive: true,
   };
 
   async function handleSubmit(formData: UserManagement.UserForm) {

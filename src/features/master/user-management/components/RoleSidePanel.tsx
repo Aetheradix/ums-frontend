@@ -2,22 +2,16 @@ import { useCallback, useMemo, useState } from 'react';
 import { ConfirmService, ToastService } from 'services';
 import { Button } from 'shared/components/buttons';
 import { Loader } from 'shared/components/progress';
-import { StatusBadge } from 'shared/new-components';
 import RoleForm from '../role/components/RoleForm';
 import {
   useCreateUserRoleMutation,
   useDeleteUserRoleMutation,
-  useUpdateUserRoleMutation,
-  useUserRoleQuery,
   useUserRolesQuery,
 } from '../role/queries';
 import { useUserAssignmentsQuery } from '../user-assignment/queries';
 import './RoleSidePanel.css';
 
-type RolePanelMode =
-  | { mode: 'closed' }
-  | { mode: 'create' }
-  | { mode: 'edit'; id: string };
+type RolePanelMode = { mode: 'closed' } | { mode: 'create' };
 
 interface RoleSidePanelProps {
   selectedRoleId?: string;
@@ -126,30 +120,6 @@ export default function RoleSidePanel({
         </div>
       )}
 
-      {panelMode.mode === 'edit' && (
-        <div className="role-side-form-card">
-          <div className="role-side-form-header">
-            <div>
-              <h4 className="role-side-form-title">Edit Role</h4>
-              <p className="role-side-form-subtitle">
-                Update selected role details.
-              </p>
-            </div>
-
-            <button
-              type="button"
-              className="role-side-close"
-              onClick={() => closePanel()}
-              aria-label="Close edit role form"
-            >
-              <i className="pi pi-times" />
-            </button>
-          </div>
-
-          <EditRoleContent id={panelMode.id} onClose={closePanel} />
-        </div>
-      )}
-
       <div className="role-side-list-scroll">
         <div className="role-side-list">
           {isLoading ? <Loader /> : undefined}
@@ -187,30 +157,10 @@ export default function RoleSidePanel({
                 </span>
 
                 <span className="role-side-item-content">
-                  <span className="role-side-item-name">
-                    {role.name}
-                    <StatusBadge
-                      className="ml-2"
-                      label={role.isActive ? 'Active' : 'Inactive'}
-                      variant={role.isActive ? 'approved' : 'rejected'}
-                    />
-                  </span>
+                  <span className="role-side-item-name">{role.name}</span>
                 </span>
 
                 <span className="role-side-item-actions">
-                  <button
-                    type="button"
-                    className="grid-action-icon-btn grid-action-edit-btn"
-                    aria-label="Edit role"
-                    title="Edit role"
-                    onClick={event => {
-                      event.stopPropagation();
-                      setPanelMode({ mode: 'edit', id: role.id });
-                    }}
-                  >
-                    <i className="pi pi-pencil" />
-                  </button>
-
                   <button
                     type="button"
                     className="grid-action-icon-btn grid-action-delete-btn"
@@ -258,40 +208,4 @@ function CreateRoleContent({
   }
 
   return <RoleForm onSubmit={handleSubmit} isSaving={isPending} columns={1} />;
-}
-
-function EditRoleContent({ id, onClose }: { id: string; onClose: () => void }) {
-  const { mutateAsync, isPending } = useUpdateUserRoleMutation(id);
-  const { data, isLoading } = useUserRoleQuery(id);
-
-  const DEFAULT: UserManagement.UserRoleForm = {
-    name: '',
-    description: '',
-    isActive: true,
-  };
-
-  async function handleSubmit(formData: UserManagement.UserRoleForm) {
-    try {
-      const result = await mutateAsync(formData);
-
-      if (result) {
-        ToastService.success('Role updated successfully.');
-        onClose();
-      }
-    } catch {
-      ToastService.error('Failed to update role');
-    }
-  }
-
-  if (isLoading) return <Loader />;
-
-  return (
-    <RoleForm
-      fetchData={data ?? DEFAULT}
-      isSaving={isPending}
-      isEditMode
-      onSubmit={handleSubmit}
-      columns={1}
-    />
-  );
 }

@@ -37,24 +37,20 @@ const schema = validation.create<UserManagement.UserForm>(o => ({
     .required()
     .email({ tlds: { allow: false } })
     .label('Email'),
-  isActive: o.boolean().optional(),
 }));
 
 export function useUserForm(
   submitCallback: Forms.SubmitFunc<UserManagement.UserForm>,
   defaultValues?: Forms.FetchDataFunc<UserManagement.UserForm>
 ) {
-  const { register, control, handleSubmit, reset, setValue } =
+  const { register, handleSubmit, reset, setValue } =
     useAppForm<UserManagement.UserForm>({
-      defaultValues: defaultValues ?? {
-        isActive: true,
-      },
+      defaultValues: defaultValues,
       resolver: validation.resolver(schema),
     });
 
   return {
     register,
-    control,
     handleSubmit: handleSubmit(submitCallback),
     reset,
     setValue,
