@@ -33,23 +33,24 @@ export default function FormPage({
     <div className={`form-page-wrapper ${className}`.trim()}>
       <div className="form-page-container">
         <div className="form-page-header">
-          <div className="form-page-breadcrumb-container">
-            <Breadcrumb items={breadcrumbs} />
-          </div>
-
-          <div className="form-page-header-content">
-            <div className="form-page-header-left">
+          <div className="form-page-header-content w-full flex flex-col md:flex-row justify-between gap-4">
+            {/* Title & Description - Left on Desktop (order 1), Bottom on Mobile (order 2) */}
+            <div className="form-page-header-left flex flex-col gap-1 md:order-1 order-2">
               <h1 className="form-page-title">{title}</h1>
               {description && (
                 <p className="form-page-description">{description}</p>
               )}
             </div>
 
-            {headerAction && (
-              <div className="form-page-header-right">
-                <div className="form-page-action">{headerAction}</div>
+            {/* Breadcrumb & Action - Right on Desktop (order 2), Top on Mobile (order 1) */}
+            <div className="form-page-header-right flex flex-col md:items-end items-start gap-2 md:order-2 order-1">
+              <div className="form-page-breadcrumb-container">
+                <Breadcrumb items={breadcrumbs} />
               </div>
-            )}
+              {headerAction && (
+                <div className="form-page-action">{headerAction}</div>
+              )}
+            </div>
           </div>
         </div>
 

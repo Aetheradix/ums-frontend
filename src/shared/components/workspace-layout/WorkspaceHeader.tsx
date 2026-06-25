@@ -3,14 +3,15 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { WaffleMenu } from 'shared/new-components';
 import './WorkspaceHeader.css';
+import { ThemeSettingsSidebar } from './ThemeSettingsSidebar';
 
 const Header: React.FC = () => {
   const navigate = useNavigate();
   const [isDarkMode, setIsDarkMode] = useState(false);
+  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const { user, logout } = useAuth();
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
-
   // Close dropdown on click outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -37,6 +38,12 @@ const Header: React.FC = () => {
     if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
       setIsDarkMode(true);
       document.body.classList.add('dark');
+    }
+
+    // Apply saved theme color
+    const savedColor = localStorage.getItem('themeColor');
+    if (savedColor) {
+      document.documentElement.style.setProperty('--color-primary', savedColor);
     }
   }, []);
 
@@ -72,10 +79,21 @@ const Header: React.FC = () => {
       <div className="ws-header-inner">
         {/* Logo */}
         <div className="ws-logo-section">
+          <button
+            type="button"
+            className="ws-hamburger-btn"
+            onClick={() =>
+              window.dispatchEvent(new CustomEvent('toggle-mobile-sidebar'))
+            }
+            title="Toggle Navigation"
+          >
+            <i className="pi pi-bars" />
+          </button>
           <img
             src="/Octagon_Logo.png"
             alt="Octagon Logo"
-            className="w-40 max-md:w-32 p-1 object-contain rounded-lg ws-logo-image"
+            className="w-40 max-md:w-32 p-1 object-contain rounded-lg ws-logo-image cursor-pointer"
+            onClick={() => navigate('/home')}
           />
         </div>
 
@@ -95,6 +113,15 @@ const Header: React.FC = () => {
         {/* Actions */}
         <div className="ws-header-actions">
           <div className="ws-action-icons">
+            {/* Settings Toggle */}
+            <div
+              className="ws-icon-btn"
+              onClick={() => setIsSettingsOpen(true)}
+              title="Customization Settings"
+            >
+              <i className="pi pi-cog" />
+            </div>
+
             {/* Dark Mode Toggle */}
             <div
               className="ws-icon-btn"
@@ -170,6 +197,13 @@ const Header: React.FC = () => {
           </div>
         </div>
       </div>
+
+      <ThemeSettingsSidebar
+        visible={isSettingsOpen}
+        onHide={() => setIsSettingsOpen(false)}
+        isDarkMode={isDarkMode}
+        toggleDarkMode={toggleDarkMode}
+      />
     </header>
   );
 };

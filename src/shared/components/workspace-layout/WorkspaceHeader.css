@@ -73,7 +73,7 @@
 }
 
 .ws-avatar {
-  @apply bg-indigo-600 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold text-[13px] uppercase;
+  @apply bg-[var(--primary-color)] text-white w-8 h-8 rounded-full flex items-center justify-center font-bold text-[13px] uppercase;
 }
 
 .ws-username {
@@ -154,6 +154,26 @@
 
 .dark .ws-logo-image {
   filter: brightness(0) invert(1);
+}
+
+.ws-hamburger-btn {
+  display: none; /* hidden on desktop */
+}
+
+@media (max-width: 1023px) {
+  .ws-hamburger-btn {
+    @apply flex items-center justify-center w-9 h-9 rounded-lg border border-slate-200 bg-slate-50 text-slate-700 cursor-pointer transition-all duration-200 flex-shrink-0;
+  }
+  .dark .ws-hamburger-btn {
+    @apply bg-zinc-900 border-zinc-800 text-zinc-300 hover:bg-zinc-800 hover:text-white;
+  }
+  .ws-hamburger-btn:hover {
+    @apply bg-slate-100 text-slate-900;
+  }
+  .ws-hamburger-btn i {
+    font-size: 14px;
+    font-weight: 700;
+  }
 }
 
 @media (max-width: 768px) {

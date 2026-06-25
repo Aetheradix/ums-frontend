@@ -1,7 +1,7 @@
 @reference "tailwindcss";
 
 .breadcrumb-nav {
-  @apply flex items-center gap-2 text-sm font-medium text-zinc-500 mb-4 max-sm:text-xs flex-wrap;
+  @apply flex items-center gap-2 text-sm font-medium text-zinc-500 mb-2 max-sm:text-xs flex-wrap;
 }
 
 .dark .breadcrumb-nav {

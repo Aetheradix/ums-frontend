@@ -1,4 +1,5 @@
 @reference "tailwindcss";
+@reference "tailwindcss";
 /* WorkspaceTopBar */
 .ws-topbar {
   @apply bg-(--primary-color) text-white text-[13px] py-2.5 max-sm:hidden;
@@ -6,6 +7,11 @@
 
 .dark .ws-topbar {
   border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  background-color: var(--color-black);
+}
+
+.dark .ws-footer-bar {
+  background-color: var(--color-black);
 }
 /* .ws-topbar-inner {
   @apply max-w-[1440px] mx-auto px-6 flex justify-between items-center opacity-90;
@@ -91,7 +97,7 @@
 } */
 
 .ws-avatar {
-  @apply bg-gradient-to-br from-indigo-500 to-violet-500 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold text-[13px];
+  @apply bg-[var(--primary-color)] text-white w-8 h-8 rounded-full flex items-center justify-center font-bold text-[13px];
 }
 
 .ws-username {

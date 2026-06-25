@@ -26,7 +26,7 @@
 
 /* SubMenuGrid */
 .submenu-grid {
-  @apply grid grid-cols-4 gap-[30px] max-xl:grid-cols-3 max-xl:gap-5 max-lg:grid-cols-2 max-md:grid-cols-1;
+  @apply grid grid-cols-4 gap-[30px] max-xl:grid-cols-3 max-xl:gap-5 max-lg:grid-cols-2 max-md:grid-cols-2;
 }
 
 /* ── Dark Theme Support ── */

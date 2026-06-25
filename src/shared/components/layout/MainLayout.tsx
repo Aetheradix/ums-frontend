@@ -1,11 +1,12 @@
 import { useMenu } from 'config/menu-routes';
-import React, { useMemo } from 'react';
+import React, { useMemo, useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import WorkspaceLayout from 'shared/components/workspace-layout/WorkspaceLayout';
-import { Sidebar, Tabs } from 'shared/new-components';
+import { Sidebar } from 'shared/new-components';
 import './MainLayout.css';
 
 export default function MainLayout({ children }: React.PropsWithChildren) {
+  const [isMobileDrawerOpen, setIsMobileDrawerOpen] = useState(false);
   const menuConfig = useMenu();
   const location = useLocation();
   const navigate = useNavigate();
@@ -42,11 +43,7 @@ export default function MainLayout({ children }: React.PropsWithChildren) {
     return masterData?.children || [];
   }, [activeModuleInfo]);
 
-  const navigationStyle = useMemo(() => {
-    return activeModuleInfo?.parent?.navigationStyle || 'tabs';
-  }, [activeModuleInfo]);
-
-  const isSidebarMode = navigationStyle === 'sidebar';
+  const isSidebarMode = true; // Forced sidebar mode for all pages
 
   // Sync active index based on current path
   const activeIndex = useMemo(() => {
@@ -68,53 +65,88 @@ export default function MainLayout({ children }: React.PropsWithChildren) {
     handleTabChange({ index });
   };
 
-  const sidebarIcon = useMemo(() => {
-    const parentIcon = activeModuleInfo?.parent?.icon;
-    if (typeof parentIcon === 'string') {
-      if (parentIcon === 'grid_view') return 'th-large';
-      return parentIcon;
-    }
-    return 'shield';
-  }, [activeModuleInfo]);
+  const sidebarIcon = 'th-large';
+
+  useEffect(() => {
+    const handleToggle = () => {
+      setIsMobileDrawerOpen(prev => !prev);
+    };
+    window.addEventListener('toggle-mobile-sidebar', handleToggle);
+    return () => {
+      window.removeEventListener('toggle-mobile-sidebar', handleToggle);
+    };
+  }, []);
+
+  useEffect(() => {
+    const handleRequest = () => {
+      window.dispatchEvent(
+        new CustomEvent('sidebar-mode-changed', { detail: isSidebarMode })
+      );
+    };
+    window.addEventListener('request-sidebar-status', handleRequest);
+    window.dispatchEvent(
+      new CustomEvent('sidebar-mode-changed', { detail: isSidebarMode })
+    );
+
+    return () => {
+      window.removeEventListener('request-sidebar-status', handleRequest);
+      window.dispatchEvent(
+        new CustomEvent('sidebar-mode-changed', { detail: false })
+      );
+    };
+  }, [isSidebarMode]);
 
   return (
     <WorkspaceLayout>
-      {/* Sub-Navigation for Master Modules (Hidden for Sidebar mode) */}
-      {!isSidebarMode && activeIndex >= 0 && (
-        <div className="main-layout-nav">
-          <div className="mx-auto px-6">
-            <Tabs
-              activeIndex={activeIndex}
-              onTabChange={handleTabChange}
-              tabs={masterTabs.map(tab => ({
-                title: tab.label,
-                content: null,
-              }))}
-            />
-          </div>
-        </div>
-      )}
-
       {/* Main Page Content */}
       <div className="main-layout-content">
-        {isSidebarMode ? (
-          <div className="mx-auto px-6 py-6 pb-16 flex flex-col lg:flex-row gap-8">
-            {/* Sidebar Navigation */}
+        <div className="mx-auto px-6 py-6 pb-16 flex flex-col lg:flex-row gap-8 relative">
+          {/* Mobile Drawer Backdrop Overlay */}
+          {isMobileDrawerOpen && (
+            <div
+              className="mobile-drawer-overlay"
+              onClick={() => setIsMobileDrawerOpen(false)}
+            />
+          )}
+
+          {/* Sidebar Navigation Wrapper */}
+          <div
+            className={`app-sidebar-wrapper ${isMobileDrawerOpen ? 'mobile-open' : ''}`}
+          >
             <Sidebar
               headerTitle={activeModuleInfo?.parent?.label || 'Navigation'}
               headerSubtitle={activeModuleInfo?.parent?.description || ''}
               headerIcon={sidebarIcon}
               items={masterTabs}
               activeIndex={activeIndex}
-              onItemClick={handleSidebarItemClick}
+              onItemClick={idx => {
+                handleSidebarItemClick(idx);
+                setIsMobileDrawerOpen(false); // Close drawer after navigation
+              }}
             />
-
-            {/* Sub-route Content */}
-            <main className="sis-main-content-area">{children}</main>
           </div>
-        ) : (
-          <div className="mx-auto px-6 py-6 pb-16">{children}</div>
-        )}
+
+          {/* Mobile Close Button - Fixed to viewport, half inside and half outside the 300px sidebar */}
+          {isMobileDrawerOpen && (
+            <button
+              type="button"
+              className="app-sidebar-mobile-close-btn"
+              style={{
+                position: 'fixed',
+                left: '284px',
+                top: '35px',
+                zIndex: 1050,
+              }}
+              onClick={() => setIsMobileDrawerOpen(false)}
+              aria-label="Close Sidebar"
+            >
+              <i className="pi pi-times" />
+            </button>
+          )}
+
+          {/* Sub-route Content */}
+          <main className="sis-main-content-area">{children}</main>
+        </div>
       </div>
     </WorkspaceLayout>
   );
