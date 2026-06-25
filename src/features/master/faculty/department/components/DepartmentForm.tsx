@@ -1,3 +1,4 @@
+import { SelectDepartmentGroup } from 'features/components';
 import SelectOfficeType from 'features/components/SelectOfficeType';
 import { TextBox } from 'shared/components/forms';
 import { FormActions, FormGrid } from 'shared/new-components';
@@ -26,6 +27,7 @@ export default function DepartmentForm(props: DepartmentFormProps) {
           maxLength={5}
           required
         />
+        <SelectDepartmentGroup {...register('departmentGroupId')} />
         <TextBox
           label="Name "
           subLabel="(In English)"

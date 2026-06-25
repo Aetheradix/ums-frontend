@@ -3,7 +3,7 @@ import { EMPLOYEE_BASIC_URL, EMPLOYEE_URL } from './urls';
 
 export async function getBasicEmployees() {
   const { error, data } =
-    await ApiService.get<EmployeeManagement.QuickOnboardingItem[]>(
+    await ApiService.get<EmployeeManagement.ManageEmployeeItem[]>(
       EMPLOYEE_BASIC_URL
     );
 
@@ -12,7 +12,7 @@ export async function getBasicEmployees() {
 
 export async function getEmployeeById(id: number) {
   const { error, data } =
-    await ApiService.get<EmployeeManagement.QuickOnboardingItem>(
+    await ApiService.get<EmployeeManagement.ManageEmployeeItem>(
       `${EMPLOYEE_URL}/${id}`
     );
 

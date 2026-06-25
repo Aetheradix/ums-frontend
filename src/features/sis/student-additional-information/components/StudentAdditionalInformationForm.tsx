@@ -6,7 +6,6 @@ import { useWatch } from 'react-hook-form';
 import { FileUpload, Switch, TextBox } from 'shared/components/forms';
 import { FormCard, FormGrid } from 'shared/new-components';
 import { getPhotoUrl } from 'shared/utils/photoUrl';
-// import CollegeInformationSection from './CollegeInformationSection';
 import { useStudentAdditionalInformationForm } from './form.hook';
 
 interface Props {
@@ -130,8 +129,6 @@ export default function StudentAdditionalInformationForm(props: Props) {
             />
           </div>
         </div>
-
-        {/* <CollegeInformationSection control={control} setValue={setValue} /> */}
       </FormCard>
 
       <div className="mt-8">

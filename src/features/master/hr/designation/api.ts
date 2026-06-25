@@ -8,6 +8,12 @@ export function getDesignations() {
   return ApiService.getList<Master.HR.DesignationItem>(DESIGNATION_URL);
 }
 
+export function getDesignationsByEmployeeType(employeeType: string) {
+  return ApiService.getList<Master.HR.DesignationItem>(
+    `${DESIGNATION_URL}/by-employee-type?type=${encodeURIComponent(employeeType)}`
+  );
+}
+
 export async function getDesignation(id: number) {
   const { data } = await ApiService.get<Master.HR.DesignationItem>(
     `${DESIGNATION_URL}/${id}`

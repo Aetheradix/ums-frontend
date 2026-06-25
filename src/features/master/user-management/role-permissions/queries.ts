@@ -1,6 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import {
   createRolePermission,
+  deleteRolePermission,
   getFeatures,
   getRights,
   getRolePermissionByPolicy,
@@ -49,10 +50,41 @@ export function useRolePermissionByPolicyQuery(
 export function useCreateRolePermissionMutation() {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: async (data: UserManagement.RolePermissionCreate) =>
-      await createRolePermission(data),
+    mutationFn: async (data: UserManagement.RolePermissionCreate) => {
+      let anySuccess = false;
+      for (const feature of data.feature) {
+        const result = await createRolePermission({
+          roleName: data.roleName,
+          domain: data.domain,
+          feature,
+          action: data.action,
+        });
+        if (result !== undefined) anySuccess = true;
+      }
+      return anySuccess;
+    },
     onSuccess(data) {
       if (!data) return;
+      queryClient.invalidateQueries({ queryKey: queryKey });
+    },
+  });
+}
+
+export function useDeleteRolePermissionMutation() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async (items: UserManagement.RolePermissionList[]) => {
+      for (const item of items) {
+        await deleteRolePermission(
+          item.roleName,
+          item.domain,
+          item.feature,
+          item.action
+        );
+      }
+      return true;
+    },
+    onSuccess() {
       queryClient.invalidateQueries({ queryKey: queryKey });
     },
   });

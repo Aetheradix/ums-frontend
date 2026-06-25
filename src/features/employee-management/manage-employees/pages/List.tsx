@@ -27,15 +27,13 @@ export default function List() {
               },
               { field: 'employeeCode', header: 'Employee Code' },
               { field: 'fullName', header: 'Name' },
-              { field: 'gender', header: 'Gender' },
               { field: 'employeeNature', header: 'Nature' },
-              { field: 'organizationUnit', header: 'Org. Unit' },
               { field: 'post', header: 'Post' },
               { field: 'subjectSpecialization', header: 'Specialization' },
               {
                 header: 'Action',
                 sortable: false,
-                cell: (item: EmployeeManagement.QuickOnboardingItem) => (
+                cell: (item: EmployeeManagement.ManageEmployeeItem) => (
                   <GridActionButtons
                     onView={() =>
                       navigate(
@@ -53,7 +51,7 @@ export default function List() {
               },
             ]}
             searchBox
-            searchPlaceholder="Search by code, name, gender, nature, organization unit, post, specialization..."
+            searchPlaceholder="Search by code, name, gender, nature, post, specialization..."
             actionButtons={
               <>
                 <Button

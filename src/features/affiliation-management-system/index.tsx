@@ -3,9 +3,8 @@ import EstablishmentYear from 'features/master/other/establishment-year';
 import { Route, Routes } from 'react-router';
 import CollegeRegistration from './college-registration';
 import CollegeRegistrationApproval from './college-registration-approval';
-import ProgrammeFee from './settings/programme-fee';
-
 import DraftRegistrationRequest from './draft-registration-request';
+import ProgrammeFee from './settings/programme-fee';
 
 export default function AffiliationManagementSystem() {
   return (

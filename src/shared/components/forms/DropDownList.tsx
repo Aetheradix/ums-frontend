@@ -106,10 +106,10 @@ function ControllerDropDownList<
     <Controller
       control={control}
       name={name!}
-      render={({ field, formState }) => {
+      render={({ field, fieldState }) => {
         return (
           <InnerDropDownList
-            errorMessage={formState.errors[name]?.message?.toString()}
+            errorMessage={fieldState.error?.message?.toString()}
             {...rest}
             {...field}
             value={field.value ?? defaultValue}

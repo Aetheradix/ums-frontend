@@ -79,7 +79,10 @@ export default function Switch<TForm extends FieldValues>({
             {...rest}
             {...field}
             checked={field.value ?? false}
-            onChange={field.onChange}
+            onChange={val => {
+              field.onChange(val);
+              if (onChange) onChange(val);
+            }}
           />
         );
       }}
