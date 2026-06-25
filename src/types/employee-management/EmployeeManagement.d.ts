@@ -36,11 +36,13 @@ declare namespace EmployeeManagement {
     post: string;
     subjectSpecialization: string;
     isActive: boolean;
+    profileStepStatusId?: number;
   }
 
   // ── Full Onboarding Types ──
 
   interface AddressForm {
+    addressId?: number;
     addressType: string;
     addressLine1: string;
     addressLine2: string;
@@ -54,6 +56,7 @@ declare namespace EmployeeManagement {
   }
 
   interface QualificationForm {
+    employeeQualificationId?: number;
     qualificationId: number;
     university: string;
     board: string;
@@ -111,8 +114,8 @@ declare namespace EmployeeManagement {
     qualificationLevelId: number;
     qualifications: QualificationForm[];
     currentAddress: AddressForm;
-    permanentAddress: AddressForm;
-    isSameAsCurrentAddress: boolean;
+    permanentAddress?: AddressForm;
+    isSameAsCurrentAddress?: boolean;
     collegeTypeId?: number;
     registrationId?: number;
     parentUniversityName?: string | null;

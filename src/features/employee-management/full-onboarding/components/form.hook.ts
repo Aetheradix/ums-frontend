@@ -5,6 +5,7 @@ import validation from 'shared/utils/validation';
 
 const schema = validation.create<EmployeeManagement.FullOnboardingForm>(o => {
   const addressSchema = o.object({
+    addressId: o.number().optional(),
     addressType: o.string().allow('', null).optional(),
     addressLine1: o.string().required().max(255).label('Address Line 1'),
     addressLine2: o.string().allow('', null).max(255).label('Address Line 2'),
@@ -43,6 +44,7 @@ const schema = validation.create<EmployeeManagement.FullOnboardingForm>(o => {
   });
 
   const qualificationSchema = o.object({
+    employeeQualificationId: o.number().optional(),
     qualificationId: o
       .number()
       .required()
@@ -71,7 +73,12 @@ const schema = validation.create<EmployeeManagement.FullOnboardingForm>(o => {
     // ── Step 1: Quick Core ──
     salutation: o.string().required().max(15).label('Salutation'),
     firstName: o.string().required().max(50).label('First Name'),
-    middleName: o.string().allow('').max(50).label('Middle Name'),
+    middleName: o
+      .string()
+      .allow('', null)
+      .optional()
+      .max(50)
+      .label('Middle Name'),
     lastName: o.string().required().max(50).label('Last Name'),
     gender: o.string().required().label('Gender'),
     casteId: o.number().required().min(1).label('Caste'),
@@ -161,7 +168,12 @@ const schema = validation.create<EmployeeManagement.FullOnboardingForm>(o => {
       .length(10)
       .pattern(/^\d{10}$/)
       .label('Alternate Mobile'),
-    officePhoneNumber: o.string().allow('').max(15).label('Office Phone'),
+    officePhoneNumber: o
+      .string()
+      .allow('', null)
+      .optional()
+      .max(15)
+      .label('Office Phone'),
     emergencyContactName: o
       .string()
       .required()
@@ -178,13 +190,38 @@ const schema = validation.create<EmployeeManagement.FullOnboardingForm>(o => {
       .length(10)
       .pattern(/^\d{10}$/)
       .label('Emergency Mobile'),
-    personalWebsite: o.string().allow('').max(255).label('Personal Website'),
-    bioNote: o.string().allow('').max(600).label('Bio Note'),
+    personalWebsite: o
+      .string()
+      .allow('', null)
+      .optional()
+      .max(255)
+      .label('Personal Website'),
+    bioNote: o.string().allow('', null).optional().max(600).label('Bio Note'),
     aadharNumber: o.string().required().length(12).label('Aadhaar Number'),
-    panNumber: o.string().allow('').max(10).label('PAN Number'),
-    uanNumber: o.string().allow('').max(12).label('UAN Number'),
-    drivingLicense: o.string().allow('').max(20).label('Driving License'),
-    passportNumber: o.string().allow('').max(100).label('Passport Number'),
+    panNumber: o
+      .string()
+      .allow('', null)
+      .optional()
+      .max(10)
+      .label('PAN Number'),
+    uanNumber: o
+      .string()
+      .allow('', null)
+      .optional()
+      .max(12)
+      .label('UAN Number'),
+    drivingLicense: o
+      .string()
+      .allow('', null)
+      .optional()
+      .max(20)
+      .label('Driving License'),
+    passportNumber: o
+      .string()
+      .allow('', null)
+      .optional()
+      .max(100)
+      .label('Passport Number'),
     passportValidity: o
       .date()
       .allow(null)
@@ -193,12 +230,6 @@ const schema = validation.create<EmployeeManagement.FullOnboardingForm>(o => {
 
     // ── Step 3: Address ──
     currentAddress: addressSchema.required(),
-    permanentAddress: o.any().when('isSameAsCurrentAddress', {
-      is: true,
-      then: o.any().optional(),
-      otherwise: addressSchema.required(),
-    }),
-    isSameAsCurrentAddress: o.boolean().optional(),
 
     // ── Step 4: Qualifications ──
     qualificationLevelId: o
@@ -235,9 +266,6 @@ export function useFullOnboardingForm(
         isSameAsCurrentAddress: false,
         currentAddress: {
           addressType: 'Current',
-        } as EmployeeManagement.AddressForm,
-        permanentAddress: {
-          addressType: 'Permanent',
         } as EmployeeManagement.AddressForm,
         qualifications: [{ ...emptyQualification }],
       },

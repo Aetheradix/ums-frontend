@@ -9,12 +9,7 @@ export async function createFullOnboarding(
 
   const payload = {
     ...rest,
-    addresses: isSameAsCurrentAddress
-      ? [{ ...currentAddress, addressType: 'Current' }]
-      : [
-          { ...currentAddress, addressType: 'Current' },
-          { ...permanentAddress, addressType: 'Permanent' },
-        ],
+    addresses: [{ ...currentAddress, addressType: 'Current' }],
   };
 
   const { error, data } = await ApiService.post<number>(
@@ -34,13 +29,6 @@ export async function getFullOnboarding(id: number) {
     const currentAddress = data.addresses?.find(
       (a: any) => a.addressType === 'Current'
     ) || { addressType: 'Current' };
-    const permanentAddress = data.addresses?.find(
-      (a: any) => a.addressType === 'Permanent'
-    ) || { addressType: 'Permanent' };
-
-    const isSameAsCurrentAddress =
-      data.addresses?.length === 1 &&
-      data.addresses[0].addressType === 'Current';
 
     const mappedData: EmployeeManagement.FullOnboardingForm = {
       ...data,
@@ -55,8 +43,6 @@ export async function getFullOnboarding(id: number) {
         ? new Date(data.dateOfSuperannuation)
         : undefined,
       currentAddress,
-      permanentAddress,
-      isSameAsCurrentAddress,
       qualifications:
         data.qualifications?.length > 0
           ? data.qualifications
@@ -87,12 +73,7 @@ export async function updateFullOnboarding(
 
   const payload = {
     ...rest,
-    addresses: isSameAsCurrentAddress
-      ? [{ ...currentAddress, addressType: 'Current' }]
-      : [
-          { ...currentAddress, addressType: 'Current' },
-          { ...permanentAddress, addressType: 'Permanent' },
-        ],
+    addresses: [{ ...currentAddress, addressType: 'Current' }],
   };
 
   const { error, data } = await ApiService.put<number>(

@@ -30,7 +30,6 @@ import {
   DatePicker,
   FormWizard,
   NumberBox,
-  Switch,
   TextArea,
   TextBox,
 } from 'shared/components/forms';
@@ -48,24 +47,26 @@ export default function FullOnboardingForm(props: Props) {
   const { handleSubmit, reset, register, watch, trigger, setValue } =
     useFullOnboardingForm(props.onSubmit, props.fetchData);
 
-  const isSameAsCurrentAddress = watch('isSameAsCurrentAddress');
+  // const isSameAsCurrentAddress = watch('isSameAsCurrentAddress');
   const qualifications = watch('qualifications') || [];
   const collegeTypeId = watch('collegeTypeId');
   const departmentGroupTypeId = watch('departmentGroupTypeId');
   const departmentGroupId = watch('departmentGroupId');
   const employeeType = watch('employeeType');
 
-  const handleSameAddressToggle = (checked: boolean) => {
-    setValue('isSameAsCurrentAddress', checked);
+  // const handleSameAddressToggle = (checked: boolean) => {
+  //   /*
+  //   setValue('isSameAsCurrentAddress', checked);
 
-    if (checked) {
-      const snapshot = watch('currentAddress');
-      setValue('permanentAddress', {
-        ...snapshot,
-        addressType: 'Permanent',
-      });
-    }
-  };
+  //   if (checked) {
+  //     const snapshot = watch('currentAddress');
+  //     setValue('permanentAddress', {
+  //       ...snapshot,
+  //       addressType: 'Permanent',
+  //     });
+  //   }
+  //   */
+  // };
 
   const addQualification = () => {
     setValue('qualifications', [...qualifications, { ...emptyQualification }]);
@@ -492,80 +493,6 @@ export default function FullOnboardingForm(props: Props) {
                 maxLength={10}
                 required
               />
-            </FormGrid>
-          </FormCard>
-
-          <FormCard title="Permanent Address" icon="map">
-            <FormGrid columns={3}>
-              <div className="col-span-full">
-                <Switch
-                  {...register('isSameAsCurrentAddress')}
-                  label="Same as Current Address"
-                  onChange={handleSameAddressToggle}
-                />
-              </div>
-
-              {!isSameAsCurrentAddress && (
-                <>
-                  <TextBox
-                    {...register('permanentAddress.addressLine1')}
-                    label="Address Line 1"
-                    placeholder="Enter address line 1"
-                    maxLength={255}
-                    required
-                  />
-
-                  <TextBox
-                    {...register('permanentAddress.addressLine2')}
-                    label="Address Line 2"
-                    placeholder="Enter address line 2"
-                    maxLength={255}
-                  />
-
-                  <TextBox
-                    {...register('permanentAddress.city')}
-                    label="City"
-                    placeholder="Enter city"
-                    maxLength={100}
-                    required
-                  />
-
-                  <SelectState
-                    {...register('permanentAddress.stateId')}
-                    label="State"
-                    required
-                  />
-
-                  <SelectDivision
-                    {...register('permanentAddress.divisionId')}
-                    label="Division"
-                  />
-
-                  <SelectDistrict
-                    {...register('permanentAddress.districtId')}
-                    label="District"
-                    required
-                  />
-
-                  <SelectTehsil
-                    {...register('permanentAddress.tehsilId')}
-                    label="Tehsil"
-                  />
-
-                  <SelectBlock
-                    {...register('permanentAddress.blockId')}
-                    label="Block"
-                  />
-
-                  <TextBox
-                    {...register('permanentAddress.pinCode')}
-                    label="PIN Code"
-                    placeholder="Enter PIN code"
-                    maxLength={10}
-                    required
-                  />
-                </>
-              )}
             </FormGrid>
           </FormCard>
         </div>
